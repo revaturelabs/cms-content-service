@@ -40,7 +40,7 @@ public class ContentModule {
 	private List<Module> modules = new ArrayList<Module>();
 
 	@OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Content> contents = ArrayList<Content>();
+	private List<Content> contents = new ArrayList<Content>();
 
 	public int getId() {
 		return id;
