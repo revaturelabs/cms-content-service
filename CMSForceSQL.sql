@@ -7,7 +7,7 @@ drop table content;
 
 
 create table content(
-c_id number (10) generated always as identity(start with 100000 increment by 1) primary key,
+c_id number (10) primary key,
 title varchar2 (200) not null,
 format varchar2 (200) not null,
 description varchar2 (200) not null,
@@ -17,13 +17,13 @@ url varchar2 (200) not null
 
 
 create table module(
-m_id number (10) generated always as identity(start with 200000 increment by 1) primary key,
+m_id number (10) primary key,
 subject varchar2 (200),
 created number (20)
 );
 
 create table content_module(
-cm_id number (10) generated always as identity(start with 300000 increment by 1) primary key,
+cm_id number (10) primary key,
 fk_c number (10) ,
 affiliation varchar2 (200),
 fk_m number (10),
