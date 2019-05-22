@@ -7,7 +7,7 @@
 # BlueJ files
 *.ctxt
 
-//eclipse settings
+# eclipse settings
 *.project
 *.pref
 
