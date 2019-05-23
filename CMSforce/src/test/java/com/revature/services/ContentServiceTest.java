@@ -15,8 +15,16 @@ class ContentServiceTest {
 	@Test
 	@Order(1)
 	void testCreateContent() {
-		assertTrue(true, cs.createContent(new Content(0, "AngularServices", "Code", "Teaching service injection", "http://localhost:4200/file.txt")));
+		assertTrue(cs.createContent(new Content(0, "AngularServices", "Code", "Teaching service injection", "http://localhost:4200/file.txt")));
 	}
+	
+	@Test
+	@Order(2)
+	void testCreateContentNull() {
+		assertFalse(cs.createContent(new Content(0, null, null, null, null)));
+	}
+	
+	
 
 	@Test
 	void testGetAllContent() {
