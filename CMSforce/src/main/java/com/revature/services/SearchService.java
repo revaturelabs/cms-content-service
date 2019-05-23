@@ -1,14 +1,14 @@
 package com.revature.services;
 
-import java.util.List;
+import java.util.Set;
 
 import com.revature.entities.Content;
 
 public interface SearchService {
 
-	public List<Content> filterContentByTitle(String title);
+	public Set<Content> filterContentByTitle(String title);
 	
-	public List<Content> filterContentByFormat(String format);
+	public Set<Content> filterContentByFormat(String format);
 	
-	public List<Content> filterContentBySubjects(String[] subjects);
+	public Set<Content> filterContentBySubjects(String[] subjects);
 }
