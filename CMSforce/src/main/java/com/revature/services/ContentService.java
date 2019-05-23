@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.entities.Content;
+import com.revature.entities.Module;
 
 public interface ContentService {
 

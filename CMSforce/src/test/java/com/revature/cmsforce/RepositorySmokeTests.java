@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +50,30 @@ public class RepositorySmokeTests {
 		cr.save(c);
 		
 	}
-	
+	@Test
+	public void getContentByTitle() {
+		Set<Content> contents = null;
+		contents = cr.findByTitle("Title");
+		List<Content> allContents=new ArrayList<Content>();
+		cr.findAll().forEach(allContents::add);
+		allContents.stream()
+			.filter((cont)->cont.getTitle().equals("Title"))
+			.collect(Collectors.toList());
+		assertEquals("Number of results is equal",allContents.size(),contents.size());
+	}
+	@Test
+	public void getContentByFormat() {
+		Set<Content> contents = null;
+		contents = cr.findByFormat("format");
+		List<Content> allContents = new ArrayList<Content>();
+		cr.findAll().forEach(allContents::add);
+		allContents.stream()
+			.filter((cont)->cont.getFormat().equals("format"))
+		.collect(Collectors.toList());
+		assertEquals("Number of results is equal",allContents.size(),contents.size());
+		
+		
+	}
 	@Test
 	public void ContentModuleEntitySave() {
 		ContentModule cm = new ContentModule();
