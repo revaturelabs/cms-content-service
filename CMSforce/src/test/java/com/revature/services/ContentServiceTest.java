@@ -2,18 +2,26 @@ package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.entities.Content;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class ContentServiceTest {
 
-//	@Autowired
-//	ContentService cs = new ContentServiceimpl();
+	@Autowired
+	ContentService cs;
+		
 	
 	@Test
 	@Order(1)
@@ -43,41 +51,62 @@ class ContentServiceTest {
 	@Test
 	@Order(4)
 	void testGetContentById() {
-		ArrayList<Content> lst = cs.getAllContent();
-		int id = lst[0].getId();
+		Set<Content> allContents = cs.getAllContent();
+		Iterator<Content> iter = allContents.iterator();
+		Content first = iter.next();
+		int id = first.getId();
 		assertNotNull(cs.getContentById(id));
 	}
 
 	@Test
 	@Order(5)
 	void testUpdateContent() {
-		ArrayList<Content> lst = cs.getAllContent();
-		int id = lst[0].getId();
+		Set<Content> allContents = cs.getAllContent();		
+		Iterator<Content> iter = allContents.iterator();
+		Content first = iter.next();
+		int id = first.getId();
 		assertNotNull(cs.updateContent(new Content(id, "Updated Title", "Code", "Updated Description", "Updated URL")));
 	}
 
 	@Test
 	@Order(6)
 	void testAddContentTags() {
-		ArrayList<Content> lst = cs.getAllContent();
-		assertNotNull(cs.addContentTags(lst[0], ["Java", "OOP"]));
+		Set<Content> allContents = cs.getAllContent();
+		
+		Iterator<Content> iter = allContents.iterator();
+		Content first = iter.next();		
+		
+		assertNotNull(cs.addContentModules(first, new String[]{"Java", "OOP"}));
 	}
 
 	@Test
 	@Order(7)
 	void testRemoveContentTags() {
-		ArrayList<Content> lst = cs.getAllContent();
-		assertNotNull(cs.removeContentTags(lst[0], ["OOP"]));
-		assertNull(cs.removeContentTags(lst[0], ["OOP"]));
+		Set<Content> allContents = cs.getAllContent();
+		
+		Iterator<Content> iter = allContents.iterator();
+		Content first = iter.next();
+		
+		assertNotNull(cs.removeContentModules(first, new String[]{"OOP"}));
+		assertNull(cs.removeContentModules(first, new String[]{"OOP"}));
 	}
 
 	@Test
 	@Order(8)
 	void testDeleteContent() {
-		ArrayList<Content> lst = cs.getAllContent();
-		int id = lst[0].getId();
+		Set<Content> allContents = cs.getAllContent();
+		
+		Iterator<Content> iter = allContents.iterator();
+		Content first = iter.next();
+		int id = first.getId();
+		
 		cs.deleteContent(id);
 		assertNull(cs.getContentById(id));
+	}
+	
+	@Test
+	void passes() {
+		assertTrue(1==1);
 	}
 
 }

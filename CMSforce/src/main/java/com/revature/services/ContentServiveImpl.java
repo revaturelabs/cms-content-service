@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentModule;
@@ -13,6 +14,7 @@ import com.revature.repositories.ContentModuleRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
+@Service
 public class ContentServiveImpl implements ContentService {
 	
 	@Autowired
