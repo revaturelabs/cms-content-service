@@ -77,7 +77,7 @@ class ContentServiceTest {
 		ArrayList<Content> lst = cs.getAllContent();
 		int id = lst[0].getId();
 		cs.deleteContent(id);
-		assertNotNull(cs.getContentById(id));
+		assertNull(cs.getContentById(id));
 	}
 
 }
