@@ -32,7 +32,9 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public List<Content> getAllContent() {
 		try {
-			return (List<Content>) cr.findAll();
+			List<Content> contents = new ArrayList<Content>();
+			cr.findAll().forEach(contents :: add);
+			return contents;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -52,7 +54,7 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public Content updateContent(Content content) {
 		try {
-			// following if disallows creation!
+			// following if prevents creation
 			if(cr.findOne(content.getId()) != null) { 
 				return cr.save(content);
 			} else {
