@@ -2,6 +2,9 @@ package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
@@ -15,45 +18,66 @@ class ContentServiceTest {
 	@Test
 	@Order(1)
 	void testCreateContent() {
-		assertTrue(cs.createContent(new Content(0, "AngularServices", "Code", "Teaching service injection", "http://localhost:4200/file.txt")));
+		assertNotNull(cs.createContent(new Content(0, "AngularServices", "Code", "Teaching service injection", "http://localhost:4200/file.txt")));
+		assertNotNull(cs.createContent(new Content(0, "SpringDATA Example", "Document", "Configuring PersistenceConfig", "http://localhost:4200/JPAconfig.java")));
+		assertNull(cs.createContent(new Content(0, null, "Code", "Teaching service injection", "http://localhost:4200/file.txt")));
+		assertNull(cs.createContent(new Content(0, "AngularServices", null, "Teaching service injection", "http://localhost:4200/file.txt")));
+		assertNull(cs.createContent(new Content(0, "AngularServices", "Code", null, "http://localhost:4200/file.txt")));
+		assertNull(cs.createContent(new Content(0, "AngularServices", "Code", "Teaching service injection", null)));
 	}
-	
+
 	@Test
 	@Order(2)
-	void testCreateContentNull() {
-		assertFalse(cs.createContent(new Content(0, null, null, null, null)));
-	}
-	
-	
-
-	@Test
 	void testGetAllContent() {
-		fail("Not yet implemented");
+		assertNotNull(cs.getAllContent());
+		assertFalse(cs.getAllContent().isEmpty());
+	}
+	
+	@Test
+	@Order(3)
+	void testGetAllContentMultipleItems() {
+		int size = cs.getAllContent().size();
+		assertTrue((size>1));
 	}
 
 	@Test
+	@Order(4)
 	void testGetContentById() {
-		fail("Not yet implemented");
+		ArrayList<Content> lst = cs.getAllContent();
+		int id = lst[0].getId();
+		assertNotNull(cs.getContentById(id));
 	}
 
 	@Test
+	@Order(5)
 	void testUpdateContent() {
-		fail("Not yet implemented");
+		ArrayList<Content> lst = cs.getAllContent();
+		int id = lst[0].getId();
+		assertNotNull(cs.updateContent(new Content(id, "Updated Title", "Code", "Updated Description", "Updated URL")));
 	}
 
 	@Test
+	@Order(6)
 	void testAddContentTags() {
-		fail("Not yet implemented");
+		ArrayList<Content> lst = cs.getAllContent();
+		assertNotNull(cs.addContentTags(lst[0], ["Java", "OOP"]));
 	}
 
 	@Test
+	@Order(7)
 	void testRemoveContentTags() {
-		fail("Not yet implemented");
+		ArrayList<Content> lst = cs.getAllContent();
+		assertNotNull(cs.removeContentTags(lst[0], ["OOP"]));
+		assertNull(cs.removeContentTags(lst[0], ["OOP"]));
 	}
 
 	@Test
+	@Order(8)
 	void testDeleteContent() {
-		fail("Not yet implemented");
+		ArrayList<Content> lst = cs.getAllContent();
+		int id = lst[0].getId();
+		cs.deleteContent(id);
+		assertNotNull(cs.getContentById(id));
 	}
 
 }
