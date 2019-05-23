@@ -3,6 +3,9 @@ package com.revature.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Column;
 
 @Entity
