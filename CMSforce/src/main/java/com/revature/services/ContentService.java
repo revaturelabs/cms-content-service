@@ -7,19 +7,21 @@ import com.revature.entities.Module;
 
 public interface ContentService {
 
-	public boolean createContent(Content content);
+	public Content createContent(Content content);
 	
 	public List<Content> getAllContent();
 	
 	public Content getContentById(int id);
 	
-	public boolean updateContent(Content content);
+	public Content updateContent(Content content);
 	
-	public boolean addContentTags(String[] subject);
+	public Content addContentTags(Content content, String[] subject);
 	
-	public boolean addContentTags(Module[] modules);
+	public Content addContentTags(Content content, Module[] modules);
 	
-	public boolean removeContentTags(String[] subject);
+	public Content removeContentTags(Content content, String[] subject);
 	
-	public boolean deleteContent(int id);
+	public Content removeContentTags(Content content, Module[] modules);
+	
+	public void deleteContent(int id);
 }
