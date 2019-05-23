@@ -42,7 +42,7 @@ class SearchServiceTest {
 	void testFilterContentBySubjects() {
 		ArrayList<Module> lst = ms.getAllContent();
 		String subject = lst[0].getSubject();
-		assertNotNull(ss.filterContentByTitle(subject));
+		assertNull(ss.filterContentByTitle(subject));
 	}
 
 }
