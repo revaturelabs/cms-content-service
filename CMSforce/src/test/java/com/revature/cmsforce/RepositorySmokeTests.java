@@ -75,6 +75,19 @@ public class RepositorySmokeTests {
 		
 	}
 	@Test
+	public void getModuleBySubject() {
+		Set<Module> modules = null;
+		modules = mr.findBysubject("JavaScript");
+		List<Module> allModules = new ArrayList<Module>();
+		mr.findAll().forEach(allModules::add);
+		allModules.stream()
+			.filter((cont)->cont.getSubject().equals("JavaScript"))
+		.collect(Collectors.toList());
+		assertEquals("Number of results is equal",allModules.size(),modules.size());
+		
+		
+	}
+	@Test
 	public void ContentModuleEntitySave() {
 		ContentModule cm = new ContentModule();
 		
