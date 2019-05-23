@@ -16,6 +16,8 @@ public interface ContentService {
 	
 	public boolean addContentTags(String[] subject);
 	
+	public boolean addContentTags(Module[] modules);
+	
 	public boolean removeContentTags(String[] subject);
 	
 	public boolean deleteContent(int id);
