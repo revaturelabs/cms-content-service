@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.entities.Content;
+import com.revature.entities.ContentModule;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentModuleRepository;
 import com.revature.repositories.ContentRepository;
@@ -44,6 +45,8 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public Set<Content> filterContentBySubjects(String[] subjects) {
+		// TODO ***** This Method can probably be simplified *****
+		
 		Set<Content> contents = new HashSet<Content>();
 		
 		// subjects to modules []
@@ -54,14 +57,19 @@ public class SearchServiceImpl implements SearchService {
 		Module[] modulesArr = new Module[modules.size()];
 		modules.toArray(modulesArr);
 		
+		// iterating to form a list of content ids that need to be found and returned
 		List<Integer> ids = new ArrayList<>();
 		for(Module module : modules) {
-			ContentModule contentModulesByModuleID = new 
-			cmr.findByfkModule(module.getId());
+			Set<ContentModule> contentModulesByModuleID = new HashSet<>(); 
+			cmr.findByfkModule(module.getId()).forEach(contentModulesByModuleID :: add);
+			for(ContentModule contentModule : contentModulesByModuleID) {
+				ids.add(contentModule.getFkContent());
+			}
 		}
 		
-		cr.findAll(ids);
+		cr.findAll(ids).forEach(contents :: add);
 		
+		return contents;	
 	}
 
 }
