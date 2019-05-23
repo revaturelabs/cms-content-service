@@ -71,7 +71,7 @@ public class ContentServiveImpl implements ContentService {
 	}
 
 	@Override
-	public boolean addContentTags(Content content, String[] subjects) {
+	public Content addContentModules(Content content, String[] subjects) {
 		// array of subjects change to array of modules
 		Set<Module> modules = new HashSet<>();
 		for(String subject : subjects) {
@@ -80,11 +80,11 @@ public class ContentServiveImpl implements ContentService {
 		Module[] modulesArr = new Module[modules.size()];
 		
 		// basically a wrapper for the function it overloads
-		return addContentTags(content, modules.toArray(modulesArr));		
+		return addContentModules(content, modules.toArray(modulesArr));		
 	}
 
 	@Override
-	public boolean addContentTags(Content content, Module[] modules) {
+	public Content addContentModules(Content content, Module[] modules) {
 		try {
 			Set<ContentModule> contentModules = new HashSet<ContentModule>();
 			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>();
@@ -106,13 +106,13 @@ public class ContentServiveImpl implements ContentService {
 			cmr.save(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}	
-		return true; 
+		return content; 
 	}
 
 	@Override
-	public boolean removeContentTags(Content content, String[] subjects) {
+	public Content removeContentModules(Content content, String[] subjects) {
 		// array of subjects change to array of modules
 		Set<Module> modules = new HashSet<>();
 		for(String subject : subjects) {
@@ -121,11 +121,11 @@ public class ContentServiveImpl implements ContentService {
 		Module[] modulesArr = new Module[modules.size()];
 		
 		// basically a wrapper for the function it overloads
-		return removeContentTags(content, modules.toArray(modulesArr));	
+		return removeContentModules(content, modules.toArray(modulesArr));	
 	}
 
 	@Override
-	public boolean removeContentTags(Content content, Module[] modules) {	
+	public Content removeContentModules(Content content, Module[] modules) {	
 		try {
 			Set<ContentModule> contentModules = new HashSet<ContentModule>();
 			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>();
@@ -140,9 +140,9 @@ public class ContentServiveImpl implements ContentService {
 			cmr.delete(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}	
-		return true; 	
+		return content; 	
 	}
 
 	@Override

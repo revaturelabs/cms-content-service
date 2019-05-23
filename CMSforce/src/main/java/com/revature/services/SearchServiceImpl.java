@@ -47,29 +47,34 @@ public class SearchServiceImpl implements SearchService {
 	public Set<Content> filterContentBySubjects(String[] subjects) {
 		// TODO ***** This Method can probably be simplified *****
 		
-		Set<Content> contents = new HashSet<Content>();
-		
-		// subjects to modules []
-		Set<Module> modules = new HashSet<>();
-		for(String subject : subjects) {
-			mr.findBysubject(subject).forEach(modules :: add);
-		}
-		Module[] modulesArr = new Module[modules.size()];
-		modules.toArray(modulesArr);
-		
-		// iterating to form a list of content ids that need to be found and returned
-		List<Integer> ids = new ArrayList<>();
-		for(Module module : modules) {
-			Set<ContentModule> contentModulesByModuleID = new HashSet<>(); 
-			cmr.findByfkModule(module.getId()).forEach(contentModulesByModuleID :: add);
-			for(ContentModule contentModule : contentModulesByModuleID) {
-				ids.add(contentModule.getFkContent());
+		try {
+			Set<Content> contents = new HashSet<Content>();
+			
+			// subjects to modules []
+			Set<Module> modules = new HashSet<>();
+			for(String subject : subjects) {
+				mr.findBysubject(subject).forEach(modules :: add);
 			}
+			Module[] modulesArr = new Module[modules.size()];
+			modules.toArray(modulesArr);
+			
+			// iterating to form a list of content ids that need to be found and returned
+			List<Integer> ids = new ArrayList<>();
+			for(Module module : modules) {
+				Set<ContentModule> contentModulesByModuleID = new HashSet<>(); 
+				cmr.findByfkModule(module.getId()).forEach(contentModulesByModuleID :: add);
+				for(ContentModule contentModule : contentModulesByModuleID) {
+					ids.add(contentModule.getFkContent());
+				}
+			}
+			
+			cr.findAll(ids).forEach(contents :: add);
+			
+			return contents;	
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
 		}
-		
-		cr.findAll(ids).forEach(contents :: add);
-		
-		return contents;	
 	}
 
 }

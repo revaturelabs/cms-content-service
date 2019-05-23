@@ -15,13 +15,13 @@ public interface ContentService {
 	
 	public Content updateContent(Content content);
 	
-	public boolean addContentTags(Content content, String[] subject);
+	public Content addContentModules(Content content, String[] subject);
 	
-	public boolean addContentTags(Content content, Module[] modules);
+	public Content addContentModules(Content content, Module[] modules);
 	
-	public boolean removeContentTags(Content content, String[] subject);
+	public Content removeContentModules(Content content, String[] subject);
 	
-	public boolean removeContentTags(Content content, Module[] modules);
+	public Content removeContentModules(Content content, Module[] modules);
 	
 	public boolean deleteContent(int id);
 }
