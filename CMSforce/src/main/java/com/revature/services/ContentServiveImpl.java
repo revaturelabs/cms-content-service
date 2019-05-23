@@ -1,7 +1,9 @@
 package com.revature.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -10,6 +12,7 @@ import com.revature.entities.ContentModule;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentModuleRepository;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.ModuleRepository;
 
 public class ContentServiveImpl implements ContentService {
 	
@@ -17,6 +20,8 @@ public class ContentServiveImpl implements ContentService {
 	ContentRepository cr;
 	@Autowired 
 	ContentModuleRepository cmr;
+	@Autowired
+	ModuleRepository mr;
 
 	@Override
 	public Content createContent(Content content) {
@@ -30,9 +35,9 @@ public class ContentServiveImpl implements ContentService {
 	
 
 	@Override
-	public List<Content> getAllContent() {
+	public Set<Content> getAllContent() {
 		try {
-			List<Content> contents = new ArrayList<Content>();
+			Set<Content> contents = new HashSet<Content>();
 			cr.findAll().forEach(contents :: add);
 			return contents;
 		} catch(Exception e) {
@@ -67,20 +72,39 @@ public class ContentServiveImpl implements ContentService {
 	}
 
 	@Override
-	public boolean addContentTags(Content content, String[] subject) {
-		return false;
+	public boolean addContentTags(Content content, String[] subjects) {
+		// array of subjects change to array of modules
+		Set<Module> modules = new HashSet<>();
+		for(String subject : subjects) {
+			mr.findBysubject(subject).forEach(modules :: add);
+		}
+		Module[] modulesArr = new Module[modules.size()];
+		
+		// basically a wrapper for the function it overloads
+		return addContentTags(content, modules.toArray(modulesArr));		
 	}
 
 	@Override
 	public boolean addContentTags(Content content, Module[] modules) {
 		try {
-			// using the following list will make only one call to the database to save, more efficient vs saving in the loop
-			List<ContentModule> contentModules = new ArrayList<ContentModule>();
-			for(Module module: modules) {
-				contentModules.add(new ContentModule(0, content.getId(), module.getId(), "relevantTo", 
-						new ArrayList<Module>(), new ArrayList<Content>()));
+			Set<ContentModule> contentModules = new HashSet<ContentModule>();
+			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>();
+			cmr.findByfkContent(content.getId()).forEach(contentModulesByContentID :: add);
+			for(Module module : modules) {
+				boolean alreadyExists = false;
+				for(ContentModule contentModule : contentModulesByContentID) {
+					if(contentModule.getFkModule() == module.getId()) {
+						alreadyExists = true;
+					}
+				}
+		
+				if(!alreadyExists) {
+					contentModules.add(new ContentModule(0, content.getId(), module.getId(), "relevantTo", 
+							new ArrayList<Module>(), new ArrayList<Content>()));
+				}
+
 			} 
-			cmr.save(contentModules); // TODO what if they're already in the table??!
+			cmr.save(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -89,26 +113,37 @@ public class ContentServiveImpl implements ContentService {
 	}
 
 	@Override
-	public boolean removeContentTags(Content content, String[] subject) {
+	public boolean removeContentTags(Content content, String[] subjects) {
+		// array of subjects change to array of modules
+		Set<Module> modules = new HashSet<>();
+		for(String subject : subjects) {
+			mr.findBysubject(subject).forEach(modules :: add);
+		}
+		Module[] modulesArr = new Module[modules.size()];
 		
-		return false;
+		// basically a wrapper for the function it overloads
+		return removeContentTags(content, modules.toArray(modulesArr));	
 	}
 
 	@Override
-	public boolean removeContentTags(Content content, Module[] modules) {
+	public boolean removeContentTags(Content content, Module[] modules) {	
 		try {
-			List<ContentModule> contentModules = new ArrayList<ContentModule>();
-			for(Module module: modules) {
-				// TODO need ContentModuleRepository to have find by (content id, module id)!!
-				// Find ContentModules by content id
-				// add to contentModules list if module id is found
-			}
-			// delete all for contentModules list
+			Set<ContentModule> contentModules = new HashSet<ContentModule>();
+			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>();
+			cmr.findByfkContent(content.getId()).forEach(contentModulesByContentID :: add);
+			for(Module module : modules) {
+				for(ContentModule contentModule : contentModulesByContentID) {
+					if(contentModule.getFkModule() == module.getId()) {
+						contentModules.add(contentModule);
+					}
+				}
+			} 
+			cmr.delete(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}	
-		return true;
+		return true; 	
 	}
 
 	@Override

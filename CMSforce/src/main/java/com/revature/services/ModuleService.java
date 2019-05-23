@@ -1,12 +1,12 @@
 package com.revature.services;
 
-import java.util.List;
+import java.util.Set;
 
 import com.revature.entities.Module;
 
 public interface ModuleService {
 
-	public List<Module> getAllModules();
+	public Set<Module> getAllModules();
 	
 	public Module getModuleById(int id);
 }

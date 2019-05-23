@@ -1,7 +1,9 @@
 package com.revature.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,9 +16,9 @@ public class ModuleServiceImpl implements ModuleService {
 	ModuleRepository mr;
 
 	@Override
-	public List<Module> getAllModules() {
+	public Set<Module> getAllModules() {
 		try {
-			List<Module> modules = new ArrayList<Module>();
+			Set<Module> modules = new HashSet<Module>();
 			mr.findAll().forEach(modules :: add);
 			return modules;
 		} catch(Exception e) {
