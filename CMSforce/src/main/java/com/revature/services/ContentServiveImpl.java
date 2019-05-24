@@ -27,8 +27,11 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Content createContent(Content content) {
+		
 		try {
-			return cr.save(content);
+			// creating content using CRUDrepository
+			return cr.save(content); 
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -38,10 +41,16 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Set<Content> getAllContent() {
+		
 		try {
+			// initialize 
 			Set<Content> contents = new HashSet<Content>();
+			
+			// populate contents Set via the iterable<Content> returned from cr.findAll()
 			cr.findAll().forEach(contents :: add);
+			
 			return contents;
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -50,8 +59,11 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Content getContentById(int id) {
-		try {		
-			return cr.findById(id).get();	
+		
+		try {
+			// getting and returning content by id via CRUDrepository
+			return cr.findById(id).get();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -61,13 +73,16 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public Content updateContent(Content content) {
 		try {
-			// following if prevents creation
-			if(cr.findById(content.getId()) != null) { 
-				return cr.save(content);
+			// the following "if" prevents creation (instead of update) by checking that the 
+			// content isn't already in the database before saving
+			if (cr.findById(content.getId()) != null) { 
+				return cr.save(content); // CRUDrepository create content
+				
 			} else {
-				return null;
+				return null;	
 			}
-		} catch(Exception e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -75,14 +90,22 @@ public class ContentServiveImpl implements ContentService {
 	
 	@Override
 	public Content addContentAndContentModules(Content content, ContentModule[] contentModules) {
+		
 		try {
-			content = createContent(content);
-			for(ContentModule contentModule : contentModules) {
+			// calls createContent in this service, return updated content id, as its stored in the database
+			content = createContent(content); 
+			
+			// sets the content id foreign key in each of the ContentModules to reflect the above creation
+			for (ContentModule contentModule : contentModules) {
 				contentModule.setFkContent(content.getId());
 			}
-			cmr.saveAll(Arrays.asList(contentModules));
+			
+			// CRUDrepository create. Needs iterable. Hence, Arrays.asList()
+			cmr.saveAll(Arrays.asList(contentModules)); 
+			
 			return content;
-		} catch(Exception e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -90,11 +113,18 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Content addContentModules(Content content, String[] subjects) {
-		// array of subjects change to array of modules
+		
+		// initialize modules to be populated via the subjects String[]
 		Set<Module> modules = new HashSet<>();
-		for(String subject : subjects) {
-			mr.findBysubject(subject).forEach(modules :: add);
+		
+		// finds the corresponding module for each subject in subjects
+		for (String subject : subjects) {
+			// populates modules from the iterable returned from the CRUDrepository
+			// Note that the iterable should consist of only one member
+			mr.findBysubject(subject).forEach(modules :: add); 
 		}
+		
+		// addContentModules requires an array of modules, the following modulesArr is used for that purpose
 		Module[] modulesArr = new Module[modules.size()];
 		
 		// basically a wrapper for the function it overloads
@@ -103,25 +133,41 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Content addContentModules(Content content, Module[] modules) {
+		
 		try {
-			Set<ContentModule> contentModules = new HashSet<ContentModule>();
-			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>();
+			// initialize
+			Set<ContentModule> contentModules = new HashSet<ContentModule>(); // this will contain the contentModules to be saved
+			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>(); // this will contain all ContentModules for a content id
+			
+			// this populates contentModulesByContentID from the iterable returned from the cmr CRUDrepository
 			cmr.findByfkContent(content.getId()).forEach(contentModulesByContentID :: add);
-			for(Module module : modules) {
+			
+			// this loop creates and adds ContentModules to the contentModules Set, which will eventually be saved to the DB
+			for (Module module : modules) {
+				// this flag allows us to prevent the addition of ContentModules 
+				// with the same foreign key entries as another entry in the DB.
+				// Note: Maybe it's better to fail to update if one of the ContentModules are already in the DB?
 				boolean alreadyExists = false;
-				for(ContentModule contentModule : contentModulesByContentID) {
-					if(contentModule.getFkModule() == module.getId()) {
+				
+				// this loop just marks the flag if it finds that there's already a ContentModule with the fk pair
+				for (ContentModule contentModule : contentModulesByContentID) {
+					
+					if (contentModule.getFkModule() == module.getId()) { // Note no need to check content id
 						alreadyExists = true;
+						break; // no point in continuing the loop if alreadyExists is marked to true
 					}
 				}
-		
-				if(!alreadyExists) {
+				
+				if (!alreadyExists) {
+					
+					// Note that the affiliation is set to "relevantTo" by default
 					contentModules.add(new ContentModule(0, content.getId(), module.getId(), "relevantTo", 
 							new ArrayList<Module>(), new ArrayList<Content>()));
 				}
 
 			} 
-			cmr.saveAll(contentModules);
+			cmr.saveAll(contentModules); // creates all of the content modules that weren't already in the DB, via CRUDrepository
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -131,11 +177,18 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Content removeContentModules(Content content, String[] subjects) {
-		// array of subjects change to array of modules
+		
+		// initialize modules to be populated via the subjects String[]
 		Set<Module> modules = new HashSet<>();
+		
+		// finds the corresponding module for each subject in subjects
 		for(String subject : subjects) {
+			// populates modules from the iterable returned from the CRUDrepository
+			// Note that the iterable should consist of only one member
 			mr.findBysubject(subject).forEach(modules :: add);
 		}
+		
+		// removeContentModules requires an array of modules, the following modulesArr is used for that purpose
 		Module[] modulesArr = new Module[modules.size()];
 		
 		// basically a wrapper for the function it overloads
@@ -144,29 +197,41 @@ public class ContentServiveImpl implements ContentService {
 
 	@Override
 	public Content removeContentModules(Content content, Module[] modules) {	
+		
 		try {
-			Set<ContentModule> contentModules = new HashSet<ContentModule>();
-			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>();
+			// initialize
+			Set<ContentModule> contentModules = new HashSet<ContentModule>(); // this will contain the contentModules to be saved
+			Set<ContentModule> contentModulesByContentID = new HashSet<ContentModule>(); // this will contain all ContentModules for a content id
+			
+			// this populates contentModulesByContentID from the iterable returned from the cmr CRUDrepository
 			cmr.findByfkContent(content.getId()).forEach(contentModulesByContentID :: add);
+			
+			// this loop gets the ContentModules with each of the fk pairs and adds them to the contentModules Set
 			for(Module module : modules) {
 				for(ContentModule contentModule : contentModulesByContentID) {
-					if(contentModule.getFkModule() == module.getId()) {
+					if(contentModule.getFkModule() == module.getId()) { // Note: no need to check content id
 						contentModules.add(contentModule);
+						break; // there should only be one ContentModule with that fk pair, so breaking here is more efficient
 					}
 				}
 			} 
+			
+			// deletes all of the ContentModules in the contentModules Set in DB via CRUDrepository
 			cmr.deleteAll(contentModules);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}	
-		return content; 	
+		return content; // returns the same content that was passed without changes	
 	}
 
 	@Override
 	public boolean deleteContent(int id) {
 		try {
+			// creating content using CRUDrepository
 			cr.deleteById(id);
+			
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
