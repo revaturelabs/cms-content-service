@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,6 +67,21 @@ public class ContentServiveImpl implements ContentService {
 			} else {
 				return null;
 			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public Content addContentAndContentModules(Content content, ContentModule[] contentModules) {
+		try {
+			content = createContent(content);
+			for(ContentModule contentModule : contentModules) {
+				contentModule.setFkContent(content.getId());
+			}
+			cmr.saveAll(Arrays.asList(contentModules));
+			return content;
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
