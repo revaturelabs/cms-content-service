@@ -1,4 +1,4 @@
-package com.revature.services;
+package com.revature.servicestests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.revature.entities.Content;
+import com.revature.services.ContentService;
 
 
 @ExtendWith(SpringExtension.class)

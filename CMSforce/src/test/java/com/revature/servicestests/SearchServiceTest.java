@@ -1,4 +1,4 @@
-package com.revature.services;
+package com.revature.servicestests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +17,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.revature.entities.Content;
 import com.revature.entities.Module;
+import com.revature.services.ContentService;
+import com.revature.services.ModuleService;
+import com.revature.services.SearchService;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
