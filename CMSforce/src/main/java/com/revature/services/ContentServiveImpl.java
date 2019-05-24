@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentModule;
@@ -13,6 +14,7 @@ import com.revature.repositories.ContentModuleRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
+@Service
 public class ContentServiveImpl implements ContentService {
 	
 	@Autowired
@@ -48,7 +50,7 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public Content getContentById(int id) {
 		try {		
-			return cr.findOne(id);	
+			return cr.findById(id).get();	
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -59,7 +61,7 @@ public class ContentServiveImpl implements ContentService {
 	public Content updateContent(Content content) {
 		try {
 			// following if prevents creation
-			if(cr.findOne(content.getId()) != null) { 
+			if(cr.findById(content.getId()) != null) { 
 				return cr.save(content);
 			} else {
 				return null;
@@ -103,7 +105,7 @@ public class ContentServiveImpl implements ContentService {
 				}
 
 			} 
-			cmr.save(contentModules);
+			cmr.saveAll(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -137,7 +139,7 @@ public class ContentServiveImpl implements ContentService {
 					}
 				}
 			} 
-			cmr.delete(contentModules);
+			cmr.deleteAll(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -148,7 +150,7 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public boolean deleteContent(int id) {
 		try {
-			cr.delete(id);
+			cr.deleteById(id);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
