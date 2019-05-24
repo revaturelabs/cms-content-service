@@ -4,18 +4,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
 import java.util.Iterator;
-import java.util.List;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.revature.entities.Content;
 
-@RunWith(SpringRunner.class)
+
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
 @SpringBootTest
 class ContentServiceTest {
 
@@ -70,7 +71,7 @@ class ContentServiceTest {
 
 	@Test
 	@Order(6)
-	void testAddContentTags() {
+	void testAddContentModules() {
 		Set<Content> allContents = cs.getAllContent();
 		
 		Iterator<Content> iter = allContents.iterator();
@@ -81,7 +82,7 @@ class ContentServiceTest {
 
 	@Test
 	@Order(7)
-	void testRemoveContentTags() {
+	void testRemoveContentModules() {
 		Set<Content> allContents = cs.getAllContent();
 		
 		Iterator<Content> iter = allContents.iterator();

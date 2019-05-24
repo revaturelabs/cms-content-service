@@ -50,7 +50,7 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public Content getContentById(int id) {
 		try {		
-			return cr.findOne(id);	
+			return cr.findById(id).get();	
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -61,7 +61,7 @@ public class ContentServiveImpl implements ContentService {
 	public Content updateContent(Content content) {
 		try {
 			// following if prevents creation
-			if(cr.findOne(content.getId()) != null) { 
+			if(cr.findById(content.getId()) != null) { 
 				return cr.save(content);
 			} else {
 				return null;
@@ -105,7 +105,7 @@ public class ContentServiveImpl implements ContentService {
 				}
 
 			} 
-			cmr.save(contentModules);
+			cmr.saveAll(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -139,7 +139,7 @@ public class ContentServiveImpl implements ContentService {
 					}
 				}
 			} 
-			cmr.delete(contentModules);
+			cmr.deleteAll(contentModules);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -150,7 +150,7 @@ public class ContentServiveImpl implements ContentService {
 	@Override
 	public boolean deleteContent(int id) {
 		try {
-			cr.delete(id);
+			cr.deleteById(id);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();

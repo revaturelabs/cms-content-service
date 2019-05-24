@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentModule;
@@ -14,6 +15,7 @@ import com.revature.repositories.ContentModuleRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
+@Service
 public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
@@ -68,7 +70,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 			
-			cr.findAll(ids).forEach(contents :: add);
+			cr.findAllById(ids).forEach(contents :: add);
 			
 			return contents;	
 		} catch(Exception e) {

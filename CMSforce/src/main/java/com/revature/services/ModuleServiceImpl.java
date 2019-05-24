@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.entities.Module;
 import com.revature.repositories.ModuleRepository;
 
+@Service
 public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
@@ -28,7 +30,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public Module getModuleById(int id) {
 		try {
-			return mr.findOne(id);
+			return mr.findById(id).get();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;

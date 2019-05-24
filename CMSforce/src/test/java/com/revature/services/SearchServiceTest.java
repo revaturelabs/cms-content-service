@@ -8,13 +8,19 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.revature.entities.Content;
 import com.revature.entities.Module;
 
-@Service
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
+@SpringBootTest
 class SearchServiceTest {
 
 	@Autowired
