@@ -31,9 +31,9 @@ public class ContentController {
 	
 	// 
 	@RequestMapping(value = "/content", method = RequestMethod.POST) 
-	public Content createContent(@RequestParam("newContent") Content content, @RequestParam("modules") ContentModule[] modules) {
+	public Content createContent(@RequestParam("newContent") Content content, @RequestParam("modules") ContentModule[] contentModules) {
 //		Content createdContent = contentService.createContent(content);
-		contentService.addContentAndContentModule(content, modules);
+		contentService.addContentAndContentModules(content, contentModules);
 		return content;
 	}
 	
