@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.entities.Content;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
-import com.revature.util.ContentCreationHelper;
+import com.revature.util.ContentWrapper;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
@@ -26,10 +26,10 @@ public class ContentController {
 	ModuleService moduleService;
 	
 	@RequestMapping(value = "/content", method = RequestMethod.POST) 
-	public Content createContent(@RequestBody ContentCreationHelper requestBody ){
+	public Content createContent(@RequestBody ContentWrapper requestBody ){
 		
-		contentService.addContentAndContentModules(requestBody.getContentToAdd(), requestBody.getContentModulesToAdd());
-		return requestBody.getContentToAdd();
+		contentService.addContentAndLinks(requestBody.getContent(), requestBody.getLinks());
+		return requestBody.getContent();
 	}
 	
 	// Returns a set of contents 

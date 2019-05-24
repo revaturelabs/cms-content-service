@@ -3,9 +3,11 @@ package com.revature.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import org.springframework.stereotype.Component;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -17,17 +19,21 @@ public class Module {
 
 	private String subject;
 
-	private int created;
+	private long created;
+	
+	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Link> links;
 
 	public Module() {
 		super();
 	}
 
-	public Module(int id, String subject, int created) {
+	public Module(int id, String subject, int created, Set<Link> links) {
 		super();
 		this.id = id;
 		this.subject = subject;
-		this.created = created;
+		this.created = System.currentTimeMillis();
+		this.links = links;
 	}
 
 	public int getId() {
@@ -46,17 +52,24 @@ public class Module {
 		this.subject = subject;
 	}
 
-	public int getCreated() {
+	public long getCreated() {
 		return created;
 	}
 
-	public void setCreated(int created) {
+	public void setCreated(long created) {
 		this.created = created;
+	}
+
+	public Set<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(Set<Link> links) {
+		this.links = links;
 	}
 
 	@Override
 	public String toString() {
-		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + "]";
+		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", links=" + links + "]";
 	}
-
 }
