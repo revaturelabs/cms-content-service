@@ -1,6 +1,6 @@
-package com.revature.cmsforce;
+package com.revature.smoketests;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentModule;
@@ -21,9 +22,10 @@ import com.revature.repositories.ContentModuleRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
 @SpringBootTest
-public class RepositorySmokeTests {
+class RepositoriesSmokeTests {
 
 	@Autowired
 	ModuleRepository mr;
@@ -50,6 +52,7 @@ public class RepositorySmokeTests {
 		cr.save(c);
 		
 	}
+	
 	@Test
 	public void getContentByTitle() {
 		Set<Content> contents = null;
@@ -59,7 +62,7 @@ public class RepositorySmokeTests {
 		allContents.stream()
 			.filter((cont)->cont.getTitle().equals("Title"))
 			.collect(Collectors.toList());
-		assertEquals("Number of results is equal",allContents.size(),contents.size());
+		assertEquals(allContents.size(),contents.size(), "Number of results is equal");
 	}
 	@Test
 	public void getContentByFormat() {
@@ -70,7 +73,7 @@ public class RepositorySmokeTests {
 		allContents.stream()
 			.filter((cont)->cont.getFormat().equals("format"))
 		.collect(Collectors.toList());
-		assertEquals("Number of results is equal",allContents.size(),contents.size());
+		assertEquals(allContents.size(),contents.size(),"Number of results is equal");
 		
 		
 	}
@@ -83,7 +86,7 @@ public class RepositorySmokeTests {
 		allModules.stream()
 			.filter((cont)->cont.getSubject().equals("JavaScript"))
 		.collect(Collectors.toList());
-		assertEquals("Number of results is equal",allModules.size(),modules.size());
+		assertEquals(allModules.size(),modules.size(),"Number of results is equal");
 		
 		
 	}
@@ -91,16 +94,17 @@ public class RepositorySmokeTests {
 	public void ContentModuleEntitySave() {
 		ContentModule cm = new ContentModule();
 		
-		Module js = mr.findOne(6);
-		Content cont = cr.findOne(5);
-		List<Module> modules = new ArrayList<Module>();
-		List<Content> contents = new ArrayList<Content>();
+		Module js = mr.findById(6).get();
+		Content cont = cr.findById(5).get();
+		Set<Module> modules = new HashSet<Module>();
+		Set<Content> contents = new HashSet<Content>();
 		modules.add(js);
 		contents.add(cont);
-		cm.setContents(contents);
-		cm.setModules(modules);
+		//cm.setContents(contents);
+		//cm.setModules(modules);
 		cmr.save(cm);
 		
 	}
 
 }
+
