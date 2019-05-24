@@ -9,6 +9,10 @@ import com.revature.entities.Content;
 
 @Repository
 public interface ContentRepository extends CrudRepository<Content,Integer>{
+	
+	//Gets content by title
 	Set<Content> findByTitle(String title);
-	Set<Content> findByFormat(String Format);
+	
+	//Gets content by format
+	Set<Content> findByFormat(String format);
 }

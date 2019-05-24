@@ -1,7 +1,7 @@
 package com.revature.services;
 import java.util.Set;
 import com.revature.entities.Content;
-import com.revature.entities.ContentModule;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
 public interface ContentService {
     public Content createContent(Content content);
@@ -12,15 +12,15 @@ public interface ContentService {
     
     public Content updateContent(Content content);
     
-    public Content addContentAndContentModules(Content content, ContentModule[] ContentModules);
+    public Content addContentAndLinks(Content content, Link[] Link);
     
-    public Content addContentModules(Content content, String[] subject);
+    public Content addLinks(Content content, String[] subject);
     
-    public Content addContentModules(Content content, Module[] modules);
+    public Content addLinks(Content content, Module[] modules);
     
-    public Content removeContentModules(Content content, String[] subject);
+    public Content removeLinks(Content content, String[] subject);
     
-    public Content removeContentModules(Content content, Module[] modules);
+    public Content removeLinks(Content content, Module[] modules);
     
     public boolean deleteContent(int id);
 }

@@ -18,9 +18,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentModule;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
-import com.revature.repositories.ContentModuleRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
@@ -36,7 +36,7 @@ class RepositoriesSmokeTests {
 	ContentRepository cr;
 
 	@Autowired
-	ContentModuleRepository cmr;
+	LinkRepository lr;
 
 	@Test
 	public void ModuleEntitySaveTest() {
@@ -104,8 +104,8 @@ class RepositoriesSmokeTests {
 	}
 
 	@Test
-	public void ContentModuleEntitySaveTest() {
-		ContentModule cm = new ContentModule();
+	public void LinkEntitySaveTest() {
+		Link link = new Link();
 
 		Module js = mr.findById(6).get();
 		Content cont = cr.findById(5).get();
@@ -115,7 +115,7 @@ class RepositoriesSmokeTests {
 		contents.add(cont);
 		// cm.setContents(contents);
 		// cm.setModules(modules);
-		cmr.save(cm);
+		lr.save(link);
 
 	}
 

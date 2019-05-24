@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentModule;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
-import com.revature.repositories.ContentModuleRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
@@ -23,7 +23,7 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	ModuleRepository mr;
 	@Autowired
-	ContentModuleRepository cmr;
+	LinkRepository cmr;
 
 	@Override
 	public Set<Content> filterContentByTitle(String title) {
@@ -68,12 +68,12 @@ public class SearchServiceImpl implements SearchService {
 			List<Integer> ids = new ArrayList<>();
 			for(Module module : modules) {
 				// initializing and populating a Set of ContentModules by module id, using an iterable from the CRUDrepository again
-				Set<ContentModule> contentModulesByModuleID = new HashSet<>(); 
-				cmr.findByfkModule(module.getId()).forEach(contentModulesByModuleID :: add);
+				Set<Link> LinksByModuleID = new HashSet<>(); 
+				cmr.findByModuleId(module.getId()).forEach(LinksByModuleID :: add);
 				
 				// merely adding those ids to the list of content ids
-				for(ContentModule contentModule : contentModulesByModuleID) {
-					ids.add(contentModule.getFkContent());
+				for(Link Link : LinksByModuleID) {
+					ids.add(Link.getContentId());
 				}
 			}
 			
