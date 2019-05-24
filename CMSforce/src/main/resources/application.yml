@@ -1,7 +1,7 @@
 spring:
    datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com:1521:ORCL
+      url: testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com
       username: john
       password: password
    jpa:

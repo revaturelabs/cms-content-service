@@ -1,7 +1,5 @@
 package com.revature.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentModule;
-import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 
@@ -29,11 +26,11 @@ public class ContentController {
 	@Autowired
 	ModuleService moduleService;
 	
-	// 
+	// Adds content and content module to their respective tables
 	@RequestMapping(value = "/content", method = RequestMethod.POST) 
-	public Content createContent(@RequestParam("newContent") Content content, @RequestParam("modules") ContentModule[] modules) {
+	public Content createContent(@RequestParam("newContent") Content content, @RequestParam("modules") ContentModule[] contentModules) {
 //		Content createdContent = contentService.createContent(content);
-		contentService.addContentAndContentModule(content, modules);
+		contentService.addContentAndContentModules(content, contentModules);
 		return content;
 	}
 	
