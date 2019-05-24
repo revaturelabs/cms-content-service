@@ -33,7 +33,7 @@ public class ContentController {
 	@RequestMapping(value = "/content", method = RequestMethod.POST) 
 	public Content createContent(@RequestParam("newContent") Content content, @RequestParam("modules") ContentModule[] modules) {
 //		Content createdContent = contentService.createContent(content);
-		contentService.addContentAndContentModule(content, modules);
+		contentService.addContentAndContentModules(content, modules);
 		return content;
 	}
 	

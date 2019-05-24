@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.revature.entities.Content;
 import com.revature.services.ContentService;
+import com.revature.services.SearchService;
 
 
 @ExtendWith(SpringExtension.class)
@@ -23,6 +24,9 @@ class ContentServiceTest {
 
 	@Autowired
 	ContentService cs;
+	
+	@Autowired
+	SearchService ss;
 		
 	
 	@Test
@@ -78,19 +82,22 @@ class ContentServiceTest {
 		Iterator<Content> iter = allContents.iterator();
 		Content first = iter.next();		
 		
-		assertNotNull(cs.addContentModules(first, new String[]{"Java", "OOP"}));
+		assertNotNull(cs.addContentModules(first, new String[]{"JavaScript"}));
 	}
 
 	@Test
 	@Order(7)
 	void testRemoveContentModules() {
-		Set<Content> allContents = cs.getAllContent();
+		Set<Content> allContents = ss.filterContentBySubjects(new String[]{"JavaScript"});
 		
 		Iterator<Content> iter = allContents.iterator();
-		Content first = iter.next();
+		Content first = iter.next();		
 		
-		assertNotNull(cs.removeContentModules(first, new String[]{"OOP"}));
-		assertNull(cs.removeContentModules(first, new String[]{"OOP"}));
+		System.out.println(allContents.size());
+		System.out.println(first);
+		
+		assertNotNull(cs.removeContentModules(first, new String[]{"JavaScript"}));
+		assertNull(cs.removeContentModules(first, new String[]{"JavaScript"}));
 	}
 
 	@Test
