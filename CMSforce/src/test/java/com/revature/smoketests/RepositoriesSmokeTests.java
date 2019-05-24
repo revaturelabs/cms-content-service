@@ -1,7 +1,9 @@
-package com.revature.cmsforce;
+package com.revature.smoketests;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,7 +25,7 @@ import com.revature.repositories.ModuleRepository;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
 @SpringBootTest
-public class RepositorySmokeTests {
+class RepositoriesSmokeTests {
 
 	@Autowired
 	ModuleRepository mr;
@@ -94,14 +96,15 @@ public class RepositorySmokeTests {
 		
 		Module js = mr.findById(6).get();
 		Content cont = cr.findById(5).get();
-		List<Module> modules = new ArrayList<Module>();
-		List<Content> contents = new ArrayList<Content>();
+		Set<Module> modules = new HashSet<Module>();
+		Set<Content> contents = new HashSet<Content>();
 		modules.add(js);
 		contents.add(cont);
-		cm.setContents(contents);
-		cm.setModules(modules);
+		//cm.setContents(contents);
+		//cm.setModules(modules);
 		cmr.save(cm);
 		
 	}
 
 }
+
