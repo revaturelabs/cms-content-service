@@ -1,7 +1,5 @@
 package com.revature.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentModule;
-import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
+import com.revature.util.ContentCreationHelper;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
@@ -29,12 +25,11 @@ public class ContentController {
 	@Autowired
 	ModuleService moduleService;
 	
-	// 
 	@RequestMapping(value = "/content", method = RequestMethod.POST) 
-	public Content createContent(@RequestParam("newContent") Content content, @RequestParam("modules") ContentModule[] modules) {
-//		Content createdContent = contentService.createContent(content);
-		contentService.addContentAndContentModules(content, modules);
-		return content;
+	public Content createContent(@RequestBody ContentCreationHelper requestBody ){
+		
+		contentService.addContentAndContentModules(requestBody.getContentToAdd(), requestBody.getContentModulesToAdd());
+		return requestBody.getContentToAdd();
 	}
 	
 	// Returns a set of contents 
@@ -58,21 +53,4 @@ public class ContentController {
 	public Content updateContent(@RequestBody Content inputContent) {
 		return contentService.updateContent(inputContent);
 	}
-	
-//	@RequestMapping(value = "/content/{id}/modules", method = RequestMethod.PUT)
-//	public Content addContentModules(@PathVariable int id, int[] moduleIds) {
-//	public Content addContentModules(@PathVariable int id, ContentModule[] contentModules) {
-//		Content existingContent = contentService.getContentById(id);
-//		List<Module> modulesToAdd = new ArrayList<Module>();
-//
-//		for (int moduleId : moduleIds) {
-//			modulesToAdd.add(moduleService.getModuleById(moduleId));
-//		}
-//		
-//		for (ContentModule contentModule : contentModules) {
-//			modulesToAdd.add(moduleService.getModuleById(contentModule.getFkModule()));
-//		}
-//		
-//		return contentService.addContentModules(existingContent, modulesToAdd.toArray(new Module[0]));
-//	}
 }
