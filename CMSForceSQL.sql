@@ -18,7 +18,7 @@ url varchar2 (200) not null
 
 create table module(
 m_id number (10) primary key,
-subject varchar2 (200),
+subject varchar2 (200) unique,
 created number (20)
 );
 
