@@ -15,7 +15,7 @@ import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 import com.revature.util.ContentWrapper;
 
-@CrossOrigin(origins = "*", allowCredentials="true")
+@CrossOrigin(origins = "*")
 @RestController
 public class ContentController {
 
