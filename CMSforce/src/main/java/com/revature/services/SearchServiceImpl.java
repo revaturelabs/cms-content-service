@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +88,15 @@ public class SearchServiceImpl implements SearchService {
 			return null;
 		}
 	}
+
+	@Override
+	public Set<Content> getContentByModuleId(int ModuleId) {
+		Set<Link> links = cmr.findByModuleId(ModuleId);
+		int contentId = links.iterator().next().getContentId();
+		Set<Content> contents = cr.findById(contentId);
+		System.out.println(contents);
+		return contents;
+	}
+	
 
 }

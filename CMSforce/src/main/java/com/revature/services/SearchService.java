@@ -11,4 +11,6 @@ public interface SearchService {
 	public Set<Content> filterContentByFormat(String format);
 	
 	public Set<Content> filterContentBySubjects(String[] subjects);
+	
+	public Set<Content> getContentByModuleId(int ModuleId);
 }
