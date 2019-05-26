@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
@@ -15,26 +16,32 @@ import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 
 @Service
+@Transactional
 public class ContentServiceImpl implements ContentService {
 	
 	@Autowired
 	ContentRepository cr;
 	@Autowired 
-	LinkRepository cmr;
+	LinkRepository lr;
 	@Autowired
 	ModuleRepository mr;
 
 	@Override
 	public Content createContent(Content content) {
 		
-		try {
-			// creating content using CRUDrepository
-			return cr.save(content); 
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		Set<Link> links = content.getLinks();
+		content.setLinks(null);
+		content = cr.save(content);
+		
+		for(Link link : links) {
+			link.setContentId(content.getId());
 		}
+		
+		lr.saveAll(links);
+		
+		content.setLinks(links);
+		
+		return content;
 	}
 	
 
@@ -100,7 +107,7 @@ public class ContentServiceImpl implements ContentService {
 			}
 			
 			// CRUDrepository create. Needs iterable. Hence, Arrays.asList()
-			cmr.saveAll(Arrays.asList(contentModules)); 
+			lr.saveAll(Arrays.asList(contentModules)); 
 			
 			return content;
 			
@@ -139,7 +146,7 @@ public class ContentServiceImpl implements ContentService {
 			Set<Link> LinkByContentID = new HashSet<Link>(); // this will contain all ContentModules for a content id
 			
 			// this populates contentModulesByContentID from the iterable returned from the cmr CRUDrepository
-			cmr.findByContentId(content.getId()).forEach(LinkByContentID :: add);
+			lr.findByContentId(content.getId()).forEach(LinkByContentID :: add);
 			
 			// this loop creates and adds ContentModules to the contentModules Set, which will eventually be saved to the DB
 			for (Module module : modules) {
@@ -164,7 +171,7 @@ public class ContentServiceImpl implements ContentService {
 				}
 
 			} 
-			cmr.saveAll(link); // creates all of the content modules that weren't already in the DB, via CRUDrepository
+			lr.saveAll(link); // creates all of the content modules that weren't already in the DB, via CRUDrepository
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -202,7 +209,7 @@ public class ContentServiceImpl implements ContentService {
 			Set<Link> linksByContentID = new HashSet<Link>(); // this will contain all ContentModules for a content id
 			
 			// this populates contentModulesByContentID from the iterable returned from the cmr CRUDrepository
-			cmr.findByContentId(content.getId()).forEach(linksByContentID :: add);
+			lr.findByContentId(content.getId()).forEach(linksByContentID :: add);
 			
 			// this loop gets the ContentModules with each of the fk pairs and adds them to the contentModules Set
 			for(Module module : modules) {
@@ -215,7 +222,7 @@ public class ContentServiceImpl implements ContentService {
 			} 
 			
 			// deletes all of the ContentModules in the contentModules Set in DB via CRUDrepository
-			cmr.deleteAll(links);
+			lr.deleteAll(links);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

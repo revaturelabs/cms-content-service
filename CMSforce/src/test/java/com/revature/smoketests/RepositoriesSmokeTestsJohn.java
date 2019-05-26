@@ -27,7 +27,7 @@ import com.revature.repositories.ModuleRepository;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
 @SpringBootTest
-class RepositoriesSmokeTests {
+class RepositoriesSmokeTestsJohn {
 
 	@Autowired
 	ModuleRepository mr;

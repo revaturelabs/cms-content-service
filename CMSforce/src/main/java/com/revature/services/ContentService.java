@@ -4,6 +4,7 @@ import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 public interface ContentService {
+	
     public Content createContent(Content content);
     
     public Set<Content> getAllContent();
