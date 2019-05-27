@@ -7,6 +7,3 @@ spring:
    jpa:
      hibernate:
        show-sql: true
-       
-       
-server.servlet.contextPath: /CMSforce

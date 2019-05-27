@@ -15,6 +15,4 @@ public interface ContentRepository extends CrudRepository<Content,Integer>{
 	
 	//Gets content by format
 	Set<Content> findByFormat(String format);
-	
-	Set<Content> findById(int id);
 }
