@@ -1,4 +1,4 @@
-package com.revatire.controllertests;
+package com.revature.controllertests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
