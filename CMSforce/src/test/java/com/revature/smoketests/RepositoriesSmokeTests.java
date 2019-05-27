@@ -108,7 +108,7 @@ class RepositoriesSmokeTests {
 		Link link = new Link();
 
 		Module js = mr.findById(6).get();
-		Content cont = cr.findById(5).iterator().next();
+		Content cont = cr.findById(5).get();
 		Set<Module> modules = new HashSet<Module>();
 		Set<Content> contents = new HashSet<Content>();
 		modules.add(js);

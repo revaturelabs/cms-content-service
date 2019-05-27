@@ -32,7 +32,6 @@ public class Content {
 		super();
 	}
 
-
 	public Content(int id, String title, String format, String description, String url, Set<Link> links) {
 		super();
 		this.id = id;

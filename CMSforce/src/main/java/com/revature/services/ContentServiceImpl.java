@@ -61,7 +61,7 @@ public class ContentServiceImpl implements ContentService {
 		
 		try {
 			// getting and returning content by id via CRUDrepository
-			return cr.findById(id).iterator().next();
+			return cr.findById(id).get();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
