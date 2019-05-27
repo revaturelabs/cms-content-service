@@ -14,6 +14,7 @@ import com.revature.entities.Module;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.util.ExceptionAspectAnnotation;
 
 @Service
 @Transactional
@@ -26,6 +27,7 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	ModuleRepository mr;
 
+	@ExceptionAspectAnnotation
 	@Override
 	public Content createContent(Content content) {
 		
