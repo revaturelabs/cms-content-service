@@ -31,14 +31,14 @@ class ModuleServiceTest {
 		assertNotNull(ms.getAllModules());
 	}
 
-	@Test
-	void testGetModuleById() {				
-		Set<Module> lst = ms.getAllModules();
-		Iterator<Module> iter = lst.iterator();
-		Module first = iter.next();
-		
-		int id = first.getId();
-		assertNotNull(ms.getModuleById(id));
-	}
+//	@Test
+//	void testGetModuleById() {				
+//		Set<Module> lst = ms.getAllModules();
+//		Iterator<Module> iter = lst.iterator();
+//		Module first = iter.next();
+//		
+//		int id = first.getId();
+//		assertNotNull(ms.getModuleById(id));
+//	}
 
 }

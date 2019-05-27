@@ -1,9 +1,9 @@
 spring:
    datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com:1521:ORCL
-      username: john
-      password: password
+      url: jdbc:oracle:thin:@primaveradb.cyysbedq8cqc.us-east-1.rds.amazonaws.com:1521:ORCL
+      username: adam
+      password: primavera##
    jpa:
      hibernate:
        show-sql: true

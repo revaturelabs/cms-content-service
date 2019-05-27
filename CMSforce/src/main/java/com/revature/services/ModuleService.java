@@ -9,4 +9,7 @@ public interface ModuleService {
 	public Set<Module> getAllModules();
 	
 	public Module getModuleById(int id);
+	
+	public Module createModule(Module mod);
+	
 }
