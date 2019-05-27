@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -67,6 +69,16 @@ class SearchServiceTest {
 		
 		String subject = first.getSubject();
 		assertNotNull(ss.filterContentByTitle(subject));
+	}
+	@Test
+	@Transactional
+	void testgetContentByModuleId() {
+		Set<Module> lst = ms.getAllModules();
+		Iterator<Module> iter = lst.iterator();
+		Module first = iter.next();
+		
+		int id = first.getId();
+		assertNotNull(ss.getContentByModuleId(id));
 	}
 
 }

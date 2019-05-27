@@ -3,6 +3,9 @@ package com.revature.servicestests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
+
+import javax.transaction.Transactional;
+
 import java.util.Iterator;
 
 import org.junit.jupiter.api.Order;
@@ -41,6 +44,7 @@ class ContentServiceTest {
 	}
 
 	@Test
+	@Transactional
 	@Order(2)
 	void testGetAllContent() {
 		assertNotNull(cs.getAllContent());
@@ -48,6 +52,7 @@ class ContentServiceTest {
 	}
 	
 	@Test
+	@Transactional
 	@Order(3)
 	void testGetAllContentMultipleItems() {
 		int size = cs.getAllContent().size();
@@ -55,6 +60,7 @@ class ContentServiceTest {
 	}
 
 	@Test
+	@Transactional
 	@Order(4)
 	void testGetContentById() {
 		Set<Content> allContents = cs.getAllContent();
@@ -65,6 +71,7 @@ class ContentServiceTest {
 	}
 
 	@Test
+	@Transactional
 	@Order(5)
 	void testUpdateContent() {
 		Set<Content> allContents = cs.getAllContent();		
@@ -75,6 +82,7 @@ class ContentServiceTest {
 	}
 
 	@Test
+	@Transactional
 	@Order(6)
 	void testAddLinks() {
 		Set<Content> allContents = cs.getAllContent();
