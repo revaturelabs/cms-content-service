@@ -87,5 +87,13 @@ public class SearchServiceImpl implements SearchService {
 			return null;
 		}
 	}
+	@Override
+	public Set<Content> getContentByModuleId(int ModuleId) {
+		Set<Link> links = cmr.findByModuleId(ModuleId);
+		int contentId = links.iterator().next().getContentId();
+		Set<Content> contents = cr.findById(contentId);
+		System.out.println(contents);
+		return contents;
+	}
 
 }
