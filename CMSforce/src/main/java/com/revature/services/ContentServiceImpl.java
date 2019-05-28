@@ -51,7 +51,7 @@ public class ContentServiceImpl implements ContentService {
 	@ExceptionAspectAnnotation
 	public Set<Content> getAllContent() {
 		
-		
+			// initialize 
 			Set<Content> contents = new HashSet<Content>();
 			
 			// populate contents Set via the iterable<Content> returned from cr.findAll()
@@ -77,7 +77,8 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@ExceptionAspectAnnotation
 	public Content updateContent(Content content) {
-		
+			// the following "if" prevents creation (instead of update) by checking that the 	
+			// content isn't already in the database before saving
 			if (cr.findById(content.getId()) != null) { 
 				return cr.save(content); // CRUDrepository create content
 				
