@@ -49,8 +49,8 @@ public class ContentController {
 	// Updates a specific content in the table 
 	// First assures that the content exists by its ID and if it does
 	// it will update that content
-	@RequestMapping(value = "/content", method = RequestMethod.PUT)
-	public Content updateContent(@RequestBody Content inputContent) {
-		return contentService.updateContent(inputContent);
-	}
+	// @RequestMapping(value = "/content", method = RequestMethod.PUT)
+	// public Content updateContent(@RequestBody Content inputContent) {
+	// 	return contentService.updateContent(inputContent);
+	// }
 }
