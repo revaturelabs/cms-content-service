@@ -64,6 +64,7 @@ class ContentCreation {
 	@Test
 	@Rollback
 	@Order(2)
+	// integration test, checks different services at once
 	void createContent() {
  		
  		Module module1 = new Module(0, "Element Zero", 0, null);

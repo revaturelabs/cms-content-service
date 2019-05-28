@@ -21,7 +21,7 @@ Logging log;
 		
 		
 	}
-		@Pointcut("@annotation(com.revature.util.ExceptionAspectAnnotation)")
+		@Pointcut("@annotation(com.revature.util.LogException)")
 		private void LogException() {
 			
 		}
