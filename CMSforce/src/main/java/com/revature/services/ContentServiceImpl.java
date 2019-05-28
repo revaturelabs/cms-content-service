@@ -25,7 +25,7 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	ModuleRepository mr;
 
-	@LogException
+	//@LogException
 	@Override
 	public Content createContent(Content content) {
 		
@@ -54,7 +54,7 @@ public class ContentServiceImpl implements ContentService {
 	
 
 	@Override
-	@LogException
+	//@LogException
 	public Set<Content> getAllContent() {
 			Set<Content> contents = new HashSet<Content>();
 			cr.findAll().forEach(contents :: add);
@@ -62,7 +62,7 @@ public class ContentServiceImpl implements ContentService {
 		}
 	
 	@Override
-	@LogException
+	//@LogException
 	public Content getContentById(int id) {	
 			return cr.findById(id).iterator().next();		
 	}
