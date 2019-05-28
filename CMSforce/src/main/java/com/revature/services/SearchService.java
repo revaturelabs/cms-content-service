@@ -10,7 +10,9 @@ public interface SearchService {
 	
 	public Set<Content> filterContentByFormat(String format);
 	
-	public Set<Content> filterContentBySubjects(String[] subjects);
+	public Set<Content> filterContentBySubjects(int[] moduleIds);
 	
+	// TODO needs to get all contents, wait for tests
 	public Set<Content> getContentByModuleId(int ModuleId);
+	
 }

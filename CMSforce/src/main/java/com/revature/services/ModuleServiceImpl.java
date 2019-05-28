@@ -28,9 +28,9 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public Module createModule(Module mod) {
-		mod = mr.save(mod);
-		return mod;
+	public Module createModule(Module module) {
+		module = mr.save(module);
+		return module;
 	}
 
 }
