@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -41,7 +42,6 @@ class SearchServiceTest {
 	ModuleService ms;
 	
 	@Test
-//	@Order(9)
 	void testFilterContentByTitle() {
 		Set<Content> lst = cs.getAllContent();
 		
@@ -53,7 +53,6 @@ class SearchServiceTest {
 	}
 
 	@Test
-//	@Order(10)
 	void testFilterContentByFormat() {
 		Set<Content> lst = cs.getAllContent();
 		Iterator<Content> iter = lst.iterator();
@@ -64,7 +63,6 @@ class SearchServiceTest {
 	}
 
 	@Test
-//	@Order(11)
 	void testFilterContentBySubjects() {
 		Set<Module> lst = ms.getAllModules();
 		Iterator<Module> iter = lst.iterator();
@@ -74,4 +72,14 @@ class SearchServiceTest {
 		assertNotNull(ss.filterContentByTitle(subject));
 	}
 
+	@Test
+	void testGetContentByModuleId() {
+		Set<Module> allModules= ms.getAllModules();
+		Iterator<Module> iter = allModules.iterator();
+		Module first = iter.next();
+		int MID = first.getId();
+				
+		assertThrows(NoSuchElementException.class, ()->{ss.getContentByModuleId(-1);});
+		assertNotNull(ss.getContentByModuleId(MID));
+	}
 }
