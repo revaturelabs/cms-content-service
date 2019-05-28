@@ -10,5 +10,6 @@ import com.revature.entities.Module;
 @Repository
 public interface ModuleRepository extends CrudRepository<Module,Integer>{
 
+	//Gets modules by subject
 	Set<Module> findBysubject(String subject);
 }

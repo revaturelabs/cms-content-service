@@ -17,27 +17,20 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public Set<Module> getAllModules() {
-		try {
-			// initializing and populating the modules Set via the iterable<Module> returned from mr.findAll()
-			Set<Module> modules = new HashSet<Module>();
-			mr.findAll().forEach(modules :: add);
-			
-			return modules;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		Set<Module> modules = new HashSet<Module>();
+		mr.findAll().forEach(modules :: add);
+		return modules;
 	}
 
 	@Override
 	public Module getModuleById(int id) {
-		try {
-			// getting and returning module by id via CRUDrepository
-			return mr.findById(id).get();
-		} catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		return mr.findById(id).get();
+	}
+
+	@Override
+	public Module createModule(Module mod) {
+		mod = mr.save(mod);
+		return mod;
 	}
 
 }

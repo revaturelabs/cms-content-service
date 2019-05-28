@@ -1,9 +1,34 @@
+
 spring:
-   datasource:
+  datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
       url: jdbc:oracle:thin:@testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com:1521:ORCL
       username: john
       password: password
-   jpa:
+  jpa:
      hibernate:
        show-sql: true
+       
+logging:
+  config:
+  file: src/main/resources/ErrorLog.html
+  
+  
+  pattern:
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+   
+    root: off
+    com.revature: error
+
+       
+server.servlet.contextPath: /CMSforce
+
+
+
+  
+          
+      
+
+
+

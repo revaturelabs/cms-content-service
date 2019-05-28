@@ -3,6 +3,11 @@ package com.revature.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
@@ -19,18 +24,22 @@ public class Content {
 	private String description;
 
 	private String url;
-
+	
+	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Link> links;
+	
 	public Content() {
 		super();
 	}
 
-	public Content(int id, String title, String format, String description, String url) {
+	public Content(int id, String title, String format, String description, String url, Set<Link> links) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
+		this.links = links;
 	}
 
 	public int getId() {
@@ -73,10 +82,20 @@ public class Content {
 		this.url = url;
 	}
 
+	public Set<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(Set<Link> links) {
+		this.links = links;
+	}
+
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + "]";
+				+ ", url=" + url + ", links=" + links + "]";
 	}
 
+	
+	
 }
