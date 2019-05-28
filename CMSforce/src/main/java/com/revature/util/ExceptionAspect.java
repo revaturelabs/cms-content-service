@@ -16,7 +16,7 @@ public class ExceptionAspect {
 Logging log;
 	@AfterThrowing("LogException()")
 	public void LogException(JoinPoint jp) {
-		log.logger.error(jp.toString(), "Issue in content Services");
+		log.logger.error("There was an issue in " + jp.toString());
 		
 		
 		

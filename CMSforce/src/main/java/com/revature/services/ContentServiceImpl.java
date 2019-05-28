@@ -14,7 +14,7 @@ import com.revature.entities.Module;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
-import com.revature.util.ExceptionAspectAnnotation;
+import com.revature.util.LogException;
 
 @Service
 @Transactional
@@ -27,7 +27,7 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	ModuleRepository mr;
 
-	@ExceptionAspectAnnotation
+	@LogException
 	@Override
 	public Content createContent(Content content) {
 		
@@ -48,7 +48,7 @@ public class ContentServiceImpl implements ContentService {
 	
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Set<Content> getAllContent() {
 		
 			// initialize 
@@ -64,7 +64,7 @@ public class ContentServiceImpl implements ContentService {
 	
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content getContentById(int id) {
 		
 
@@ -75,7 +75,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content updateContent(Content content) {
 			// the following "if" prevents creation (instead of update) by checking that the 	
 			// content isn't already in the database before saving
@@ -89,7 +89,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 	
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content addContentAndLinks(Content content, Link[] contentModules) {
 		
 		
@@ -111,7 +111,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content addLinks(Content content, String[] subjects) {
 		
 		// initialize modules to be populated via the subjects String[]
@@ -132,7 +132,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content addLinks(Content content, Module[] modules) {
 		
 			// initialize
@@ -172,7 +172,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content removeLinks(Content content, String[] subjects) {
 		
 		// initialize modules to be populated via the subjects String[]
@@ -193,7 +193,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public Content removeLinks(Content content, Module[] modules) {	
 		
 	
@@ -222,7 +222,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
-	@ExceptionAspectAnnotation
+	@LogException
 	public boolean deleteContent(int id) {
 			// creating content using CRUDrepository
 			cr.deleteById(id);
