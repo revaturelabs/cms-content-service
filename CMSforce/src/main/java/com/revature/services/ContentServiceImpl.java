@@ -48,10 +48,10 @@ public class ContentServiceImpl implements ContentService {
 	
 
 	@Override
+	@ExceptionAspectAnnotation
 	public Set<Content> getAllContent() {
 		
-		try {
-			// initialize 
+		
 			Set<Content> contents = new HashSet<Content>();
 			
 			// populate contents Set via the iterable<Content> returned from cr.findAll()
@@ -59,41 +59,32 @@ public class ContentServiceImpl implements ContentService {
 			
 			return contents;
 			
-		} catch(Exception e) {
-			e.printStackTrace();
-			return null;
+		
 		}
-	}
+	
 
 	@Override
+	@ExceptionAspectAnnotation
 	public Content getContentById(int id) {
 		
-		try {
+
 			// getting and returning content by id via CRUDrepository
 			return cr.findById(id).iterator().next();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	@Override
+	@ExceptionAspectAnnotation
 	public Content updateContent(Content content) {
-		try {
-			// the following "if" prevents creation (instead of update) by checking that the 
-			// content isn't already in the database before saving
+		
 			if (cr.findById(content.getId()) != null) { 
 				return cr.save(content); // CRUDrepository create content
 				
 			} else {
 				return null;	
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+
 	}
 	
 	@Override
