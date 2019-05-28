@@ -13,8 +13,6 @@ public interface ContentService {
     
     public Content updateContent(Content content);
     
-    public Content addContentAndLinks(Content content, Link[] Link);
-    
     public Content addLinks(Content content, String[] subject);
     
     public Content addLinks(Content content, Module[] modules);
@@ -24,4 +22,5 @@ public interface ContentService {
     public Content removeLinks(Content content, Module[] modules);
     
     public boolean deleteContent(int id);
+    
 }

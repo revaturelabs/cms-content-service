@@ -26,10 +26,10 @@ public class ContentController {
 	ModuleService moduleService;
 	
 	@RequestMapping(value = "/content", method = RequestMethod.POST) 
-	public Content createContent(@RequestBody ContentWrapper requestBody ){
+	public Content createContent(@RequestBody Content content ){
 		
-		contentService.addContentAndLinks(requestBody.getContent(), requestBody.getLinks());
-		return requestBody.getContent();
+		content = contentService.createContent(content);
+		return content;
 	}
 	
 	// Returns a set of contents 

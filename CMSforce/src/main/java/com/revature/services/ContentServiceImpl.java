@@ -77,37 +77,8 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@LogException
 	public Content updateContent(Content content) {
-			// the following "if" prevents creation (instead of update) by checking that the 	
-			// content isn't already in the database before saving
-			if (cr.findById(content.getId()) != null) { 
-				return cr.save(content); // CRUDrepository create content
-				
-			} else {
-				return null;	
-			}
-
-	}
-	
-	@Override
-	@LogException
-	public Content addContentAndLinks(Content content, Link[] contentModules) {
-		
-		
-			// calls createContent in this service, return updated content id, as its stored in the database
-			content = createContent(content); 
-			
-			// sets the content id foreign key in each of the ContentModules to reflect the above creation
-			for (Link links : contentModules) {
-				links.setContentId(content.getId());
-			
-			
-			// CRUDrepository create. Needs iterable. Hence, Arrays.asList()
-			lr.saveAll(Arrays.asList(contentModules)); 
-			}
-			return content;
-			
-			
-		
+		// TODO
+		return null;
 	}
 
 	@Override
