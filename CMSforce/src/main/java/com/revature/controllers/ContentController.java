@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.entities.Content;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
-import com.revature.util.ContentWrapper;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
@@ -47,5 +46,15 @@ public class ContentController {
 		return contentService.getContentById(id);
 	}
 	
+
+
+
+	// Updates a specific content in the table 
+	// First assures that the content exists by its ID and if it does
+	// it will update that content
+	// @RequestMapping(value = "/content", method = RequestMethod.PUT)
+	// public Content updateContent(@RequestBody Content inputContent) {
+	// 	return contentService.updateContent(inputContent);
+	// }
 
 }
