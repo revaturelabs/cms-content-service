@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
-import com.revature.entities.Module;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
@@ -31,7 +29,15 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Content createContent(Content content) {
 		
+		
+		
 		Set<Link> links = content.getLinks();
+		
+		//If null links set, fail
+		if (links == null) {
+			throw new NullPointerException();
+		}
+		
 		content.setLinks(null);
 		content = cr.save(content);
 		
@@ -50,156 +56,15 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@LogException
 	public Set<Content> getAllContent() {
-		
-			// initialize 
 			Set<Content> contents = new HashSet<Content>();
-			
-			// populate contents Set via the iterable<Content> returned from cr.findAll()
 			cr.findAll().forEach(contents :: add);
-			
 			return contents;
-			
-		
 		}
 	
-
 	@Override
 	@LogException
-	public Content getContentById(int id) {
-		
-
-			// getting and returning content by id via CRUDrepository
-			return cr.findById(id).iterator().next();
-			
-		
-	}
-
-	@Override
-	@LogException
-	public Content updateContent(Content content) {
-		// TODO
-		return null;
-	}
-
-	@Override
-	@LogException
-	public Content addLinks(Content content, String[] subjects) {
-		
-		// initialize modules to be populated via the subjects String[]
-		Set<Module> modules = new HashSet<>();
-		
-		// finds the corresponding module for each subject in subjects
-		for (String subject : subjects) {
-			// populates modules from the iterable returned from the CRUDrepository
-			// Note that the iterable should consist of only one member
-			mr.findBysubject(subject).forEach(modules :: add); 
-		}
-		
-		// addContentModules requires an array of modules, the following modulesArr is used for that purpose
-		Module[] modulesArr = new Module[modules.size()];
-		
-		// basically a wrapper for the function it overloads
-		return addLinks(content, modules.toArray(modulesArr));		
-	}
-
-	@Override
-	@LogException
-	public Content addLinks(Content content, Module[] modules) {
-		
-			// initialize
-			Set<Link> link = new HashSet<Link>(); // this will contain the contentModules to be saved
-			Set<Link> LinkByContentID = new HashSet<Link>(); // this will contain all ContentModules for a content id
-			
-			// this populates contentModulesByContentID from the iterable returned from the cmr CRUDrepository
-			lr.findByContentId(content.getId()).forEach(LinkByContentID :: add);
-			
-			// this loop creates and adds ContentModules to the contentModules Set, which will eventually be saved to the DB
-			for (Module module : modules) {
-				// this flag allows us to prevent the addition of ContentModules 
-				// with the same foreign key entries as another entry in the DB.
-				// Note: Maybe it's better to fail to update if one of the ContentModules are already in the DB?
-				boolean alreadyExists = false;
-				
-				// this loop just marks the flag if it finds that there's already a ContentModule with the fk pair
-				for (Link Links : LinkByContentID) {
-					
-					if (Links.getModuleId() == module.getId()) { // Note no need to check content id
-						alreadyExists = true;
-						break; // no point in continuing the loop if alreadyExists is marked to true
-					}
-				}
-				
-				if (!alreadyExists) {
-					
-					// Note that the affiliation is set to "relevantTo" by default
-					link.add(new Link(0, content.getId(), module.getId(), "relevantTo"));
-				}
-
-			} 
-			lr.saveAll(link); // creates all of the content modules that weren't already in the DB, via CRUDrepository
-			
-		
-		return content; 
-	}
-
-	@Override
-	@LogException
-	public Content removeLinks(Content content, String[] subjects) {
-		
-		// initialize modules to be populated via the subjects String[]
-		Set<Module> modules = new HashSet<>();
-		
-		// finds the corresponding module for each subject in subjects
-		for(String subject : subjects) {
-			// populates modules from the iterable returned from the CRUDrepository
-			// Note that the iterable should consist of only one member
-			mr.findBysubject(subject).forEach(modules :: add);
-		}
-		
-		// removeContentModules requires an array of modules, the following modulesArr is used for that purpose
-		Module[] modulesArr = new Module[modules.size()];
-		
-		// basically a wrapper for the function it overloads
-		return removeLinks(content, modules.toArray(modulesArr));	
-	}
-
-	@Override
-	@LogException
-	public Content removeLinks(Content content, Module[] modules) {	
-		
-	
-			// initialize
-			Set<Link> links = new HashSet<Link>(); // this will contain the contentModules to be saved
-			Set<Link> linksByContentID = new HashSet<Link>(); // this will contain all ContentModules for a content id
-			
-			// this populates contentModulesByContentID from the iterable returned from the cmr CRUDrepository
-			lr.findByContentId(content.getId()).forEach(linksByContentID :: add);
-			
-			// this loop gets the ContentModules with each of the fk pairs and adds them to the contentModules Set
-			for(Module module : modules) {
-				for(Link link : linksByContentID) {
-					if(link.getModuleId() == module.getId()) { // Note: no need to check content id
-						links.add(link);
-						break; // there should only be one ContentModule with that fk pair, so breaking here is more efficient
-					}
-				}
-			} 
-			
-			// deletes all of the ContentModules in the contentModules Set in DB via CRUDrepository
-			lr.deleteAll(links);
-			
-		
-		return content; // returns the same content that was passed without changes	
-	}
-
-	@Override
-	@LogException
-	public boolean deleteContent(int id) {
-			// creating content using CRUDrepository
-			cr.deleteById(id);
-			
-			return true;
-		
+	public Content getContentById(int id) {	
+			return cr.findById(id).iterator().next();		
 	}
 
 }
