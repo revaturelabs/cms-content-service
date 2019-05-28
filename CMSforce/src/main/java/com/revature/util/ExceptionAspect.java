@@ -16,8 +16,7 @@ public class ExceptionAspect {
 Logging log;
 	@AfterThrowing("LogException()")
 	public void LogException(JoinPoint jp) {
-		System.out.println(jp.getArgs());
-		log.logger.info(jp.toString() + "This has been logged and terminated.");
+		log.logger.error(jp.toString(), "Issue in content Services");
 		
 		
 		

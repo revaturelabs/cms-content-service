@@ -16,9 +16,9 @@ logging:  config:
   pattern:
     file: "%d %-5level [%thread] %logger : %msg%n"
   level:   
-    org.springframework.web: ERROR
-    com.revature: DEBUG
-    org.hibernate: ERROR
+    root: off
+    com.revature: error
+
        
 server.servlet.contextPath: /CMSforce
 
