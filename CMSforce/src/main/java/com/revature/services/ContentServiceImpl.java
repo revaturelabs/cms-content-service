@@ -29,7 +29,15 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Content createContent(Content content) {
 		
+		
+		
 		Set<Link> links = content.getLinks();
+		
+		//If null links set, fail
+		if (links == null) {
+			throw new NullPointerException();
+		}
+		
 		content.setLinks(null);
 		content = cr.save(content);
 		
