@@ -10,6 +10,6 @@ public interface ModuleService {
 	
 	public Module getModuleById(int id);
 	
-	public Module createModule(Module mod);
+	public Module createModule(Module module);
 	
 }
