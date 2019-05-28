@@ -64,26 +64,6 @@ class ContentServiceTest {
 		assertNotNull(cs.getContentById(id));
 	}
 
-	@Test
-	@Order(5)
-	void testUpdateContent() {
-		Set<Content> allContents = cs.getAllContent();		
-		Iterator<Content> iter = allContents.iterator();
-		Content first = iter.next();
-		int id = first.getId();
-		assertNotNull(cs.updateContent(new Content(id, "Updated Title", "Code", "Updated Description", "Updated URL", null)));
-	}
-
-	@Test
-	@Order(6)
-	void testAddLinks() {
-		Set<Content> allContents = cs.getAllContent();
-		
-		Iterator<Content> iter = allContents.iterator();
-		Content first = iter.next();		
-		
-		assertNotNull(cs.addLinks(first, new String[]{"JavaScript"}));
-	}
 
 //	@Test
 //	@Order(7)
@@ -100,19 +80,7 @@ class ContentServiceTest {
 //		assertNull(cs.removeLinks(first, new String[]{"JavaScript"}));
 //	}
 
-	@Test
-	@Order(8)
-	void testDeleteContent() {
-		Set<Content> allContents = cs.getAllContent();
-		
-		Iterator<Content> iter = allContents.iterator();
-		Content first = iter.next();
-		int id = first.getId();
-		
-		cs.deleteContent(id);
-		assertNull(cs.getContentById(id));
-	}
-	
+
 	@Test
 	void passes() {
 		assertTrue(1==1);

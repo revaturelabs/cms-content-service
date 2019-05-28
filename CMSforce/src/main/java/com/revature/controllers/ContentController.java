@@ -3,6 +3,7 @@ package com.revature.controllers;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class ContentController {
 	@Autowired
 	ModuleService moduleService;
 	
-	@RequestMapping(value = "/content", method = RequestMethod.POST) 
+	@RequestMapping(value = "/content", method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public Content createContent(@RequestBody Content content ){
 		
 		content = contentService.createContent(content);
@@ -46,11 +47,5 @@ public class ContentController {
 		return contentService.getContentById(id);
 	}
 	
-	// Updates a specific content in the table 
-	// First assures that the content exists by its ID and if it does
-	// it will update that content
-	@RequestMapping(value = "/content", method = RequestMethod.PUT)
-	public Content updateContent(@RequestBody Content inputContent) {
-		return contentService.updateContent(inputContent);
-	}
+
 }
