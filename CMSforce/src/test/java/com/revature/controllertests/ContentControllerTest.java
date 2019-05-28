@@ -20,12 +20,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.services.ContentService;
 
 import aj.org.objectweb.asm.Attribute;
+import net.minidev.json.parser.JSONParser;
 
 import org.mockito.Mockito;
 
@@ -43,6 +47,22 @@ class ContentControllerTest {
 	@MockBean
 	ContentService cs;
 	
+	@Autowired
+	Gson gson;
+	
+	@Test
+	void createContent() throws Exception {
+		String JSON = "{\"id\":88,\"title\":\"Dadaism\",\"format\":\"Ironing Board\",\"description\":\"Anti-art\",\"url\":\"www.dadaism.test\",\"links\":[{\"id\":12,\"contentId\":88,\"moduleId\":3,\"affiliation\":\"relaventTo\"}]}";
+		Content cont = gson.fromJson(JSON, Content.class);
+		Mockito.when(cs.createContent(cont)).thenReturn(cont);
+		ResultActions resultActions = mockmvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE).content(JSON));
+		resultActions.andExpect(status().isOk());
+		String JOH = gson.toJson(cont);
+		resultActions.andExpect(content().string(JOH));
+	}
+		
+	
+	
 	@Test
 	void getAllContent() throws Exception {
 
@@ -53,6 +73,15 @@ class ContentControllerTest {
 //		System.err.println(resultActions.andReturn().getResponse().getContentAsString());
 		
 	} 
+	
+	@Test
+	void getContentById() throws Exception {
+		
+		Mockito.when(cs.getContentById(88)).thenReturn(this.fakeContents().iterator().next());
+		ResultActions resultActions = mockmvc.perform(get("/content/88"));
+		resultActions.andExpect(status().isOk());
+		
+	}
 	
 	private Set<Content> fakeContents(){
 		

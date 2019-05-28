@@ -86,11 +86,27 @@ class ContentServiceTest {
 		Iterator<Content> iter = allContents.iterator();
 		Content first = iter.next();
 		int id = first.getId();
-		assertNull(cs.getContentById(-1));
 		assertNotNull(cs.getContentById(id));
 	}
 
-	
+
+//	@Test
+//	@Order(7)
+//	void testRemoveLinks() {
+//		Set<Content> allContents = ss.filterContentBySubjects(new String[]{"JavaScript"});
+//		
+//		Iterator<Content> iter = allContents.iterator();
+//		Content first = iter.next();		
+//		
+//		System.out.println(allContents.size());
+//		System.out.println(first);
+//		
+//		assertNotNull(cs.removeLinks(first, new String[]{"JavaScript"}));
+//		assertNull(cs.removeLinks(first, new String[]{"JavaScript"}));
+//	}
+
+
+
 	@Test
 	@Commit
 	@Order(6)
