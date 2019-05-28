@@ -56,7 +56,7 @@ class RepositoriesSmokeTest {
 	@Commit
 	@Order(1)
 	void deleteAllfromDatabase() {
-		
+				
 		JdbcTestUtils.deleteFromTables(template, "content");
 		JdbcTestUtils.deleteFromTables(template, "module");
 		JdbcTestUtils.deleteFromTables(template, "content_module");

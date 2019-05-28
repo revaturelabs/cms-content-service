@@ -47,8 +47,8 @@ public class ContentServiceImpl implements ContentService {
 		
 		lr.saveAll(links);
 		
-		content.setLinks(links);
-		
+		content.setLinks(links);		
+
 		return content;
 	}
 	
