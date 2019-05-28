@@ -14,6 +14,7 @@ import com.revature.entities.Module;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.util.LogException;
 
 @Service
 @Transactional
@@ -26,6 +27,7 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	ModuleRepository mr;
 
+	@LogException
 	@Override
 	public Content createContent(Content content) {
 		
@@ -46,9 +48,9 @@ public class ContentServiceImpl implements ContentService {
 	
 
 	@Override
+	@LogException
 	public Set<Content> getAllContent() {
 		
-		try {
 			// initialize 
 			Set<Content> contents = new HashSet<Content>();
 			
@@ -57,29 +59,25 @@ public class ContentServiceImpl implements ContentService {
 			
 			return contents;
 			
-		} catch(Exception e) {
-			e.printStackTrace();
-			return null;
+		
 		}
-	}
+	
 
 	@Override
+	@LogException
 	public Content getContentById(int id) {
 		
-		try {
+
 			// getting and returning content by id via CRUDrepository
 			return cr.findById(id).iterator().next();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		
 	}
 
 	@Override
+	@LogException
 	public Content updateContent(Content content) {
-		try {
-			// the following "if" prevents creation (instead of update) by checking that the 
+			// the following "if" prevents creation (instead of update) by checking that the 	
 			// content isn't already in the database before saving
 			if (cr.findById(content.getId()) != null) { 
 				return cr.save(content); // CRUDrepository create content
@@ -87,37 +85,33 @@ public class ContentServiceImpl implements ContentService {
 			} else {
 				return null;	
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+
 	}
 	
 	@Override
+	@LogException
 	public Content addContentAndLinks(Content content, Link[] contentModules) {
 		
-		try {
+		
 			// calls createContent in this service, return updated content id, as its stored in the database
 			content = createContent(content); 
 			
 			// sets the content id foreign key in each of the ContentModules to reflect the above creation
 			for (Link links : contentModules) {
 				links.setContentId(content.getId());
-			}
+			
 			
 			// CRUDrepository create. Needs iterable. Hence, Arrays.asList()
 			lr.saveAll(Arrays.asList(contentModules)); 
-			
+			}
 			return content;
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+			
+		
 	}
 
 	@Override
+	@LogException
 	public Content addLinks(Content content, String[] subjects) {
 		
 		// initialize modules to be populated via the subjects String[]
@@ -138,9 +132,9 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
+	@LogException
 	public Content addLinks(Content content, Module[] modules) {
 		
-		try {
 			// initialize
 			Set<Link> link = new HashSet<Link>(); // this will contain the contentModules to be saved
 			Set<Link> LinkByContentID = new HashSet<Link>(); // this will contain all ContentModules for a content id
@@ -173,14 +167,12 @@ public class ContentServiceImpl implements ContentService {
 			} 
 			lr.saveAll(link); // creates all of the content modules that weren't already in the DB, via CRUDrepository
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}	
+		
 		return content; 
 	}
 
 	@Override
+	@LogException
 	public Content removeLinks(Content content, String[] subjects) {
 		
 		// initialize modules to be populated via the subjects String[]
@@ -201,9 +193,10 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 	@Override
+	@LogException
 	public Content removeLinks(Content content, Module[] modules) {	
 		
-		try {
+	
 			// initialize
 			Set<Link> links = new HashSet<Link>(); // this will contain the contentModules to be saved
 			Set<Link> linksByContentID = new HashSet<Link>(); // this will contain all ContentModules for a content id
@@ -224,24 +217,18 @@ public class ContentServiceImpl implements ContentService {
 			// deletes all of the ContentModules in the contentModules Set in DB via CRUDrepository
 			lr.deleteAll(links);
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}	
+		
 		return content; // returns the same content that was passed without changes	
 	}
 
 	@Override
+	@LogException
 	public boolean deleteContent(int id) {
-		try {
 			// creating content using CRUDrepository
 			cr.deleteById(id);
 			
 			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+		
 	}
 
 }
