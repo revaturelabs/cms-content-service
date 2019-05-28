@@ -10,7 +10,7 @@ spring:
        show-sql: true
        
 logging:  config:
-  file: src/main/resources/exampleLog.html
+  file: src/main/resources/ErrorLog.html
   
   
   pattern:
