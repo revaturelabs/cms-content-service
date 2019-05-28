@@ -1,4 +1,4 @@
-       
+
 spring:
   datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
@@ -9,13 +9,15 @@ spring:
      hibernate:
        show-sql: true
        
-logging:  config:
+logging:
+  config:
   file: src/main/resources/ErrorLog.html
   
   
   pattern:
     file: "%d %-5level [%thread] %logger : %msg%n"
-  level:   
+  level:
+   
     root: off
     com.revature: error
 
@@ -29,4 +31,4 @@ server.servlet.contextPath: /CMSforce
       
 
 
-      
+
