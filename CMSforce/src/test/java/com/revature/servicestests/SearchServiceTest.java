@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -50,6 +52,9 @@ class SearchServiceTest {
 		
 		String title = first.getTitle();
 		assertNotNull(ss.filterContentByTitle(title));
+		
+		assertEquals(1, ss.filterContentByTitle(title).size());
+		assertEquals(0, ss.filterContentByTitle("NON EXISTENT TITLE").size());
 	}
 
 	@Test
@@ -59,7 +64,8 @@ class SearchServiceTest {
 		Content first = iter.next();
 		
 		String format = first.getFormat();
-		assertNotNull(ss.filterContentByTitle(format));
+		assertEquals(1, ss.filterContentByFormat(format).size());
+		assertEquals(0, ss.filterContentByFormat("NON EXISTENT FORMAT").size());
 	}
 
 	@Test
@@ -68,8 +74,23 @@ class SearchServiceTest {
 		Iterator<Module> iter = lst.iterator();
 		Module first = iter.next();
 		
-		String subject = first.getSubject();
-		assertNotNull(ss.filterContentByTitle(subject));
+		int modId = first.getLinks().iterator().next().getModuleId();
+		List<Integer> modIdArray = new ArrayList();
+		modIdArray.add(modId);
+		
+		List<Integer> modIdArray2 = new ArrayList();
+		modIdArray2.add(-1);
+		
+		// to test filter content with only 1 subject
+		assertEquals(1, ss.filterContentBySubjects(modIdArray).size());
+		modId = first.getLinks().iterator().next().getModuleId();
+		modIdArray.add(modId);
+		
+		// to test filter content with more than one subject
+		assertEquals(1, ss.filterContentBySubjects(modIdArray).size());
+		
+		// tests filter content by Subject with non-existent subject
+		assertEquals(0, ss.filterContentBySubjects(modIdArray2).size());
 	}
 
 	@Test
