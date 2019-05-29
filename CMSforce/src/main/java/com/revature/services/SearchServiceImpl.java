@@ -49,7 +49,7 @@ public class SearchServiceImpl implements SearchService {
 			ids.add(link.getContentId());
 		}
 		for(int i = 1; i < moduleIds.size(); i++) {
-			LinksByModuleID = lr.findByModuleId(moduleIds.get(0));
+			LinksByModuleID = lr.findByModuleId(moduleIds.get(i));
 			for(Link link : LinksByModuleID) {
 				ids_temp.add(link.getContentId());
 			}
