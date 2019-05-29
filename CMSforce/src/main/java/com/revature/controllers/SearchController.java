@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
@@ -27,7 +26,6 @@ public class SearchController {
 	public Set<Content> filter(@RequestBody Map<String, Object> body) {
 		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
 		System.out.println(lst);
-//		return null;
 		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);
 	}
 }
