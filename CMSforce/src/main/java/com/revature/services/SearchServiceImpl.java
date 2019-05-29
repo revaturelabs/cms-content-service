@@ -1,6 +1,8 @@
 package com.revature.services;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class SearchServiceImpl implements SearchService {
 	ModuleRepository mr;
 	@Autowired
 	LinkRepository lr;
+	@Autowired
+	ContentServiceImpl csi;
 
 	@Override
 	public Set<Content> filterContentByTitle(String title) {
@@ -33,19 +37,19 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public Set<Content> filterContentBySubjects(int[] moduleIds) {
+	public Set<Content> filterContentBySubjects(List<Integer> moduleIds) {
 		// contents set to return
 		Set<Content> contents = new HashSet<Content>();
 		
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> ids_temp = new HashSet<>();
 		
-		Set<Link> LinksByModuleID = lr.findByModuleId(moduleIds[0]);
+		Set<Link> LinksByModuleID = lr.findByModuleId(moduleIds.get(0));
 		for(Link link : LinksByModuleID) {
 			ids.add(link.getContentId());
 		}
-		for(int i = 1; i < moduleIds.length; i++) {
-			LinksByModuleID = lr.findByModuleId(moduleIds[0]);
+		for(int i = 1; i < moduleIds.size(); i++) {
+			LinksByModuleID = lr.findByModuleId(moduleIds.get(0));
 			for(Link link : LinksByModuleID) {
 				ids_temp.add(link.getContentId());
 			}
@@ -65,5 +69,41 @@ public class SearchServiceImpl implements SearchService {
 		System.out.println(contents);
 		return contents;
 	}
-
+	
+	@Override
+	public Set<Content> filter(String title, String format, List<Integer> modules) {
+		Set<Content> selectedContent = new HashSet<Content>();
+		Set<Content> tempSet = new HashSet<Content>();
+		if (modules.size() == 0) {
+			selectedContent = csi.getAllContent();
+		}
+		else {
+			selectedContent = this.filterContentBySubjects(modules);
+		}
+		if (title != null) {
+			Iterator<Content> contentIterator = selectedContent.iterator();
+			while(contentIterator.hasNext()) {
+				Content tempContent = contentIterator.next();
+				if(tempContent.getTitle().contains(title)) {
+					tempSet.add(tempContent);
+				}
+			}
+			selectedContent = tempSet;
+			tempSet.clear();
+		}
+		if (format != null) {
+			Iterator<Content> contentIterator = selectedContent.iterator();
+			while(contentIterator.hasNext()) {
+				Content tempContent = contentIterator.next();
+				if(tempContent.getFormat().contains(format)) {
+					tempSet.add(tempContent);
+				}
+			}
+			selectedContent = tempSet;
+			tempSet.clear();
+		}
+		return selectedContent;
+	}
 }
+
+	

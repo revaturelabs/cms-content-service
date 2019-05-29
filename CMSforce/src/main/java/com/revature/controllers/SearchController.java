@@ -1,10 +1,13 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,11 +24,10 @@ public class SearchController {
 	SearchService searchService;
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public Set<Content> filter(@RequestParam String title, @RequestParam String format, @RequestParam List<String> subjects) {
-//		return searchService.filterContentByTitle(requestBody);
-		System.out.println("title: " + title);
-		System.out.println("format: " + format);
-		System.out.println("subjects: " + subjects);
-		return null;
+	public Set<Content> filter(@RequestBody Map<String, Object> body) {
+		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
+		System.out.println(lst);
+//		return null;
+		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);
 	}
 }
