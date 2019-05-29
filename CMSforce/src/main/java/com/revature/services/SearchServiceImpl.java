@@ -49,7 +49,7 @@ public class SearchServiceImpl implements SearchService {
 			ids.add(link.getContentId());
 		}
 		for(int i = 1; i < moduleIds.size(); i++) {
-			LinksByModuleID = lr.findByModuleId(moduleIds.get(0));
+			LinksByModuleID = lr.findByModuleId(moduleIds.get(i));
 			for(Link link : LinksByModuleID) {
 				ids_temp.add(link.getContentId());
 			}
@@ -72,16 +72,20 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Override
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
+		
 		Set<Content> selectedContent = new HashSet<Content>();
 		Set<Content> tempSet = new HashSet<Content>();
+		
 		if (modules.size() == 0) {
 			selectedContent = csi.getAllContent();
 		}
 		else {
 			selectedContent = this.filterContentBySubjects(modules);
 		}
-		if (title != null) {
+		
+		if (!title.equalsIgnoreCase("")) {
 			Iterator<Content> contentIterator = selectedContent.iterator();
+			
 			while(contentIterator.hasNext()) {
 				Content tempContent = contentIterator.next();
 				if(tempContent.getTitle().contains(title)) {
@@ -89,19 +93,19 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 			selectedContent = tempSet;
-			tempSet.clear();
 		}
-		if (format != null) {
+		
+		if (!format.equalsIgnoreCase("")) {
 			Iterator<Content> contentIterator = selectedContent.iterator();
-			while(contentIterator.hasNext()) {
+			while (contentIterator.hasNext()) {
 				Content tempContent = contentIterator.next();
-				if(tempContent.getFormat().contains(format)) {
+				if (tempContent.getFormat().contains(format)) {
 					tempSet.add(tempContent);
 				}
 			}
 			selectedContent = tempSet;
-			tempSet.clear();
 		}
+		
 		return selectedContent;
 	}
 }
