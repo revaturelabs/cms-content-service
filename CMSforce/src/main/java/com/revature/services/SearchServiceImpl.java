@@ -76,21 +76,12 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> selectedContent = new HashSet<Content>();
 		Set<Content> tempSet = new HashSet<Content>();
 		
-		//
-		System.out.println(title);
-		System.out.println(format);
-		System.out.println(modules);
-		//
-		
 		if (modules.size() == 0) {
 			selectedContent = csi.getAllContent();
 		}
 		else {
 			selectedContent = this.filterContentBySubjects(modules);
 		}
-
-		//
-		System.out.println(selectedContent);
 		
 		if (!title.equalsIgnoreCase("")) {
 			Iterator<Content> contentIterator = selectedContent.iterator();
@@ -102,11 +93,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 			selectedContent = tempSet;
-			tempSet.clear();
 		}
-		
-		//
-		System.out.println(selectedContent);
 		
 		if (!format.equalsIgnoreCase("")) {
 			Iterator<Content> contentIterator = selectedContent.iterator();
@@ -117,11 +104,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 			selectedContent = tempSet;
-			tempSet.clear();
 		}
-		
-		///////
-		System.out.println(selectedContent);
 		
 		return selectedContent;
 	}

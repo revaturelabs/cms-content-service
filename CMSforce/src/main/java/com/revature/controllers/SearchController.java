@@ -25,7 +25,7 @@ public class SearchController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public Set<Content> filter(@RequestBody Map<String, Object> body) {
 		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
-		System.out.println(lst);
+		//System.out.println(lst);
 		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);
 	}
 }
