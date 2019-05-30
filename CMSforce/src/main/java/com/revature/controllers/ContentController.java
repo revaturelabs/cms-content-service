@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.entities.Content;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
+import com.revature.util.LogCreation;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
@@ -25,6 +26,7 @@ public class ContentController {
 	@Autowired
 	ModuleService moduleService;
 	
+	@LogCreation
 	@RequestMapping(value = "/content", method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public Content createContent(@RequestBody Content content ){
 		

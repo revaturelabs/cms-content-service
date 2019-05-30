@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import com.revature.entities.Link;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.util.LogCreation;
 import com.revature.util.LogException;
 
 @Service
