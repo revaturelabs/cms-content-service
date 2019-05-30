@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "content_module")
+@Table(name = "link")
 public class Link {
 	
 	@Id
