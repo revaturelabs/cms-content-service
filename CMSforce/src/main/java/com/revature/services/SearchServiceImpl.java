@@ -24,7 +24,7 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	LinkRepository lr;
 	@Autowired
-	ContentServiceImpl csi;
+	ContentService csi;
 
 	@Override
 	public Set<Content> filterContentByTitle(String title) {
