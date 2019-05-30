@@ -22,7 +22,7 @@ subject varchar2 (200) unique,
 created number (20)
 );
 
-create table content_module(
+create table link(
 cm_id number (10) primary key,
 fk_c number (10) ,
 affiliation varchar2 (200),
