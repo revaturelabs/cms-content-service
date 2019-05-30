@@ -15,15 +15,15 @@ public class ContentCreationAspect {
 	@Autowired
 	Logging log;
 	
-	@AfterReturning("CreationLogging()")
+	@AfterReturning("LogCreation()")
 	public void LogAnnotation(JoinPoint jp) {
 		
 		log.logger.info("A piece of content has been created " + jp.toString());;
 		
 	}
 	
-	@Pointcut("@annotation(com.revature.util.CreationLogging)")
-	private void CreationLogging() {
+	@Pointcut("@annotation(com.revature.util.LogCreation)")
+	private void LogCreation() {
 		
 	}
 	
