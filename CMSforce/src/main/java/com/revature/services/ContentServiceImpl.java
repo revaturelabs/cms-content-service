@@ -27,15 +27,19 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	ModuleRepository mr;
 
+	/**
+	 * createContent first inserts the content to the database
+	 * then iterates over the set of links that are within the content
+	 * and replaces the fk of content id with the correct content id
+	 * then adds the set of links to the link table. 
+	 */
 	//@LogException
 	@Override
 	public Content createContent(Content content) {
 		
-		
-		
 		Set<Link> links = content.getLinks();
 		
-		//If null links set, fail
+		
 		if (links == null) {
 			throw new NullPointerException();
 		}
@@ -55,6 +59,9 @@ public class ContentServiceImpl implements ContentService {
 	}
 	
 
+	/**
+	 * Get all the content from the database and passes a set of content objects
+	 */
 	@Override
 	//@LogException
 	public Set<Content> getAllContent() {
@@ -63,6 +70,10 @@ public class ContentServiceImpl implements ContentService {
 			return contents;
 		}
 	
+	/**
+	 * get content from the data base that match a passed in id
+	 * then returns the content with that id.
+	 */
 	@Override
 	//@LogException
 	public Content getContentById(int id) {	
