@@ -15,6 +15,10 @@ public class ModuleServiceImpl implements ModuleService {
 	@Autowired
 	ModuleRepository mr;
 
+	/**
+	 * Get all the modules in the database and returns a set
+	 * of module objects.
+	 */
 	@Override
 	public Set<Module> getAllModules() {
 		Set<Module> modules = new HashSet<Module>();
@@ -22,11 +26,19 @@ public class ModuleServiceImpl implements ModuleService {
 		return modules;
 	}
 
+	/**
+	 * Get a module from the database that matches the id passed in\
+	 * then returns a module object.
+	 */
 	@Override
 	public Module getModuleById(int id) {
 		return mr.findById(id).get();
 	}
 
+	/**
+	 * Take the module passed in and change the created value 
+	 * to the current time then add it to the database.
+	 */
 	@Override
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
