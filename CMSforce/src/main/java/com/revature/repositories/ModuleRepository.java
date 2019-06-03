@@ -12,4 +12,5 @@ public interface ModuleRepository extends CrudRepository<Module,Integer>{
 
 	//Gets modules by subject
 	Set<Module> findBysubject(String subject);
+	Module findById(int id);
 }
