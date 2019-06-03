@@ -1,13 +1,7 @@
 package com.revature.smoketests;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Set;
-
-import javax.sql.DataSource;
-
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -19,9 +13,10 @@ import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
 import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
+
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
@@ -51,23 +46,14 @@ class RepositoriesSmokeTest {
 	@Autowired
 	JdbcTemplate template;
 	
+	int rows;
+	
 	
 	@Test
 	@Commit
 	@Order(1)
-	void deleteAllfromDatabase() {
-				
-		JdbcTestUtils.deleteFromTables(template, "content");
-		JdbcTestUtils.deleteFromTables(template, "module");
-		JdbcTestUtils.deleteFromTables(template, "content_module");
-		
-	}
-	
-	
-	@Test
-	@Commit
-	@Order(2)
 	void sampleWalkthrough() {
+		rows = JdbcTestUtils.countRowsInTable(template, "link");
 		
 		Module module1 = new Module(1, "flaming", 0, null);
 		mr.save(module1);
@@ -91,17 +77,25 @@ class RepositoriesSmokeTest {
 	
 	@Test	
 	@Rollback
-	@Order(3)
+	@Order(2)
 	public void recordNumberVerification() {
 		
-		int contentnum = JdbcTestUtils.countRowsInTable(template, "content");
-		int modulenum = JdbcTestUtils.countRowsInTable(template, "module");
-		int linknum = JdbcTestUtils.countRowsInTable(template, "content_module");
+		int contentnum = JdbcTestUtils.countRowsInTableWhere(template, "content", "title = 'Flaming Elmo Hello World'");
+		int modulenum = JdbcTestUtils.countRowsInTableWhere(template, "module", "subject = 'flaming' or subject = 'elmo'");
 		
 		Assertions.assertEquals(1, contentnum, "Content should be 1");
 		Assertions.assertEquals(2, modulenum, "module should be 2");
-		Assertions.assertEquals(2, linknum, "link should be 2");
+		Assertions.assertEquals(rows + 2, JdbcTestUtils.countRowsInTable(template, "link"));
 		
+	}
+	
+	@Test
+	@Commit
+	@Order(3)
+	void deleteTestData() {
+		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'flaming'");
+		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'elmo'");
+		JdbcTestUtils.deleteFromTableWhere(template, "content", "title = 'Flaming Elmo Hello World'");
 	}
 	
 	
