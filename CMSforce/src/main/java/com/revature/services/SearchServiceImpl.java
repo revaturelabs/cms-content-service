@@ -48,20 +48,20 @@ public class SearchServiceImpl implements SearchService {
 		/**
 		 * a set of content that will be returned
 		 */
-		Set<Content> contents = new HashSet<Content>();
+		Set<Content> contents = new HashSet<>();
 		/**
 		 * Temporary sets to hold integers while searching
 		 */
 		Set<Integer> ids = new HashSet<>();
-		Set<Integer> ids_temp = new HashSet<>();
+		Set<Integer> idsTemp = new HashSet<>();
 		
 		/**
 		 * create a set of links that have a moduleID of the first element
 		 * of the list that is passed into the method and adds it to 
 		 * a temporary set of ids.
 		 */
-		Set<Link> LinksByModuleID = lr.findByModuleId(moduleIds.get(0));
-		for(Link link : LinksByModuleID) {
+		Set<Link> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
+		for(Link link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
 		/**
@@ -70,11 +70,11 @@ public class SearchServiceImpl implements SearchService {
 		 * a that of the list that was already made.
 		 */
 		for(int i = 1; i < moduleIds.size(); i++) {
-			LinksByModuleID = lr.findByModuleId(moduleIds.get(i));
-			for(Link link : LinksByModuleID) {
-				ids_temp.add(link.getContentId());
+			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
+			for(Link link : linksByModuleID) {
+				idsTemp.add(link.getContentId());
 			}
-			ids.retainAll(ids_temp);
+			ids.retainAll(idsTemp);
 		}
 		
 		/**
@@ -93,11 +93,10 @@ public class SearchServiceImpl implements SearchService {
 	 * the moduleID.
 	 */
 	@Override
-	public Set<Content> getContentByModuleId(int ModuleId) {
-		Set<Link> links = lr.findByModuleId(ModuleId);
+	public Set<Content> getContentByModuleId(int moduleId) {
+		Set<Link> links = lr.findByModuleId(moduleId);
 		int contentId = links.iterator().next().getContentId();
-		Set<Content> contents = cr.findById(contentId);
-		return contents;
+		return cr.findById(contentId);
 	}
 	/**
 	 * Filter takes a content title, content format and/or
@@ -110,12 +109,12 @@ public class SearchServiceImpl implements SearchService {
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 		
 		Set<Content> selectedContent;
-		Set<Content> tempSet = new HashSet<Content>();
+		Set<Content> tempSet = new HashSet<>();
 		/**
 		 * check if the array passed in was empty and populating the initial 
 		 * set of content
 		 */
-		if (modules.size() == 0) {
+		if (modules.isEmpty()) {
 			selectedContent = csi.getAllContent();
 		}
 		else {

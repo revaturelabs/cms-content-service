@@ -48,7 +48,7 @@ class ContentServiceTest {
 	void deleteAllfromDatabase() {				
 		JdbcTestUtils.deleteFromTables(template, "content");
 		JdbcTestUtils.deleteFromTables(template, "module");
-		JdbcTestUtils.deleteFromTables(template, "content_module");		
+		JdbcTestUtils.deleteFromTables(template, "link");		
 	}	
 	
 	@Test
