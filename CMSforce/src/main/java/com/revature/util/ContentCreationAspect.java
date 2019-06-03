@@ -17,7 +17,7 @@ public class ContentCreationAspect {
 	@AfterReturning("LogCreation()")
 	public void LogAnnotation(JoinPoint jp) {
 		
-		log.logger.info("A piece of content has been created " + jp.toString());;
+		log.logger.info("A piece of content has been created " + jp.toString());
 		
 	}
 	

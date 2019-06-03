@@ -32,7 +32,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 */
 	@Override
 	public Module getModuleById(int id) {
-		return mr.findById(id).get();
+		return mr.findById(id);
 	}
 
 	/**
