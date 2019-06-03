@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Configuration
 public class Logging {
 		
-		final public Logger logger = LoggerFactory.getLogger(this.getClass());
+		public final Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		
 		public void log() {

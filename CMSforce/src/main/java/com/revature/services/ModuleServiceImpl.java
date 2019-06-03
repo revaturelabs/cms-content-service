@@ -21,7 +21,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 */
 	@Override
 	public Set<Module> getAllModules() {
-		Set<Module> modules = new HashSet<Module>();
+		Set<Module> modules = new HashSet<>();
 		mr.findAll().forEach(modules :: add);
 		return modules;
 	}
