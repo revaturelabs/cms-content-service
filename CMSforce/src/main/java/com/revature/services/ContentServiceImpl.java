@@ -12,7 +12,6 @@ import com.revature.entities.Link;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
-import com.revature.util.LogCreation;
 import com.revature.util.LogException;
 
 @Service
@@ -64,7 +63,7 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	//@LogException
 	public Set<Content> getAllContent() {
-			Set<Content> contents = new HashSet<Content>();
+			Set<Content> contents = new HashSet<>();
 			cr.findAll().forEach(contents :: add);
 			return contents;
 		}

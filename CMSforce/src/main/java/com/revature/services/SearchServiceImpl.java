@@ -97,7 +97,6 @@ public class SearchServiceImpl implements SearchService {
 		Set<Link> links = lr.findByModuleId(ModuleId);
 		int contentId = links.iterator().next().getContentId();
 		Set<Content> contents = cr.findById(contentId);
-		System.out.println(contents);
 		return contents;
 	}
 	/**
@@ -110,7 +109,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 		
-		Set<Content> selectedContent = new HashSet<Content>();
+		Set<Content> selectedContent;
 		Set<Content> tempSet = new HashSet<Content>();
 		/**
 		 * check if the array passed in was empty and populating the initial 
