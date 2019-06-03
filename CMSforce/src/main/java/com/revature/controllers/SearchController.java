@@ -23,7 +23,7 @@ public class SearchController {
 	@Autowired
 	SearchService searchService;
 	
-	@PostMapping
+	@PostMapping("/search")
 	public Set<Content> filter(@RequestBody Map<String, Object> body) {
 		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
 		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);

@@ -37,14 +37,14 @@ public class ContentController {
 	
 	// Returns a set of contents 
 	// Finds all the content in the repository 
-	@GetMapping
+	@GetMapping("/content")
 	public Set<Content> getAllContent() {
 		return contentService.getAllContent();
 	}
 	
 	// Returns content depending on what ID is passed in
 	// Uses the findById method in the repository
-	@GetMapping
+	@GetMapping("/content/{id}")
 	public Content getContentById(@PathVariable int id) {
 		return contentService.getContentById(id);
 	}

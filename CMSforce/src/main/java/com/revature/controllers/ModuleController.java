@@ -22,17 +22,17 @@ public class ModuleController {
 	@Autowired
 	ModuleService moduleService;
 	
-	@GetMapping
+	@GetMapping("/module")
 	public Set<Module> getAllModules() {
 		return moduleService.getAllModules();
 	}
 	
-	@GetMapping
+	@GetMapping("/module/{id}")
 	public Module getModuleById(@PathVariable int id) {
 		return moduleService.getModuleById(id);
 	}
 	
-	@PostMapping
+	@PostMapping("/module")
 	public Module createModule(@RequestBody Module module) {
 		return moduleService.createModule(module);
 	}
