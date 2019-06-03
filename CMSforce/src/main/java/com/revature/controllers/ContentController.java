@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,14 +37,14 @@ public class ContentController {
 	
 	// Returns a set of contents 
 	// Finds all the content in the repository 
-	@RequestMapping(value = "/content", method = RequestMethod.GET)
+	@GetMapping("/content")
 	public Set<Content> getAllContent() {
 		return contentService.getAllContent();
 	}
 	
 	// Returns content depending on what ID is passed in
 	// Uses the findById method in the repository
-	@RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
+	@GetMapping("/content/{id}")
 	public Content getContentById(@PathVariable int id) {
 		return contentService.getContentById(id);
 	}
