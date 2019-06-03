@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import com.revature.services.ModuleService;
 import com.revature.util.LogCreation;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
+@Transactional
 @RestController
 public class ContentController {
 
