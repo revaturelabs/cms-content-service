@@ -13,7 +13,6 @@ public interface SearchService {
 	
 	public Set<Content> filterContentBySubjects(List<Integer> moduleIds);
 	
-	// TODO needs to get all contents, wait for tests
 	public Set<Content> getContentByModuleId(int ModuleId);
 	
 	public Set<Content> filter(String title, String format, List<Integer> modules);
