@@ -13,6 +13,7 @@ import com.revature.entities.Link;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.util.LogException;
 
 @Service
 public class SearchServiceImpl implements SearchService {
@@ -27,11 +28,13 @@ public class SearchServiceImpl implements SearchService {
 	ContentService csi;
 
 	@Override
+	@LogException
 	public Set<Content> filterContentByTitle(String title) {
 		return cr.findByTitle(title); 
 	}
 
 	@Override
+	@LogException
 	public Set<Content> filterContentByFormat(String format) {
 		return cr.findByFormat(format); 
 	}
@@ -44,6 +47,7 @@ public class SearchServiceImpl implements SearchService {
 	 * The method uses AND logic. 
 	 */
 	@Override
+	@LogException
 	public Set<Content> filterContentBySubjects(List<Integer> moduleIds) {
 		/**
 		 * a set of content that will be returned
@@ -93,6 +97,7 @@ public class SearchServiceImpl implements SearchService {
 	 * the moduleID.
 	 */
 	@Override
+	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
 		Set<Link> links = lr.findByModuleId(moduleId);
 		int contentId = links.iterator().next().getContentId();
@@ -106,6 +111,7 @@ public class SearchServiceImpl implements SearchService {
 	 * If an input is empty it is ignored and is not part of the logic.
 	 */
 	@Override
+	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 		
 		Set<Content> selectedContent;

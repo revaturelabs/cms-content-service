@@ -31,7 +31,7 @@ public class ContentServiceImpl implements ContentService {
 	 * and replaces the fk of content id with the correct content id
 	 * then adds the set of links to the link table. 
 	 */
-	//@LogException
+	@LogException
 	@Override
 	public Content createContent(Content content) {
 		
@@ -61,7 +61,7 @@ public class ContentServiceImpl implements ContentService {
 	 * Get all the content from the database and passes a set of content objects
 	 */
 	@Override
-	//@LogException
+	@LogException
 	public Set<Content> getAllContent() {
 			Set<Content> contents = new HashSet<>();
 			cr.findAll().forEach(contents :: add);
@@ -73,7 +73,7 @@ public class ContentServiceImpl implements ContentService {
 	 * then returns the content with that id.
 	 */
 	@Override
-	//@LogException
+	@LogException
 	public Content getContentById(int id) {	
 			return cr.findById(id).iterator().next();		
 	}

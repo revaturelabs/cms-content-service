@@ -23,6 +23,8 @@ logging:
 
        
 server.servlet.contextPath: /CMSforce
+server:
+  port: 9001
 
 
 
