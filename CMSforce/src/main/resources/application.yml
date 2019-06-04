@@ -19,10 +19,12 @@ logging:
   level:
    
     root: on
-    com.revature: error
+    com.revature: error, info
 
        
 server.servlet.contextPath: /CMSforce
+server:
+  port: 9001
 
 
 

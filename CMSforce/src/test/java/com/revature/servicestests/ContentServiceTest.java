@@ -25,9 +25,8 @@ import com.revature.entities.Link;
 import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 
-
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
+@ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
 @SpringBootTest
@@ -35,39 +34,45 @@ class ContentServiceTest {
 
 	@Autowired
 	ContentService cs;
-	
+
 	@Autowired
 	SearchService ss;
-	
+
 	@Autowired
 	JdbcTemplate template;
-	
+
+	int rows = 0;
+
 	@Test
 	@Commit
 	@Order(1)
-	void deleteAllfromDatabase() {				
-		JdbcTestUtils.deleteFromTables(template, "content");
-		JdbcTestUtils.deleteFromTables(template, "module");
-		JdbcTestUtils.deleteFromTables(template, "content_module");		
-	}	
-	
-	@Test
-	@Commit
-	@Order(2)
-	void createContent() {
-		cs.createContent(new Content(0, "Art Expressionism", "Code", "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
-		// assertThrows(NullPointerException.class, () -> { cs.createContent(new Content(0, "Futurism", "Document", "MOCK DATA", "http://localhost:4200/JPAconfig.java", null));});
-//		cs.createContent(new Content(0, null, "Code", "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
-//		cs.createContent(new Content(0, "Philosophy", null, "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
-//		cs.createContent(new Content(0, "Tropical Fish Anatomy", "Code", null, "http://localhost:4200/file.txt", new HashSet<Link>()));
-//		cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>()));		
+	void createValidContent() {
+		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
+				"http://TESTURL.COM", new HashSet<Link>()));
 	}
-	
+
+	@Test
+	@Order(2)
+	void createInvalidContent() {
+		rows = JdbcTestUtils.countRowsInTable(template, "content");
+		// cs.createContent(new Content(0, null, "Code", "MOCK DATA",
+		// "http://localhost:4200/file.txt", null));
+		cs.createContent(
+				new Content(0, null, "Code", "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
+		cs.createContent(
+				new Content(0, "Philosophy", null, "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
+		cs.createContent(new Content(0, "Tropical Fish Anatomy", "Code", null, "http://localhost:4200/file.txt",
+				new HashSet<Link>()));
+		cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>()));
+		assertEquals(rows, JdbcTestUtils.countRowsInTable(template, "content"));
+	}
+
 	@Test
 	@Commit
 	@Order(3)
 	void testCreateContent() {
-		assertEquals(1, JdbcTestUtils.countRowsInTable(template, "content"));
+		assertEquals(1, JdbcTestUtils.countRowsInTableWhere(template, "content",
+				String.format("title = '%s'", "FIRST TEST CONTENT")));
 	}
 
 	@Test
@@ -76,8 +81,7 @@ class ContentServiceTest {
 	void testGetAllContent() {
 		assertEquals(cs.getAllContent().size(), JdbcTestUtils.countRowsInTable(template, "content"));
 	}
-		
-	
+
 	@Test
 	@Commit
 	@Order(5)
@@ -89,29 +93,20 @@ class ContentServiceTest {
 		assertNotNull(cs.getContentById(id));
 	}
 
-
-//	@Test
-//	@Order(7)
-//	void testRemoveLinks() {
-//		Set<Content> allContents = ss.filterContentBySubjects(new String[]{"JavaScript"});
-//		
-//		Iterator<Content> iter = allContents.iterator();
-//		Content first = iter.next();		
-//		
-//		System.out.println(allContents.size());
-//		System.out.println(first);
-//		
-//		assertNotNull(cs.removeLinks(first, new String[]{"JavaScript"}));
-//		assertNull(cs.removeLinks(first, new String[]{"JavaScript"}));
-//	}
-
-
+	@Test
+	@Order(6)
+	void testInvalidGetContentById() {
+		// to test non existing content
+		assertThrows(NullPointerException.class, () -> {
+			cs.getContentById(-1);
+		});
+	}
 
 	@Test
 	@Commit
-	@Order(6)
-	void passes() {
-		assertTrue(1==1);
+	@Order(7)
+	void deleteTestData() {
+		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
 	}
 
 }
