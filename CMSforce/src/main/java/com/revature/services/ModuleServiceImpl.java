@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.entities.Module;
 import com.revature.repositories.ModuleRepository;
+import com.revature.util.LogException;
 
 @Service
 public class ModuleServiceImpl implements ModuleService {
@@ -20,6 +21,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 * of module objects.
 	 */
 	@Override
+	@LogException
 	public Set<Module> getAllModules() {
 		Set<Module> modules = new HashSet<>();
 		mr.findAll().forEach(modules :: add);
@@ -31,6 +33,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 * then returns a module object.
 	 */
 	@Override
+	@LogException
 	public Module getModuleById(int id) {
 		return mr.findById(id);
 	}
@@ -40,6 +43,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 * to the current time then add it to the database.
 	 */
 	@Override
+	@LogException
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
