@@ -23,7 +23,7 @@ logging:
     com.revature.controllers: info, error
     com.revature.loggingtest: error
     com.revature: error
-    root: off
+    com.revature.util: info,error
 
        
 server.servlet.contextPath: /CMSforce
