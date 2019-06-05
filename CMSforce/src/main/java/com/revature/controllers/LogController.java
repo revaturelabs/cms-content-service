@@ -22,7 +22,7 @@ public class LogController {
 	@RequestMapping("/log")
 	public String getLog() {
 		StringBuilder log = new StringBuilder("");
-	     try (BufferedReader br = Files.newBufferedReader(Paths.get("./../CMSforce/src/main/resources/ErrorLog.html"))){
+	     try (BufferedReader br = Files.newBufferedReader(Paths.get("/../CMSforce/src/main/resources/ErrorLog.html"))){
 	    	 String line;
 	    		 while((line = br.readLine())!=null) {
 	    			 log.append(line);
