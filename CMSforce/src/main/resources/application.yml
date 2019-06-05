@@ -15,10 +15,10 @@ logging:
   
   
   pattern:
-    file: "%d %-5level [%thread] %logger : %msg%n"
+    file: "<%d %-5level [%thread] %logger : %msg%n>"
   level:
    
-    root: on
+    root: off
     com.revature: error, info
 
        
