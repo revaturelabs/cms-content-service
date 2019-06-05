@@ -20,7 +20,7 @@ logging:
    
     
     com.revature: error, info
-    org.hibernate: off
+    org.hibernate: on
     org.apache.catalina: off
     com.zaxxer.hikari: off
 
