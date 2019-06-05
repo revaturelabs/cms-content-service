@@ -21,6 +21,7 @@ logging:
     root: on
     com.revature.services: error
     com.revature.controllers: info, error
+    com.revature.loggingtest: error
 
        
 server.servlet.contextPath: /CMSforce
