@@ -22,6 +22,7 @@ logging:
     com.revature: error, info
     org.hibernate: off
     org.apache.catalina: off
+    com.zaxxer.hikari: off
 
        
 server.servlet.contextPath: /CMSforce
