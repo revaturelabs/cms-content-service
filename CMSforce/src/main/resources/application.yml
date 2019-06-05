@@ -11,7 +11,7 @@ spring:
        
 logging:
   config:
-  file: src/main/resources/ErrorLog.html
+  file: /home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html
   
   
   pattern:
