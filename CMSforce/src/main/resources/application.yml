@@ -18,10 +18,11 @@ logging:
     file: "%d %-5level [%thread] %logger : %msg%n"
   level:
    
-    root: on
+    root: off
     com.revature.services: error
     com.revature.controllers: info, error
     com.revature.loggingtest: error
+    com.revature: error
 
        
 server.servlet.contextPath: /CMSforce
