@@ -3,7 +3,7 @@ import java.util.Set;
 import com.revature.entities.Content;
 public interface ContentService {
 	
-    public Content createContent(Content content);
+    public Content createContent(Content content) throws Exception;
     
     public Set<Content> getAllContent();
     

@@ -31,7 +31,7 @@ public class ContentController {
 	
 	@LogCreation
 	@RequestMapping(value = "/content", method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
-	public Content createContent(@RequestBody Content content ){
+	public Content createContent(@RequestBody Content content ) throws Exception{
 		
 		content = contentService.createContent(content);
 		return content;
