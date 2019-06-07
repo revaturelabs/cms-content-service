@@ -31,9 +31,7 @@ public class LogController {
 	    	 String line;
 	    		 while((line = br.readLine())!=null) {
 	    			 log.append("\n");
-	    			 log.append("<");
 	    			 log.append(line);
-	    			 log.append(">");
 	    		 }
 		return log.toString();
 
