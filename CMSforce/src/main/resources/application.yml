@@ -7,7 +7,7 @@ spring:
       password: password
   jpa:
      hibernate:
-       show-sql: true
+      show-sql: false
        
 logging:
   config:
