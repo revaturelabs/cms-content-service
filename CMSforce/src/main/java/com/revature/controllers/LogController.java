@@ -1,14 +1,13 @@
 package com.revature.controllers;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.util.LogException;
@@ -24,7 +23,7 @@ import com.revature.util.LogException;
 public class LogController {
 	
 	@LogException
-	@RequestMapping("/log")
+	@GetMapping("/log")
 	public String getLog() throws IOException {
 		StringBuilder log = new StringBuilder("");
 	     try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html"))){
