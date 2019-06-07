@@ -16,25 +16,30 @@ import com.revature.util.LogException;
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @Transactional
 @RestController
+/**
+ * This is a controller which allows users to view the log created by the jenkins back end. Every time a new build is run
+ * it is important to make sure that the html logging file is empty.
+ * The file used here is the absolute path on the EC2. It will likely need to change.
+ */
 public class LogController {
-
+	
 	@LogException
 	@RequestMapping("/log")
-	public String getLog() {
+	public String getLog() throws IOException {
 		StringBuilder log = new StringBuilder("");
 	     try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html"))){
 	    	 String line;
 	    		 while((line = br.readLine())!=null) {
+	    			 log.append("\n");
 	    			 log.append("<");
 	    			 log.append(line);
 	    			 log.append(">");
 	    		 }
 		return log.toString();
 
-} catch (IOException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
+}finally{
+	
 }
-		return null;
+	
 }
 }
