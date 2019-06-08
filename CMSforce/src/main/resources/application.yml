@@ -1,6 +1,6 @@
 
 spring:
-  application:    name: CMSforce
+  application:    name: CMSFORCE
   datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
       url: jdbc:oracle:thin:@testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com:1521:ORCL
@@ -26,24 +26,22 @@ logging:
     com.zaxxer.hikari: off
 
        
-server.servlet.contextPath: /CMSforce
-server:
-  port: 9001
 
+server:
+  port: 9002
 eureka:
 
   client:
 
     service-url:
 
-      defaultZone: http://172.16.112.206:8761/eureka
+      defaultZone: http://localhost:8761/eureka/
 
   instance:
 
-    lease-expiration-duration-in-seconds: 2
+    lease-expiration-duration-in-seconds: 30
 
-    lease-renewal-interval-in-seconds: 1      
-
+    lease-renewal-interval-in-seconds: 1
 
 
 
