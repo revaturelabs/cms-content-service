@@ -29,7 +29,19 @@ server.servlet.contextPath: /CMSforce
 server:
   port: 9001
 
+eureka:
 
+  client:
+
+    service-url:
+
+      defaultZone: http://172.16.112.206:8761/eureka/
+
+  instance:
+
+    lease-expiration-duration-in-seconds: 2
+
+    lease-renewal-interval-in-seconds: 1
 
   
           
