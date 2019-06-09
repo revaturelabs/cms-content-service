@@ -10,9 +10,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.revature</groupId>
-	<artifactId>CMSforceMicro-Zuul</artifactId>
+	<artifactId>CMSforceMicro</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CMSforceMicro-Zuul</name>
+	<name>CMSforceMicro</name>
 	<description>ZuulConfig</description>
 
 	<properties>
