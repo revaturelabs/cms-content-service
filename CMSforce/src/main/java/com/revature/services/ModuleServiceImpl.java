@@ -45,9 +45,22 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module createModule(Module module) {
+		
+		Set<Module> i = (Set<Module>) mr.findAll();
+		while(i.iterator().hasNext()) {
+		if(module.getSubject().equalsIgnoreCase(i.iterator().next().getSubject())) {
+			throw new EqualModuleSubjectException();
+		}
+		}
 		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
 		return module;
 	}
 
+}
+class EqualModuleSubjectException extends RuntimeException{
+	public EqualModuleSubjectException() {
+		
+	}
+	
 }
