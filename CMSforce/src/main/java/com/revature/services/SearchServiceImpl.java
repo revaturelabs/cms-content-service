@@ -135,7 +135,7 @@ public class SearchServiceImpl implements SearchService {
 			
 			while(contentIterator.hasNext()) {
 				Content tempContent = contentIterator.next();
-				if(tempContent.getTitle().contains(title)) {
+				if(tempContent.getTitle().toLowerCase().contains(title.toLowerCase())) {
 					tempSet.add(tempContent);
 				}
 			}
