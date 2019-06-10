@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		
-		Set<Module> i = (Set<Module>) mr.findAll();
-		while(i.iterator().hasNext()) {
-		if(module.getSubject().equalsIgnoreCase(i.iterator().next().getSubject())) {
+		Iterator<Module> i =  (Iterator<Module>) mr.findAll();
+		while(i.hasNext()) {
+		if(module.getSubject().equalsIgnoreCase(i.next().getSubject())) {
 			throw new EqualModuleSubjectException();
 			
 		}
