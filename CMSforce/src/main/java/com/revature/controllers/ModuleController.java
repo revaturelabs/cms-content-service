@@ -34,7 +34,6 @@ public class ModuleController {
 	}
 	
 	@PostMapping("/module")
-	@LogException
 	public Module createModule(@RequestBody Module module) {
 		return moduleService.createModule(module);
 	}
