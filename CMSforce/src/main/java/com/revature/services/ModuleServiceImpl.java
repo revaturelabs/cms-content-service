@@ -52,7 +52,7 @@ public class ModuleServiceImpl implements ModuleService {
 		for(Module r:i) {
 		
 		if(module.getSubject().equalsIgnoreCase(r.getSubject())) {
-			throw new EqualModuleSubjectException();
+			throw new EqualModuleSubjectException("This subject has already been created. Subjects are not case sensitive");
 			
 		}
 		}
@@ -63,7 +63,8 @@ public class ModuleServiceImpl implements ModuleService {
 
 }
 class EqualModuleSubjectException extends RuntimeException{
-	public EqualModuleSubjectException() {
+	public EqualModuleSubjectException(String e) {
+		
 		
 	}
 	
