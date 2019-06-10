@@ -48,24 +48,12 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		
-		ArrayList<Module> i =  (ArrayList<Module>) mr.findAll();
-		for(Module r:i) {
 		
-		if(module.getSubject().equalsIgnoreCase(r.getSubject())) {
-			throw new EqualModuleSubjectException("This subject has already been created. Subjects are not case sensitive");
-			
-		}
-		}
+		
 		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
 		return module;
 	}
 
 }
-class EqualModuleSubjectException extends RuntimeException{
-	public EqualModuleSubjectException(String e) {
-		
-		
-	}
-	
-}
+
