@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -47,9 +48,10 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		
-		Iterator<Module> i =  (Iterator<Module>) mr.findAll();
-		while(i.hasNext()) {
-		if(module.getSubject().equalsIgnoreCase(i.next().getSubject())) {
+		ArrayList<Module> i =  (ArrayList<Module>) mr.findAll();
+		for(Module r:i) {
+		
+		if(module.getSubject().equalsIgnoreCase(r.getSubject())) {
 			throw new EqualModuleSubjectException();
 			
 		}
