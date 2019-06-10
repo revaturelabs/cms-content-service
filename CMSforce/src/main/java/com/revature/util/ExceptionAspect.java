@@ -16,7 +16,7 @@ Logging log;
 	@AfterThrowing(pointcut = "LogException()", throwing = "e")
 	public void LogException(Exception e) {
 		log.logger.error("There was an issue in " + "\n");
-		log.logger.error(e.getStackTrace().toString());
+		log.logger.error(e.getMessage());
 		
 		
 	}

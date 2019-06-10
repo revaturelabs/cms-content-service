@@ -50,6 +50,7 @@ public class ModuleServiceImpl implements ModuleService {
 		while(i.iterator().hasNext()) {
 		if(module.getSubject().equalsIgnoreCase(i.iterator().next().getSubject())) {
 			throw new EqualModuleSubjectException();
+			
 		}
 		}
 		module.setCreated(System.currentTimeMillis());
