@@ -1,6 +1,8 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +47,13 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module createModule(Module module) {
+		
+		
+		
 		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
 		return module;
 	}
 
 }
+
