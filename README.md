@@ -11,4 +11,8 @@ User should be able to create a module
 User should be able to view an index of all the modules
 
 ## Technologies Used
-Java, Spring, Angular, Hibernate, Jenkins, JavaScript, SQL, Maven, Git, HTML5, CSS3, Amazon Web Services, Agile, AJAX, TypeScript, Oracle SQL Developer, Eclipse IDE, JUnit Test, Apache Tomcat
+Front End: Angular, HTML5, CSS3, TypeScript, JavaScript, AJAX
+Back End: Eclipse IDE, SpringBoot, Java, REST, SpringData, Hibernate, Aspect Oriented Programming
+Database: Oracle SQL, RDS
+DevOps: CloudFront, S3, EC2, Jenkins, Maven, Apache Tomcat, MicroServices
+Testing: Protractor (Angular), Cucumber (Java), JUnit5 (Services)
