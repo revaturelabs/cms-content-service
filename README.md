@@ -10,7 +10,7 @@ CMS Force is Revature's proprietary Content Management System, providing Trainer
 
 ## Technologies Used
 - **Front End:** Angular, HTML5, CSS3, TypeScript, JavaScript, AJAX
-- **Back End:** Eclipse IDE, SpringBoot, Java, REST, SpringData, Hibernate, Aspect Oriented Programming, SonarCloud
+- **Back End:** Eclipse IDE, SpringBoot, Java, REST, SpringData, Hibernate, Aspect Oriented Programming
 - **Database:** Oracle SQL, RDS
-- **DevOps:** CloudFront, S3, EC2, Jenkins, Maven, Apache Tomcat, MicroServices, GitHub
-- **Testing:** Protractor (Angular), Cucumber (Java), Mockito (Controllers), JUnit5 (Services), Selenium WebDriver
+- **DevOps:** CloudFront, S3, EC2, Jenkins, Maven, Apache Tomcat, MicroServices
+- **Testing:** Protractor (Angular), Cucumber (Java), JUnit5 (Services)
