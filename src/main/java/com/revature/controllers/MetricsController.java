@@ -66,6 +66,8 @@ public class MetricsController {
 	}
 	
 	//needs to be messed with, do it later
+	
+	@GetMapping("/metrics/modules/diff")
 	public int getNumDiffMod() {
 		return allModules.size();
 	}
