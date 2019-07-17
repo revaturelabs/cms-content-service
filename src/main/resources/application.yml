@@ -35,7 +35,7 @@ eureka:
 
     service-url:
 
-      defaultZone: http://ec2-13-59-181-168.us-east-2.compute.amazonaws.com:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
   instance:
 
