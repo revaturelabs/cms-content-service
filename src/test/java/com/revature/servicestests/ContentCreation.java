@@ -89,9 +89,42 @@ class ContentCreation {
 				"www.mass.test",
 				links);
 		
-		cs.createContent(content);
+		assertNotNull(cs.createContent(content));
+	}
+	
+	@Test
+	@Rollback
+	@Order(3)
+	public void updateContent() {
 		
+		Module module1 = new Module(0, "Element Zero", 0, null);
+		module1 = ms.createModule(module1);
 		
+		Module module2 = new Module(0, "Mass Effect Fields", 0, null);
+		module2 = ms.createModule(module2);
+		
+		Set<Link> links = new HashSet<Link>();
+		
+		//we will know the module id but not the content id or link id
+		Link link1 = new Link(0,0,module1.getId(),"relaventTo");
+		Link link2 = new Link(0,0,module2.getId(),"relaventTo");
+		
+		links.add(link1);
+		links.add(link2);
+		
+		Content content = new Content(0,
+				"Mass Effect Theory",
+				"Hologram",
+				"AI explains Mass Effect Theory",
+				"www.mass.test",
+				links);
+		
+		content = cs.createContent(content);
+		
+		content.setDescription("RIP Bioware...");
+		//System.out.println("Getting: " + content.toString());
+		
+		assertNotNull(cs.updateContent(content));
 	}
 	
 	

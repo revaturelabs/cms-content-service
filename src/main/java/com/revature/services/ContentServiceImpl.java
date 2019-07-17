@@ -35,15 +35,16 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Content createContent(Content content) {
 		
+		//get the tags for the new submitted content
 		Set<Link> links = content.getLinks();
 		
 		
-		if (links == null) {
+		if (links == null) { //if the submitted content has no tags then throw an error
 			throw new NullPointerException();
 		}
 		
 		content.setLinks(null);
-		content = cr.save(content);
+		content = cr.save(content); //add content to repository
 		
 		for(Link link : links) {
 			link.setContentId(content.getId());
@@ -77,5 +78,55 @@ public class ContentServiceImpl implements ContentService {
 	public Content getContentById(int id) {	
 			return cr.findById(id).iterator().next();		
 	}
-
+	
+	/**
+	 * Description - Updates an existing content
+	 * @param newContent - content received from client request
+	 * @return - the updated content
+	 * @throws - NullPointerException - if the newContent parameter is null or if the requested content to be updated doesn't exist in content Repository
+	 */
+	//Need an update content method here - Mdo
+	@Override
+	@LogException
+	public Content updateContent(Content newContent) {
+		
+		//check if requested update to content is a null object
+		if(newContent == null)
+			throw new NullPointerException();
+		
+		//check if newContent has an id
+		if(Character.isDigit(newContent.getId()))
+			throw new NumberFormatException();
+		
+		//get the tags for the new submitted content
+		Set<Link> oldLinks = new HashSet<>();
+		Set<Link> newLinks = new HashSet<>();
+		
+		for(Link link : newContent.getLinks()) {
+			if(link.getId() == 0) {
+				newLinks.add(link);
+			} else {
+				oldLinks.add(link);
+			}
+		}
+		
+		if(newLinks.isEmpty()) {
+			//get the existing content
+			Content oldContent = this.getContentById(newContent.getId());
+			
+			//check if content exists in content repo
+			if(oldContent == null)
+				throw new NullPointerException();
+			
+			
+			//add new updated content
+			return cr.save(newContent);
+		} else {
+			lr.saveAll(newLinks);
+			return newContent;
+		}
+	}
+	
+	
+	
 }

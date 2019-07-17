@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,6 +50,19 @@ public class ContentController {
 	@GetMapping("/content/{id}")
 	public Content getContentById(@PathVariable int id) {
 		return contentService.getContentById(id);
+	}
+	
+	/**
+	 * Description - PUT request for updating content, updates a content in the content repository
+	 * @param newContent - the updated content received from the client
+	 * @return - the updated content
+	 * @throws - NullPointerException - if the newContent is null or the content doesn't already exist in content repo.
+	 */
+	//need a put mapping for updates - MDo
+	@RequestMapping(value = "/content", method = RequestMethod.PUT, produces  = MediaType.APPLICATION_JSON_VALUE)
+	public Content updateContent(@RequestBody Content newContent) {
+		System.out.println("Apples.");
+		return contentService.updateContent(newContent);
 	}
 	
 
