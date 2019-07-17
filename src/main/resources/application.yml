@@ -3,9 +3,9 @@ spring:
   application:    name: CMSFORCE
   datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com:1521:ORCL
-      username: john
-      password: password
+      url: jdbc:oracle:thin:@project3-reports-test.c4kadn7et1e1.us-east-2.rds.amazonaws.com:1521:ORCL
+      username: p3_test
+      password: p3_test_pass
   jpa:
      hibernate:
       show-sql: false
