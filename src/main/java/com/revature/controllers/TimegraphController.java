@@ -12,8 +12,9 @@ import com.revature.entities.Content;
 import com.revature.services.TimegraphService;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
-@RestController
 @Transactional
+@RestController
+
 public class TimegraphController {
 	
 	@Autowired
