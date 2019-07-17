@@ -8,24 +8,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
 import com.revature.entities.Module;
-import com.revature.services.ContentServiceImpl;
-import com.revature.services.ModuleServiceImpl;
+import com.revature.services.ContentService;
+import com.revature.services.ModuleService;
 
 
-@RestController
+@RestController("/metrics")
 public class MetricsController {
 	// reports mapping for metrics
-	private Set<Content> allContents = new ContentServiceImpl().getAllContent();
-	private Set<Module> allModules = new ModuleServiceImpl().getAllModules();
+	private ModuleService moduleService;
+	private ContentService contentService;
 
+	private Set<Content> getNewestContent() {
+		return contentService.getAllContent();
+	}
 	
-	
+	private Set<Module> getNewestModule() {
+		return moduleService.getAllModules();
+	}
+		
 	
 	// code
-	@GetMapping("/metrics/code/all")
+	@GetMapping("codeCount")
 	public int getCountCodeEx(){
+		//Set<Content> allContents = getNewestContent();
 		int counter = 0;
-		Iterator<Content> contents = allContents.iterator();
+		Iterator<Content> contents = getNewestContent().iterator();
 		while(contents.hasNext()) {
 			if(contents.next().getFormat().equals("Code")) {
 				counter++;
@@ -38,10 +45,10 @@ public class MetricsController {
 	
 	
 	// documents 
-	@GetMapping("/metrics/documents/all")
+	@GetMapping("documentCount")
 	public int getCountDocEx(){
 		int counter = 0;
-		Iterator<Content> contents = allContents.iterator();
+		Iterator<Content> contents = getNewestContent().iterator();
 		while(contents.hasNext()) {
 			if(contents.next().getFormat().equals("Document")) {
 				counter++;
@@ -53,10 +60,10 @@ public class MetricsController {
 	
 	
 	//powerpoints
-	@GetMapping("/metrics/powerpoints/all")
+	@GetMapping("ppCount")
 	public int getCountPPEx(){
 		int counter = 0;
-		Iterator<Content> contents = allContents.iterator();
+		Iterator<Content> contents = getNewestContent().iterator();
 		while(contents.hasNext()) {
 			if(contents.next().getFormat().equals("Powerpoint")) {
 				counter++;
@@ -65,23 +72,23 @@ public class MetricsController {
 		return counter;
 	}
 	
-	//needs to be messed with, do it later
 	
-	@GetMapping("/metrics/modules/diff")
+	//modules
+	@GetMapping("modules")
 	public int getNumDiffMod() {
-		return allModules.size();
+		return getNewestModule().size();
 	}
 	
 	
 	
 	
 	// avg num resources
-	@GetMapping("/metrics/powerpoints/all")
+	@GetMapping("avergeRecs")
 	public int getAvgRec() {
 		int counter = 0;
 		int size = 0;
 		
-		Iterator<Content> contents = allContents.iterator();
+		Iterator<Content> contents = getNewestContent().iterator();
 		while(contents.hasNext()) {
 			size += contents.next().getLinks().size();
 			counter++;
