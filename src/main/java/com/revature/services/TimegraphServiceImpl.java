@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,22 @@ public class TimegraphServiceImpl implements TimegraphService {
 
 	@Override
 	public Set<Long> findByCreatedBetween(long fromTime) {
+		System.out.println("Reached service layer");
+		System.out.println("From: "+fromTime);
 		// calculate second parameter-- earliest time 	
 		// earliest time = current time minus passed in time
 		
 		// make a second long and calculate milliseconds
-		long currentTime = System.currentTimeMillis();
+		long currentTime = System.currentTimeMillis() / 1000L;
 		long startTime = currentTime - fromTime;
-		
+		System.out.println("Current: "+currentTime);
+		System.out.println("Start: "+startTime);
 		// call the dao method with startTime and currentTime as parameters
 		
-		Set<Content> returnedContents = cr.findBydateCreatedBetween(currentTime, startTime);
-		
+		Set<Content> returnedContents = cr.findBydateCreatedBetween(startTime, currentTime);
+		System.out.println(returnedContents.toString());
 		// iterate through the set of contents and retrieve the longs from the set 
-		Set<Long> returnedDates = Collections.emptySet();
+		Set<Long> returnedDates = new HashSet<>();
 		
 		for (Content content : returnedContents)
 		{
