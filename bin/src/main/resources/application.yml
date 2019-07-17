@@ -1,0 +1,53 @@
+
+spring:
+  application:    name: CMSFORCE
+  datasource:
+      driver-class-name: oracle.jdbc.driver.OracleDriver
+      url: jdbc:oracle:thin:@testproject3.cptggcrmj2t4.us-east-2.rds.amazonaws.com:1521:ORCL
+      username: john
+      password: password
+  jpa:
+     hibernate:
+      show-sql: false
+       
+logging:
+  config:
+  file: /home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html
+  
+  
+  pattern:
+    file: "%d %-5level [%thread] %logger : %msg%n"
+  level:
+   
+    
+    com.revature: error, info
+    org.hibernate: error, warn
+    org.apache.catalina: off
+    com.zaxxer.hikari: off
+
+       
+
+server:
+  port: 9002
+eureka:
+
+  client:
+
+    service-url:
+
+      defaultZone: http://ec2-13-59-181-168.us-east-2.compute.amazonaws.com:8761/eureka/
+
+  instance:
+
+    lease-expiration-duration-in-seconds: 2
+
+    lease-renewal-interval-in-seconds: 1
+
+
+
+  
+          
+      
+
+
+
