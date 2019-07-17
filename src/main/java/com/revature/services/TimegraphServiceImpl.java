@@ -4,10 +4,12 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
 import com.revature.repositories.ContentRepository;
 
+@Service
 public class TimegraphServiceImpl implements TimegraphService {
 	
 	@Autowired
