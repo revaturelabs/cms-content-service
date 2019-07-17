@@ -43,7 +43,7 @@ public class ContentServiceImpl implements ContentService {
 			throw new NullPointerException();
 		}
 		
-		content.setLinks(null); //empty the submitted tags
+		content.setLinks(null);
 		content = cr.save(content); //add content to repository
 		
 		for(Link link : links) {
@@ -106,11 +106,9 @@ public class ContentServiceImpl implements ContentService {
 		if(oldContent == null)
 			throw new NullPointerException();
 		
-		//delete old content, shouldn't really need to delete but just in case, making sure
-		cr.delete(oldContent);
 		
 		//add new updated content
-		return this.createContent(newContent);
+		return cr.save(newContent);
 	}
 	
 	
