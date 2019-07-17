@@ -3,6 +3,8 @@ package com.revature.controllers;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,13 +14,18 @@ import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 
 
-@RestController("/metrics")
+@CrossOrigin
+//@RestController("/metrics")
+@RestController
 public class MetricsController {
 	// reports mapping for metrics
-	private ModuleService moduleService;
-	private ContentService contentService;
+	@Autowired
+	ModuleService moduleService;
+	@Autowired
+	ContentService contentService;
 
 	private Set<Content> getNewestContent() {
+		System.out.println("uh....get newest i guess");
 		return contentService.getAllContent();
 	}
 	
@@ -28,15 +35,16 @@ public class MetricsController {
 		
 	
 	// code
-	@GetMapping("codeCount")
+	@GetMapping("/codeCount")
 	public int getCountCodeEx(){
-		//Set<Content> allContents = getNewestContent();
 		int counter = 0;
 		Iterator<Content> contents = getNewestContent().iterator();
 		while(contents.hasNext()) {
+			System.out.println("ITERATING!!!");
 			if(contents.next().getFormat().equals("Code")) {
 				counter++;
 			}
+			
 		}
 		return counter;
 	}
@@ -45,7 +53,7 @@ public class MetricsController {
 	
 	
 	// documents 
-	@GetMapping("documentCount")
+	@GetMapping("/documentCount")
 	public int getCountDocEx(){
 		int counter = 0;
 		Iterator<Content> contents = getNewestContent().iterator();
@@ -60,7 +68,7 @@ public class MetricsController {
 	
 	
 	//powerpoints
-	@GetMapping("ppCount")
+	@GetMapping("/ppCount")
 	public int getCountPPEx(){
 		int counter = 0;
 		Iterator<Content> contents = getNewestContent().iterator();
@@ -74,7 +82,7 @@ public class MetricsController {
 	
 	
 	//modules
-	@GetMapping("modules")
+	@GetMapping("/numDiffMods")
 	public int getNumDiffMod() {
 		return getNewestModule().size();
 	}
@@ -83,7 +91,7 @@ public class MetricsController {
 	
 	
 	// avg num resources
-	@GetMapping("avergeRecs")
+	@GetMapping("/avergeRecs")
 	public int getAvgRec() {
 		int counter = 0;
 		int size = 0;
