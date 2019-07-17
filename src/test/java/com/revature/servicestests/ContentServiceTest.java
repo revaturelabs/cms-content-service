@@ -48,7 +48,7 @@ class ContentServiceTest {
 	@Order(1)
 	void createValidContent() {
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>()));
+				"http://TESTURL.COM", new HashSet<Link>(), 1563378565, 1563378565));
 	}
 
 	@Test
@@ -58,12 +58,12 @@ class ContentServiceTest {
 		// cs.createContent(new Content(0, null, "Code", "MOCK DATA",
 		// "http://localhost:4200/file.txt", null));
 		cs.createContent(
-				new Content(0, null, "Code", "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
+				new Content(0, null, "Code", "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>(), 1563378565, 1563378565));
 		cs.createContent(
-				new Content(0, "Philosophy", null, "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>()));
+				new Content(0, "Philosophy", null, "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>(), 1563378565, 1563378565));
 		cs.createContent(new Content(0, "Tropical Fish Anatomy", "Code", null, "http://localhost:4200/file.txt",
-				new HashSet<Link>()));
-		cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>()));
+				new HashSet<Link>(), 1563378565, 1563378565));
+		cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>(), 1563378565, 1563378565));
 		assertEquals(rows, JdbcTestUtils.countRowsInTable(template, "content"));
 	}
 

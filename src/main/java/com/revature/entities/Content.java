@@ -25,8 +25,10 @@ public class Content {
 
 	private String url;
 	
+	@Column(name = "created")
 	private long dateCreated;
 	
+	@Column(name = "last_modified")
 	private long lastModified;
 	
 	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)

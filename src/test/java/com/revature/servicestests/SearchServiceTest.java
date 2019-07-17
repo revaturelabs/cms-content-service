@@ -77,7 +77,7 @@ class SearchServiceTest {
 		Module module2 = new Module(2, "SECOND TEST MODULE", 0, null);
 		mr.save(module2);
 		
-		Content content = new Content(5, "FIRST TEST CONTENT", "code", "FIRST TEST CONTENT DESCRIPTION", "www.elmo.test", null);
+		Content content = new Content(5, "FIRST TEST CONTENT", "code", "FIRST TEST CONTENT DESCRIPTION", "www.elmo.test", null, 1563378565, 1563378565);
 		cr.save(content);
 	
 		
