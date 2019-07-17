@@ -91,7 +91,7 @@ public class MetricsController {
 	
 	
 	// avg num resources
-	@GetMapping("/avergeRecs")
+	@GetMapping("/averageRecs")
 	public int getAvgRec() {
 		int counter = 0;
 		int size = 0;
