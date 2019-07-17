@@ -4,8 +4,10 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
@@ -15,8 +17,8 @@ import com.revature.services.ModuleService;
 
 
 @CrossOrigin
-//@RestController("/metrics")
 @RestController
+@RequestMapping("/metrics")
 public class MetricsController {
 	// reports mapping for metrics
 	@Autowired
@@ -25,7 +27,6 @@ public class MetricsController {
 	ContentService contentService;
 
 	private Set<Content> getNewestContent() {
-		System.out.println("uh....get newest i guess");
 		return contentService.getAllContent();
 	}
 	
@@ -40,7 +41,6 @@ public class MetricsController {
 		int counter = 0;
 		Iterator<Content> contents = getNewestContent().iterator();
 		while(contents.hasNext()) {
-			System.out.println("ITERATING!!!");
 			if(contents.next().getFormat().equals("Code")) {
 				counter++;
 			}
