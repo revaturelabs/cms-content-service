@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
+import com.revature.entities.TimeGraphData;
 import com.revature.repositories.ContentRepository;
 
 @Service
@@ -14,9 +15,12 @@ public class TimegraphServiceImpl implements TimegraphService {
 		
 	@Autowired
 	ContentRepository cr;
+	
+	@Autowired
+	TimeGraphData tgd;
 
 	@Override
-	public Set<Long> findByCreatedBetween(long timeRange) {
+	public TimeGraphData findByCreatedBetween(long timeRange) {
 		System.out.println("Reached service layer");
 		System.out.println("From: "+ timeRange);
 		// calculate second parameter-- earliest time 	
@@ -36,10 +40,16 @@ public class TimegraphServiceImpl implements TimegraphService {
 		
 		for (Content content : returnedContents)
 		{
+			// array of longs is here
 			returnedDates.add(content.getDateCreated());
 		}
 		
-		return returnedDates;
+		tgd.setReturnedLongs(returnedDates);
+		
+		// make another crud call to select all content from T zero to T < start time
+		tgd.setNumContents(cr.findBydateCreatedBetween(1, startTime - 1).size());
+		
+		return tgd;
 		
 	}
 

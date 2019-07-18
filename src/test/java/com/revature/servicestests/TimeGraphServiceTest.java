@@ -50,12 +50,12 @@ public class TimeGraphServiceTest {
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
 				"http://TESTURL.COM", new HashSet<Link>(), 1563378565, 1563378565));
 
-		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
+		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
 
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
 				"http://OLDTESTURL.COM", new HashSet<Link>(), 1405598540, 1405598540));
 		
-		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).size();
+		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
 

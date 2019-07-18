@@ -1,9 +1,10 @@
 package com.revature.services;
 
-import java.util.Set;
+
+import com.revature.entities.TimeGraphData;
 
 public interface TimegraphService {
 	
-	public Set<Long> findByCreatedBetween(long fromTime);
+	public TimeGraphData findByCreatedBetween(long fromTime);
 
 }
