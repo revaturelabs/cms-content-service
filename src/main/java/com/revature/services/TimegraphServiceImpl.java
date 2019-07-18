@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,20 +27,31 @@ public class TimegraphServiceImpl implements TimegraphService {
 		// make a second long and calculate milliseconds
 		long currentTime = System.currentTimeMillis();
 		long startTime = currentTime - timeRange;
-		// call the dao method with startTime and currentTime as parameters
+		// call the dao method to get all content
 		
-		Set<Content> returnedContents = cr.findByDateCreatedBetween(startTime, currentTime);
+		ArrayList<Content> returnedContents = (ArrayList<Content>) cr.findAll();
 		// iterate through the set of contents and retrieve the longs from the set 
 		Set<Long> returnedDates = new HashSet<>();
 		
+		TimeGraphData tgd = new TimeGraphData(new HashSet<>(), 0);
 		for (Content content : returnedContents)
 		{
 			// array of longs is here
-			returnedDates.add(content.getDateCreated());
+			
+			if (content.getDateCreated() < startTime)
+			{
+				int currentCount = tgd.getNumContents();
+				tgd.setNumContents(currentCount += 1);
+			}
+			
+			if (content.getDateCreated() >= startTime && content.getDateCreated() <= currentTime)
+			{
+				returnedDates.add(content.getDateCreated());
+			}
 		}
-		TimeGraphData tgd = new TimeGraphData(returnedDates, cr.findByDateCreatedBetween(1, startTime - 1).size());
-
-//		tgd.setReturnedLongs(returnedDates);
+		
+		tgd.setReturnedLongs(returnedDates);
+		
 		
 		// make another crud call to select all content from T zero to T < start time
 //		tgd.setNumContents(cr.findBydateCreatedBetween(1, startTime - 1).size());
