@@ -40,13 +40,13 @@ import com.revature.services.TimegraphService;
 public class TimeGraphServiceTest {
 	
 	/** Value - {@value}, Represents 1 month in milliseconds. */
-	long ONE_MONTH = 2592000;
+	long ONE_MONTH = 2592000000L;
 	
 	/** Value - {@value}, Represents 6 months in milliseconds. */
-	long SIX_MONTHS = 15552000;
+	long SIX_MONTHS = 15552000000L;
 	
 	/** Value - {@value}, Represents 1 year in milliseconds. */
-	long ONE_YEAR = 31536000;
+	long ONE_YEAR = 31536000000L;
 	
 	@Autowired
 	TimegraphService ts;
@@ -70,8 +70,7 @@ public class TimeGraphServiceTest {
 	void timeScaleTests()
 	{
 		long fivemonths = ONE_MONTH * 5;
-		long systimeAdj5mo = (System.currentTimeMillis()/1000L) - fivemonths;
-		System.out.println(systimeAdj5mo);
+		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
 				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
 
@@ -79,7 +78,7 @@ public class TimeGraphServiceTest {
 		Set<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
-		long systimeAdj7mo = (System.currentTimeMillis()/1000L) - sevenmonths;
+		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
 				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
 		

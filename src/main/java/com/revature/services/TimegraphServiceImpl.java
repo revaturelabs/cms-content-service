@@ -24,14 +24,11 @@ public class TimegraphServiceImpl implements TimegraphService {
 		// earliest time = current time minus passed in time
 		
 		// make a second long and calculate milliseconds
-		long currentTime = System.currentTimeMillis() / 1000L;
+		long currentTime = System.currentTimeMillis();
 		long startTime = currentTime - timeRange;
-		System.out.println("Currenttime: "+currentTime);
-		System.out.println("Starttime: "+startTime);
 		// call the dao method with startTime and currentTime as parameters
 		
 		Set<Content> returnedContents = cr.findByDateCreatedBetween(startTime, currentTime);
-		System.out.println(returnedContents.toString());
 		// iterate through the set of contents and retrieve the longs from the set 
 		Set<Long> returnedDates = new HashSet<>();
 		
@@ -41,7 +38,6 @@ public class TimegraphServiceImpl implements TimegraphService {
 			returnedDates.add(content.getDateCreated());
 		}
 		TimeGraphData tgd = new TimeGraphData(returnedDates, cr.findByDateCreatedBetween(1, startTime - 1).size());
-		System.out.println(cr.findByDateCreatedBetween(1, startTime - 1));
 
 //		tgd.setReturnedLongs(returnedDates);
 		
