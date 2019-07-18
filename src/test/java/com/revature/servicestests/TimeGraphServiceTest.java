@@ -45,50 +45,23 @@ public class TimeGraphServiceTest {
 	
 	@Test
 	@Commit
-	@Order(1)
-	void createValidContent() {
+	void timeScaleTests()
+	{
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
 				"http://TESTURL.COM", new HashSet<Link>(), 1563378565, 1563378565));
-	}
-	
-	@Test
-	@Commit
-	@Order(2)
-	void testOneInTimeFrame() {
+
 		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
-		assertEquals(1, resultSetSize);
-	}
-	
-	@Test
-	@Commit
-	@Order(3)
-	void createValidContent2() {
+
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
 				"http://OLDTESTURL.COM", new HashSet<Link>(), 1405598540, 1405598540));
-	}
-	
-	@Test
-	@Commit
-	@Order(4)
-	void testOutsideOfTimeFrame() {
 		
-		// request all current content in the set, and print all of it. 
-		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
-		assertEquals(1, resultSetSize);
-		
-	}
-	
-	@Test
-	@Commit
-	@Order(5)
-	void deleteTestData() {
+		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).size();
+
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
-	}
-	
-	@Test
-	@Commit
-	@Order(6)
-	void deleteTestData2() {
+
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "OLD TEST CONTENT"));
+		
+		assertEquals(1, resultSetSize);
+		assertEquals(1, resultSetSize2);
 	}
 }
