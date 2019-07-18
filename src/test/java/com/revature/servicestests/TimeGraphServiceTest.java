@@ -23,6 +23,14 @@ import com.revature.entities.Link;
 import com.revature.services.ContentService;
 import com.revature.services.TimegraphService;
 
+/**
+ * Tests for the Time Graph Service.
+ * 
+ * <p> Contains the tests that cover the breadth and depth of the TimeGraphService.
+ * 
+ * @author wsm
+ * @version 2.0
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -30,8 +38,13 @@ import com.revature.services.TimegraphService;
 @SpringBootTest
 public class TimeGraphServiceTest {
 	
+	/** Value - {@value}, Represents 1 month in milliseconds. */
 	long ONE_MONTH = 2678400;
+	
+	/** Value - {@value}, Represents 6 months in milliseconds. */
 	long SIX_MONTHS = 13046400;
+	
+	/** Value - {@value}, Represents 1 year in milliseconds. */
 	long ONE_YEAR = 31536000;
 	
 	@Autowired
@@ -43,17 +56,27 @@ public class TimeGraphServiceTest {
 	@Autowired
 	JdbcTemplate template;
 	
+	/**
+	 * Overarching test for the timescale handling.
+	 * 
+	 * <p> To achieve coverage, it creates two new content values,
+	 * one before and one after 6 months ago, and stores it for checking
+	 * if the content provided back fits in the timescale correctly.
+	 * Afterwards, it deletes the content, and tests the assertions.
+	 */
 	@Test
 	@Commit
 	void timeScaleTests()
 	{
+		long fivemonths = ONE_MONTH * 5;
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>(), 1563378565, 1563378565));
+				"http://TESTURL.COM", new HashSet<Link>(), System.currentTimeMillis() - fivemonths, System.currentTimeMillis() - fivemonths));
 
 		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
 
+		long sevenmonths = ONE_MONTH + SIX_MONTHS;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
-				"http://OLDTESTURL.COM", new HashSet<Link>(), 1405598540, 1405598540));
+				"http://OLDTESTURL.COM", new HashSet<Link>(), System.currentTimeMillis() - sevenmonths, System.currentTimeMillis() - sevenmonths));
 		
 		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).size();
 
