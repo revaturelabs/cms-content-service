@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,10 @@ public class ContentServiceImpl implements ContentService {
 		if(Character.isDigit(newContent.getId()))
 			throw new NumberFormatException();
 		
+		//In order to check if we are removing(and/or updating other fields in content) or adding tags
+		//we must first split the tags into the existing tags and the new tags (if there are any)
+		//because when receiving the new tags from the client, all new tags have an id of 0. If you try to add
+		//the tags straight away it will cause a DataIntegrity error or InvalidData error.
 		//get the tags for the new submitted content
 		Set<Link> oldLinks = new HashSet<>();
 		Set<Link> newLinks = new HashSet<>();
@@ -110,21 +115,29 @@ public class ContentServiceImpl implements ContentService {
 			}
 		}
 		
-		if(newLinks.isEmpty()) {
-			//get the existing content
-			Content oldContent = this.getContentById(newContent.getId());
-			
-			//check if content exists in content repo
-			if(oldContent == null)
-				throw new NullPointerException();
-			
-			
-			//add new updated content
-			return cr.save(newContent);
-		} else {
-			lr.saveAll(newLinks);
-			return newContent;
+		//set the links in the newContent to the old content
+		newContent.setLinks(oldLinks);
+		
+		//check if there are any new links
+		if(!newLinks.isEmpty()) {
+			//if there is
+			//save the new links (which will assign actual id's to each new link)
+			for(Link l : lr.saveAll(newLinks)) {
+				oldLinks.add(l); //add the new newLinks to the oldLinks
+			}
+			newContent.setLinks(oldLinks); //now set the new oldLinks for newContent
 		}
+		
+		//get the existing content
+		Content oldContent = this.getContentById(newContent.getId());
+		
+		//check if content exists in content repo
+		if(oldContent == null)
+			throw new NullPointerException();
+		
+		
+		//add new updated content
+		return cr.save(newContent);
 	}
 	
 	

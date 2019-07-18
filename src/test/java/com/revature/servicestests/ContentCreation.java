@@ -125,6 +125,7 @@ class ContentCreation {
 		//System.out.println("Getting: " + content.toString());
 		
 		assertNotNull(cs.updateContent(content));
+		assertEquals(0, content.getDescription().compareTo(cs.getContentById(content.getId()).getDescription()));
 	}
 	
 	
