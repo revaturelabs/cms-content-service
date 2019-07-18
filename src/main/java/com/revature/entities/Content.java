@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -97,68 +95,6 @@ public class Content {
 		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
 				+ ", url=" + url + ", links=" + links + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((format == null) ? 0 : format.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((url == null) ? 0 : url.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Content other = (Content) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (format == null) {
-			if (other.format != null)
-				return false;
-		} else if (!format.equals(other.format))
-			return false;
-		if (id != other.id)
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
-			return false;
-		
-		if (links == null) {
-			if (other.links != null)
-				return false;
-		} else {
-			for(Link l : links) {
-				if(!other.links.contains(l))
-					return false;
-			}
-		}
-			//return false;
-		
-		
-		return true;
-	}
-	
-	
 
 	
 	
