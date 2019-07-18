@@ -2,6 +2,7 @@ package com.revature.entities;
 
 import java.util.Set;
 
+
 public class TimeGraphData 
 {
 	private Set<Long> returnedLongs;

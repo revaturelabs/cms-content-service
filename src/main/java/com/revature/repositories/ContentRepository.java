@@ -19,5 +19,5 @@ public interface ContentRepository extends CrudRepository<Content,Integer>{
 	Set<Content> findById(int id);
 	
 	// return set of contents here; we will iterate through that set in timegraph service impl. 
-	Set<Content> findBydateCreatedBetween(long startTime, long currentTime);
+	Set<Content> findByDateCreatedBetween(long startTime, long currentTime);
 }

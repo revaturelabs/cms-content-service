@@ -16,24 +16,21 @@ public class TimegraphServiceImpl implements TimegraphService {
 	@Autowired
 	ContentRepository cr;
 	
-	@Autowired
-	TimeGraphData tgd;
 
 	@Override
 	public TimeGraphData findByCreatedBetween(long timeRange) {
-		System.out.println("Reached service layer");
-		System.out.println("From: "+ timeRange);
+
 		// calculate second parameter-- earliest time 	
 		// earliest time = current time minus passed in time
 		
 		// make a second long and calculate milliseconds
 		long currentTime = System.currentTimeMillis() / 1000L;
 		long startTime = currentTime - timeRange;
-		System.out.println("Current: "+currentTime);
-		System.out.println("Start: "+startTime);
+		System.out.println("Currenttime: "+currentTime);
+		System.out.println("Starttime: "+startTime);
 		// call the dao method with startTime and currentTime as parameters
 		
-		Set<Content> returnedContents = cr.findBydateCreatedBetween(startTime, currentTime);
+		Set<Content> returnedContents = cr.findByDateCreatedBetween(startTime, currentTime);
 		System.out.println(returnedContents.toString());
 		// iterate through the set of contents and retrieve the longs from the set 
 		Set<Long> returnedDates = new HashSet<>();
@@ -43,11 +40,13 @@ public class TimegraphServiceImpl implements TimegraphService {
 			// array of longs is here
 			returnedDates.add(content.getDateCreated());
 		}
-		
-		tgd.setReturnedLongs(returnedDates);
+		TimeGraphData tgd = new TimeGraphData(returnedDates, cr.findByDateCreatedBetween(1, startTime - 1).size());
+		System.out.println(cr.findByDateCreatedBetween(1, startTime - 1));
+
+//		tgd.setReturnedLongs(returnedDates);
 		
 		// make another crud call to select all content from T zero to T < start time
-		tgd.setNumContents(cr.findBydateCreatedBetween(1, startTime - 1).size());
+//		tgd.setNumContents(cr.findBydateCreatedBetween(1, startTime - 1).size());
 		
 		return tgd;
 		

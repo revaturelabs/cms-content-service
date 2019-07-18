@@ -40,10 +40,10 @@ import com.revature.services.TimegraphService;
 public class TimeGraphServiceTest {
 	
 	/** Value - {@value}, Represents 1 month in milliseconds. */
-	long ONE_MONTH = 2678400;
+	long ONE_MONTH = 2592000;
 	
 	/** Value - {@value}, Represents 6 months in milliseconds. */
-	long SIX_MONTHS = 13046400;
+	long SIX_MONTHS = 15552000;
 	
 	/** Value - {@value}, Represents 1 year in milliseconds. */
 	long ONE_YEAR = 31536000;
@@ -70,26 +70,21 @@ public class TimeGraphServiceTest {
 	void timeScaleTests()
 	{
 		long fivemonths = ONE_MONTH * 5;
-		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
+		long systimeAdj5mo = (System.currentTimeMillis()/1000L) - fivemonths;
+		System.out.println(systimeAdj5mo);
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
 				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
 
-<<<<<<< HEAD
-		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
-=======
-		Set<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS);
->>>>>>> 142aae3000c21126e304cc34690159bc593e179a
+//		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
+		Set<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
-		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
+		long systimeAdj7mo = (System.currentTimeMillis()/1000L) - sevenmonths;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
 				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
 		
-<<<<<<< HEAD
-		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
-=======
-		Set<Long> resultSet2 = ts.findByCreatedBetween(SIX_MONTHS);
->>>>>>> 142aae3000c21126e304cc34690159bc593e179a
+//		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
+		Set<Long> resultSet2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
 
