@@ -128,8 +128,10 @@ public class MetricsController {
 			size += contents.next().getLinks().size();
 			counter++;
 		}
-		
-		return size/counter;
+		if(counter != 0) {
+			return size/counter;			
+		}
+		return 0;
 	}
 		
 }//end class
