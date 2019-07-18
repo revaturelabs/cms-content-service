@@ -30,6 +30,10 @@ import com.revature.services.TimegraphService;
 @SpringBootTest
 public class TimeGraphServiceTest {
 	
+	long ONE_MONTH = 2678400;
+	long SIX_MONTHS = 13046400;
+	long ONE_YEAR = 31536000;
+	
 	@Autowired
 	TimegraphService ts;
 	
@@ -51,7 +55,7 @@ public class TimeGraphServiceTest {
 	@Commit
 	@Order(2)
 	void testOneInTimeFrame() {
-		int resultSetSize = ts.findByCreatedBetween(1563378565).size();
+		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
 		assertEquals(1, resultSetSize);
 	}
 	
@@ -67,10 +71,24 @@ public class TimeGraphServiceTest {
 	@Commit
 	@Order(4)
 	void testOutsideOfTimeFrame() {
-		int resultSetSize = ts.findByCreatedBetween(1531828945).size();
+		
+		// request all current content in the set, and print all of it. 
+		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
 		assertEquals(1, resultSetSize);
 		
 	}
 	
-
+	@Test
+	@Commit
+	@Order(5)
+	void deleteTestData() {
+		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
+	}
+	
+	@Test
+	@Commit
+	@Order(6)
+	void deleteTestData2() {
+		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "OLD TEST CONTENT"));
+	}
 }
