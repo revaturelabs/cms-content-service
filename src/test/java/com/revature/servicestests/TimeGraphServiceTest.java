@@ -1,8 +1,10 @@
 package com.revature.servicestests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -10,7 +12,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
@@ -69,22 +70,25 @@ public class TimeGraphServiceTest {
 	void timeScaleTests()
 	{
 		long fivemonths = ONE_MONTH * 5;
+		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>(), System.currentTimeMillis() - fivemonths, System.currentTimeMillis() - fivemonths));
+				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
 
-		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).size();
+		Set<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS);
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
+		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
-				"http://OLDTESTURL.COM", new HashSet<Link>(), System.currentTimeMillis() - sevenmonths, System.currentTimeMillis() - sevenmonths));
+				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
 		
-		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).size();
+		Set<Long> resultSet2 = ts.findByCreatedBetween(SIX_MONTHS);
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "OLD TEST CONTENT"));
 		
-		assertEquals(1, resultSetSize);
-		assertEquals(1, resultSetSize2);
+		assertTrue(resultSet.contains(systimeAdj5mo));
+		assertTrue(resultSet2.contains(systimeAdj5mo));
+		assertFalse(resultSet2.contains(systimeAdj7mo));
 	}
 }
