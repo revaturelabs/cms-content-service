@@ -28,7 +28,7 @@ public class MetricsController {
 
 	/*
 	 * Fills contentService variable with newest info from DB
-	 * @returns set of contents
+	 * @return set of contents
 	 * */
 	private Set<Content> getNewestContent() {
 		return contentService.getAllContent();
@@ -36,7 +36,7 @@ public class MetricsController {
 	
 	/*
 	 * Fills moduleService variable with newest info from DB
-	 * @returns Set of modules
+	 * @return Set of modules
 	 * 
 	 * */
 	private Set<Module> getNewestModule() {
@@ -47,7 +47,7 @@ public class MetricsController {
 	
 	/*
 	 * Returns the number of Contents with format set to code
-	 * @returns count of code formats 
+	 * @return count of code formats 
 	 * */
 	@GetMapping("/codeCount")
 	public int getCountCodeEx(){
@@ -67,7 +67,7 @@ public class MetricsController {
 	
 	/*
 	 * Returns the number of Contents with format set to document
-	 * @returns count of document formats 
+	 * @return count of document formats 
 	 * */
 	@GetMapping("/documentCount")
 	public int getCountDocEx(){
@@ -86,7 +86,7 @@ public class MetricsController {
 	
 	/*
 	 * Returns the number of Contents with format set to powerpoint
-	 * @returns count of powerpoint formats 
+	 * @return count of powerpoint formats 
 	 * */
 	@GetMapping("/ppCount")
 	public int getCountPPEx(){
@@ -104,7 +104,7 @@ public class MetricsController {
 	
 	/*
 	 * Returns the number of different modules in DB
-	 * @returns number of modules 
+	 * @return number of modules 
 	 * */
 	@GetMapping("/numDiffMods")
 	public int getNumDiffMod() {
