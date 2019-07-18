@@ -26,16 +26,29 @@ public class MetricsController {
 	@Autowired
 	ContentService contentService;
 
+	/*
+	 * Fills contentService variable with newest info from DB
+	 * @returns set of contents
+	 * */
 	private Set<Content> getNewestContent() {
 		return contentService.getAllContent();
 	}
 	
+	/*
+	 * Fills moduleService variable with newest info from DB
+	 * @returns Set of modules
+	 * 
+	 * */
 	private Set<Module> getNewestModule() {
 		return moduleService.getAllModules();
 	}
 		
 	
-	// code
+	
+	/*
+	 * Returns the number of Contents with format set to code
+	 * @returns count of code formats 
+	 * */
 	@GetMapping("/codeCount")
 	public int getCountCodeEx(){
 		int counter = 0;
@@ -52,7 +65,10 @@ public class MetricsController {
 	
 	
 	
-	// documents 
+	/*
+	 * Returns the number of Contents with format set to document
+	 * @returns count of document formats 
+	 * */
 	@GetMapping("/documentCount")
 	public int getCountDocEx(){
 		int counter = 0;
@@ -67,7 +83,11 @@ public class MetricsController {
 	
 	
 	
-	//powerpoints
+	
+	/*
+	 * Returns the number of Contents with format set to powerpoint
+	 * @returns count of powerpoint formats 
+	 * */
 	@GetMapping("/ppCount")
 	public int getCountPPEx(){
 		int counter = 0;
@@ -81,7 +101,11 @@ public class MetricsController {
 	}
 	
 	
-	//modules
+	
+	/*
+	 * Returns the number of different modules in DB
+	 * @returns number of modules 
+	 * */
 	@GetMapping("/numDiffMods")
 	public int getNumDiffMod() {
 		return getNewestModule().size();
@@ -90,7 +114,10 @@ public class MetricsController {
 	
 	
 	
-	// avg num resources
+	/*
+	 * Return average count of links in each Content object from DB
+	 * @returns average number of links
+	 * */
 	@GetMapping("/averageRecs")
 	public int getAvgRec() {
 		int counter = 0;
