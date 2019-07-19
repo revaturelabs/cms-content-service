@@ -86,7 +86,6 @@ public class ContentServiceImpl implements ContentService {
 	 * @return - the updated content
 	 * @throws - NullPointerException - if the newContent parameter is null or if the requested content to be updated doesn't exist in content Repository
 	 */
-	//Need an update content method here - Mdo
 	@Override
 	@LogException
 	public Content updateContent(Content newContent) {

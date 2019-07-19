@@ -58,10 +58,8 @@ public class ContentController {
 	 * @return - the updated content
 	 * @throws - NullPointerException - if the newContent is null or the content doesn't already exist in content repo.
 	 */
-	//need a put mapping for updates - MDo
 	@RequestMapping(value = "/content", method = RequestMethod.PUT, produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content updateContent(@RequestBody Content newContent) {
-		System.out.println("Apples.");
 		return contentService.updateContent(newContent);
 	}
 	
