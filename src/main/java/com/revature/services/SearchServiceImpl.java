@@ -121,7 +121,7 @@ public class SearchServiceImpl implements SearchService {
 		 * set of content
 		 */
 		if (modules.isEmpty()) {
-			selectedContent = csi.getAllContent();
+			selectedContent = (Set<Content>) csi.getAllContent();
 		}
 		else {
 			selectedContent = this.filterContentBySubjects(modules);

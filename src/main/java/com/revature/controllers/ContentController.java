@@ -41,7 +41,7 @@ public class ContentController {
 	// Finds all the content in the repository 
 	@GetMapping("/content")
 	public Set<Content> getAllContent() {
-		return contentService.getAllContent();
+		return (Set<Content>) contentService.getAllContent();
 	}
 	
 	// Returns content depending on what ID is passed in

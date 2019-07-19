@@ -79,14 +79,14 @@ class ContentServiceTest {
 	@Commit
 	@Order(4)
 	void testGetAllContent() {
-		assertEquals(cs.getAllContent().size(), JdbcTestUtils.countRowsInTable(template, "content"));
+		assertEquals(((Set<Content>) cs.getAllContent()).size(), JdbcTestUtils.countRowsInTable(template, "content"));
 	}
 
 	@Test
 	@Commit
 	@Order(5)
 	void testGetContentById() {
-		Set<Content> allContents = cs.getAllContent();
+		Set<Content> allContents = (Set<Content>) cs.getAllContent();
 		Iterator<Content> iter = allContents.iterator();
 		Content first = iter.next();
 		int id = first.getId();

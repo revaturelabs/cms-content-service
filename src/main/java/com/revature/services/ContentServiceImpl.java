@@ -66,10 +66,11 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@Override
 	@LogException
-	public Set<Content> getAllContent() {
-			Set<Content> contents = new HashSet<>();
-			cr.findAll().forEach(contents :: add);
-			return contents;
+	public Iterable<Content> getAllContent() {
+//			Set<Content> contents = new HashSet<>();
+//			cr.findAll().forEach(contents :: add);
+//			return contents;
+		return cr.findAll();
 		}
 	
 	/**

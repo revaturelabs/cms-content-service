@@ -99,7 +99,7 @@ class SearchServiceTest {
 	@Commit
 	@Order(2)
 	void testFilterContentByTitle() {
-		Set<Content> lst = cs.getAllContent();
+		Set<Content> lst = (Set<Content>) cs.getAllContent();
 		
 		Iterator<Content> iter = lst.iterator();
 		Content first = iter.next();
@@ -119,7 +119,7 @@ class SearchServiceTest {
 	@Order(3)
 	void testFilterContentByFormat() {
 		System.out.println("Number of records in Module "+JdbcTestUtils.countRowsInTable(template, "module"));
-		Set<Content> lst = cs.getAllContent();
+		Set<Content> lst = (Set<Content>) cs.getAllContent();
 		Iterator<Content> iter = lst.iterator();
 		Content first = iter.next();
 		
@@ -134,7 +134,7 @@ class SearchServiceTest {
 	@Commit
 	@Order(4)
 	void testFilterContentBySubjects() {
-		Set<Module> lst = ms.getAllModules();
+		Set<Module> lst = (Set<Module>) ms.getAllModules();
 		Iterator<Module> iter = lst.iterator();		
 		
 		int flamingModId = -1;
@@ -170,7 +170,7 @@ class SearchServiceTest {
 	@Commit
 	@Order(5)
 	void testGetContentByModuleId() {
-		Set<Module> allModules= ms.getAllModules();
+		Set<Module> allModules= (Set<Module>) ms.getAllModules();
 		Iterator<Module> iter = allModules.iterator();
 		Module first = iter.next();
 		int MID = first.getId();
