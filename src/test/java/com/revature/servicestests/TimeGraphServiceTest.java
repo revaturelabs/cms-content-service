@@ -39,13 +39,13 @@ import com.revature.services.TimegraphService;
 @SpringBootTest
 public class TimeGraphServiceTest {
 	
-	/** Value - {@value}, Represents 1 month in milliseconds. */
+	/** ONE_MONTH - {@value}, Represents 1 month in milliseconds. */
 	long ONE_MONTH = 2592000000L;
 	
-	/** Value - {@value}, Represents 6 months in milliseconds. */
+	/** SIX_MONTHS - {@value}, Represents 6 months in milliseconds. */
 	long SIX_MONTHS = 15552000000L;
 	
-	/** Value - {@value}, Represents 1 year in milliseconds. */
+	/** ONE_YEAR - {@value}, Represents 1 year in milliseconds. */
 	long ONE_YEAR = 31536000000L;
 	
 	@Autowired
