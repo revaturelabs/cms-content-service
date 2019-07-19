@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.TimeGraphData;
 import com.revature.services.TimegraphService;
+import com.revature.transients.TimeGraphData;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional
@@ -19,6 +19,14 @@ public class TimegraphController {
 	@Autowired
 	TimegraphService timegraphService;
 	
+	/**
+	 * getContentBetweenTimes defines the API end point which calls the appropriate service method.
+	 * @param timeRange
+	 * timeRange represents a select time range that the client selects to restrict the graph time axis.
+	 * 
+	 * @return
+	 * A timeGraphData wrapper object see (com.revature.transients)
+	 */
 	@GetMapping("/timegraph/{timeFrame}")
 	TimeGraphData getContentBetweenTimes(@PathVariable("timeFrame") long timeRange)
 	{

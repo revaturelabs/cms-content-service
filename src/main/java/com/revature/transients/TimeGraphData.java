@@ -1,7 +1,6 @@
-package com.revature.entities;
+package com.revature.transients;
 
 import java.util.Set;
-
 
 public class TimeGraphData 
 {

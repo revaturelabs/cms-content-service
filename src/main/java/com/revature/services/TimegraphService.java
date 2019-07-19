@@ -1,7 +1,7 @@
 package com.revature.services;
 
 
-import com.revature.entities.TimeGraphData;
+import com.revature.transients.TimeGraphData;
 
 public interface TimegraphService {
 	
