@@ -51,8 +51,12 @@ public class ContentServiceImpl implements ContentService {
 		
 		lr.saveAll(links);
 		
-		content.setLinks(links);		
-
+		content.setLinks(links);
+		if(content.getDateCreated() == 0L && content.getLastModified() == 0L) {
+		content.setDateCreated(System.currentTimeMillis());
+		
+		content.setLastModified(System.currentTimeMillis());
+		}
 		return content;
 	}
 	

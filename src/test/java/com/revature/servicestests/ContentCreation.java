@@ -87,7 +87,7 @@ class ContentCreation {
 				"Hologram",
 				"AI explains Mass Effect Theory",
 				"www.mass.test",
-				links);
+				links, 1563378565, 1563378565);
 		
 		cs.createContent(content);
 		

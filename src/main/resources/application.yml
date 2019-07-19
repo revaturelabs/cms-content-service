@@ -1,14 +1,15 @@
 
 spring:
-  application:    name: CMSFORCE
+  application:
+    name: CMSFORCE
   datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@project3-reports-test.c4kadn7et1e1.us-east-2.rds.amazonaws.com:1521:ORCL
-      username: p3_test
-      password: p3_test_pass
+      url: ${DB_URL}
+      username: ${DB_USER}
+      password: ${DB_PASS}
   jpa:
      hibernate:
-      show-sql: true
+      show-sql: false
        
 logging:
   config:
@@ -18,14 +19,10 @@ logging:
   pattern:
     file: "%d %-5level [%thread] %logger : %msg%n"
   level:
-   
-    
     com.revature: error, info
     org.hibernate: error, warn
     org.apache.catalina: off
     com.zaxxer.hikari: off
-
-       
 
 server:
   port: 9002
@@ -34,20 +31,10 @@ eureka:
   client:
 
     service-url:
-
-      defaultZone:  http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL}
 
   instance:
 
     lease-expiration-duration-in-seconds: 2
 
     lease-renewal-interval-in-seconds: 1
-
-
-
-  
-          
-      
-
-
-
