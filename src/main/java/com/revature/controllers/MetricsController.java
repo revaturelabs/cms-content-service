@@ -1,10 +1,10 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +31,7 @@ public class MetricsController {
 	 * @return set of contents
 	 * */
 	private Set<Content> getNewestContent() {
-		return contentService.getAllContent();
+		return (Set<Content>) contentService.getAllContent();
 	}
 	
 	/*
@@ -40,7 +40,7 @@ public class MetricsController {
 	 * 
 	 * */
 	private Set<Module> getNewestModule() {
-		return moduleService.getAllModules();
+		return (Set<Module>) moduleService.getAllModules();
 	}
 		
 	
@@ -52,12 +52,11 @@ public class MetricsController {
 	@GetMapping("/codeCount")
 	public int getCountCodeEx(){
 		int counter = 0;
-		Iterator<Content> contents = getNewestContent().iterator();
-		while(contents.hasNext()) {
-			if(contents.next().getFormat().equals("Code")) {
+		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
+		for(Content c : contents) {
+			if(c.getFormat().equals("Code")) {
 				counter++;
 			}
-			
 		}
 		return counter;
 	}
@@ -72,9 +71,9 @@ public class MetricsController {
 	@GetMapping("/documentCount")
 	public int getCountDocEx(){
 		int counter = 0;
-		Iterator<Content> contents = getNewestContent().iterator();
-		while(contents.hasNext()) {
-			if(contents.next().getFormat().equals("Document")) {
+		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
+		for(Content c : contents) {
+			if(c.getFormat().equals("Document")) {
 				counter++;
 			}
 		}
@@ -91,9 +90,9 @@ public class MetricsController {
 	@GetMapping("/ppCount")
 	public int getCountPPEx(){
 		int counter = 0;
-		Iterator<Content> contents = getNewestContent().iterator();
-		while(contents.hasNext()) {
-			if(contents.next().getFormat().equals("Powerpoint")) {
+		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
+		for(Content c : contents) {
+			if(c.getFormat().equals("Powerpoint")) {
 				counter++;
 			}
 		}
@@ -108,7 +107,8 @@ public class MetricsController {
 	 * */
 	@GetMapping("/numDiffMods")
 	public int getNumDiffMod() {
-		return getNewestModule().size();
+		ArrayList<Module> modules = (ArrayList<Module>) moduleService.getAllModules();
+		return modules.size();
 	}
 	
 	
@@ -120,18 +120,15 @@ public class MetricsController {
 	 * */
 	@GetMapping("/averageRecs")
 	public int getAvgRec() {
-		int counter = 0;
+		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
+		int counter = contents.size();
 		int size = 0;
-		
-		Iterator<Content> contents = getNewestContent().iterator();
-		while(contents.hasNext()) {
-			size += contents.next().getLinks().size();
-			counter++;
-		}
 		if(counter != 0) {
-			return size/counter;			
+			for(Content c : contents) {
+				size += c.getLinks().size();
+			}
 		}
-		return 0;
+		return size/counter;
 	}
 		
 }//end class

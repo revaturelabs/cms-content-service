@@ -5,7 +5,7 @@ public interface ContentService {
 	
     public Content createContent(Content content);
     
-    public Set<Content> getAllContent();
+    public Iterable<Content> getAllContent();
     
     public Content getContentById(int id);
     

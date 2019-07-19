@@ -6,7 +6,7 @@ import com.revature.entities.Module;
 
 public interface ModuleService {
 
-	public Set<Module> getAllModules();
+	public Iterable<Module> getAllModules();
 	
 	public Module getModuleById(int id);
 	

@@ -68,14 +68,14 @@ class ModuleServiceTest {
 	@Commit
 	@Order(3)
 	void testGetAllModules() {
-		assertEquals(ms.getAllModules().size(), JdbcTestUtils.countRowsInTable(template, "module"));
+		assertEquals(((Set<Module>) ms.getAllModules()).size(), JdbcTestUtils.countRowsInTable(template, "module"));
 	}
 
 	@Test
 	@Commit
 	@Order(4)
 	void testGetModuleById() {
-		Set<Module> allModules = ms.getAllModules();
+		Set<Module> allModules = (Set<Module>) ms.getAllModules();
 		Iterator<Module> iter = allModules.iterator();
 		Module first = iter.next();
 		int id = first.getId();
