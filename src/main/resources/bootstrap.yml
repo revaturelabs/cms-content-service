@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: content-service
+      discovery:
+        service-id: config
+        enabled: true
