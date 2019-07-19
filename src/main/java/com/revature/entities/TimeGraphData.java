@@ -9,7 +9,6 @@ public class TimeGraphData
 	private int numContents;
 	public TimeGraphData() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public TimeGraphData(Set<Long> returnedLongs, int numContents) {
 		super();
