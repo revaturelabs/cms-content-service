@@ -61,7 +61,7 @@ class RepositoriesSmokeTest {
 		Module module2 = new Module(2, "elmo", 0, null);
 		mr.save(module2);
 	
-		Content content = new Content(5, "Flaming Elmo Hello World", "code", "Hello World written in Elmo++", "www.elmo.test", null);
+		Content content = new Content(5, "Flaming Elmo Hello World", "code", "Hello World written in Elmo++", "www.elmo.test", null, 1563378565, 1563378565);
 		cr.save(content);
 	
 		module1 = mr.findBysubject("flaming").iterator().next();

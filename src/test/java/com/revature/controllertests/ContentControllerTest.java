@@ -97,12 +97,13 @@ class ContentControllerTest {
 		links.add(link1);
 		links.add(link2);
 		
+		// inserted random unix epoch times for dateCreated and lastModified
 		Content content = new Content(99,
 				"Impressionism",
 				"painting",
 				"A work that gets the essence of an image",
 				"www.impression.test",
-				links);
+				links, 1563378565, 1563378565);
 				
 		links.clear();	
 		
@@ -110,12 +111,13 @@ class ContentControllerTest {
 		Link link3 = new Link(12,88,mod3.getId(),"relaventTo");
 		links.add(link3);
 		
+		// inserted random unix epoch times for dateCreated and lastModified
 		Content content2 = new Content(88,
 				"Dadaism",
 				"Ironing Board",
 				"Anti-art",
 				"www.dadaism.test",
-				links);
+				links, 1563378565, 1563378565);
 		
 		Set <Content> contents = new HashSet<Content>();
 		contents.add(content);
