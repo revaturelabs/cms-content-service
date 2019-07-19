@@ -25,6 +25,11 @@ public class Content {
 
 	private String url;
 	
+	/**
+	 * The following fields, dateCreated and lastModified, were added in order to facilitate functionality for 
+	 * displaying a graphical representation of content created over a period of time.
+	 */
+	
 	@Column(name = "created")
 	private long dateCreated;
 	
