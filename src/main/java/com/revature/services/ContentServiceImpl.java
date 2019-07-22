@@ -36,16 +36,15 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Content createContent(Content content) {
 		
-		//get the tags for the new submitted content
 		Set<Link> links = content.getLinks();
 		
 		
-		if (links == null) { //if the submitted content has no tags then throw an error
+		if (links == null) {
 			throw new NullPointerException();
 		}
 		
 		content.setLinks(null);
-		content = cr.save(content); //add content to repository
+		content = cr.save(content);
 		
 		for(Link link : links) {
 			link.setContentId(content.getId());
@@ -90,19 +89,12 @@ public class ContentServiceImpl implements ContentService {
 	@LogException
 	public Content updateContent(Content newContent) {
 		
-		//check if requested update to content is a null object
 		if(newContent == null)
 			throw new NullPointerException();
 		
-		//check if newContent has an id
 		if(Character.isDigit(newContent.getId()))
 			throw new NumberFormatException();
 		
-		//In order to check if we are removing(and/or updating other fields in content) or adding tags
-		//we must first split the tags into the existing tags and the new tags (if there are any)
-		//because when receiving the new tags from the client, all new tags have an id of 0. If you try to add
-		//the tags straight away it will cause a DataIntegrity error or InvalidData error.
-		//get the tags for the new submitted content
 		Set<Link> oldLinks = new HashSet<>();
 		Set<Link> newLinks = new HashSet<>();
 		
@@ -114,28 +106,22 @@ public class ContentServiceImpl implements ContentService {
 			}
 		}
 		
-		//set the links in the newContent to the old content
 		newContent.setLinks(oldLinks);
 		
-		//check if there are any new links
 		if(!newLinks.isEmpty()) {
-			//if there is
-			//save the new links (which will assign actual id's to each new link)
+
 			for(Link l : lr.saveAll(newLinks)) {
-				oldLinks.add(l); //add the new newLinks to the oldLinks
+				oldLinks.add(l);
 			}
-			newContent.setLinks(oldLinks); //now set the new oldLinks for newContent
+			newContent.setLinks(oldLinks);
 		}
 		
-		//get the existing content
 		Content oldContent = this.getContentById(newContent.getId());
 		
-		//check if content exists in content repo
 		if(oldContent == null)
 			throw new NullPointerException();
 		
 		
-		//add new updated content
 		return cr.save(newContent);
 	}
 	
