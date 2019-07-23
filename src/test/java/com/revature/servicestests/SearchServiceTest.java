@@ -3,14 +3,12 @@ package com.revature.servicestests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
-
 import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
@@ -34,6 +32,12 @@ import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 import com.revature.services.SearchService;
 
+/**
+ * Overarching test for SearchService.
+ * 
+ * @author wsm
+ * @version 2.0
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -62,130 +66,56 @@ class SearchServiceTest {
 
 	@Autowired
 	LinkRepository lr;
-	
-	
-	// using repositories for now for creation
+
+	/**
+	 * Handles an elaborate test for all the notable filtering methods.
+	 */
 	@Test
-	@Commit
-	@Order(1)
-	void addTestData() {
-		
+	@Rollback
+	void searchServiceTest()
+	{
+		//Create
 		Module module1 = new Module(1, "FIRST TEST MODULE", 0, null);
-		
-		mr.save(module1);
-		
 		Module module2 = new Module(2, "SECOND TEST MODULE", 0, null);
-		mr.save(module2);
-		
-		Content content = new Content(5, "FIRST TEST CONTENT", "code", "FIRST TEST CONTENT DESCRIPTION", "www.elmo.test", null, 1563378565, 1563378565);
-		cr.save(content);
 	
-		
-		module1 = mr.findBysubject("FIRST TEST MODULE").iterator().next();
-	    module2 = mr.findBysubject("SECOND TEST MODULE").iterator().next();
-		content = cr.findByTitle("FIRST TEST CONTENT").iterator().next();
+		Content content = new Content(5, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
-		
 		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
 		
-		link1 = lr.save(link1);
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
 		
-		link2 = lr.save(link2);
+		content.setLinks(contentLinks);
 		
-	}
-	
-	@Test
-	@Commit
-	@Order(2)
-	void testFilterContentByTitle() {
-		Set<Content> lst = cs.getAllContent();
+		content = cr.save(content);
 		
-		Iterator<Content> iter = lst.iterator();
-		Content first = iter.next();
+		//Actual testing.
+		System.out.println(content);
 		
-		String title = first.getTitle();
-		assertNotNull(ss.filterContentByTitle(title));
-		System.out.println(title);
+		String title = content.getTitle();
+		String format = content.getFormat();
+		System.out.println(ss.filterContentByTitle(title));
+		boolean titleTest = ss.filterContentByTitle(title).contains(content);
+		boolean formatTest = ss.filterContentByFormat(format).contains(content);
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+		boolean subjectTestContains = ss.filterContentBySubjects(mlist).contains(content);
+		boolean moduleIdTestContains = ss.getContentByModuleId(module1.getId()).contains(content);
 		
-		int rows = JdbcTestUtils.countRowsInTableWhere(template, "content", String.format("title = '%s'", title));
+		//Cleanup courtesy of @Transactional and @Rollback.
 		
-		assertEquals(rows, ss.filterContentByTitle(title).size());
-		assertEquals(0, ss.filterContentByTitle("NON EXISTENT TITLE").size());
-	}
 
-	@Test
-	@Commit
-	@Order(3)
-	void testFilterContentByFormat() {
-		System.out.println("Number of records in Module "+JdbcTestUtils.countRowsInTable(template, "module"));
-		Set<Content> lst = cs.getAllContent();
-		Iterator<Content> iter = lst.iterator();
-		Content first = iter.next();
-		
-		String format = first.getFormat();
-		
-		int rows = JdbcTestUtils.countRowsInTableWhere(template, "content", String.format("format = '%s'", format));
-		assertEquals(rows, ss.filterContentByFormat(format).size());
-		assertEquals(0, ss.filterContentByFormat("NON EXISTENT FORMAT").size());
-	}	
-
-	@Test
-	@Commit
-	@Order(4)
-	void testFilterContentBySubjects() {
-		Set<Module> lst = ms.getAllModules();
-		Iterator<Module> iter = lst.iterator();		
-		
-		int flamingModId = -1;
-		int elmoModId = -1;
-		while(iter.hasNext()) {			
-			Module current = iter.next();
-			if(current.getSubject().equals("FIRST TEST MODULE")) {
-				flamingModId = current.getId();
-			}
-			if(current.getSubject().equals("SECOND TEST MODULE")) {
-				elmoModId = current.getId();
-			}				
-		}
-		
-		List<Integer> modIdArray = new ArrayList<Integer>();
-		
-		// to test filter content with only 1 subject
-		modIdArray.add(flamingModId);
-		int rows = JdbcTestUtils.countRowsInTableWhere(template, "link", String.format("fk_m = '%d'", flamingModId));
-		assertEquals(rows, ss.filterContentBySubjects(modIdArray).size());
-		
-		// to test filter content with more than one subject
-		modIdArray.add(elmoModId);
-		assertEquals(1, ss.filterContentBySubjects(modIdArray).size());
-		
-		// tests filter content by Subject with non-existent subject
-		List<Integer> modIdArray2 = new ArrayList<Integer>();
-		modIdArray2.add(-1);
-		assertEquals(0, ss.filterContentBySubjects(modIdArray2).size());
-	}
-
-	@Test
-	@Commit
-	@Order(5)
-	void testGetContentByModuleId() {
-		Set<Module> allModules= ms.getAllModules();
-		Iterator<Module> iter = allModules.iterator();
-		Module first = iter.next();
-		int MID = first.getId();
-				
-		assertThrows(NoSuchElementException.class, ()->{ss.getContentByModuleId(-1);});
-		assertNotNull(ss.getContentByModuleId(MID));
-	}
-	
-	@Test
-	@Commit
-	@Order(6)
-	void deleteTestData() {
-		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'FIRST TEST MODULE'");
-		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'SECOND TEST MODULE'");
-		JdbcTestUtils.deleteFromTableWhere(template, "content", "title = 'FIRST TEST CONTENT'");
+		assertTrue(titleTest);
+		assertTrue(formatTest);
+		assertTrue(subjectTestContains);
+		assertTrue(moduleIdTestContains);
 	}
 	
 }

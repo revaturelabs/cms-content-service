@@ -1,8 +1,10 @@
 package com.revature.smoketests;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Order;
+import java.util.Optional;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,13 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
-
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
@@ -27,6 +26,16 @@ import com.revature.repositories.ModuleRepository;
 
 import org.junit.jupiter.api.MethodOrderer;
 
+
+/**
+ * Simple testing for all of the repositories.
+ * 
+ * <p> Meant as a sanity test for the repositories. Vaguely based on code made by a previous sprint,
+ * but altered for the sake of atomicity and removing the need for ordering.
+ * 
+ * @author wsm
+ * @version 2.0
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
 @Transactional
@@ -45,59 +54,126 @@ class RepositoriesSmokeTest {
 	
 	@Autowired
 	JdbcTemplate template;
-	
-	int rows;
-	
-	
+		
+	/**
+	 * Overarching test for Module saving and deletion.
+	 * 
+	 * <p> Simply creates a new module, adds it, updates it, and then deletes it, confirming success after saves and deletion.
+	 */
 	@Test
 	@Commit
-	@Order(1)
-	void sampleWalkthrough() {
-		rows = JdbcTestUtils.countRowsInTable(template, "link");
+	public void ModuleStandaloneTest()
+	{
+		Module m = new Module();
+		m.setSubject("A valid testing subject");
+		m.setId(0);
+		m.setCreated(System.currentTimeMillis());
+		m = mr.save(m);
 		
-		Module module1 = new Module(1, "flaming", 0, null);
-		mr.save(module1);
+		boolean savedProperly = mr.findBysubject(m.getSubject()).contains(m);
 		
-		Module module2 = new Module(2, "elmo", 0, null);
-		mr.save(module2);
+		String subj = "Another valid subject";
+		m.setSubject(subj);
+		
+		m = mr.save(m);
+		
+		boolean mergedProperly = m.getSubject().equals(subj);
+		
+		mr.delete(m);
+		
+		Module result = mr.findById(m.getId());
+		boolean deletedProperly = (result==null);
+		
+		assertTrue(savedProperly);
+		assertTrue(mergedProperly);
+		assertTrue(deletedProperly);
+	}
 	
-		Content content = new Content(5, "Flaming Elmo Hello World", "code", "Hello World written in Elmo++", "www.elmo.test", null, 1563378565, 1563378565);
-		cr.save(content);
+	/**
+	 * Overarching test for Content saving and deletion.
+	 * 
+	 * <p> Simply creates new content, adds it, updates it, and deletes it, confirming success after saves and deletion.
+	 */
+	@Test
+	@Commit
+	public void ContentStandaloneTest()
+	{
+		Content c = new Content();
+		c.setDateCreated(System.currentTimeMillis());
+		c.setLastModified(System.currentTimeMillis());
+		c.setDescription("A valid description");
+		c.setFormat("Code");
+		c.setTitle("A valid title");
+		c.setUrl("http://valid.valid");
+		c.setLinks(null);
+		
+		c = cr.save(c);
+		
+		boolean savedProperly = cr.findByFormat("Code").contains(c);
+		
+		String title = "Another valid title";
+		c.setTitle(title);
+		
+		c = cr.save(c);
+		
+		boolean mergedProperly = cr.findByTitle(title).contains(c);
+		
+		cr.delete(c);
+		Set<Content> result = cr.findById(c.getId());
+		boolean deletedProperly = (result == null || result.isEmpty());
+		
+		assertTrue(savedProperly);
+		assertTrue(mergedProperly);
+		assertTrue(deletedProperly);
+	}
 	
-		module1 = mr.findBysubject("flaming").iterator().next();
-	    module2 = mr.findBysubject("elmo").iterator().next();
-		content = cr.findByTitle("Flaming Elmo Hello World").iterator().next();
-		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
-		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+	/**
+	 * Saving and Deletion test for links. Is dependent on Module and Content being functional.
+	 * 
+	 * <p> Adds and deletes links, confirming success after save and deletion. Adds and removes a module and a content in the process.
+	 */
+	@Test
+	@Commit
+	public void LinkSaveDelTest()
+	{		
+		//Add Content to link.
+		Content c = new Content();
+		c.setDateCreated(System.currentTimeMillis());
+		c.setLastModified(System.currentTimeMillis());
+		c.setDescription("A valid description");
+		c.setFormat("Code");
+		c.setTitle("A valid title");
+		c.setUrl("http://valid.valid");
+		c.setLinks(null);
+		
+		c = cr.save(c);
+		
+		//Add Module to link.
+		Module m = new Module();
+		m.setSubject("A valid testing subject");
+		m.setId(0);
+		m.setCreated(System.currentTimeMillis());
+		m = mr.save(m);
 
-		link1 = lr.save(link1);
-		link2 = lr.save(link2);
+		Link l = new Link();
+		l.setContentId(c.getId());
+		l.setModuleId(m.getId());
+		l.setAffiliation("RelevantTo");
 		
+		l = lr.save(l);
+		
+		boolean savedProperly = lr.findByContentId(c.getId()).contains(l);
+		
+		lr.delete(l);
+		
+		Optional<Link> result = lr.findById(l.getId());
+		boolean deletedProperly = ((result == null) || result.isPresent() == false);
+		
+		mr.delete(m);
+		cr.delete(c);
+		
+		assertTrue(savedProperly);
+		assertTrue(deletedProperly);
 	}
-	
-	@Test	
-	@Rollback
-	@Order(2)
-	public void recordNumberVerification() {
-		
-		int contentnum = JdbcTestUtils.countRowsInTableWhere(template, "content", "title = 'Flaming Elmo Hello World'");
-		int modulenum = JdbcTestUtils.countRowsInTableWhere(template, "module", "subject = 'flaming' or subject = 'elmo'");
-		
-		Assertions.assertEquals(1, contentnum, "Content should be 1");
-		Assertions.assertEquals(2, modulenum, "module should be 2");
-		Assertions.assertEquals(rows + 2, JdbcTestUtils.countRowsInTable(template, "link"));
-		
-	}
-	
-	@Test
-	@Commit
-	@Order(3)
-	void deleteTestData() {
-		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'flaming'");
-		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'elmo'");
-		JdbcTestUtils.deleteFromTableWhere(template, "content", "title = 'Flaming Elmo Hello World'");
-	}
-	
-	
 	
 }
