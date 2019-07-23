@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.TimeGraphData;
 import com.revature.services.TimegraphService;
+import com.revature.util.TimeGraphData;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional

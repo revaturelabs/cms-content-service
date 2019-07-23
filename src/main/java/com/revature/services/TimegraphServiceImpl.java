@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
-import com.revature.entities.TimeGraphData;
 import com.revature.repositories.ContentRepository;
+import com.revature.util.TimeGraphData;
 
 @Service
 

@@ -3,7 +3,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.entities.TimeGraphData;
+import com.revature.util.TimeGraphData;
 
 public interface TimegraphService {
 	

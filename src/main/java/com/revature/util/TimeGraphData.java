@@ -1,4 +1,4 @@
-package com.revature.entities;
+package com.revature.util;
 
 import java.util.Set;
 
