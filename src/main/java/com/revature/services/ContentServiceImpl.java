@@ -86,7 +86,13 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 
+	/*
+	 * gets formats and cycles through all elements in DB to return
+	 * how many time each format is used. 
+	 * Much faster than using a findByFormat
+	 * */
 	@Override
+	@LogException
 	public ArrayList<Integer> getContentByFormat(String[] formats) {
 		ArrayList<Integer> numList = new ArrayList<>();
 		ArrayList<Content> all = (ArrayList<Content>) cr.findAll();

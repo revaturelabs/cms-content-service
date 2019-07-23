@@ -62,7 +62,6 @@ public class MetricsController {
 	public double getAvgRec(@RequestBody Map<String, Object> ids) {
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
-		
 		return moduleService.getAverageByModuleIds(idsIn);
 	}
-}//end class
+}
