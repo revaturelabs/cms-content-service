@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		return cr.findByTitle(title); 
+		Set<Content> temp = cr.findByTitle(title); 
+		return temp;
 	}
 
 	@Override
