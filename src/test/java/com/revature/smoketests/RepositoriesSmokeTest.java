@@ -60,8 +60,8 @@ class RepositoriesSmokeTest {
 	 * 
 	 * <p> Simply creates a new module, adds it, updates it, and then deletes it, confirming success after saves and deletion.
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	public void ModuleStandaloneTest()
 	{
 		Module m = new Module();
@@ -94,8 +94,8 @@ class RepositoriesSmokeTest {
 	 * 
 	 * <p> Simply creates new content, adds it, updates it, and deletes it, confirming success after saves and deletion.
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	public void ContentStandaloneTest()
 	{
 		Content c = new Content();
@@ -132,8 +132,8 @@ class RepositoriesSmokeTest {
 	 * 
 	 * <p> Adds and deletes links, confirming success after save and deletion. Adds and removes a module and a content in the process.
 	 */
-//	@Test
-//	@Commit
+	@Test
+	@Commit
 	public void LinkSaveDelTest()
 	{		
 		//Add Content to link.

@@ -32,6 +32,12 @@ import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 import com.revature.services.SearchService;
 
+/**
+ * Overarching test for SearchService.
+ * 
+ * @author wsm
+ * @version 2.0
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -61,6 +67,9 @@ class SearchServiceTest {
 	@Autowired
 	LinkRepository lr;
 
+	/**
+	 * Handles an elaborate test for all the notable filtering methods.
+	 */
 	@Test
 	@Rollback
 	void searchServiceTest()
@@ -109,39 +118,4 @@ class SearchServiceTest {
 		assertTrue(moduleIdTestContains);
 	}
 	
-	private void creationPhase()
-	{
-		Module module1 = new Module(1, "FIRST TEST MODULE", 0, null);
-		Module module2 = new Module(2, "SECOND TEST MODULE", 0, null);
-	
-		Content content = new Content(5, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
-
-		module1 =mr.save(module1);
-		module2 =mr.save(module2);
-		content = cr.save(content);
-		
-		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
-		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
-		
-		Set<Link> contentLinks = new HashSet<Link>();
-		contentLinks.add(link1);
-		contentLinks.add(link2);
-		
-		content.setLinks(contentLinks);
-		
-		content = cr.save(content);
-		/*
-		ArrayList<Link> lar = new ArrayList<Link>();
-		lar.add(link1);
-		lar.add(link2);
-		lar = (ArrayList<Link>) lr.saveAll(lar);
-		
-		content.getLinks().addAll(lar);
-		module1.getLinks().add(link1);
-		module2.getLinks().add(link2);
-		module1 = mr.save(module1);
-		module2 = mr.save(module2);
-		content = cr.save(content);
-		*/
-	}
 }

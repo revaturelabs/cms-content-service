@@ -50,7 +50,7 @@ class ContentControllerTest {
 	@Autowired
 	Gson gson;
 	
-	//@Test
+	@Test
 	void createContent() throws Exception {
 		String JSON = "{\"id\":88,\"title\":\"Dadaism\",\"format\":\"Ironing Board\",\"description\":\"Anti-art\",\"url\":\"www.dadaism.test\",\"links\":[{\"id\":12,\"contentId\":88,\"moduleId\":3,\"affiliation\":\"relaventTo\"}]}";
 		Content cont = gson.fromJson(JSON, Content.class);
@@ -63,7 +63,7 @@ class ContentControllerTest {
 		
 	
 	
-	//@Test
+	@Test
 	void getAllContent() throws Exception {
 
 		Mockito.when(cs.getAllContent()).thenReturn(this.fakeContents());		
@@ -74,7 +74,7 @@ class ContentControllerTest {
 		
 	} 
 	
-	//@Test
+	@Test
 	void getContentById() throws Exception {
 		
 		Mockito.when(cs.getContentById(88)).thenReturn(this.fakeContents().iterator().next());
