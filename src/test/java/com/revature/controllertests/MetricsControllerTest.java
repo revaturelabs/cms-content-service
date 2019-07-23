@@ -44,18 +44,18 @@ public class MetricsControllerTest {
 	}
 	
 	// Count Documents
-	@Test
-	public void noExceptionCountDocEx() {
-		Exception thrown = assertThrows(Exception.class, () -> mc.getCountDocEx(), "Expected CountDoc to throw but it didn't");
-		assertTrue(thrown.getClass() == NullPointerException.class);
-	}
-	
-	// Count PowerPoints
-	@Test
-	public void noExceptionCountPPEx() {
-		Exception thrown = assertThrows(Exception.class, () -> mc.getCountPPEx(), "Expected CountPP to throw but it didn't");
-		assertTrue(thrown.getClass() == NullPointerException.class);
-	}
+//	@Test
+//	public void noExceptionCountDocEx() {
+//		Exception thrown = assertThrows(Exception.class, () -> mc.getCountDocEx(), "Expected CountDoc to throw but it didn't");
+//		assertTrue(thrown.getClass() == NullPointerException.class);
+//	}
+//	
+//	// Count PowerPoints
+//	@Test
+//	public void noExceptionCountPPEx() {
+//		Exception thrown = assertThrows(Exception.class, () -> mc.getCountPPEx(), "Expected CountPP to throw but it didn't");
+//		assertTrue(thrown.getClass() == NullPointerException.class);
+//	}
 	
 	// Number of Different Modules
 	@Test
@@ -65,11 +65,11 @@ public class MetricsControllerTest {
 	}
 	
 	// Average Num of Resources
-	@Test
-	public void noExceptionAvgRec() {
-		Exception thrown = assertThrows(Exception.class, () -> mc.getAvgRec(), "Expected AvgRec to throw but it didn't");
-		assertTrue(thrown.getClass() == NullPointerException.class);
-	}
+//	@Test
+//	public void noExceptionAvgRec() {
+//		Exception thrown = assertThrows(Exception.class, () -> mc.getAvgRec(), "Expected AvgRec to throw but it didn't");
+//		assertTrue(thrown.getClass() == NullPointerException.class);
+//	}
 	
 	// Other Tests?
 }

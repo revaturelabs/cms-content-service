@@ -1,6 +1,8 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -66,11 +68,11 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@Override
 	@LogException
-	public Iterable<Content> getAllContent() {
-//			Set<Content> contents = new HashSet<>();
-//			cr.findAll().forEach(contents :: add);
-//			return contents;
-		return cr.findAll();
+	public Set<Content> getAllContent() {
+			Set<Content> contents = new HashSet<>();
+			cr.findAll().forEach(contents :: add);
+			return contents;
+		//return cr.findAll();
 		}
 	
 	/**
@@ -81,6 +83,30 @@ public class ContentServiceImpl implements ContentService {
 	@LogException
 	public Content getContentById(int id) {	
 			return cr.findById(id).iterator().next();		
+	}
+
+
+	@Override
+	public ArrayList<Integer> getContentByFormat(String[] formats) {
+		ArrayList<Integer> numList = new ArrayList<>();
+		ArrayList<Content> all = (ArrayList<Content>) cr.findAll();
+		int num= 0;
+		
+		for(int j = 0; j<formats.length; j++) {
+			for(int i = 0; i < all.size(); i++) {
+				if(all.get(i).getFormat().equals(formats[j])) {
+					num++;
+				}
+			}
+			System.out.println("Adding number: " + num + " to format: " + formats[j]);
+			numList.add(num);
+			num = 0;
+		}
+		return numList;
+
+		
+		//		for(String format : formats) {
+		//			numList.add(cr.findByFormat(format).size());
 	}
 
 }
