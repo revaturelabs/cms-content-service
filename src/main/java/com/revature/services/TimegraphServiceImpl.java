@@ -2,14 +2,15 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
+import com.revature.entities.TimeGraphData;
 import com.revature.repositories.ContentRepository;
-import com.revature.transients.TimeGraphData;
 
 @Service
 
@@ -24,10 +25,12 @@ public class TimegraphServiceImpl implements TimegraphService {
 	@Autowired
 	ContentRepository cr;
 	
+	@Autowired
+	SearchService ss;
 
 	/**
 	 * @param timeRange
-	 * This method accepts a time range from the user and calculates a time at which the graphical representation
+	 * This method accepts a time range,  from the user and calculates a time at which the graphical representation
 	 *  of content generation will begin. This calculation-- a "start time"-- is achieved by subtracting the passed in time range
 	 *  value from the current time (in milliseconds).
 	 *  
@@ -42,7 +45,7 @@ public class TimegraphServiceImpl implements TimegraphService {
 	 * 
 	 */
 	@Override
-	public TimeGraphData findByCreatedBetween(long timeRange) {
+	public TimeGraphData getGraphData(long timeRange, String format, List<Integer> selectedModules) {
 
 		// calculate second parameter-- earliest time at which the graph begins 	
 		// earliest time = current time minus passed in time
@@ -51,13 +54,14 @@ public class TimegraphServiceImpl implements TimegraphService {
 		long currentTime = System.currentTimeMillis();
 		long startTime = currentTime - timeRange;
 		// call the dao method to get all content
+				
+		Set<Content> setOfContent = ss.filter("", format, selectedModules);
 		
-		ArrayList<Content> returnedContents = (ArrayList<Content>) cr.findAll();
 		// iterate through the set of contents and retrieve the longs from the set 
 		Set<Long> returnedDates = new HashSet<>();
 		
 		TimeGraphData tgd = new TimeGraphData(new HashSet<>(), 0);
-		for (Content content : returnedContents)
+		for (Content content : setOfContent)
 		{
 			// array of longs is here
 			

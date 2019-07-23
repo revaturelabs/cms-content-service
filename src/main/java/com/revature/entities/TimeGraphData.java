@@ -1,4 +1,4 @@
-package com.revature.transients;
+package com.revature.entities;
 
 import java.util.Set;
 
