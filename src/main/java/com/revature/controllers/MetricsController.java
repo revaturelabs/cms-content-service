@@ -25,40 +25,30 @@ public class MetricsController {
 	ModuleService moduleService;
 	@Autowired
 	ContentService contentService;
-
-	/*
-	 * Fills contentService variable with newest info from DB
-	 * @return set of contents
-	 * */
-	private Set<Content> getNewestContent() {
-		return (Set<Content>) contentService.getAllContent();
-	}
-	
-	/*
-	 * Fills moduleService variable with newest info from DB
-	 * @return Set of modules
-	 * 
-	 * */
-	private Set<Module> getNewestModule() {
-		return (Set<Module>) moduleService.getAllModules();
-	}
 		
-	
-	
 	/*
 	 * Returns the number of Contents with format set to code
 	 * @return count of code formats 
 	 * */
 	@GetMapping("/codeCount")
-	public int getCountCodeEx(){
+	public int[] getCountCodeEx(){
 		int counter = 0;
+		int docCount = 0;
+		int powerCount = 0;
 		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
 		for(Content c : contents) {
-			if(c.getFormat().equals("Code")) {
+			String form = c.getFormat();
+			if(form.equals("Code")) {
 				counter++;
 			}
+			else if(form.equals("Document")) {
+				docCount++;
+			}
+			else if(form.equals("Powerpoint")) {
+				powerCount++;
+			}
 		}
-		return counter;
+		return new int[] {counter, docCount, powerCount};
 	}
 	
 	
