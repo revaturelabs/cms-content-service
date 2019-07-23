@@ -103,10 +103,6 @@ public class ContentServiceImpl implements ContentService {
 			num = 0;
 		}
 		return numList;
-
-		
-		//		for(String format : formats) {
-		//			numList.add(cr.findByFormat(format).size());
 	}
 
 }
