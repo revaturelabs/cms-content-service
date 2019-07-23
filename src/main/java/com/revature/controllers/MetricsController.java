@@ -51,45 +51,45 @@ public class MetricsController {
 		return new int[] {counter, docCount, powerCount};
 	}
 	
-	
-	
-	
-	/*
-	 * Returns the number of Contents with format set to document
-	 * @return count of document formats 
-	 * */
-	@GetMapping("/documentCount")
-	public int getCountDocEx(){
-		int counter = 0;
-		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
-		for(Content c : contents) {
-			if(c.getFormat().equals("Document")) {
-				counter++;
-			}
-		}
-		return counter;
-	}
-	
-	
-	
-	
-	/*
-	 * Returns the number of Contents with format set to powerpoint
-	 * @return count of powerpoint formats 
-	 * */
-	@GetMapping("/ppCount")
-	public int getCountPPEx(){
-		int counter = 0;
-		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
-		for(Content c : contents) {
-			if(c.getFormat().equals("Powerpoint")) {
-				counter++;
-			}
-		}
-		return counter;
-	}
-	
-	
+//	
+//	
+//	
+//	/*
+//	 * Returns the number of Contents with format set to document
+//	 * @return count of document formats 
+//	 * */
+//	@GetMapping("/documentCount")
+//	public int getCountDocEx(){
+//		int counter = 0;
+//		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
+//		for(Content c : contents) {
+//			if(c.getFormat().equals("Document")) {
+//				counter++;
+//			}
+//		}
+//		return counter;
+//	}
+//	
+//	
+//	
+//	
+//	/*
+//	 * Returns the number of Contents with format set to powerpoint
+//	 * @return count of powerpoint formats 
+//	 * */
+//	@GetMapping("/ppCount")
+//	public int getCountPPEx(){
+//		int counter = 0;
+//		ArrayList<Content> contents = (ArrayList<Content>) contentService.getAllContent();
+//		for(Content c : contents) {
+//			if(c.getFormat().equals("Powerpoint")) {
+//				counter++;
+//			}
+//		}
+//		return counter;
+//	}
+//	
+//	
 	
 	/*
 	 * Returns the number of different modules in DB
