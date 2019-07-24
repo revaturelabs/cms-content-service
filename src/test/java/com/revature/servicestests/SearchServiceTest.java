@@ -77,11 +77,13 @@ class SearchServiceTest {
 		//Create
 		Module module1 = new Module(1, "FIRST TEST MODULE", 0, null);
 		Module module2 = new Module(2, "SECOND TEST MODULE", 0, null);
-	
+		Module module3 = new Module(3, "THIRD TEST MODULE", 0, null);
+		
 		Content content = new Content(5, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
+		module3 = mr.save(module3);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -96,11 +98,9 @@ class SearchServiceTest {
 		content = cr.save(content);
 		
 		//Actual testing.
-		System.out.println(content);
 		
 		String title = content.getTitle();
 		String format = content.getFormat();
-		System.out.println(ss.filterContentByTitle(title));
 		boolean titleTest = ss.filterContentByTitle(title).contains(content);
 		boolean formatTest = ss.filterContentByFormat(format).contains(content);
 		List<Integer> mlist = new ArrayList<Integer>();
@@ -109,6 +109,26 @@ class SearchServiceTest {
 		boolean subjectTestContains = ss.filterContentBySubjects(mlist).contains(content);
 		boolean moduleIdTestContains = ss.getContentByModuleId(module1.getId()).contains(content);
 		
+		//Testing for the overarching Filter method
+		String badtitle = "inaccurate title";
+		String badformat = "Document";
+		
+		//Valid testing.
+		Set<Content> filtered = ss.filter(title, format, mlist);
+		boolean validFilter = filtered.contains(content);
+		
+		filtered = ss.filter(badtitle, format, mlist);
+		boolean badTitleFilter = filtered.contains(content);
+		
+		filtered = ss.filter(title, badformat, mlist);
+		boolean badFormatFilter = filtered.contains(content);
+		
+		mlist.clear();
+		mlist.add(module3.getId());
+		filtered = ss.filter(title, format, mlist);
+		boolean badModuleFilter = filtered.contains(content);
+		
+		
 		//Cleanup courtesy of @Transactional and @Rollback.
 		
 
@@ -116,6 +136,11 @@ class SearchServiceTest {
 		assertTrue(formatTest);
 		assertTrue(subjectTestContains);
 		assertTrue(moduleIdTestContains);
+		
+		assertTrue(validFilter);
+		assertFalse(badTitleFilter);
+		assertFalse(badFormatFilter);
+		assertFalse(badModuleFilter);
 	}
 	
 }

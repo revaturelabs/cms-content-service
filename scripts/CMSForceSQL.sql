@@ -33,3 +33,5 @@ fk_m number (10),
 foreign key (fk_c) references content(c_id) on delete cascade,
 foreign key (fk_m) references module(m_id)on delete cascade
 );
+
+create sequence HIBERNATE_SEQUENCE;
