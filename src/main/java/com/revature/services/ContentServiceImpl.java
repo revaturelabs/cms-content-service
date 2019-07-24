@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
+import com.revature.exceptions.InvalidContentException;
+import com.revature.exceptions.InvalidContentId;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
@@ -90,10 +92,10 @@ public class ContentServiceImpl implements ContentService {
 	public Content updateContent(Content newContent) {
 		
 		if(newContent == null)
-			throw new NullPointerException();
+			throw new InvalidContentException("updateContent, newContent is null");
 		
 		if(Character.isDigit(newContent.getId()))
-			throw new NumberFormatException();
+			throw new InvalidContentId("updateContent, newContent does not have a valid Id");
 		
 		Set<Link> oldLinks = new HashSet<>();
 		Set<Link> newLinks = new HashSet<>();
@@ -119,7 +121,7 @@ public class ContentServiceImpl implements ContentService {
 		Content oldContent = this.getContentById(newContent.getId());
 		
 		if(oldContent == null)
-			throw new NullPointerException();
+			throw new InvalidContentException("updateContent, oldContent is null");
 		
 		
 		return cr.save(newContent);
