@@ -75,11 +75,11 @@ class SearchServiceTest {
 	void searchServiceTest()
 	{
 		//Create
-		Module module1 = new Module(1, "FIRST TEST MODULE", 0, null);
-		Module module2 = new Module(2, "SECOND TEST MODULE", 0, null);
-		Module module3 = new Module(3, "THIRD TEST MODULE", 0, null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(5, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
@@ -97,8 +97,7 @@ class SearchServiceTest {
 		
 		content = cr.save(content);
 		
-		//Actual testing.
-		
+		//Actual testing.		
 		String title = content.getTitle();
 		String format = content.getFormat();
 		boolean titleTest = ss.filterContentByTitle(title).contains(content);
