@@ -11,11 +11,11 @@ public class MetricsData {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public MetricsData(int codeCount, int docuementCount, int pptCount, int numDiffModsCount, double avgResources,
+	public MetricsData(int codeCount, int documentCount, int pptCount, int numDiffModsCount, double avgResources,
 			TimeGraphData timeGraphData) {
 		super();
 		this.codeCount = codeCount;
-		this.docuementCount = docuementCount;
+		this.docuementCount = documentCount;
 		this.pptCount = pptCount;
 		this.numDiffModsCount = numDiffModsCount;
 		this.avgResources = avgResources;
