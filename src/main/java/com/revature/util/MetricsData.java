@@ -2,7 +2,7 @@ package com.revature.util;
 
 public class MetricsData {
 	private int codeCount;
-	private int docuementCount;
+	private int documentCount;
 	private int pptCount;
 	private int numDiffModsCount;
 	private double avgResources;
@@ -15,7 +15,7 @@ public class MetricsData {
 			TimeGraphData timeGraphData) {
 		super();
 		this.codeCount = codeCount;
-		this.docuementCount = documentCount;
+		this.documentCount = documentCount;
 		this.pptCount = pptCount;
 		this.numDiffModsCount = numDiffModsCount;
 		this.avgResources = avgResources;
@@ -27,11 +27,11 @@ public class MetricsData {
 	public void setCodeCount(int codeCount) {
 		this.codeCount = codeCount;
 	}
-	public int getDocuementCount() {
-		return docuementCount;
+	public int getDocumentCount() {
+		return documentCount;
 	}
-	public void setDocuementCount(int docuementCount) {
-		this.docuementCount = docuementCount;
+	public void setDocumentCount(int docuementCount) {
+		this.documentCount = docuementCount;
 	}
 	public int getPptCount() {
 		return pptCount;
@@ -59,7 +59,7 @@ public class MetricsData {
 	}
 	@Override
 	public String toString() {
-		return "MetricsData [codeCount=" + codeCount + ", docuementCount=" + docuementCount + ", pptCount=" + pptCount
+		return "MetricsData [codeCount=" + codeCount + ", docuementCount=" + documentCount + ", pptCount=" + pptCount
 				+ ", numDiffModsCount=" + numDiffModsCount + ", avgResources=" + avgResources + ", timeGraphData="
 				+ timeGraphData + "]";
 	}
@@ -71,7 +71,7 @@ public class MetricsData {
 		temp = Double.doubleToLongBits(avgResources);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + codeCount;
-		result = prime * result + docuementCount;
+		result = prime * result + documentCount;
 		result = prime * result + numDiffModsCount;
 		result = prime * result + pptCount;
 		result = prime * result + ((timeGraphData == null) ? 0 : timeGraphData.hashCode());
@@ -90,7 +90,7 @@ public class MetricsData {
 			return false;
 		if (codeCount != other.codeCount)
 			return false;
-		if (docuementCount != other.docuementCount)
+		if (documentCount != other.documentCount)
 			return false;
 		if (numDiffModsCount != other.numDiffModsCount)
 			return false;
