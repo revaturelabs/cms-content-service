@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		return cr.findByTitle(title); 
+		Set<Content> temp = cr.findByTitle(title); 
+		return temp;
 	}
 
 	@Override
@@ -131,30 +133,49 @@ public class SearchServiceImpl implements SearchService {
 		 * from the set that does not match the title.
 		 */
 		if (!title.equalsIgnoreCase("")) {
+			for(Content c: selectedContent)
+			{
+				if(c.getTitle().toLowerCase().contains(title.toLowerCase())) tempSet.add(c);
+			}
+			/*			
 			Iterator<Content> contentIterator = selectedContent.iterator();
 			
 			while(contentIterator.hasNext()) {
 				Content tempContent = contentIterator.next();
 				if(tempContent.getTitle().toLowerCase().contains(title.toLowerCase())) {
 					tempSet.add(tempContent);
+
 				}
 			}
-			selectedContent = tempSet;
+			*/
+			selectedContent = new HashSet<Content>();
+			selectedContent.addAll(tempSet);
+			System.out.println(selectedContent);
 		}
+
+		tempSet.clear();
 		
 		/**
 		 * check if the format is empty, if it isn't remove all content
 		 * that the format does not match what is passed in. 
 		 */
 		if (!format.equalsIgnoreCase("")) {
+			for (Content c: selectedContent)
+			{
+				System.out.println(c);
+				if(c.getFormat().toLowerCase().contains(format.toLowerCase())) tempSet.add(c);
+			}
+			/*
 			Iterator<Content> contentIterator = selectedContent.iterator();
 			while (contentIterator.hasNext()) {
 				Content tempContent = contentIterator.next();
-				if (tempContent.getFormat().contains(format)) {
+				if (tempContent.getFormat().toLowerCase().contains(format.toLowerCase())) {
 					tempSet.add(tempContent);
 				}
 			}
+			*/
 			selectedContent = tempSet;
+			System.out.println(selectedContent);
 		}
 		
 		return selectedContent;

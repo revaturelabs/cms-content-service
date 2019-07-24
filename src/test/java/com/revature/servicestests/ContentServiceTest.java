@@ -3,11 +3,12 @@ package com.revature.servicestests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
+
+import javax.transaction.Transactional;
+
 import java.util.HashSet;
-import java.util.Iterator;
 
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,25 +16,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.jdbc.JdbcTestUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
+import com.revature.repositories.ContentRepository;
 import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 
+/**
+ * Testing for the ContentService class.
+ * 
+ * @author wsm
+ * @version 2.0
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Transactional
 @SpringBootTest
 class ContentServiceTest {
 
 	@Autowired
 	ContentService cs;
+	
+	@Autowired
+	ContentRepository cr;
 
 	@Autowired
 	SearchService ss;
@@ -41,72 +50,132 @@ class ContentServiceTest {
 	@Autowired
 	JdbcTemplate template;
 
-	int rows = 0;
-
+	/**
+	 * Standard test for content creation.
+	 * 
+	 * <p> Creates content, finds it via getAllContent and getContentById,
+	 * then deletes it.
+	 */
 	@Test
-	@Commit
-	@Order(1)
-	void createValidContent() {
-		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>(), 1563378565, 1563378565));
+	@Rollback
+	void contentServiceCreateTest()
+	{
+
+		//Standalone Content
+		Content aloneContent = new Content();
+		aloneContent.setDateCreated(System.currentTimeMillis());
+		aloneContent.setLastModified(System.currentTimeMillis());
+		aloneContent.setDescription("Standalone Content Test Description");
+		aloneContent.setTitle("Standalone Content Test Title");
+		aloneContent.setFormat("Code");
+		aloneContent.setUrl("http://test.test/");
+		aloneContent.setLinks(new HashSet<Link>());
+		
+		aloneContent = cs.createContent(aloneContent);
+				
+		//getAll test
+		Set<Content> allContent = cs.getAllContent();
+		
+		boolean containsStandalone = allContent.contains(aloneContent);
+		
+		//getId test
+		Content c = cs.getContentById(aloneContent.getId());
+		
+		boolean idCheck = aloneContent.equals(c);
+		
+		//cleanup
+		cr.delete(aloneContent);
+		
+		//assertions
+		assertTrue(containsStandalone);
+		assertTrue(idCheck);
 	}
-
+	
+	/**
+	 * An invalid content test, should fail due to DB constraints.
+	 */
 	@Test
-	@Order(2)
-	void createInvalidContent() {
-		rows = JdbcTestUtils.countRowsInTable(template, "content");
-		// cs.createContent(new Content(0, null, "Code", "MOCK DATA",
-		// "http://localhost:4200/file.txt", null));
-		cs.createContent(
+	void createInvalidContent1()
+	{
+		boolean fail = false;
+		try
+		{
+			cs.createContent(
 				new Content(0, null, "Code", "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>(), 1563378565, 1563378565));
+		}
+		catch (Exception e) 
+		{
+			fail = true;
+		}
+		finally 
+		{
+			assertTrue(fail);
+		}
+	}
+	
+	/**
+	 * An invalid content test, should fail due to DB constraints.
+	 */
+	@Test
+	void createInvalidContent2()
+	{
+		boolean fail = false;
+		try
+		{
 		cs.createContent(
 				new Content(0, "Philosophy", null, "MOCK DATA", "http://localhost:4200/file.txt", new HashSet<Link>(), 1563378565, 1563378565));
+		}
+		catch (Exception e) 
+		{
+			fail = true;
+		}
+		finally 
+		{
+			assertTrue(fail);
+		}
+	}
+	
+	/**
+	 * An invalid content test, should fail due to DB constraints.
+	 */
+	@Test
+	void createInvalidContent3()
+	{
+		boolean fail = false;
+		try
+		{
 		cs.createContent(new Content(0, "Tropical Fish Anatomy", "Code", null, "http://localhost:4200/file.txt",
 				new HashSet<Link>(), 1563378565, 1563378565));
+		}
+		catch (Exception e) 
+		{
+			fail = true;
+		}
+		finally 
+		{
+			assertTrue(fail);
+		}
+	}
+	
+	/**
+	 * An invalid content test, should fail due to DB constraints.
+	 */
+	@Test
+	void createInvalidContent4()
+	{
+		boolean fail = false;
+		try
+		{
 		cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>(), 1563378565, 1563378565));
-		assertEquals(rows, JdbcTestUtils.countRowsInTable(template, "content"));
-	}
-
-	@Test
-	@Commit
-	@Order(3)
-	void testCreateContent() {
-		assertEquals(1, JdbcTestUtils.countRowsInTableWhere(template, "content",
-				String.format("title = '%s'", "FIRST TEST CONTENT")));
-	}
-
-	@Test
-	@Commit
-	@Order(4)
-	void testGetAllContent() {
-		assertEquals(cs.getAllContent().size(), JdbcTestUtils.countRowsInTable(template, "content"));
-	}
-
-	@Test
-	@Commit
-	@Order(5)
-	void testGetContentById() {
-		Set<Content> allContents = cs.getAllContent();
-		Iterator<Content> iter = allContents.iterator();
-		Content first = iter.next();
-		int id = first.getId();
-		assertNotNull(cs.getContentById(id));
-	}
-
-	@Test
-	@Order(6)
-	void testInvalidGetContentById() {
-		// to test non existing content
-		assertThrows(NullPointerException.class, () -> {
-			cs.getContentById(-1);
-		});
-	}
-
-	@Test
-	@Commit
-	@Order(7)
-	void deleteTestData() {
-		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
+		}
+		catch (Exception e) 
+		{
+			fail = true;
+		}
+		finally 
+		{
+			assertTrue(fail);
+		}
 	}
 
 }
