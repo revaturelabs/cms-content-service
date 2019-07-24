@@ -74,6 +74,6 @@ class ModuleServiceTest {
 		
 		assertTrue(allContains);
 		assertTrue(idEquals);
-	}
+  }
 	
 }

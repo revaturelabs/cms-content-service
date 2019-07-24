@@ -112,7 +112,7 @@ class SearchServiceTest {
 		//Testing for the overarching Filter method
 		String badtitle = "inaccurate title";
 		String badformat = "Document";
-		
+
 		//Valid testing.
 		Set<Content> filtered = ss.filter(title, format, mlist);
 		boolean validFilter = filtered.contains(content);
@@ -130,8 +130,6 @@ class SearchServiceTest {
 		
 		
 		//Cleanup courtesy of @Transactional and @Rollback.
-		
-
 		assertTrue(titleTest);
 		assertTrue(formatTest);
 		assertTrue(subjectTestContains);

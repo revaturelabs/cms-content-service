@@ -1,6 +1,8 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -86,6 +88,31 @@ public class ContentServiceImpl implements ContentService {
 	@LogException
 	public Content getContentById(int id) {	
 			return cr.findById(id).iterator().next();		
+	}
+
+
+	/*
+	 * gets formats and cycles through all elements in DB to return
+	 * how many time each format is used. 
+	 * Much faster than using a findByFormat
+	 * */
+	@Override
+	@LogException
+	public ArrayList<Integer> getContentByFormat(String[] formats) {
+		ArrayList<Integer> numList = new ArrayList<>();
+		ArrayList<Content> all = (ArrayList<Content>) cr.findAll();
+		int num= 0;
+		
+		for(int j = 0; j<formats.length; j++) {
+			for(int i = 0; i < all.size(); i++) {
+				if(all.get(i).getFormat().equals(formats[j])) {
+					num++;
+				}
+			}
+			numList.add(num);
+			num = 0;
+		}
+		return numList;
 	}
 
 }

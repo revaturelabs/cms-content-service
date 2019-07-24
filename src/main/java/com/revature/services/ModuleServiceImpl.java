@@ -2,13 +2,13 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Module;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -17,6 +17,8 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
 	ModuleRepository mr;
+	@Autowired
+	LinkRepository lr;
 
 	/**
 	 * Get all the modules in the database and returns a set
@@ -53,6 +55,19 @@ public class ModuleServiceImpl implements ModuleService {
 		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
 		return module;
+	}
+
+	
+	/**
+	 * Calculate the average for all of the module's resources 
+	 * */
+	@Override
+	@LogException
+	public double getAverageByModuleIds(ArrayList<Integer> ids) {
+		int size = lr.findByModuleIdIn(ids).size();
+		double ret = (double) size/(double) ids.size();
+		
+		return ret;
 	}
 
 }
