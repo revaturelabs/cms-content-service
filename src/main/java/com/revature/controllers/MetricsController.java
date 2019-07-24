@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,9 @@ import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 import com.revature.services.SearchService;
+import com.revature.services.TimegraphService;
+import com.revature.util.MetricsData;
+import com.revature.util.TimeGraphData;
 
 
 @CrossOrigin
@@ -29,7 +33,39 @@ public class MetricsController {
 	ContentService contentService;
 	@Autowired
 	SearchService searchService;
+	@Autowired
+	TimegraphService timegraphService;
 		
+	
+	
+	@PostMapping("/obtain/{timeFrame}")
+	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
+								  @RequestBody Map<String, Object> ids) {
+		System.out.println(ids	);
+		//formats for codeCount
+		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
+		ArrayList<Integer> contentFormats = contentService.getContentByFormat(formats);
+
+		
+		//numDiffMods
+		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
+		int modSize = modules.size(); //num diff modules
+		
+		
+		//avg size
+		@SuppressWarnings("unchecked")
+		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
+		double avgMods =  moduleService.getAverageByModuleIds(idsIn);
+		
+		
+		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange);
+		
+		return new MetricsData(
+				contentFormats.get(0),contentFormats.get(1), contentFormats.get(2), 
+				modSize, avgMods, timeGraphData );
+	}
+	
+	
 	
 	/*
 	 * Returns the number of Contents with format set to code
@@ -59,6 +95,7 @@ public class MetricsController {
 	 * */
 	@PostMapping("/averageRecs")
 	public double getAvgRec(@RequestBody Map<String, Object> ids) {
+		System.out.println(ids);
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
 		return moduleService.getAverageByModuleIds(idsIn);
