@@ -49,7 +49,6 @@ public class MetricsController {
 	@GetMapping("/numDiffMods")
 	public int getNumDiffMod() {
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
-		System.out.println(modules);
 		return modules.size();
 	}
 	

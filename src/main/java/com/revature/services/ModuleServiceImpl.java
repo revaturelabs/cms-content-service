@@ -57,7 +57,12 @@ public class ModuleServiceImpl implements ModuleService {
 		return module;
 	}
 
+	
+	/**
+	 * Calculate the average for all of the module's resources 
+	 * */
 	@Override
+	@LogException
 	public double getAverageByModuleIds(ArrayList<Integer> ids) {
 		int size = lr.findByModuleIdIn(ids).size();
 		double ret = (double) size/(double) ids.size();

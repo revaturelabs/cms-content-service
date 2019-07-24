@@ -72,7 +72,6 @@ public class ContentServiceImpl implements ContentService {
 			Set<Content> contents = new HashSet<>();
 			cr.findAll().forEach(contents :: add);
 			return contents;
-		//return cr.findAll();
 		}
 	
 	/**
@@ -104,7 +103,6 @@ public class ContentServiceImpl implements ContentService {
 					num++;
 				}
 			}
-			System.out.println("Adding number: " + num + " to format: " + formats[j]);
 			numList.add(num);
 			num = 0;
 		}
