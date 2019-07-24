@@ -51,15 +51,15 @@ public class ContentController {
 		return contentService.getContentById(id);
 	}
 	
-
-
-
-	// Updates a specific content in the table 
-	// First assures that the content exists by its ID and if it does
-	// it will update that content
-	// @RequestMapping(value = "/content", method = RequestMethod.PUT)
-	// public Content updateContent(@RequestBody Content inputContent) {
-	// 	return contentService.updateContent(inputContent);
-	// }
+	/**
+	 * Description - PUT request for updating content, updates a content in the content repository
+	 * @param newContent - the updated content received from the client
+	 * @return - the updated content
+	 * @throws - NullPointerException - if the newContent is null or the content doesn't already exist in content repo.
+	 */
+	@RequestMapping(value = "/content", method = RequestMethod.PUT, produces  = MediaType.APPLICATION_JSON_VALUE)
+	public Content updateContent(@RequestBody Content newContent) {
+		return contentService.updateContent(newContent);
+	}
 
 }

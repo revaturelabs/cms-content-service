@@ -9,4 +9,6 @@ public interface ContentService {
     
     public Content getContentById(int id);
     
+    public Content updateContent(Content newContent);
+    
 }

@@ -89,9 +89,7 @@ class ContentCreation {
 				"www.mass.test",
 				links);
 		
-		cs.createContent(content);
-		
-		
+		assertNotNull(cs.createContent(content));
 	}
 	
 	
