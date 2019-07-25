@@ -83,4 +83,36 @@ public class TimegraphServiceImpl implements TimegraphService {
 		
 	}
 
+
+	@Override
+	public TimeGraphData findByCreatedBetween(long timeRange, Set<Content> allContent) {
+		
+		// make a second long and calculate milliseconds
+				long currentTime = System.currentTimeMillis();
+				long startTime = currentTime - timeRange;
+				// call the dao method to get all content
+				// iterate through the set of contents and retrieve the longs from the set 
+				Set<Long> returnedDates = new HashSet<>();
+				
+				TimeGraphData tgd = new TimeGraphData(new HashSet<>(), 0);
+				for (Content content : allContent)
+				{
+					// array of longs is here
+					
+					if (content.getDateCreated() < startTime)
+					{
+						int currentCount = tgd.getNumContents();
+						tgd.setNumContents(currentCount += 1);
+					}
+					
+					if (content.getDateCreated() >= startTime && content.getDateCreated() <= currentTime)
+					{
+						returnedDates.add(content.getDateCreated());
+					}
+				}
+				
+				tgd.setReturnedLongs(returnedDates);
+				return tgd;
+	}
+
 }

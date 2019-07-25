@@ -13,4 +13,6 @@ public interface ContentService {
     
     public ArrayList<Integer> getContentByFormat(String[] format); 
     
+    public ArrayList<Integer> getContentByFormat(String[] formats, Set<Content> allContent);
+    
 }
