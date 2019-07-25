@@ -17,12 +17,16 @@ public class Content {
 	@Column(name = "c_id")
 	private int id;
 
+	@Column(nullable=false)
 	private String title;
-
+	
+	@Column(nullable=false)
 	private String format;
 
+	@Column(nullable=false)
 	private String description;
 
+	@Column(nullable=false)
 	private String url;
 	
 	/**
