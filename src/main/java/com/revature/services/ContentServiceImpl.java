@@ -114,5 +114,31 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return numList;
 	}
+	
+	
+	
+	
+	@Override
+	@LogException
+	public ArrayList<Integer> getContentByFormat(String[] formats, Set<Content> allContent) {
+		ArrayList<Integer> numList = new ArrayList<>();
+		int num= 0;
+		
+		for(Content c : allContent) {
+			for (int j = 0; j<formats.length; j++)
+			{
+				if (c.getFormat().equals(formats[j]))
+				{
+					num++;
+					break;
+				}
+			}
+			numList.add(num);
+			num = 0;
+		}
+	
+			
+		return numList;
+	}
 
 }

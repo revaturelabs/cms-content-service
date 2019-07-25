@@ -15,6 +15,8 @@ public interface ModuleService {
 	public Module createModule(Module module);
 	
 	public double getAverageByModuleIds(ArrayList<Integer> ids);
+	
+	public double getAverageByModuleIds(ArrayList<Integer> ids, Set<Module> modules);
 
 	
 }
