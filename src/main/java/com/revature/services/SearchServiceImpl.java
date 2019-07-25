@@ -1,8 +1,10 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -137,17 +139,7 @@ public class SearchServiceImpl implements SearchService {
 			{
 				if(c.getTitle().toLowerCase().contains(title.toLowerCase())) tempSet.add(c);
 			}
-			/*			
-			Iterator<Content> contentIterator = selectedContent.iterator();
-			
-			while(contentIterator.hasNext()) {
-				Content tempContent = contentIterator.next();
-				if(tempContent.getTitle().toLowerCase().contains(title.toLowerCase())) {
-					tempSet.add(tempContent);
 
-				}
-			}
-			*/
 			selectedContent = new HashSet<Content>();
 			selectedContent.addAll(tempSet);
 			System.out.println(selectedContent);
@@ -165,20 +157,77 @@ public class SearchServiceImpl implements SearchService {
 				System.out.println(c);
 				if(c.getFormat().toLowerCase().contains(format.toLowerCase())) tempSet.add(c);
 			}
-			/*
-			Iterator<Content> contentIterator = selectedContent.iterator();
-			while (contentIterator.hasNext()) {
-				Content tempContent = contentIterator.next();
-				if (tempContent.getFormat().toLowerCase().contains(format.toLowerCase())) {
-					tempSet.add(tempContent);
-				}
-			}
-			*/
+
 			selectedContent = tempSet;
 			System.out.println(selectedContent);
 		}
 		
 		return selectedContent;
+	}
+
+	@Override
+	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
+		// The Set of Content we are going to be returning
+		Set<Content> filtCont = new HashSet<Content>();
+		
+		/*
+		 * Filter the content based on the Modules in the filters
+		 */
+		try {
+			ArrayList<Integer> ids = (ArrayList<Integer>)filters.get("modules");
+			if(ids.size() != 0) {
+				for(Content c : contents) {
+					for(Link l : c.getLinks()) {
+						if(ids.contains(l.getModuleId())) {
+							filtCont.add(c);
+						}
+					}
+				}
+			}
+		} catch(NullPointerException e) {
+			
+		} catch(Exception e) {
+			
+		}
+		
+		/*
+		 * Filter the content based on the Title in the filters
+		 */
+		try {
+			String title = (String)filters.get("title");
+			if(!(title.equals(""))) {
+				for(Content c : contents) {
+					if(c.getTitle().equals(title)) {
+						filtCont.add(c);
+					}
+				}
+			}
+		} catch(Exception e) {
+			
+		}
+		
+		/*
+		 * Filter the content based on the Format in the filters
+		 */
+		try {
+			String format = (String)filters.get("format");
+			if(!(format.equals(""))) {
+				for(Content c : contents) {
+					if(c.getFormat().contentEquals(format)) {
+						filtCont.add(c);
+					}
+				}
+			}
+		} catch(Exception e) {
+			
+		}
+		
+		// If there was no filters then just return the full collection
+		if(filtCont.isEmpty()) {
+			return contents;
+		}
+		// Else return the filtered set
+		return filtCont;
 	}
 }
 
