@@ -1,7 +1,4 @@
 spring:
-  profiles:
-    active: local
-
   cloud:
     config:
       label: dev
