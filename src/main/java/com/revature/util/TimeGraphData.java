@@ -1,4 +1,5 @@
 package com.revature.util;
+import java.util.List;
 import java.util.Set;
 
 
@@ -15,7 +16,7 @@ public class TimeGraphData
 	 * returnedLongs - Represents a set of timestamps. It is designed in expectation that there will be no duplicate millisecond times,
 	 * which, while possible, will not be accounted for. 
 	 */
-	private Set<Long> returnedLongs;
+	private List<Long> returnedLongs;
 	
 	/**
 	 * numContents - Represents the number of timestamped records that were created before the date being tracked from.
@@ -35,7 +36,7 @@ public class TimeGraphData
 	 * @param returnedLongs A Set of longs representing timestamps.
 	 * @param numContents An int representing a number of other records in the DB.
 	 */
-	public TimeGraphData(Set<Long> returnedLongs, int numContents) {
+	public TimeGraphData(List<Long> returnedLongs, int numContents) {
 		super();
 		this.returnedLongs = returnedLongs;
 		this.numContents = numContents;
@@ -44,16 +45,16 @@ public class TimeGraphData
 	/**
 	 * @return returnedLongs, the internal Set of Longs.
 	 */
-	public Set<Long> getReturnedLongs() {
+	public List<Long> getReturnedLongs() {
 		return returnedLongs;
 	}
 	
 	/**
 	 * Sets the internal returnedLongs value.
-	 * @param returnedLongs - the new value of returnedLongs
+	 * @param returnedDates - the new value of returnedLongs
 	 */
-	public void setReturnedLongs(Set<Long> returnedLongs) {
-		this.returnedLongs = returnedLongs;
+	public void setReturnedLongs(List<Long> returnedDates) {
+		this.returnedLongs = returnedDates;
 	}
 	
 	/**

@@ -64,23 +64,29 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public double getAverageByModuleIds(ArrayList<Integer> ids, Set<Module> modules) {
-		
+		int idSize = ids.size();
+		if(ids.size() == 0) {
+			return 0;
+		}
 		int contentLinks = 0;
-		
+		System.out.println("Entered averagebyModuleIds");
 		// implement my own thing here-- don't make a database call
 		for (Module m : modules)
 		{
 			System.out.println(m.toString());
 			// step 1: check if current module matches array list of passed in module IDs
-			for (Integer i : ids)
+			//for (Integer i : ids)
+			//{
+			if (ids.contains(m.getId()))
 			{
-				if (i == m.getId())
-				{
-					contentLinks += m.getLinks().size();
-				}
+				System.out.println("Entered the IF, moduleId: "+m.getId());
+				contentLinks += m.getLinks().size();
+				ids.remove(ids.indexOf(m.getId()));
+				System.out.println("Finished the IF");
 			}
+			//}
 		}
-		double ret = (double) contentLinks/(double) ids.size();
+		double ret = (double) contentLinks/(double) idSize;
 		
 		return ret;
 	}

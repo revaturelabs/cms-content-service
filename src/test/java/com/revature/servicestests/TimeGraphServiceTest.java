@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -75,7 +76,7 @@ public class TimeGraphServiceTest {
 				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
 
 //		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
-		Set<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
+		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
 		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
@@ -83,7 +84,7 @@ public class TimeGraphServiceTest {
 				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
 		
 //		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
-		Set<Long> resultSet2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
+		List<Long> resultSet2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
 

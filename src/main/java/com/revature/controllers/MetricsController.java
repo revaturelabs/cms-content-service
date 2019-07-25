@@ -51,7 +51,7 @@ public class MetricsController {
 		
 		//formats for codeCount
 		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		ArrayList<Integer> contentFormats = contentService.getContentByFormat(formats, allContent);
+		Map<String, Integer> contentFormats = contentService.getContentByFormat(formats, allContent);
 		System.out.println(contentFormats.toString());
 
 		
@@ -82,8 +82,20 @@ public class MetricsController {
 		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange, allContent);
 		System.out.println("TIME GRAPH DATA SERVICE METHOD HAS EXECUTED!");
 		
-		 MetricsData gatheredMetrics = new MetricsData(
-				contentFormats.get(0),contentFormats.get(1), contentFormats.get(2), 
+		Integer numCode = 0;
+		if(contentFormats.containsKey("Code"))
+			numCode = contentFormats.get("Code");
+		
+		Integer numDoc = 0;
+		if(contentFormats.containsKey("Document"))
+			numDoc = contentFormats.get("Document");
+		
+		Integer numPpt = 0;
+		if(contentFormats.containsKey("Powerpoint"))
+			numPpt = contentFormats.get("Powerpoint");
+		
+		MetricsData gatheredMetrics = new MetricsData(
+				numCode, numDoc, numPpt, 
 				modSize, avgMods, timeGraphData);
 		 
 		 System.out.println("METRICS DATA OBJECT: " + gatheredMetrics.toString());

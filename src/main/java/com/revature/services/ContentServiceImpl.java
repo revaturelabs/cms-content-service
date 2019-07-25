@@ -1,8 +1,10 @@
 package com.revature.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,25 +122,30 @@ public class ContentServiceImpl implements ContentService {
 	
 	@Override
 	@LogException
-	public ArrayList<Integer> getContentByFormat(String[] formats, Set<Content> allContent) {
-		ArrayList<Integer> numList = new ArrayList<>();
-		int num= 0;
+	public Map<String, Integer> getContentByFormat(String[] formats, Set<Content> allContent) {
+		
+		Map<String, Integer> contentMap = new HashMap<String, Integer>();
 		
 		for(Content c : allContent) {
-			for (int j = 0; j<formats.length; j++)
-			{
-				if (c.getFormat().equals(formats[j]))
-				{
-					num++;
-					break;
-				}
-			}
-			numList.add(num);
-			num = 0;
-		}
-	
+//			for (int j = 0; j<formats.length; j++)
+//			{
+//				if (c.getFormat().equals(formats[j]))
+//				{
+//					num++;
+//					break;
+//				}
+//			}
+//			numList.add(num);
+//			num = 0;
 			
-		return numList;
+			if(contentMap.containsKey(c.getFormat())) {
+				contentMap.put(c.getFormat(), contentMap.get(c.getFormat()) + 1);
+			} else {
+				contentMap.put(c.getFormat(), 1);
+			}
+		}
+		
+		return contentMap;
 	}
 
 }
