@@ -15,17 +15,11 @@ public class MetricsData {
 			TimeGraphData timeGraphData) {
 		super();
 		this.codeCount = codeCount;
-		System.out.println("codeCount : " + codeCount);
 		this.documentCount = documentCount;
-		System.out.println("doc count : " + documentCount);
 		this.pptCount = pptCount;
-		System.out.println("pptCount: " + pptCount);
 		this.numDiffModsCount = numDiffModsCount;
-		System.out.println("num mods: " + numDiffModsCount);
 		this.avgResources = avgResources;
-		System.out.println(avgResources + "avgResources");
 		this.timeGraphData = timeGraphData;
-		System.out.println("timeGraphData: " + timeGraphData);
 	}
 	public int getCodeCount() {
 		return codeCount;

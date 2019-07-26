@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.Content;
 import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
@@ -42,53 +41,28 @@ public class MetricsController {
 	@PostMapping("/obtain/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> ids) {
-		System.out.println(ids);
-		
-		// findAll content
-		Set<Content> allContent = contentService.getAllContent();
-		
-		System.out.println("ALL CONTENT SIZE: " + allContent.size());
-		
+		System.out.println(ids	);
 		//formats for codeCount
 		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		ArrayList<Integer> contentFormats = contentService.getContentByFormat(formats, allContent);
-		System.out.println(contentFormats.toString());
+		ArrayList<Integer> contentFormats = contentService.getContentByFormat(formats);
 
 		
 		//numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
 		int modSize = modules.size(); //num diff modules
 		
-		System.out.println("SIZE OF ALL MODULES: " + modSize);
-		
 		
 		//avg size
 		@SuppressWarnings("unchecked")
-		// ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
-		
-		ArrayList<Integer> moduleIds = new ArrayList<>();
-		
-		for (Module m : modules)
-		{
-			moduleIds.add(m.getId());
-		}
-		
-		System.out.println("SIZE OF MODULE IDS SHOULD BE EQUAL TO SIZE OF ALL MODULES: " + moduleIds.size());
-		
-		double avgMods =  moduleService.getAverageByModuleIds(moduleIds, modules);
-		System.out.println("AVERAGE MODULE RESOURCES SERVICE METHOD HAS EXECUTED!");
+		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
+		double avgMods =  moduleService.getAverageByModuleIds(idsIn);
 		
 		
-		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange, allContent);
-		System.out.println("TIME GRAPH DATA SERVICE METHOD HAS EXECUTED!");
+		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange);
 		
-		 MetricsData gatheredMetrics = new MetricsData(
+		return new MetricsData(
 				contentFormats.get(0),contentFormats.get(1), contentFormats.get(2), 
-				modSize, avgMods, timeGraphData);
-		 
-		 System.out.println("METRICS DATA OBJECT: " + gatheredMetrics.toString());
-		 
-		 return gatheredMetrics;
+				modSize, avgMods, timeGraphData );
 	}
 	
 	
