@@ -1,5 +1,5 @@
 package com.revature.services;
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 import com.revature.entities.Content;
@@ -11,6 +11,5 @@ public interface ContentService {
     
     public Content getContentById(int id);
     
-    public ArrayList<Integer> getContentByFormat(String[] format); 
-    
+    public Map<String, Integer> getContentByFormat(String[] format);   
 }

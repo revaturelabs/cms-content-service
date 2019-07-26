@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.google.gson.Gson;
-import com.revature.entities.Content;
 
 @Configuration
 public class TestConfig {
 	
 	@Autowired
 	DataSource datasource;
+	
 	
 	@Bean
 	public JdbcTemplate getJdbcTemplate() {

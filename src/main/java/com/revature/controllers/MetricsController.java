@@ -44,7 +44,8 @@ public class MetricsController {
 		System.out.println(ids	);
 		//formats for codeCount
 		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		ArrayList<Integer> contentFormats = contentService.getContentByFormat(formats);
+		Map<String, Integer> contentFormats = contentService.getContentByFormat(formats);
+		System.out.println(contentFormats.toString());
 
 		
 		//numDiffMods
@@ -60,9 +61,25 @@ public class MetricsController {
 		
 		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange);
 		
-		return new MetricsData(
-				contentFormats.get(0),contentFormats.get(1), contentFormats.get(2), 
-				modSize, avgMods, timeGraphData );
+		Integer numCode = 0;
+		if(contentFormats.containsKey("Code"))
+			numCode = contentFormats.get("Code");
+		
+		Integer numDoc = 0;
+		if(contentFormats.containsKey("Document"))
+			numDoc = contentFormats.get("Document");
+		
+		Integer numPpt = 0;
+		if(contentFormats.containsKey("Powerpoint"))
+			numPpt = contentFormats.get("Powerpoint");
+		
+		MetricsData gatheredMetrics = new MetricsData(
+				numCode, numDoc, numPpt, 
+				modSize, avgMods, timeGraphData);
+		 
+		 System.out.println("METRICS DATA OBJECT: " + gatheredMetrics.toString());
+		 
+		 return gatheredMetrics;
 	}
 	
 	
@@ -74,7 +91,15 @@ public class MetricsController {
 	@GetMapping("/codeCount")
 	public ArrayList<Integer> getCountCodeEx(){
 		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		return contentService.getContentByFormat(formats);
+		
+		Map<String, Integer> contentMap = contentService.getContentByFormat(formats);
+		ArrayList<Integer> codeCount = new ArrayList<Integer>();
+		
+		for(String key : contentMap.keySet()) {
+			codeCount.add(contentMap.get(key));
+		}
+		
+		return codeCount;
 	}
 	
 	

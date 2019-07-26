@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,9 @@ public class TimegraphServiceImpl implements TimegraphService {
 		
 		ArrayList<Content> returnedContents = (ArrayList<Content>) cr.findAll();
 		// iterate through the set of contents and retrieve the longs from the set 
-		Set<Long> returnedDates = new HashSet<>();
+		List<Long> returnedDates = new ArrayList<>();
 		
-		TimeGraphData tgd = new TimeGraphData(new HashSet<>(), 0);
+		TimeGraphData tgd = new TimeGraphData(new ArrayList<>(), 0);
 		for (Content content : returnedContents)
 		{
 			// array of longs is here
@@ -82,5 +83,4 @@ public class TimegraphServiceImpl implements TimegraphService {
 		return tgd;
 		
 	}
-
 }

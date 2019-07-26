@@ -166,7 +166,8 @@ class ContentServiceTest {
 		boolean fail = false;
 		try
 		{
-		cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>(), 1563378565, 1563378565));
+			Content c = cs.createContent(new Content(0, "Cubism", "Code", "MOCK DATA", null, new HashSet<Link>(), 1563378565, 1563378565));
+			System.out.println(c);
 		}
 		catch (Exception e) 
 		{
