@@ -65,9 +65,8 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public double getAverageByModuleIds(ArrayList<Integer> ids) {
 		int size = lr.findByModuleIdIn(ids).size();
-		double ret = (double) size/(double) ids.size();
 		
-		return ret;
+		return (double) size / (double) ids.size();
 	}
 
 	/**

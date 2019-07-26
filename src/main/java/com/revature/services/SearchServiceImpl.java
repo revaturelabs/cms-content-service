@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -167,71 +168,62 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
-		// The Set of Content we are going to be returning
-		Set<Content> filtCont = new HashSet<Content>();
-		boolean noFilters = true;
 		
-		/*
-		 * Filter the content based on the Modules in the filters
-		 */
-		try {
-			ArrayList<Integer> ids = (ArrayList<Integer>)filters.get("modules");
-			if(ids != null && ids.size() != 0) {
-				noFilters = false;
-				for(Content c : contents) {
-					for(Link l : c.getLinks()) {
-						if(ids.contains(l.getModuleId())) {
-							filtCont.add(c);
-						}
+		// remove contents not belonging to the filtering modules, if the contents are being filtered by module
+		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
+		Set<Content> copy = new HashSet<Content>(contents);
+		
+		if(ids != null && !ids.isEmpty()) {
+			
+			boolean inModule = false;
+			
+			for(Content c : copy) {
+				
+				inModule = false;
+				
+				for(Link l : c.getLinks()) {
+					
+					if(ids.contains(l.getModuleId())) {
+						inModule = true;
+						break;
 					}
 				}
+				
+				if(!inModule)
+					contents.remove(c);
 			}
-		} catch(NullPointerException e) {
-			
-		} catch(Exception e) {
-			
 		}
 		
-		/*
-		 * Filter the content based on the Title in the filters
-		 */
-		try {
-			String title = (String)filters.get("title");
-			if(!(title.equals(""))) {
-				noFilters = false;
-				for(Content c : contents) {
-					if(c.getTitle().equals(title)) {
-						filtCont.add(c);
-					}
-				}
-			}
-		} catch(Exception e) {
+		
+		copy = new HashSet<Content>(contents);
+		
+		// remove contents that don't contain the filtering title string, if one is provided
+		String title = (String) filters.get("title");
+		
+		if(title != null && !title.isEmpty()) {
 			
+			for(Content c : copy) {
+				
+				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+					contents.remove(c);
+			}
 		}
 		
-		/*
-		 * Filter the content based on the Format in the filters
-		 */
-		try {
-			String format = (String)filters.get("format");
-			if(!(format.equals(""))) {
-				noFilters = false;
-				for(Content c : contents) {
-					if(c.getFormat().contentEquals(format)) {
-						filtCont.add(c);
-					}
-				}
-			}
-		} catch(Exception e) {
+		copy = new HashSet<Content>(contents);
+		
+		// remove contents that aren't of the format being filtered by, if a format is specified other than "All"
+		String format = (String) filters.get("format");
+		
+		if(format != null && !format.equals("All")) {
 			
+			for(Content c : copy) {
+				
+				if(!c.getFormat().equals(format))
+					contents.remove(c);
+			}
 		}
 		
-		// If there was no filters then just return the full collection
-		if(filtCont.isEmpty() && noFilters) {
-			return contents;
-		}
-		// Else return the filtered set
-		return filtCont;
+		return contents;
 	}
 }
 

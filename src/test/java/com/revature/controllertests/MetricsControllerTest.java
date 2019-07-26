@@ -34,36 +34,6 @@ public class MetricsControllerTest {
 	@MockBean
 	MetricsController mc;
 	
-	
-	// Test if the methods throw exceptions
-	// Count Codes
-	@Test
-	public void noExceptionCountCodeEx() {
-		Exception thrown = assertThrows(Exception.class, () -> mc.getCountCodeEx(), "Expected CountCode to throw but it didn't");
-		assertTrue(thrown.getClass() == NullPointerException.class);
-	}
-	
-	// Count Documents
-//	@Test
-//	public void noExceptionCountDocEx() {
-//		Exception thrown = assertThrows(Exception.class, () -> mc.getCountDocEx(), "Expected CountDoc to throw but it didn't");
-//		assertTrue(thrown.getClass() == NullPointerException.class);
-//	}
-//	
-//	// Count PowerPoints
-//	@Test
-//	public void noExceptionCountPPEx() {
-//		Exception thrown = assertThrows(Exception.class, () -> mc.getCountPPEx(), "Expected CountPP to throw but it didn't");
-//		assertTrue(thrown.getClass() == NullPointerException.class);
-//	}
-	
-	// Number of Different Modules
-	@Test
-	public void noExceptionNumDiffMod() {
-		Exception thrown = assertThrows(Exception.class, () -> mc.getNumDiffMod(), "Expected NumDiffMod to throw but it didn't");
-		assertTrue(thrown.getClass() == NullPointerException.class);
-	}
-	
 	// Average Num of Resources
 //	@Test
 //	public void noExceptionAvgRec() {
