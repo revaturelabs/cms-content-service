@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
 import com.revature.services.SearchService;
+import com.revature.util.LogException;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
@@ -23,6 +24,7 @@ public class SearchController {
 	@Autowired
 	SearchService searchService;
 	
+	@LogException
 	@PostMapping("/search")
 	public Set<Content> filter(@RequestBody Map<String, Object> body) {
 		@SuppressWarnings("unchecked")
