@@ -1,7 +1,9 @@
 spring:
+  profiles:
+    active: test
   cloud:
     config:
-      label: test
+      label: dev
       name: content-service
       discovery:
         service-id: config
