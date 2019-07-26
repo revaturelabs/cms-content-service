@@ -169,13 +169,15 @@ public class SearchServiceImpl implements SearchService {
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
 		// The Set of Content we are going to be returning
 		Set<Content> filtCont = new HashSet<Content>();
+		boolean noFilters = true;
 		
 		/*
 		 * Filter the content based on the Modules in the filters
 		 */
 		try {
 			ArrayList<Integer> ids = (ArrayList<Integer>)filters.get("modules");
-			if(ids.size() != 0) {
+			if(ids != null && ids.size() != 0) {
+				noFilters = false;
 				for(Content c : contents) {
 					for(Link l : c.getLinks()) {
 						if(ids.contains(l.getModuleId())) {
@@ -196,6 +198,7 @@ public class SearchServiceImpl implements SearchService {
 		try {
 			String title = (String)filters.get("title");
 			if(!(title.equals(""))) {
+				noFilters = false;
 				for(Content c : contents) {
 					if(c.getTitle().equals(title)) {
 						filtCont.add(c);
@@ -212,6 +215,7 @@ public class SearchServiceImpl implements SearchService {
 		try {
 			String format = (String)filters.get("format");
 			if(!(format.equals(""))) {
+				noFilters = false;
 				for(Content c : contents) {
 					if(c.getFormat().contentEquals(format)) {
 						filtCont.add(c);
@@ -223,7 +227,7 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		// If there was no filters then just return the full collection
-		if(filtCont.isEmpty()) {
+		if(filtCont.isEmpty() && noFilters) {
 			return contents;
 		}
 		// Else return the filtered set
