@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
+import com.revature.exceptions.InvalidContentException;
+import com.revature.exceptions.InvalidContentId;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
@@ -90,8 +93,55 @@ public class ContentServiceImpl implements ContentService {
 	public Content getContentById(int id) {	
 			return cr.findById(id).iterator().next();		
 	}
+	
+	/**
+	 * Description - Updates an existing content
+	 * @param newContent - content received from client request
+	 * @return - the updated content
+	 * @throws - NullPointerException - if the newContent parameter is null or if the requested content to be updated doesn't exist in content Repository
+	 */
+	@Override
+	@LogException
+	public Content updateContent(Content newContent) {
+		
+		if(newContent == null)
+			throw new InvalidContentException("updateContent, newContent is null");
+		
+		if(Character.isDigit(newContent.getId()))
+			throw new InvalidContentId("updateContent, newContent does not have a valid Id");
+		
+		Set<Link> oldLinks = new HashSet<>();
+		Set<Link> newLinks = new HashSet<>();
+		
+		for(Link link : newContent.getLinks()) {
+			if(link.getId() == 0) {
+				newLinks.add(link);
+			} else {
+				oldLinks.add(link);
+			}
+		}
+		
+		newContent.setLinks(oldLinks);
+		
+		if(!newLinks.isEmpty()) {
 
 
+	
+			for(Link l : lr.saveAll(newLinks)) {
+				oldLinks.add(l);
+			}
+			newContent.setLinks(oldLinks);
+		}
+		
+		Content oldContent = this.getContentById(newContent.getId());
+		
+		if(oldContent == null)
+			throw new InvalidContentException("updateContent, oldContent is null");
+		
+		
+		return cr.save(newContent);
+	}
+	
 	/*
 	 * gets formats and cycles through all elements in DB to return
 	 * how many time each format is used. 
@@ -111,4 +161,5 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return numList;
 	}
+	
 }

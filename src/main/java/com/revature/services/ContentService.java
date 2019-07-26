@@ -12,4 +12,6 @@ public interface ContentService {
     public Content getContentById(int id);
     
     public Map<String, Integer> getContentByFormat(String[] format);   
+    public Content updateContent(Content newContent);
+    
 }
