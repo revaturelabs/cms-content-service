@@ -41,11 +41,9 @@ public class MetricsController {
 	@PostMapping("/obtain/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> ids) {
-		System.out.println(ids	);
 		//formats for codeCount
 		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(formats);
-		System.out.println(contentFormats.toString());
 
 		
 		//numDiffMods
@@ -77,7 +75,6 @@ public class MetricsController {
 				numCode, numDoc, numPpt, 
 				modSize, avgMods, timeGraphData);
 		 
-		 System.out.println("METRICS DATA OBJECT: " + gatheredMetrics.toString());
 		 
 		 return gatheredMetrics;
 	}

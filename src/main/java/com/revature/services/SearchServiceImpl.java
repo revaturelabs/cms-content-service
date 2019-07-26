@@ -142,7 +142,6 @@ public class SearchServiceImpl implements SearchService {
 
 			selectedContent = new HashSet<Content>();
 			selectedContent.addAll(tempSet);
-			System.out.println(selectedContent);
 		}
 
 		tempSet.clear();
@@ -154,12 +153,10 @@ public class SearchServiceImpl implements SearchService {
 		if (!format.equalsIgnoreCase("")) {
 			for (Content c: selectedContent)
 			{
-				System.out.println(c);
 				if(c.getFormat().toLowerCase().contains(format.toLowerCase())) tempSet.add(c);
 			}
 
 			selectedContent = tempSet;
-			System.out.println(selectedContent);
 		}
 		
 		return selectedContent;
