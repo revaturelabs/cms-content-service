@@ -59,7 +59,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	
 	/**
-	 * Calculate the average for all of the module's resources 
+	 * Calculate the average for all of the module's resources based on the specific inputed modules
 	 * */
 	@Override
 	@LogException
@@ -68,6 +68,20 @@ public class ModuleServiceImpl implements ModuleService {
 		double ret = (double) size/(double) ids.size();
 		
 		return ret;
+	}
+
+	/**
+	 * Calculate the average for all of the modules's resources
+	 */
+	@Override
+	public double getAverageByAllModules() {
+		Set<Module> allMods = this.getAllModules();
+		ArrayList<Integer> ids = new ArrayList<Integer>();
+		
+		for(Module m : allMods) {
+			ids.add(m.getId());
+		}
+		return this.getAverageByModuleIds(ids);
 	}
 
 }

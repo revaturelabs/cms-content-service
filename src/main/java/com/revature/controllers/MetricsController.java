@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.entities.Content;
 import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
@@ -40,11 +41,13 @@ public class MetricsController {
 	
 	@PostMapping("/obtain/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
-								  @RequestBody Map<String, Object> ids) {
-		System.out.println(ids	);
+								  @RequestBody Map<String, Object> filters) {
+		Set<Content> allContents = contentService.getAllContent();
+		Set<Content> filtContents = searchService.filterContent(allContents, filters);
+		
+		System.out.println(filters	);
 		//formats for codeCount
-		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		Map<String, Integer> contentFormats = contentService.getContentByFormat(formats);
+		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		System.out.println(contentFormats.toString());
 
 		
@@ -55,11 +58,16 @@ public class MetricsController {
 		
 		//avg size
 		@SuppressWarnings("unchecked")
-		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
-		double avgMods =  moduleService.getAverageByModuleIds(idsIn);
+		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
+		double avgMods = 0;
+		if(idsIn != null && idsIn.isEmpty()) {
+			avgMods = moduleService.getAverageByModuleIds(idsIn);
+		} else {
+			avgMods = moduleService.getAverageByAllModules();
+		}
 		
 		
-		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange);
+		TimeGraphData timeGraphData = timegraphService.getTimeGraphData(timeRange, filtContents);
 		
 		Integer numCode = 0;
 		if(contentFormats.containsKey("Code"))
