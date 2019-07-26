@@ -3,9 +3,9 @@ spring:
   application:    name: CMSFORCE
   datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: jdbc:oracle:thin:@java-may28.ctobs0gp8bky.us-east-2.rds.amazonaws.com:1521:ORCL
-      username: admin
-      password: password123
+      url: ${DB_URL}
+      username: ${DB_USER}
+      password: ${DB_PASS}
   jpa:
      hibernate:
       show-sql: false
@@ -35,7 +35,7 @@ eureka:
 
     service-url:
 
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_URL}
 
   instance:
 
