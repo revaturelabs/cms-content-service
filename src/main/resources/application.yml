@@ -3,17 +3,16 @@ spring:
   application:    name: CMSFORCE
   datasource:
       driver-class-name: oracle.jdbc.driver.OracleDriver
-      url: ${DB_URL}
-      username: ${DB_USER}
-      password: ${DB_PASS}
+      url: jdbc:oracle:thin:@java-may28.ctobs0gp8bky.us-east-2.rds.amazonaws.com:1521:ORCL
+      username: admin
+      password: password123
   jpa:
      hibernate:
       show-sql: false
        
 logging:
   config:
-  file: src/main/resources/ErrorLog.html
-#  file: /home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html
+  file: /home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html
   
   
   pattern:
@@ -36,7 +35,7 @@ eureka:
 
     service-url:
 
-      defaultZone: ${EUREKA_URL}
+      defaultZone: http://localhost:8761/eureka/
 
   instance:
 
