@@ -38,7 +38,7 @@ public class MetricsController {
 		
 	
 	
-	@PostMapping("/obtain/{timeFrame}")
+	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> ids) {
 		//formats for codeCount
@@ -79,47 +79,4 @@ public class MetricsController {
 		 return gatheredMetrics;
 	}
 	
-	
-	
-	/*
-	 * Returns the number of Contents with format set to code
-	 * @return count of code formats 
-	 * */
-	@GetMapping("/codeCount")
-	public ArrayList<Integer> getCountCodeEx(){
-		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		
-		Map<String, Integer> contentMap = contentService.getContentByFormat(formats);
-		ArrayList<Integer> codeCount = new ArrayList<Integer>();
-		
-		for(String key : contentMap.keySet()) {
-			codeCount.add(contentMap.get(key));
-		}
-		
-		return codeCount;
-	}
-	
-	
-	/*
-	 * Returns the number of different modules in DB
-	 * @return number of modules 
-	 * */
-	@GetMapping("/numDiffMods")
-	public int getNumDiffMod() {
-		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
-		return modules.size();
-	}
-	
-	
-	/*
-	 * Return average count of resources covered by each Module object from DB
-	 * @returns average number of links
-	 * */
-	@PostMapping("/averageRecs")
-	public double getAvgRec(@RequestBody Map<String, Object> ids) {
-		System.out.println(ids);
-		@SuppressWarnings("unchecked")
-		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
-		return moduleService.getAverageByModuleIds(idsIn);
-	}
 }
