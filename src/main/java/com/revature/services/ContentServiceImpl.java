@@ -143,7 +143,7 @@ public class ContentServiceImpl implements ContentService {
 	
 	/*
 	 * gets formats and cycles through all elements in DB to return
-	 * how many time each format is used. 
+	 * how many times each format is used. 
 	 * Much faster than using a findByFormat
 	 * */
 	@Override

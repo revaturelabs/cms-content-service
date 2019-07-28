@@ -40,24 +40,25 @@ public class MetricsController {
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> ids) {
-		//formats for codeCount
+		// formats for codeCount
 		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(formats);
 
 		
-		//numDiffMods
+		// numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
 		int modSize = modules.size(); //num diff modules
 		
 		
-		//avg size
+		// avg size
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
 		double avgMods =  moduleService.getAverageByModuleIds(idsIn);
 		
-		
+		// time graph info
 		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange);
 		
+		// count number of each format type
 		Integer numCode = 0;
 		if(contentFormats.containsKey("Code"))
 			numCode = contentFormats.get("Code");
