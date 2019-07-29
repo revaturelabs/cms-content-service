@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
+
 import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -76,7 +75,6 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceTitleTest()
 	{
-		//Create
 		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
@@ -99,7 +97,6 @@ class SearchServiceTest {
 		
 		content = cr.save(content);
 		
-		//Actual testing.		
 		String title = content.getTitle();
 		boolean titleTest = ss.filterContentByTitle(title).contains(content);
 
@@ -345,7 +342,6 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceBadModule()
 	{
-		//Create
 		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
@@ -384,7 +380,6 @@ class SearchServiceTest {
 	@Test
 	@Rollback
 	void testMetricsFiltering() {
-		// Test Content
 		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
@@ -410,7 +405,6 @@ class SearchServiceTest {
 		Set<Content> testCont = new HashSet<Content>();
 		testCont.add(content);
 		
-		// Use the contents to test the method
 		String title = content.getTitle();
 		String format = content.getFormat();
 		List<Integer> mlist = new ArrayList<Integer>();
@@ -421,7 +415,6 @@ class SearchServiceTest {
 		testFilters.put("format", format);
 		testFilters.put("modules", mlist);
 		
-		// Bad info
 		String badTitle = "notTitle";
 		String badFormat = "notFormat";
 		List<Integer> nolist = new ArrayList<Integer>();
@@ -430,7 +423,6 @@ class SearchServiceTest {
 		badFilters.put("format", badFormat);
 		badFilters.put("modules", nolist);
 		
-		// Is thing?
 		Set<Content> filtered = ss.filterContent(testCont, testFilters);
 		boolean goodFiltered = filtered.equals(testCont);
 		

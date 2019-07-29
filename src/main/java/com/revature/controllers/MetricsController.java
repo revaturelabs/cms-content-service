@@ -28,7 +28,6 @@ import com.revature.util.TimeGraphData;
 @RestController
 @RequestMapping("/metrics")
 public class MetricsController {
-	// reports mapping for metrics
 	@Autowired
 	ModuleService moduleService;
 	@Autowired
@@ -42,21 +41,14 @@ public class MetricsController {
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> filters) {
 		
-//		Set<Content> allContents = contentService.getAllContent();
-//		Set<Content> filtContents = searchService.filterContent(allContents, filters);
-		
 		@SuppressWarnings("unchecked")
 		Set<Content> filtContents = searchService.filter((String) filters.get("title"), (String) filters.get("format"), (List<Integer>) filters.get("modules"));
 		
-		//formats for codeCount
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		
-		// numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
-		int modSize = modules.size(); //num diff modules
+		int modSize = modules.size();
 		
-		
-		// avg size
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
 		double avgMods = 0;
@@ -65,8 +57,7 @@ public class MetricsController {
 		} else {
 			avgMods = moduleService.getAverageByAllModules();
 		}
-		
-		// count number of each format type
+
 		Integer numCode = 0;
 		if(contentFormats.containsKey("Code"))
 			numCode = contentFormats.get("Code");
