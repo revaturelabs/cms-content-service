@@ -58,7 +58,7 @@ class ContentServiceTest {
 	/**
 	 * Standard test for content creation.
 	 * 
-	 * <p> Creates content, finds it via getAllContent and getContentById,
+	 * <p> Creates content, finds it via getAllContent,
 	 * then deletes it.
 	 */
 	@Test
@@ -82,8 +82,34 @@ class ContentServiceTest {
 		Set<Content> allContent = cs.getAllContent();
 		
 		boolean containsStandalone = allContent.contains(aloneContent);
+				
+		//cleanup
+		cr.delete(aloneContent);
 		
-		//getId test
+		//assertions
+		assertTrue(containsStandalone);
+	}
+	
+	/**
+	 * Standard test for getting Id.
+	 * 
+	 * <p> Creates content, finds it via getContentById, then deletes it.
+	 */
+	@Test
+	@Rollback
+	void contentServiceCreateGetIdCheck()
+	{
+		//Standalone Content
+		Content aloneContent = new Content();
+		aloneContent.setDateCreated(System.currentTimeMillis());
+		aloneContent.setLastModified(System.currentTimeMillis());
+		aloneContent.setDescription("Standalone Content Test Description");
+		aloneContent.setTitle("Standalone Content Test Title");
+		aloneContent.setFormat("Code");
+		aloneContent.setUrl("http://test.test/");
+		aloneContent.setLinks(new HashSet<Link>());
+		
+		aloneContent = cs.createContent(aloneContent);
 		Content c = cs.getContentById(aloneContent.getId());
 		
 		boolean idCheck = aloneContent.equals(c);
@@ -92,8 +118,8 @@ class ContentServiceTest {
 		cr.delete(aloneContent);
 		
 		//assertions
-		assertTrue(containsStandalone);
 		assertTrue(idCheck);
+
 	}
 	
 	/**

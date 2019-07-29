@@ -37,8 +37,6 @@ public class MetricsController {
 	SearchService searchService;
 	@Autowired
 	TimegraphService timegraphService;
-		
-	
 	
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
@@ -53,12 +51,12 @@ public class MetricsController {
 		//formats for codeCount
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		
-		//numDiffMods
+		// numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
 		int modSize = modules.size(); //num diff modules
 		
 		
-		//avg size
+		// avg size
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
 		double avgMods = 0;
@@ -68,6 +66,7 @@ public class MetricsController {
 			avgMods = moduleService.getAverageByAllModules();
 		}
 		
+		// count number of each format type
 		Integer numCode = 0;
 		if(contentFormats.containsKey("Code"))
 			numCode = contentFormats.get("Code");

@@ -1,7 +1,6 @@
 package com.revature.services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -75,11 +74,7 @@ public class TimegraphServiceImpl implements TimegraphService {
 		}
 		
 		tgd.setReturnedLongs(returnedDates);
-		
-		
-		// make another crud call to select all content from T zero to T < start time
-//		tgd.setNumContents(cr.findBydateCreatedBetween(1, startTime - 1).size());
-		
+				
 		return tgd;
 		
 	}

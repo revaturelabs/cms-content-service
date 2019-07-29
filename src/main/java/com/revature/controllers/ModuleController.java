@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Module;
 import com.revature.services.ModuleService;
-import com.revature.util.LogException;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController

@@ -3,6 +3,10 @@ package com.revature.controllertests;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -14,8 +18,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.revature.controllers.MetricsController;
-import com.revature.services.ContentService;
-import com.revature.services.ModuleService;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
@@ -28,18 +30,24 @@ public class MetricsControllerTest {
 	{
 		super();
 	}
-	
-	// Object of MetricsController to provide methods we need to test
-	//private static MetricsController mc = new MetricsController();
+
 	@MockBean
 	MetricsController mc;
 	
-	// Average Num of Resources
-//	@Test
-//	public void noExceptionAvgRec() {
-//		Exception thrown = assertThrows(Exception.class, () -> mc.getAvgRec(), "Expected AvgRec to throw but it didn't");
-//		assertTrue(thrown.getClass() == NullPointerException.class);
-//	}
+	@Test
+	public void nullIds() {
+		Map<String, Object> ids = null;
+		Exception thrown = assertThrows(Exception.class, () -> mc.getMetrics(0, ids), "Expected getMetrics to throw but it didn't");
+		assertTrue(thrown.getClass() == NullPointerException.class);
+	}
 	
-	// Other Tests?
+	@Test
+	public void outOfRangeId() {
+		Map<String, Object> ids = new HashMap<String, Object>();
+		ids.put("modules", new ArrayList<Integer>(3000));
+		
+		Exception thrown = assertThrows(Exception.class, () -> mc.getMetrics(0, ids), "Expected getMetrics to throw but it didn't");
+		assertTrue(thrown.getClass() == NullPointerException.class);
+	}
+
 }
