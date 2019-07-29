@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -31,7 +30,7 @@ import com.revature.services.TimegraphService;
  * <p> Contains the tests that cover the breadth and depth of the TimeGraphService.
  * 
  * @author wsm
- * @version 2.0
+ * @version 3.0
  */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
@@ -59,39 +58,74 @@ public class TimeGraphServiceTest {
 	JdbcTemplate template;
 	
 	/**
-	 * Overarching test for the timescale handling.
-	 * 
-	 * <p> To achieve coverage, it creates two new content values,
-	 * one before and one after 6 months ago, and stores it for checking
-	 * if the content provided back fits in the timescale correctly.
-	 * Afterwards, it deletes the content, and tests the assertions.
+	 * Tests if a value that should fall in the margin appears.
 	 */
 	@Test
-	@Commit
-	void timeScaleTests()
+	@Rollback
+	void timeScaleInMarginOneVal()
 	{
 		long fivemonths = ONE_MONTH * 5;
 		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
 				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
 
-//		int resultSetSize = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
 		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
+
+		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
+
+		assertTrue(resultSet.contains(systimeAdj5mo));
+	}
+	
+	/**
+	 * Tests if a value that should fall in the margin when there are multiple values in the dataset appears.
+	 */
+	@Test
+	@Rollback
+	void timeScaleInMarginTwoVal()
+	{
+		long fivemonths = ONE_MONTH * 5;
+		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
+		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
+				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
 		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
 				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
 		
-//		int resultSetSize2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs().size();
-		List<Long> resultSet2 = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
+		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
 
 		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "OLD TEST CONTENT"));
 		
 		assertTrue(resultSet.contains(systimeAdj5mo));
-		assertTrue(resultSet2.contains(systimeAdj5mo));
-		assertFalse(resultSet2.contains(systimeAdj7mo));
 	}
+
+	/**
+	 * Tests if a value that should not appear in the set appears.
+	 */
+	@Test
+	@Rollback
+	void timeScaleOutsideMarginTwoVal()
+	{
+		long fivemonths = ONE_MONTH * 5;
+		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
+		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
+				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
+
+		long sevenmonths = ONE_MONTH + SIX_MONTHS;
+		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
+		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
+				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
+		
+		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
+
+		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "FIRST TEST CONTENT"));
+
+		JdbcTestUtils.deleteFromTableWhere(template, "content", String.format("title = '%s'", "OLD TEST CONTENT"));
+		
+		assertFalse(resultSet.contains(systimeAdj7mo));
+	}
+
 }
