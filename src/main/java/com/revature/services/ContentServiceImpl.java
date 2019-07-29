@@ -161,4 +161,18 @@ public class ContentServiceImpl implements ContentService {
 		return numList;
 	}
 	
+	@Override
+	@LogException
+	public Map<String, Integer> getContentByFormat(Set<Content> contents) {
+		Map<String, Integer> numList = new HashMap<>();
+		
+		for(Content c : contents) {
+			if(numList.containsKey(c.getFormat()))
+				numList.put(c.getFormat(), numList.get(c.getFormat()) + 1);
+			else
+				numList.put(c.getFormat(), 1);
+		}
+		return numList;
+	}
+	
 }

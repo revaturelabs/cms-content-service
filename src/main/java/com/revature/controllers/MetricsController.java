@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.entities.Content;
 import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
@@ -39,11 +40,12 @@ public class MetricsController {
 	
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
-								  @RequestBody Map<String, Object> ids) {
-		// formats for codeCount
-		String[] formats = new String[] {"Code", "Document", "Powerpoint"};
-		Map<String, Integer> contentFormats = contentService.getContentByFormat(formats);
-
+								  @RequestBody Map<String, Object> filters) {
+		Set<Content> allContents = contentService.getAllContent();
+		Set<Content> filtContents = searchService.filterContent(allContents, filters);
+		
+		//formats for codeCount
+		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		
 		// numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
@@ -52,11 +54,13 @@ public class MetricsController {
 		
 		// avg size
 		@SuppressWarnings("unchecked")
-		ArrayList<Integer> idsIn = (ArrayList<Integer>) ids.get("modules");
-		double avgMods =  moduleService.getAverageByModuleIds(idsIn);
-		
-		// time graph info
-		TimeGraphData timeGraphData = timegraphService.findByCreatedBetween(timeRange);
+		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
+		double avgMods = 0;
+		if(idsIn != null && !idsIn.isEmpty()) {
+			avgMods = moduleService.getAverageByModuleIds(idsIn);
+		} else {
+			avgMods = moduleService.getAverageByAllModules();
+		}
 		
 		// count number of each format type
 		Integer numCode = 0;
@@ -70,13 +74,13 @@ public class MetricsController {
 		Integer numPpt = 0;
 		if(contentFormats.containsKey("Powerpoint"))
 			numPpt = contentFormats.get("Powerpoint");
+
+		TimeGraphData timeGraphData = timegraphService.getTimeGraphData(timeRange, filtContents);
 		
 		MetricsData gatheredMetrics = new MetricsData(
 				numCode, numDoc, numPpt, 
 				modSize, avgMods, timeGraphData);
 		 
-		 
 		 return gatheredMetrics;
 	}
-	
 }
