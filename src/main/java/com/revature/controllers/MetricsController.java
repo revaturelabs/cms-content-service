@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,12 +43,15 @@ public class MetricsController {
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> filters) {
-		Set<Content> allContents = contentService.getAllContent();
-		Set<Content> filtContents = searchService.filterContent(allContents, filters);
+		
+//		Set<Content> allContents = contentService.getAllContent();
+//		Set<Content> filtContents = searchService.filterContent(allContents, filters);
+		
+		@SuppressWarnings("unchecked")
+		Set<Content> filtContents = searchService.filter((String) filters.get("title"), (String) filters.get("format"), (List<Integer>) filters.get("modules"));
 		
 		//formats for codeCount
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
-
 		
 		//numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();

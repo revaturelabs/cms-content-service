@@ -119,61 +119,103 @@ public class SearchServiceImpl implements SearchService {
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 		
-		Set<Content> selectedContent;
-		Set<Content> tempSet = new HashSet<>();
-		/**
-		 * check if the array passed in was empty and populating the initial 
-		 * set of content
-		 */
-		if (modules.isEmpty()) {
-			selectedContent = (Set<Content>) csi.getAllContent();
-		}
-		else {
-			selectedContent = this.filterContentBySubjects(modules);
-		}
-		/**
-		 * check if title is empty if it isn't it will remove any content 
-		 * from the set that does not match the title.
-		 */
-		if (!title.equalsIgnoreCase("")) {
-			for(Content c: selectedContent)
-			{
-				if(c.getTitle().toLowerCase().contains(title.toLowerCase())) tempSet.add(c);
-			}
-
-			selectedContent = new HashSet<Content>();
-			selectedContent.addAll(tempSet);
-			System.out.println(selectedContent);
-		}
-
-		tempSet.clear();
+		Set<Content> contents = null;
+		Set<Content> copy = null;
 		
-		/**
-		 * check if the format is empty, if it isn't remove all content
-		 * that the format does not match what is passed in. 
-		 */
-		if (!format.equalsIgnoreCase("")) {
-			for (Content c: selectedContent)
-			{
-				System.out.println(c);
-				if(c.getFormat().toLowerCase().contains(format.toLowerCase())) tempSet.add(c);
-			}
-
-			selectedContent = tempSet;
-			System.out.println(selectedContent);
+		if(format != null && !format.equals("All") && !format.equals("")) {
+			contents = cr.findByFormat(format);
 		}
 		
-		return selectedContent;
+		if(title != null && !title.equals("")) {
+			
+			if(contents == null) {
+				
+				contents = cr.findByTitle(title);
+				
+			} else {
+				
+				copy = new HashSet<Content>(contents);
+				
+				for(Content c : copy) {
+					
+					if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+						contents.remove(c);
+				}
+			}
+		}
+		
+		if(contents == null) {
+			contents = csi.getAllContent();
+		}
+		
+		if(modules != null && !modules.isEmpty()) {
+			
+			copy = new HashSet<Content>(contents);
+			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
+			
+			boolean inModule;
+			
+			for(Content c : copy) {
+				
+				inModule = false;
+				
+				for(Link l : c.getLinks()) {
+					
+					if(linksInModules.contains(l)) {
+						
+						inModule = true;
+						break;
+					}
+				}
+				
+				if(!inModule) {
+					contents.remove(c);
+				}
+			}
+		}
+		
+		return contents;
 	}
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
 		
+		Set<Content> copy;
+		
+		// remove contents that don't contain the filtering title string, if one is provided
+		String title = (String) filters.get("title");
+		
+		if(title != null && !title.isEmpty()) {
+			
+			copy = new HashSet<Content>(contents);
+			
+			for(Content c : copy) {
+				
+				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+					contents.remove(c);
+			}
+		}
+		
+		// remove contents that aren't of the format being filtered by, if a format is specified other than "All"
+		String format = (String) filters.get("format");
+		
+		if(format != null && !format.equals("All")) {
+			
+			copy = new HashSet<Content>(contents);
+			
+			for(Content c : copy) {
+				
+				if(!c.getFormat().equals(format))
+					contents.remove(c);
+			}
+		}
+		
 		// remove contents not belonging to the filtering modules, if the contents are being filtered by module
 		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
-		Set<Content> copy = new HashSet<Content>(contents);
 		
 		if(ids != null && !ids.isEmpty()) {
+
+			copy = new HashSet<Content>(contents);
 			
 			boolean inModule = false;
 			
@@ -190,35 +232,6 @@ public class SearchServiceImpl implements SearchService {
 				}
 				
 				if(!inModule)
-					contents.remove(c);
-			}
-		}
-		
-		
-		copy = new HashSet<Content>(contents);
-		
-		// remove contents that don't contain the filtering title string, if one is provided
-		String title = (String) filters.get("title");
-		
-		if(title != null && !title.isEmpty()) {
-			
-			for(Content c : copy) {
-				
-				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
-					contents.remove(c);
-			}
-		}
-		
-		copy = new HashSet<Content>(contents);
-		
-		// remove contents that aren't of the format being filtered by, if a format is specified other than "All"
-		String format = (String) filters.get("format");
-		
-		if(format != null && !format.equals("All")) {
-			
-			for(Content c : copy) {
-				
-				if(!c.getFormat().equals(format))
 					contents.remove(c);
 			}
 		}
