@@ -49,9 +49,6 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module createModule(Module module) {
-		
-		
-		
 		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
 		return module;

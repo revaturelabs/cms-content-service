@@ -9,7 +9,6 @@ public class MetricsData {
 	private TimeGraphData timeGraphData;
 	public MetricsData() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public MetricsData(int codeCount, int documentCount, int pptCount, int numDiffModsCount, double avgResources,
 			TimeGraphData timeGraphData) {

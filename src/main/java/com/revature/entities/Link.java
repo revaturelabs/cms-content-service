@@ -73,7 +73,6 @@ public class Link {
 				+ "]";
 	}
 
-	// generated hashCode and equals
 	@Override
 	public int hashCode() {
 		final int prime = 31;

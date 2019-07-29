@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import java.util.HashSet;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -23,7 +20,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.repositories.ContentRepository;
-import com.revature.entities.Module;
 import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 import com.revature.services.SearchService;
@@ -65,8 +61,6 @@ class ContentServiceTest {
 	@Rollback
 	void contentServiceCreateTest()
 	{
-
-		//Standalone Content
 		Content aloneContent = new Content();
 		aloneContent.setDateCreated(System.currentTimeMillis());
 		aloneContent.setLastModified(System.currentTimeMillis());
@@ -78,15 +72,12 @@ class ContentServiceTest {
 		
 		aloneContent = cs.createContent(aloneContent);
 				
-		//getAll test
 		Set<Content> allContent = cs.getAllContent();
 		
 		boolean containsStandalone = allContent.contains(aloneContent);
 				
-		//cleanup
 		cr.delete(aloneContent);
 		
-		//assertions
 		assertTrue(containsStandalone);
 	}
 	
@@ -99,7 +90,6 @@ class ContentServiceTest {
 	@Rollback
 	void contentServiceCreateGetIdCheck()
 	{
-		//Standalone Content
 		Content aloneContent = new Content();
 		aloneContent.setDateCreated(System.currentTimeMillis());
 		aloneContent.setLastModified(System.currentTimeMillis());
@@ -114,12 +104,9 @@ class ContentServiceTest {
 		
 		boolean idCheck = aloneContent.equals(c);
 		
-		//cleanup
 		cr.delete(aloneContent);
 		
-		//assertions
 		assertTrue(idCheck);
-
 	}
 	
 	/**

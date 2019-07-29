@@ -131,7 +131,6 @@ public class Content {
 				+ links + "]";
 	}
 
-	// generated hashCode and equals since they were not pre-existing
 	@Override
 	public int hashCode() {
 		final int prime = 31;
