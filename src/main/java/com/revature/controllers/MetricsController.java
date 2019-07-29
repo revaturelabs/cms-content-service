@@ -1,11 +1,13 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,14 +37,16 @@ public class MetricsController {
 	SearchService searchService;
 	@Autowired
 	TimegraphService timegraphService;
-		
-	
 	
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> filters) {
-		Set<Content> allContents = contentService.getAllContent();
-		Set<Content> filtContents = searchService.filterContent(allContents, filters);
+		
+//		Set<Content> allContents = contentService.getAllContent();
+//		Set<Content> filtContents = searchService.filterContent(allContents, filters);
+		
+		@SuppressWarnings("unchecked")
+		Set<Content> filtContents = searchService.filter((String) filters.get("title"), (String) filters.get("format"), (List<Integer>) filters.get("modules"));
 		
 		//formats for codeCount
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
