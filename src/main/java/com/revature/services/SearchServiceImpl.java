@@ -1,8 +1,10 @@
 package com.revature.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,8 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		return cr.findByTitle(title); 
+		Set<Content> temp = cr.findByTitle(title); 
+		return temp;
 	}
 
 	@Override
@@ -49,30 +52,15 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentBySubjects(List<Integer> moduleIds) {
-		/**
-		 * a set of content that will be returned
-		 */
 		Set<Content> contents = new HashSet<>();
-		/**
-		 * Temporary sets to hold integers while searching
-		 */
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> idsTemp = new HashSet<>();
 		
-		/**
-		 * create a set of links that have a moduleID of the first element
-		 * of the list that is passed into the method and adds it to 
-		 * a temporary set of ids.
-		 */
 		Set<Link> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
 		for(Link link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
-		/**
-		 * loop over the array that was passed in getting all the links
-		 * assosiated to each element and only keeping those who share 
-		 * a that of the list that was already made.
-		 */
+
 		for(int i = 1; i < moduleIds.size(); i++) {
 			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
 			for(Link link : linksByModuleID) {
@@ -81,11 +69,6 @@ public class SearchServiceImpl implements SearchService {
 			ids.retainAll(idsTemp);
 		}
 		
-		/**
-		 * this finds all the content by id for each element in the 
-		 * temp list of ids and adds them to the content set that will 
-		 * be returned.
-		 */
 		cr.findAllById(ids).forEach(contents :: add);
 		
 		return contents;	
@@ -103,6 +86,7 @@ public class SearchServiceImpl implements SearchService {
 		int contentId = links.iterator().next().getContentId();
 		return cr.findById(contentId);
 	}
+
 	/**
 	 * Filter takes a content title, content format and/or
 	 * a list of Integers that represent module ids.
@@ -114,50 +98,121 @@ public class SearchServiceImpl implements SearchService {
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 		
-		Set<Content> selectedContent;
-		Set<Content> tempSet = new HashSet<>();
-		/**
-		 * check if the array passed in was empty and populating the initial 
-		 * set of content
-		 */
-		if (modules.isEmpty()) {
-			selectedContent = csi.getAllContent();
+		Set<Content> contents = null;
+		Set<Content> copy = null;
+		
+		if(format != null && !format.equals("All") && !format.equals("")) {
+			contents = cr.findByFormat(format);
 		}
-		else {
-			selectedContent = this.filterContentBySubjects(modules);
-		}
-		/**
-		 * check if title is empty if it isn't it will remove any content 
-		 * from the set that does not match the title.
-		 */
-		if (!title.equalsIgnoreCase("")) {
-			Iterator<Content> contentIterator = selectedContent.iterator();
+		
+		if(title != null && !title.equals("")) {
 			
-			while(contentIterator.hasNext()) {
-				Content tempContent = contentIterator.next();
-				if(tempContent.getTitle().toLowerCase().contains(title.toLowerCase())) {
-					tempSet.add(tempContent);
+			if(contents == null) {
+				
+				contents = cr.findByTitle(title);
+				
+			} else {
+				
+				copy = new HashSet<Content>(contents);
+				
+				for(Content c : copy) {
+					
+					if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+						contents.remove(c);
 				}
 			}
-			selectedContent = tempSet;
 		}
 		
-		/**
-		 * check if the format is empty, if it isn't remove all content
-		 * that the format does not match what is passed in. 
-		 */
-		if (!format.equalsIgnoreCase("")) {
-			Iterator<Content> contentIterator = selectedContent.iterator();
-			while (contentIterator.hasNext()) {
-				Content tempContent = contentIterator.next();
-				if (tempContent.getFormat().contains(format)) {
-					tempSet.add(tempContent);
+		if(contents == null) {
+			contents = csi.getAllContent();
+		}
+		
+		if(modules != null && !modules.isEmpty()) {
+			
+			copy = new HashSet<Content>(contents);
+			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
+			
+			boolean inModule;
+			
+			for(Content c : copy) {
+				
+				inModule = false;
+				
+				for(Link l : c.getLinks()) {
+					
+					if(linksInModules.contains(l)) {
+						
+						inModule = true;
+						break;
+					}
+				}
+				
+				if(!inModule) {
+					contents.remove(c);
 				}
 			}
-			selectedContent = tempSet;
 		}
 		
-		return selectedContent;
+		return contents;
+	}
+
+	@Override
+	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
+		
+		Set<Content> copy;
+		
+		String title = (String) filters.get("title");
+		
+		if(title != null && !title.isEmpty()) {
+			
+			copy = new HashSet<Content>(contents);
+			
+			for(Content c : copy) {
+				
+				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+					contents.remove(c);
+			}
+		}
+		
+		String format = (String) filters.get("format");
+		
+		if(format != null && !format.equals("All")) {
+			
+			copy = new HashSet<Content>(contents);
+			
+			for(Content c : copy) {
+				
+				if(!c.getFormat().equals(format))
+					contents.remove(c);
+			}
+		}
+		
+		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
+		
+		if(ids != null && !ids.isEmpty()) {
+
+			copy = new HashSet<Content>(contents);
+			
+			boolean inModule = false;
+			
+			for(Content c : copy) {
+				
+				inModule = false;
+				
+				for(Link l : c.getLinks()) {
+					
+					if(ids.contains(l.getModuleId())) {
+						inModule = true;
+						break;
+					}
+				}
+				
+				if(!inModule)
+					contents.remove(c);
+			}
+		}
+		
+		return contents;
 	}
 }
 

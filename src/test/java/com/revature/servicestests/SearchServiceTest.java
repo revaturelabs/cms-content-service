@@ -3,14 +3,14 @@ package com.revature.servicestests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Map;
 
 import java.util.Set;
 
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,10 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.jdbc.JdbcTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
@@ -34,6 +33,12 @@ import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
 import com.revature.services.SearchService;
 
+/**
+ * Overarching test for SearchService.
+ * 
+ * @author wsm
+ * @version 2.0
+ */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes=com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -62,130 +67,370 @@ class SearchServiceTest {
 
 	@Autowired
 	LinkRepository lr;
-	
-	
-	// using repositories for now for creation
+
+	/**
+	 * Tests filtering via title.
+	 */
 	@Test
-	@Commit
-	@Order(1)
-	void addTestData() {
+	@Rollback
+	void searchServiceTitleTest()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Module module1 = new Module(1, "FIRST TEST MODULE", 0, null);
-		
-		mr.save(module1);
-		
-		Module module2 = new Module(2, "SECOND TEST MODULE", 0, null);
-		mr.save(module2);
-		
-		Content content = new Content(5, "FIRST TEST CONTENT", "code", "FIRST TEST CONTENT DESCRIPTION", "www.elmo.test", null);
-		cr.save(content);
-	
-		
-		module1 = mr.findBysubject("FIRST TEST MODULE").iterator().next();
-	    module2 = mr.findBysubject("SECOND TEST MODULE").iterator().next();
-		content = cr.findByTitle("FIRST TEST CONTENT").iterator().next();
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
-		
 		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
 		
-		link1 = lr.save(link1);
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
 		
-		link2 = lr.save(link2);
+		content.setLinks(contentLinks);
 		
+		content = cr.save(content);
+		
+		String title = content.getTitle();
+		boolean titleTest = ss.filterContentByTitle(title).contains(content);
+
+		assertTrue(titleTest);
 	}
 	
+	/**
+	 * Tests filtering via format.
+	 */
 	@Test
-	@Commit
-	@Order(2)
-	void testFilterContentByTitle() {
-		Set<Content> lst = cs.getAllContent();
+	@Rollback
+	void searchServiceFormatTest()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Iterator<Content> iter = lst.iterator();
-		Content first = iter.next();
-		
-		String title = first.getTitle();
-		assertNotNull(ss.filterContentByTitle(title));
-		System.out.println(title);
-		
-		int rows = JdbcTestUtils.countRowsInTableWhere(template, "content", String.format("title = '%s'", title));
-		
-		assertEquals(rows, ss.filterContentByTitle(title).size());
-		assertEquals(0, ss.filterContentByTitle("NON EXISTENT TITLE").size());
-	}
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
-	@Test
-	@Commit
-	@Order(3)
-	void testFilterContentByFormat() {
-		System.out.println("Number of records in Module "+JdbcTestUtils.countRowsInTable(template, "module"));
-		Set<Content> lst = cs.getAllContent();
-		Iterator<Content> iter = lst.iterator();
-		Content first = iter.next();
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
 		
-		String format = first.getFormat();
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
 		
-		int rows = JdbcTestUtils.countRowsInTableWhere(template, "content", String.format("format = '%s'", format));
-		assertEquals(rows, ss.filterContentByFormat(format).size());
-		assertEquals(0, ss.filterContentByFormat("NON EXISTENT FORMAT").size());
-	}	
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
 
-	@Test
-	@Commit
-	@Order(4)
-	void testFilterContentBySubjects() {
-		Set<Module> lst = ms.getAllModules();
-		Iterator<Module> iter = lst.iterator();		
-		
-		int flamingModId = -1;
-		int elmoModId = -1;
-		while(iter.hasNext()) {			
-			Module current = iter.next();
-			if(current.getSubject().equals("FIRST TEST MODULE")) {
-				flamingModId = current.getId();
-			}
-			if(current.getSubject().equals("SECOND TEST MODULE")) {
-				elmoModId = current.getId();
-			}				
-		}
-		
-		List<Integer> modIdArray = new ArrayList<Integer>();
-		
-		// to test filter content with only 1 subject
-		modIdArray.add(flamingModId);
-		int rows = JdbcTestUtils.countRowsInTableWhere(template, "link", String.format("fk_m = '%d'", flamingModId));
-		assertEquals(rows, ss.filterContentBySubjects(modIdArray).size());
-		
-		// to test filter content with more than one subject
-		modIdArray.add(elmoModId);
-		assertEquals(1, ss.filterContentBySubjects(modIdArray).size());
-		
-		// tests filter content by Subject with non-existent subject
-		List<Integer> modIdArray2 = new ArrayList<Integer>();
-		modIdArray2.add(-1);
-		assertEquals(0, ss.filterContentBySubjects(modIdArray2).size());
-	}
-
-	@Test
-	@Commit
-	@Order(5)
-	void testGetContentByModuleId() {
-		Set<Module> allModules= ms.getAllModules();
-		Iterator<Module> iter = allModules.iterator();
-		Module first = iter.next();
-		int MID = first.getId();
-				
-		assertThrows(NoSuchElementException.class, ()->{ss.getContentByModuleId(-1);});
-		assertNotNull(ss.getContentByModuleId(MID));
+		String format = content.getFormat();
+		boolean formatTest = ss.filterContentByFormat(format).contains(content);
+		assertTrue(formatTest);
 	}
 	
+	/**
+	 * Test filtering by module.
+	 */
 	@Test
-	@Commit
-	@Order(6)
-	void deleteTestData() {
-		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'FIRST TEST MODULE'");
-		JdbcTestUtils.deleteFromTableWhere(template, "module", "subject = 'SECOND TEST MODULE'");
-		JdbcTestUtils.deleteFromTableWhere(template, "content", "title = 'FIRST TEST CONTENT'");
+	@Rollback
+	void searchServiceSubjectTest()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+		
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+		boolean subjectTestContains = ss.filterContentBySubjects(mlist).contains(content);
+		assertTrue(subjectTestContains);
+	}
+	
+	/**
+	 * Tests filtering by set of modules.
+	 */
+	@Test
+	@Rollback
+	void searchServiceModuleTest()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+		
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+		boolean moduleIdTestContains = ss.getContentByModuleId(module1.getId()).contains(content);
+		assertTrue(moduleIdTestContains);
+	}
+	
+	/**
+	 * Tests filtering by all measures.
+	 */
+	@Test
+	@Rollback
+	void searchServiceOverallFilter()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+
+		String title = content.getTitle();
+		String format = content.getFormat();
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+
+		Set<Content> filtered = ss.filter(title, format, mlist);
+		boolean validFilter = filtered.contains(content);
+		assertTrue(validFilter);
+	}
+
+	/**
+	 * Tests to confirm the filter removes inaccurate titles.
+	 */
+	@Test
+	@Rollback
+	void searchServiceBadTitle()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+
+		String title = content.getTitle();
+		String format = content.getFormat();
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+
+		String badtitle = "inaccurate title";
+		Set<Content> filtered = ss.filter(title, format, mlist);
+		filtered = ss.filter(badtitle, format, mlist);
+		boolean badTitleFilter = filtered.contains(content);
+		
+		assertFalse(badTitleFilter);
+	}
+	
+	/**
+	 * Tests to make sure filtering removes irrelevant formats.
+	 */
+	@Test
+	@Rollback
+	void searchServiceBadFormat()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+
+		String title = content.getTitle();
+		String format = content.getFormat();
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+
+		String badformat = "Document";
+		Set<Content> filtered = ss.filter(title, format, mlist);
+		filtered = ss.filter(title, badformat, mlist);
+		boolean badFormatFilter = filtered.contains(content);
+		
+		assertFalse(badFormatFilter);
+	}
+	
+	/**
+	 * Tests to see if the filter ignores irrelevant modules.
+	 */
+	@Test
+	@Rollback
+	void searchServiceBadModule()
+	{
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+		
+		String title = content.getTitle();
+		String format = content.getFormat();
+
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module3.getId());
+		Set<Content >filtered = ss.filter(title, format, mlist);
+		boolean badModuleFilter = filtered.contains(content);
+		assertFalse(badModuleFilter);
+	}
+
+	/*
+	 * Handles testing of the new filtering method with no DB calls
+	 */
+	@Test
+	@Rollback
+	void testMetricsFiltering() {
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+		
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 =mr.save(module1);
+		module2 =mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+		
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+		
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+		
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+		
+		Set<Content> testCont = new HashSet<Content>();
+		testCont.add(content);
+		
+		String title = content.getTitle();
+		String format = content.getFormat();
+		List<Integer> mlist = new ArrayList<Integer>();
+		mlist.add(module1.getId());
+		mlist.add(module2.getId());
+		Map<String, Object> testFilters = new HashMap<String, Object>();
+		testFilters.put("title", title);
+		testFilters.put("format", format);
+		testFilters.put("modules", mlist);
+		
+		String badTitle = "notTitle";
+		String badFormat = "notFormat";
+		List<Integer> nolist = new ArrayList<Integer>();
+		Map<String, Object> badFilters = new HashMap<String, Object>();
+		badFilters.put("title", badTitle);
+		badFilters.put("format", badFormat);
+		badFilters.put("modules", nolist);
+		
+		Set<Content> filtered = ss.filterContent(testCont, testFilters);
+		boolean goodFiltered = filtered.equals(testCont);
+		
+		filtered = ss.filterContent(testCont, badFilters);
+		boolean badFiltered = filtered.equals(testCont);
+		
+		assertTrue(goodFiltered);
+		assertFalse(badFiltered);
 	}
 	
 }

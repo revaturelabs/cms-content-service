@@ -1,5 +1,7 @@
 package com.revature.repositories;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
@@ -15,5 +17,8 @@ public interface LinkRepository extends CrudRepository<Link,Integer> {
 	
 	//Gets links for a module
 	Set<Link> findByModuleId(int moduleId);
+	
+	//sends back links for Modules given
+	Set<Link> findByModuleIdIn(List<Integer> modules);
 
 }

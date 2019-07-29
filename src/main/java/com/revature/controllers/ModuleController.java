@@ -24,7 +24,7 @@ public class ModuleController {
 	
 	@GetMapping("/module")
 	public Set<Module> getAllModules() {
-		return moduleService.getAllModules();
+		return (Set<Module>) moduleService.getAllModules();
 	}
 	
 	@GetMapping("/module/{id}")

@@ -69,9 +69,7 @@ class ContentControllerTest {
 		Mockito.when(cs.getAllContent()).thenReturn(this.fakeContents());		
 		ResultActions resultActions = mockmvc.perform(get("/content"));	
 		resultActions.andExpect(status().isOk());
-		resultActions.andExpect(content().json("[{\"id\":88,\"title\":\"Dadaism\",\"format\":\"Ironing Board\",\"description\":\"Anti-art\",\"url\":\"www.dadaism.test\",\"links\":[{\"id\":12,\"contentId\":88,\"moduleId\":3,\"affiliation\":\"relaventTo\"}]},{\"id\":99,\"title\":\"Impressionism\",\"format\":\"painting\",\"description\":\"A work that gets the essence of an image\",\"url\":\"www.impression.test\",\"links\":[{\"id\":12,\"contentId\":88,\"moduleId\":3,\"affiliation\":\"relaventTo\"}]}]"));
-//		System.err.println(resultActions.andReturn().getResponse().getContentAsString());
-		
+		resultActions.andExpect(content().json("[{\"id\":88,\"title\":\"Dadaism\",\"format\":\"Ironing Board\",\"description\":\"Anti-art\",\"url\":\"www.dadaism.test\",\"links\":[{\"id\":12,\"contentId\":88,\"moduleId\":3,\"affiliation\":\"relaventTo\"}]},{\"id\":99,\"title\":\"Impressionism\",\"format\":\"painting\",\"description\":\"A work that gets the essence of an image\",\"url\":\"www.impression.test\",\"links\":[{\"id\":12,\"contentId\":88,\"moduleId\":3,\"affiliation\":\"relaventTo\"}]}]"));		
 	} 
 	
 	@Test
@@ -102,7 +100,7 @@ class ContentControllerTest {
 				"painting",
 				"A work that gets the essence of an image",
 				"www.impression.test",
-				links);
+				links, 1563378565, 1563378565);
 				
 		links.clear();	
 		
@@ -115,7 +113,7 @@ class ContentControllerTest {
 				"Ironing Board",
 				"Anti-art",
 				"www.dadaism.test",
-				links);
+				links, 1563378565, 1563378565);
 		
 		Set <Content> contents = new HashSet<Content>();
 		contents.add(content);

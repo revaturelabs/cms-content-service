@@ -72,4 +72,40 @@ public class Link {
 		return "Link [id=" + id + ", contentId=" + contentId + ", moduleId=" + moduleId + ", affiliation=" + affiliation
 				+ "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
+		result = prime * result + contentId;
+		result = prime * result + id;
+		result = prime * result + moduleId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Link other = (Link) obj;
+		if (affiliation == null) {
+			if (other.affiliation != null)
+				return false;
+		} else if (!affiliation.equals(other.affiliation))
+			return false;
+		if (contentId != other.contentId)
+			return false;
+		if (id != other.id)
+			return false;
+		if (moduleId != other.moduleId)
+			return false;
+		return true;
+	}
+	
+	
 }

@@ -1,12 +1,6 @@
-/*Setup Script*/
+/*Test Variant of Setup Script*/
 
-drop table content_module;
-drop table module;
-drop table content;
-
-
-
-create table content(
+create table if not exists content(
 c_id number (10) primary key,
 title varchar2 (200) not null,
 format varchar2 (200) not null,
@@ -17,15 +11,14 @@ last_modified number (20)
 );
 
 
-
-create table module(
+create table if not exists module(
 m_id number (10) primary key,
 subject varchar2 (200) unique,
 created number (20)
 );
 
 
-create table link(
+create table if not exists link(
 cm_id number (10) primary key,
 fk_c number (10) ,
 affiliation varchar2 (200),
@@ -34,4 +27,4 @@ foreign key (fk_c) references content(c_id) on delete cascade,
 foreign key (fk_m) references module(m_id)on delete cascade
 );
 
-create sequence HIBERNATE_SEQUENCE;
+create sequence if not exists HIBERNATE_SEQUENCE;

@@ -1,7 +1,9 @@
 package com.revature.services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +56,14 @@ public class ContentServiceImpl implements ContentService {
 		
 		lr.saveAll(links);
 		
-		content.setLinks(links);		
-
+		content.setLinks(links);
+		
+		if(content.getDateCreated() == 0L && content.getLastModified() == 0L) {
+		content.setDateCreated(System.currentTimeMillis());
+		
+		content.setLastModified(System.currentTimeMillis());
+		}
+		
 		return content;
 	}
 	
@@ -112,6 +120,8 @@ public class ContentServiceImpl implements ContentService {
 		
 		if(!newLinks.isEmpty()) {
 
+
+	
 			for(Link l : lr.saveAll(newLinks)) {
 				oldLinks.add(l);
 			}
@@ -127,6 +137,38 @@ public class ContentServiceImpl implements ContentService {
 		return cr.save(newContent);
 	}
 	
+	/*
+	 * gets formats and cycles through all elements in DB to return
+	 * how many times each format is used. 
+	 * Much faster than using a findByFormat
+	 * */
+	@Override
+	@LogException
+	public Map<String, Integer> getContentByFormat(String[] formats) {
+		Map<String, Integer> numList = new HashMap<>();
+		ArrayList<Content> all = (ArrayList<Content>) cr.findAll();
+		
+		for(Content c : all) {
+			if(numList.containsKey(c.getFormat()))
+				numList.put(c.getFormat(), numList.get(c.getFormat()) + 1);
+			else
+				numList.put(c.getFormat(), 1);
+		}
+		return numList;
+	}
 	
+	@Override
+	@LogException
+	public Map<String, Integer> getContentByFormat(Set<Content> contents) {
+		Map<String, Integer> numList = new HashMap<>();
+		
+		for(Content c : contents) {
+			if(numList.containsKey(c.getFormat()))
+				numList.put(c.getFormat(), numList.get(c.getFormat()) + 1);
+			else
+				numList.put(c.getFormat(), 1);
+		}
+		return numList;
+	}
 	
 }
