@@ -197,7 +197,6 @@ class RepositoriesSmokeTest {
 	@Rollback
 	public void LinkSaveTest()
 	{		
-		//Add Content to link.
 		Content c = new Content();
 		c.setDateCreated(System.currentTimeMillis());
 		c.setLastModified(System.currentTimeMillis());
@@ -209,7 +208,6 @@ class RepositoriesSmokeTest {
 		
 		c = cr.save(c);
 		
-		//Add Module to link.
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);
@@ -234,7 +232,6 @@ class RepositoriesSmokeTest {
 	@Rollback
 	public void LinkDelTest()
 	{		
-		//Add Content to link.
 		Content c = new Content();
 		c.setDateCreated(System.currentTimeMillis());
 		c.setLastModified(System.currentTimeMillis());
@@ -246,7 +243,6 @@ class RepositoriesSmokeTest {
 		
 		c = cr.save(c);
 		
-		//Add Module to link.
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);

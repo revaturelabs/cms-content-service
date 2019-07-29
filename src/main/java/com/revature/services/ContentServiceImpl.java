@@ -58,10 +58,6 @@ public class ContentServiceImpl implements ContentService {
 		
 		content.setLinks(links);
 		
-		/**
-		 * The createContent method was modified to generate the dateCreated field for the Content entity
-		 * if the content object doesn't have values in those fields.
-		 */
 		if(content.getDateCreated() == 0L && content.getLastModified() == 0L) {
 		content.setDateCreated(System.currentTimeMillis());
 		

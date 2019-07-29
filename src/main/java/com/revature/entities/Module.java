@@ -73,7 +73,6 @@ public class Module {
 		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", links=" + links + "]";
 	}
 
-	// generated hashCode and equals
 	@Override
 	public int hashCode() {
 		final int prime = 31;

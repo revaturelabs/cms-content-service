@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,22 +44,15 @@ public class TimegraphServiceImpl implements TimegraphService {
 	@Override
 	public TimeGraphData findByCreatedBetween(long timeRange) {
 
-		// calculate second parameter-- earliest time at which the graph begins 	
-		// earliest time = current time minus passed in time
-		
-		// make a second long and calculate milliseconds
 		long currentTime = System.currentTimeMillis();
 		long startTime = currentTime - timeRange;
-		// call the dao method to get all content
 		
 		ArrayList<Content> returnedContents = (ArrayList<Content>) cr.findAll();
-		// iterate through the set of contents and retrieve the longs from the set 
 		List<Long> returnedDates = new ArrayList<>();
 		
 		TimeGraphData tgd = new TimeGraphData(new ArrayList<>(), 0);
 		for (Content content : returnedContents)
 		{
-			// array of longs is here
 			
 			if (content.getDateCreated() < startTime)
 			{
@@ -81,20 +75,14 @@ public class TimegraphServiceImpl implements TimegraphService {
 
 	@Override
 	public TimeGraphData getTimeGraphData(long fromTime, Set<Content> contents) {
-		// calculate second parameter-- earliest time at which the graph begins 	
-				// earliest time = current time minus passed in time
-				
-				// make a second long and calculate milliseconds
 				long currentTime = System.currentTimeMillis();
 				long startTime = currentTime - fromTime;
-				
-				// iterate through the set of contents and retrieve the longs from the set 
+
 				List<Long> returnedDates = new ArrayList<>();
 				
 				TimeGraphData tgd = new TimeGraphData(new ArrayList<>(), 0);
 				for (Content content : contents)
 				{
-					// array of longs is here
 					
 					if (content.getDateCreated() < startTime)
 					{
@@ -109,11 +97,7 @@ public class TimegraphServiceImpl implements TimegraphService {
 				}
 				
 				tgd.setReturnedLongs(returnedDates);
-				
-				
-				// make another crud call to select all content from T zero to T < start time
-//				tgd.setNumContents(cr.findBydateCreatedBetween(1, startTime - 1).size());
-				
+								
 				return tgd;
 	}
 }

@@ -61,8 +61,6 @@ class ContentServiceTest {
 	@Rollback
 	void contentServiceCreateTest()
 	{
-
-		//Standalone Content
 		Content aloneContent = new Content();
 		aloneContent.setDateCreated(System.currentTimeMillis());
 		aloneContent.setLastModified(System.currentTimeMillis());
@@ -74,15 +72,12 @@ class ContentServiceTest {
 		
 		aloneContent = cs.createContent(aloneContent);
 				
-		//getAll test
 		Set<Content> allContent = cs.getAllContent();
 		
 		boolean containsStandalone = allContent.contains(aloneContent);
 				
-		//cleanup
 		cr.delete(aloneContent);
 		
-		//assertions
 		assertTrue(containsStandalone);
 	}
 	
@@ -95,7 +90,6 @@ class ContentServiceTest {
 	@Rollback
 	void contentServiceCreateGetIdCheck()
 	{
-		//Standalone Content
 		Content aloneContent = new Content();
 		aloneContent.setDateCreated(System.currentTimeMillis());
 		aloneContent.setLastModified(System.currentTimeMillis());
@@ -110,12 +104,9 @@ class ContentServiceTest {
 		
 		boolean idCheck = aloneContent.equals(c);
 		
-		//cleanup
 		cr.delete(aloneContent);
 		
-		//assertions
 		assertTrue(idCheck);
-
 	}
 	
 	/**
