@@ -98,48 +98,100 @@ public class SearchServiceImpl implements SearchService {
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 		
-		Set<Content> selectedContent;
-		Set<Content> tempSet = new HashSet<>();
-
-		if (modules.isEmpty()) {
-			selectedContent = (Set<Content>) csi.getAllContent();
-		}
-		else {
-			selectedContent = this.filterContentBySubjects(modules);
-		}
-
-		if (!title.equalsIgnoreCase("")) {
-			for(Content c: selectedContent)
-			{
-				if(c.getTitle().toLowerCase().contains(title.toLowerCase())) tempSet.add(c);
-			}
-
-			selectedContent = new HashSet<Content>();
-			selectedContent.addAll(tempSet);
-		}
-
-		tempSet.clear();
+		Set<Content> contents = null;
+		Set<Content> copy = null;
 		
-		if (!format.equalsIgnoreCase("")) {
-			for (Content c: selectedContent)
-			{
-				if(c.getFormat().toLowerCase().contains(format.toLowerCase())) tempSet.add(c);
-			}
-
-			selectedContent = tempSet;
+		if(format != null && !format.equals("All") && !format.equals("")) {
+			contents = cr.findByFormat(format);
 		}
 		
-		return selectedContent;
+		if(title != null && !title.equals("")) {
+			
+			if(contents == null) {
+				
+				contents = cr.findByTitle(title);
+				
+			} else {
+				
+				copy = new HashSet<Content>(contents);
+				
+				for(Content c : copy) {
+					
+					if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+						contents.remove(c);
+				}
+			}
+		}
+		
+		if(contents == null) {
+			contents = csi.getAllContent();
+		}
+		
+		if(modules != null && !modules.isEmpty()) {
+			
+			copy = new HashSet<Content>(contents);
+			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
+			
+			boolean inModule;
+			
+			for(Content c : copy) {
+				
+				inModule = false;
+				
+				for(Link l : c.getLinks()) {
+					
+					if(linksInModules.contains(l)) {
+						
+						inModule = true;
+						break;
+					}
+				}
+				
+				if(!inModule) {
+					contents.remove(c);
+				}
+			}
+		}
+		
+		return contents;
 	}
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
 		
-		@SuppressWarnings("unchecked")
+		Set<Content> copy;
+		
+		String title = (String) filters.get("title");
+		
+		if(title != null && !title.isEmpty()) {
+			
+			copy = new HashSet<Content>(contents);
+			
+			for(Content c : copy) {
+				
+				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+					contents.remove(c);
+			}
+		}
+		
+		String format = (String) filters.get("format");
+		
+		if(format != null && !format.equals("All")) {
+			
+			copy = new HashSet<Content>(contents);
+			
+			for(Content c : copy) {
+				
+				if(!c.getFormat().equals(format))
+					contents.remove(c);
+			}
+		}
+		
 		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
-		Set<Content> copy = new HashSet<Content>(contents);
 		
 		if(ids != null && !ids.isEmpty()) {
+
+			copy = new HashSet<Content>(contents);
 			
 			boolean inModule = false;
 			
@@ -156,32 +208,6 @@ public class SearchServiceImpl implements SearchService {
 				}
 				
 				if(!inModule)
-					contents.remove(c);
-			}
-		}
-		
-		copy = new HashSet<Content>(contents);
-		
-		String title = (String) filters.get("title");
-		
-		if(title != null && !title.isEmpty()) {
-			
-			for(Content c : copy) {
-				
-				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
-					contents.remove(c);
-			}
-		}
-		
-		copy = new HashSet<Content>(contents);
-		
-		String format = (String) filters.get("format");
-		
-		if(format != null && !format.equals("All")) {
-			
-			for(Content c : copy) {
-				
-				if(!c.getFormat().equals(format))
 					contents.remove(c);
 			}
 		}
