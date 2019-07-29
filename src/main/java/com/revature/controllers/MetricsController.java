@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,14 +46,13 @@ public class MetricsController {
 		
 		//formats for codeCount
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
-
 		
-		//numDiffMods
+		// numDiffMods
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
 		int modSize = modules.size(); //num diff modules
 		
 		
-		//avg size
+		// avg size
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
 		double avgMods = 0;
@@ -64,6 +62,7 @@ public class MetricsController {
 			avgMods = moduleService.getAverageByAllModules();
 		}
 		
+		// count number of each format type
 		Integer numCode = 0;
 		if(contentFormats.containsKey("Code"))
 			numCode = contentFormats.get("Code");

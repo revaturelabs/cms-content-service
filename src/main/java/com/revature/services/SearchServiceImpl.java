@@ -3,10 +3,8 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +141,6 @@ public class SearchServiceImpl implements SearchService {
 
 			selectedContent = new HashSet<Content>();
 			selectedContent.addAll(tempSet);
-			System.out.println(selectedContent);
 		}
 
 		tempSet.clear();
@@ -155,12 +152,10 @@ public class SearchServiceImpl implements SearchService {
 		if (!format.equalsIgnoreCase("")) {
 			for (Content c: selectedContent)
 			{
-				System.out.println(c);
 				if(c.getFormat().toLowerCase().contains(format.toLowerCase())) tempSet.add(c);
 			}
 
 			selectedContent = tempSet;
-			System.out.println(selectedContent);
 		}
 		
 		return selectedContent;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -56,13 +57,11 @@ class RepositoriesSmokeTest {
 	JdbcTemplate template;
 		
 	/**
-	 * Overarching test for Module saving and deletion.
-	 * 
-	 * <p> Simply creates a new module, adds it, updates it, and then deletes it, confirming success after saves and deletion.
+	 * Tests if the module gets saved correctly.
 	 */
 	@Test
-	@Commit
-	public void ModuleStandaloneTest()
+	@Rollback
+	public void ModuleStandaloneSaveTest()
 	{
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
@@ -71,32 +70,59 @@ class RepositoriesSmokeTest {
 		m = mr.save(m);
 		
 		boolean savedProperly = mr.findBysubject(m.getSubject()).contains(m);
+				
+		assertTrue(savedProperly);
+	}
+	
+	/**
+	 * Tests if the module gets updated properly.
+	 */
+	@Test
+	@Rollback
+	public void ModuleStandaloneUpdateTest()
+	{
+		Module m = new Module();
+		m.setSubject("A valid testing subject");
+		m.setId(0);
+		m.setCreated(System.currentTimeMillis());
+		m = mr.save(m);
 		
 		String subj = "Another valid subject";
 		m.setSubject(subj);
 		
 		m = mr.save(m);
-		
+
 		boolean mergedProperly = m.getSubject().equals(subj);
-		
+		assertTrue(mergedProperly);
+	}
+	
+	/**
+	 * Tests if the module gets deleted properly.
+	 */
+	@Test
+	@Rollback
+	public void ModuleStandaloneDeleteTest()
+	{
+		Module m = new Module();
+		m.setSubject("A valid testing subject");
+		m.setId(0);
+		m.setCreated(System.currentTimeMillis());
+		m = mr.save(m);
+
 		mr.delete(m);
 		
 		Module result = mr.findById(m.getId());
 		boolean deletedProperly = (result==null);
-		
-		assertTrue(savedProperly);
-		assertTrue(mergedProperly);
+
 		assertTrue(deletedProperly);
 	}
-	
+		
 	/**
-	 * Overarching test for Content saving and deletion.
-	 * 
-	 * <p> Simply creates new content, adds it, updates it, and deletes it, confirming success after saves and deletion.
+	 * Tests if content is created properly.
 	 */
 	@Test
-	@Commit
-	public void ContentStandaloneTest()
+	@Rollback
+	public void ContentStandaloneCreateTest()
 	{
 		Content c = new Content();
 		c.setDateCreated(System.currentTimeMillis());
@@ -110,6 +136,50 @@ class RepositoriesSmokeTest {
 		c = cr.save(c);
 		
 		boolean savedProperly = cr.findByFormat("Code").contains(c);
+		assertTrue(savedProperly);
+	}
+	
+	/**
+	 * Tests if content is deleted properly.
+	 */
+	@Test
+	@Rollback
+	public void ContentStandaloneDeleteTesT()
+	{
+		Content c = new Content();
+		c.setDateCreated(System.currentTimeMillis());
+		c.setLastModified(System.currentTimeMillis());
+		c.setDescription("A valid description");
+		c.setFormat("Code");
+		c.setTitle("A valid title");
+		c.setUrl("http://valid.valid");
+		c.setLinks(null);
+		
+		c = cr.save(c);
+		cr.delete(c);
+		Set<Content> result = cr.findById(c.getId());
+		boolean deletedProperly = (result == null || result.isEmpty());
+		
+		assertTrue(deletedProperly);
+	}
+	
+	/**
+	 * Test if content is updated proerply.
+	 */
+	@Test
+	@Rollback
+	public void ContentStandaloneUpdateTest()
+	{
+		Content c = new Content();
+		c.setDateCreated(System.currentTimeMillis());
+		c.setLastModified(System.currentTimeMillis());
+		c.setDescription("A valid description");
+		c.setFormat("Code");
+		c.setTitle("A valid title");
+		c.setUrl("http://valid.valid");
+		c.setLinks(null);
+		
+		c = cr.save(c);
 		
 		String title = "Another valid title";
 		c.setTitle(title);
@@ -117,24 +187,15 @@ class RepositoriesSmokeTest {
 		c = cr.save(c);
 		
 		boolean mergedProperly = cr.findByTitle(title).contains(c);
-		
-		cr.delete(c);
-		Set<Content> result = cr.findById(c.getId());
-		boolean deletedProperly = (result == null || result.isEmpty());
-		
-		assertTrue(savedProperly);
 		assertTrue(mergedProperly);
-		assertTrue(deletedProperly);
 	}
 	
 	/**
-	 * Saving and Deletion test for links. Is dependent on Module and Content being functional.
-	 * 
-	 * <p> Adds and deletes links, confirming success after save and deletion. Adds and removes a module and a content in the process.
+	 * Tests link saving.
 	 */
 	@Test
-	@Commit
-	public void LinkSaveDelTest()
+	@Rollback
+	public void LinkSaveTest()
 	{		
 		//Add Content to link.
 		Content c = new Content();
@@ -163,6 +224,41 @@ class RepositoriesSmokeTest {
 		l = lr.save(l);
 		
 		boolean savedProperly = lr.findByContentId(c.getId()).contains(l);
+		assertTrue(savedProperly);
+	}
+	
+	/**
+	 * Tests link deletion.
+	 */
+	@Test
+	@Rollback
+	public void LinkDelTest()
+	{		
+		//Add Content to link.
+		Content c = new Content();
+		c.setDateCreated(System.currentTimeMillis());
+		c.setLastModified(System.currentTimeMillis());
+		c.setDescription("A valid description");
+		c.setFormat("Code");
+		c.setTitle("A valid title");
+		c.setUrl("http://valid.valid");
+		c.setLinks(null);
+		
+		c = cr.save(c);
+		
+		//Add Module to link.
+		Module m = new Module();
+		m.setSubject("A valid testing subject");
+		m.setId(0);
+		m.setCreated(System.currentTimeMillis());
+		m = mr.save(m);
+
+		Link l = new Link();
+		l.setContentId(c.getId());
+		l.setModuleId(m.getId());
+		l.setAffiliation("RelevantTo");
+		
+		l = lr.save(l);
 		
 		lr.delete(l);
 		
@@ -172,8 +268,6 @@ class RepositoriesSmokeTest {
 		mr.delete(m);
 		cr.delete(c);
 		
-		assertTrue(savedProperly);
 		assertTrue(deletedProperly);
 	}
-	
 }

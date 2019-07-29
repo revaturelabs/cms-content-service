@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,27 +54,37 @@ class ModuleServiceTest {
 	@Autowired
 	JdbcTemplate template;
 
-	/**
-	 * Overarching test for all core functionality belonging to the ModuleService.
-	 *
-	 * <p> Creates a new module, checks both kinds of retrieval, and then cleans up and tests success.
-	 */
-	@Test
-	@Commit
-	void moduleServiceTest() 
-	{
+  /**
+   * Test for getAllModules.
+   */
+  @Test
+  @Rollback
+  void moduleServiceAllTest()
+  {
 		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", 0, new HashSet<Link>()));
 
 		boolean allContains = ms.getAllModules().contains(m);
 		
+		mr.delete(m);
+		
+		assertTrue(allContains);
+  }
+
+  /**
+   * Test for getModuleById.
+   */
+  @Test
+  @Rollback
+  void moduleServiceIdTest()
+  {
+		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", 0, new HashSet<Link>()));
+
 		Module dup = ms.getModuleById(m.getId());
 		
 		boolean idEquals = m.equals(dup);
 		
 		mr.delete(m);
 		
-		assertTrue(allContains);
 		assertTrue(idEquals);
   }
-	
 }
