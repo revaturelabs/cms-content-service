@@ -1,5 +1,9 @@
 package com.revature.controllers;
 
+/**
+ * For documentation on the controllers check out some documentation on swaggerhub:
+ * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
+ */
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
