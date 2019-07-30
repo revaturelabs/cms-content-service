@@ -109,7 +109,7 @@ public class SearchServiceImpl implements SearchService {
 			
 			if(contents == null) {
 				
-				contents = cr.findByTitle(title);
+				contents = cr.findByTitleContaining(title);
 				
 			} else {
 				
@@ -162,31 +162,29 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> copy;
 		
 		String title = (String) filters.get("title");
+		String format = (String) filters.get("format");
+		boolean isTitle = false;
+		boolean isFormat = false;
 		
 		if(title != null && !title.isEmpty()) {
-			
-			copy = new HashSet<Content>(contents);
-			
-			for(Content c : copy) {
-				
-				if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
-					contents.remove(c);
-			}
+			isTitle = true;
 		}
-		
-		String format = (String) filters.get("format");
-		
 		if(format != null && !format.equals("All")) {
+			isFormat = true;
+		}
 			
+		if(isTitle || isFormat) {
 			copy = new HashSet<Content>(contents);
 			
 			for(Content c : copy) {
 				
-				if(!c.getFormat().equals(format))
+				if(isTitle && !c.getTitle().toLowerCase().contains(title.toLowerCase()))
+					contents.remove(c);
+				if(isFormat && !c.getFormat().equals(format))
 					contents.remove(c);
 			}
 		}
-		
+			
 		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
 		
 		if(ids != null && !ids.isEmpty()) {
