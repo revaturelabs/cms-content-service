@@ -109,7 +109,7 @@ public class SearchServiceImpl implements SearchService {
 			
 			if(contents == null) {
 				
-				contents = cr.findByTitle(title);
+				contents = cr.findByTitleContaining(title);
 				
 			} else {
 				
