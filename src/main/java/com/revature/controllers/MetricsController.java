@@ -42,7 +42,8 @@ public class MetricsController {
 								  @RequestBody Map<String, Object> filters) {
 		
 		@SuppressWarnings("unchecked")
-		Set<Content> filtContents = searchService.filter((String) filters.get("title"), (String) filters.get("format"), (List<Integer>) filters.get("modules"));
+		Set<Content> contents = contentService.getAllContent();
+		Set<Content> filtContents = searchService.filterContent(contents, filters);
 		
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		
