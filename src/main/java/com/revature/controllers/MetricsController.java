@@ -1,5 +1,9 @@
 package com.revature.controllers;
 
+/**
+ * For documentation on the controllers check out some documentation on swaggerhub:
+ * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
+ */
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +46,8 @@ public class MetricsController {
 								  @RequestBody Map<String, Object> filters) {
 		
 		@SuppressWarnings("unchecked")
-		Set<Content> filtContents = searchService.filter((String) filters.get("title"), (String) filters.get("format"), (List<Integer>) filters.get("modules"));
+		Set<Content> contents = contentService.getAllContent();
+		Set<Content> filtContents = searchService.filterContent(contents, filters);
 		
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		

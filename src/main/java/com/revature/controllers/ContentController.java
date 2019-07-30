@@ -1,5 +1,9 @@
 package com.revature.controllers;
 
+/**
+ * For documentation on the controllers check out some documentation on swaggerhub:
+ * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
+ */
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;

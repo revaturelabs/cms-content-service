@@ -386,8 +386,8 @@ class SearchServiceTest {
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
-		module1 =mr.save(module1);
-		module2 =mr.save(module2);
+		module1 = mr.save(module1);
+		module2 = mr.save(module2);
 		module3 = mr.save(module3);
 		content = cr.save(content);
 		
@@ -415,6 +415,41 @@ class SearchServiceTest {
 		testFilters.put("format", format);
 		testFilters.put("modules", mlist);
 		
+		Set<Content> hold = new HashSet<Content>(testCont);
+		Set<Content> filtered = ss.filterContent(testCont, testFilters);
+		boolean goodFiltered = filtered.equals(hold);
+		
+		assertTrue(goodFiltered);
+	}
+	
+	@Test
+	@Rollback
+	void testMetricsFilteringBadInfo() {
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
+			
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+
+		module1 = mr.save(module1);
+		module2 = mr.save(module2);
+		module3 = mr.save(module3);
+		content = cr.save(content);
+				
+		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
+		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
+				
+		Set<Link> contentLinks = new HashSet<Link>();
+		contentLinks.add(link1);
+		contentLinks.add(link2);
+				
+		content.setLinks(contentLinks);
+		
+		content = cr.save(content);
+			
+		Set<Content> testCont = new HashSet<Content>();
+		testCont.add(content);
+		
 		String badTitle = "notTitle";
 		String badFormat = "notFormat";
 		List<Integer> nolist = new ArrayList<Integer>();
@@ -422,14 +457,11 @@ class SearchServiceTest {
 		badFilters.put("title", badTitle);
 		badFilters.put("format", badFormat);
 		badFilters.put("modules", nolist);
+
+		Set<Content> hold = new HashSet<Content>(testCont);
+		Set<Content> filtered = ss.filterContent(testCont, badFilters);
+		boolean badFiltered = filtered.equals(hold);
 		
-		Set<Content> filtered = ss.filterContent(testCont, testFilters);
-		boolean goodFiltered = filtered.equals(testCont);
-		
-		filtered = ss.filterContent(testCont, badFilters);
-		boolean badFiltered = filtered.equals(testCont);
-		
-		assertTrue(goodFiltered);
 		assertFalse(badFiltered);
 	}
 	
