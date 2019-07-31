@@ -18,6 +18,8 @@ import com.revature.exceptions.InvalidSearchException;
 @Aspect
 public class ValidationUtil {
 	
+	private static final int MAX_CHAR_LENGTH = 254;
+	
 	@Pointcut("within(com.revature.services..*) ")
 	public void servicesPC() {
 		
@@ -29,16 +31,16 @@ public class ValidationUtil {
 		if(content == null)
 			throw new InvalidContentException("content is of null value");
 		
-		if(content.getFormat().isEmpty() || content.getFormat().length() > 254)
+		if(content.getFormat().isEmpty() || content.getFormat().length() > MAX_CHAR_LENGTH)
 			throw new InvalidContentException("Format is either empty or is longer than 254 characters.");
 		
-		if(content.getTitle().isEmpty() || content.getTitle().length() > 254)
+		if(content.getTitle().isEmpty() || content.getTitle().length() > MAX_CHAR_LENGTH)
 			throw new InvalidContentException("Title is either empty or is longer than 254 characters.");
 		
-		if(content.getUrl().isEmpty() || content.getUrl().length() > 254)
+		if(content.getUrl().isEmpty() || content.getUrl().length() > MAX_CHAR_LENGTH)
 			throw new InvalidContentException("URL is either empty or is longer than 254 characters.");
 		
-		if(content.getDescription().length() > 254)
+		if(content.getDescription().length() > MAX_CHAR_LENGTH)
 			throw new InvalidContentException("Description is longer than 254 characters.");
 	}
 	
@@ -48,22 +50,22 @@ public class ValidationUtil {
 		if(module == null)
 			throw new InvalidContentException("Module is of null value");
 		
-		if(module.getSubject().isEmpty() || module.getSubject().length() > 254)
+		if(module.getSubject().isEmpty() || module.getSubject().length() > MAX_CHAR_LENGTH)
 			throw new InvalidModuleException("Subject is empty or is longer than 254 characters.");
 	}
 	
 	@LogException
 	@Before("servicesPC() && args(title,..)")
 	public void verifyStringTitle(String title) {
-		if(title.length() > 254)
-			throw new InvalidSearchException("title is empty or is longer than 254 characters.");
+		if(title.length() > MAX_CHAR_LENGTH)
+			throw new InvalidSearchException("title is longer than 254 characters.");
 	}
 	
 	@LogException
 	@Before("servicesPC() && args(format,..)")
 	public void verifyStringFormat(String format) {
-		if(format.length() > 254)
-			throw new InvalidSearchException("format is empty or is longer than 254 characters.");
+		if(format.length() > MAX_CHAR_LENGTH)
+			throw new InvalidSearchException("format is longer than 254 characters.");
 	}
 	
 	@LogException

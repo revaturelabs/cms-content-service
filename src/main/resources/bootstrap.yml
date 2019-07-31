@@ -6,3 +6,7 @@ spring:
       discovery:
         service-id: config
         enabled: true
+        
+server:
+  servlet: 
+    path: /cmsforce/*
