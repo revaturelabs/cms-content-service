@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentMinusLinks;
-import com.revature.entities.ContentMinusLinksImpl;
 
 @Repository
 public interface ContentRepository extends CrudRepository<Content,Integer>{

@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentMinusLinks;
-import com.revature.entities.ContentMinusLinksImpl;
 import com.revature.entities.Link;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
