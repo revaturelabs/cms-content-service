@@ -44,18 +44,23 @@ public class MetricsController {
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> filters) {
-		
+		Set<Content> contents;
+		Set<Content> filtContents;
 		@SuppressWarnings("unchecked")
-		Set<Content> contents = contentService.getAllContent();
-		Set<Content> filtContents = searchService.filterContent(contents, filters);
+		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
+
+		if(idsIn.isEmpty()) {
+			contents = contentService.getAllContentMinusLinks();
+			filtContents = searchService.filterContent(contents, filters);
+		} else {
+			contents = contentService.getAllContent();
+			filtContents = searchService.filterContent(contents, filters); }
 		
 		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
 		
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
 		int modSize = modules.size();
 		
-		@SuppressWarnings("unchecked")
-		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
 		double avgMods = 0;
 		if(idsIn != null && !idsIn.isEmpty()) {
 			avgMods = moduleService.getAverageByModuleIds(idsIn);
