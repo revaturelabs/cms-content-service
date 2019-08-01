@@ -1,0 +1,33 @@
+version: 0.2
+ 
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+  pre_build:
+    commands:
+      - echo Building Content Service
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region $AWS_REGION)
+      - BUILD_ID=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+  build:
+    commands:
+      - echo Building Maven Project
+      - mvn clean
+      - mvn install
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t $SERVICE_NAME:${BUILD_ID} --build-arg JAR_FILE=CMSforce-0.0.1-SNAPSHOT.jar --build-arg SPRING_ENV=dev --build-arg DB_URL=$DB_URL --build-arg DB_USER=$DB_USER --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg EUREKA_URL=${EUREKA_URL} .
+      - docker tag $SERVICE_NAME:${BUILD_ID} $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$BUILD_ID
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$BUILD_ID
+      - echo Writing image definitions file...
+      - printf '[{"name":"%s","imageUri":"%s", "cpu":500, "memory":350}]' $SERVICE_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$BUILD_ID > imagedefinitions.json
+artifacts:
+  files:
+    - imagedefinitions.json
+    - 'Dockerfile'
+    - 'target/CMSforce-0.0.1-SNAPSHOT.jar'
