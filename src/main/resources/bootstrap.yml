@@ -10,3 +10,12 @@ spring:
 server:
   servlet: 
     path: /cmsforce/*
+
+---
+spring:
+  profiles: dev
+
+eureka:   
+ client:
+   service-url:
+     defaultZone: http://http://cms-dev-1861735057.us-east-1.elb.amazonaws.com/eureka
