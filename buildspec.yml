@@ -14,7 +14,7 @@ phases:
     commands:
       - echo Building Maven Project
       - ls
-      - mvn install:install-file -Dfile=src/main/resources/ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar 
+      - mvn install:install-file -Dfile=src/main/resources/ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar 
       - mvn clean
       - mvn install
       - echo Build started on `date`
