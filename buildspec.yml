@@ -10,6 +10,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_REGION)
       - BUILD_ID=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - mvn install:install-file -Dfile=src/main/resources/ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar 
   build:
     commands:
       - echo Building Maven Project
