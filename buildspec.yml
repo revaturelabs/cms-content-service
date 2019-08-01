@@ -13,8 +13,9 @@ phases:
   build:
     commands:
       - echo Building Maven Project
-      - mvn clean
+      - ls
       - mvn install:install-file -Dfile=src/main/resources/ojdbc8.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar 
+      - mvn clean
       - mvn install
       - echo Build started on `date`
       - echo Building the Docker image...          
