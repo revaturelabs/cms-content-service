@@ -244,7 +244,7 @@ class SearchServiceTest {
 		mlist.add(module1.getId());
 		mlist.add(module2.getId());
 
-		Set<Content> filtered = ss.filter(title, format, mlist);
+		Set<Content> filtered = ss.filter(title, format, mlist,"Pending");
 		boolean validFilter = filtered.contains(content);
 		assertTrue(validFilter);
 	}
@@ -285,8 +285,8 @@ class SearchServiceTest {
 		mlist.add(module2.getId());
 
 		String badtitle = "inaccurate title";
-		Set<Content> filtered = ss.filter(title, format, mlist);
-		filtered = ss.filter(badtitle, format, mlist);
+		Set<Content> filtered = ss.filter(title, format, mlist,"pending");
+		filtered = ss.filter(badtitle, format, mlist,"pending");
 		boolean badTitleFilter = filtered.contains(content);
 		
 		assertFalse(badTitleFilter);
@@ -328,8 +328,8 @@ class SearchServiceTest {
 		mlist.add(module2.getId());
 
 		String badformat = "Document";
-		Set<Content> filtered = ss.filter(title, format, mlist);
-		filtered = ss.filter(title, badformat, mlist);
+		Set<Content> filtered = ss.filter(title, format, mlist,"denied");
+		filtered = ss.filter(title, badformat, mlist,"denied");
 		boolean badFormatFilter = filtered.contains(content);
 		
 		assertFalse(badFormatFilter);
@@ -369,7 +369,7 @@ class SearchServiceTest {
 
 		List<Integer> mlist = new ArrayList<Integer>();
 		mlist.add(module3.getId());
-		Set<Content >filtered = ss.filter(title, format, mlist);
+		Set<Content >filtered = ss.filter(title, format, mlist,"approved");
 		boolean badModuleFilter = filtered.contains(content);
 		assertFalse(badModuleFilter);
 	}
