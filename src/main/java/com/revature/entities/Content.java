@@ -29,6 +29,10 @@ public class Content {
 	@Column(nullable=false)
 	private String url;
 	
+	// New addition, indicates whether the content has been approved/denied or is still pending
+	@Column(nullable=false)
+	private String status;
+	
 	/**
 	 * The following fields, dateCreated and lastModified, were added in order to facilitate functionality for 
 	 * displaying a graphical representation of content created over a period of time.
@@ -46,6 +50,24 @@ public class Content {
 	public Content() {
 		super();
 	}
+	
+	
+
+	public Content(int id, String title, String format, String description, String url, Set<Link> links, String status, long dateCreated,
+			long lastModified) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.format = format;
+		this.description = description;
+		this.url = url;
+		this.status = status;
+		this.links = links;
+		this.dateCreated = dateCreated;
+		this.lastModified = lastModified;
+	}
+
+
 
 	public Content(int id, String title, String format, String description, String url, Set<Link> links, long dateCreated, long lastModified) {
 		super();
@@ -55,10 +77,12 @@ public class Content {
 		this.description = description;
 		this.url = url;
 		this.links = links;
+		this.status = "pending";
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
 	}
-
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -99,6 +123,14 @@ public class Content {
 		this.url = url;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Set<Link> getLinks() {
 		return links;
 	}
@@ -127,9 +159,11 @@ public class Content {
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", links="
+				+ ", url=" + url + ", status=" + status + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", links="
 				+ links + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -141,10 +175,13 @@ public class Content {
 		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -176,6 +213,11 @@ public class Content {
 				return false;
 		} else if (!links.equals(other.links))
 			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -188,9 +230,65 @@ public class Content {
 			return false;
 		return true;
 	}
-
+	
 	
 
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + (int) (dateCreated ^ (dateCreated >>> 32));
+//		result = prime * result + ((description == null) ? 0 : description.hashCode());
+//		result = prime * result + ((format == null) ? 0 : format.hashCode());
+//		result = prime * result + id;
+//		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
+//		result = prime * result + ((links == null) ? 0 : links.hashCode());
+//		result = prime * result + ((title == null) ? 0 : title.hashCode());
+//		result = prime * result + ((url == null) ? 0 : url.hashCode());
+//		return result;
+//	}
 	
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (getClass() != obj.getClass())
+//			return false;
+//		Content other = (Content) obj;
+//		if (dateCreated != other.dateCreated)
+//			return false;
+//		if (description == null) {
+//			if (other.description != null)
+//				return false;
+//		} else if (!description.equals(other.description))
+//			return false;
+//		if (format == null) {
+//			if (other.format != null)
+//				return false;
+//		} else if (!format.equals(other.format))
+//			return false;
+//		if (id != other.id)
+//			return false;
+//		if (lastModified != other.lastModified)
+//			return false;
+//		if (links == null) {
+//			if (other.links != null)
+//				return false;
+//		} else if (!links.equals(other.links))
+//			return false;
+//		if (title == null) {
+//			if (other.title != null)
+//				return false;
+//		} else if (!title.equals(other.title))
+//			return false;
+//		if (url == null) {
+//			if (other.url != null)
+//				return false;
+//		} else if (!url.equals(other.url))
+//			return false;
+//		return true;
+//	}
 	
 }

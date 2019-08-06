@@ -96,7 +96,7 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> modules) {
+	public Set<Content> filter(String title, String format, List<Integer> modules, String status) {
 		
 		Set<Content> contents = null;
 		Set<Content> copy = null;
@@ -149,6 +149,22 @@ public class SearchServiceImpl implements SearchService {
 				
 				if(!inModule) {
 					contents.remove(c);
+				}
+			}
+		}
+		
+		if (contents == null) {
+			contents = cr.findByStatus(status);
+		}
+		
+		copy = new HashSet<Content>(contents);
+		
+		if(!status.equals("All")) {
+			for(Content c : copy) {
+				if (c.getStatus().equals("pending")) {
+					contents.remove(c);
+					//fakeContent = c;
+					System.out.println("content check" + contents);
 				}
 			}
 		}
