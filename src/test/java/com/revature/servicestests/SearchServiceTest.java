@@ -243,8 +243,8 @@ class SearchServiceTest {
 		List<Integer> mlist = new ArrayList<Integer>();
 		mlist.add(module1.getId());
 		mlist.add(module2.getId());
-
-		Set<Content> filtered = ss.filter(title, format, mlist);
+		//QCALL IS TEMPORARY TO SILENCE ERRORS 
+		Set<Content> filtered = ss.filter(title, format, mlist, "QcAll");
 		boolean validFilter = filtered.contains(content);
 		assertTrue(validFilter);
 	}
@@ -285,8 +285,9 @@ class SearchServiceTest {
 		mlist.add(module2.getId());
 
 		String badtitle = "inaccurate title";
-		Set<Content> filtered = ss.filter(title, format, mlist);
-		filtered = ss.filter(badtitle, format, mlist);
+		//QC ALL IS TEMPORARY FIX TO SILENCE THE ERRORS
+		Set<Content> filtered = ss.filter(title, format, mlist, "QcAll");
+		filtered = ss.filter(badtitle, format, mlist, "QcAll");
 		boolean badTitleFilter = filtered.contains(content);
 		
 		assertFalse(badTitleFilter);
@@ -328,8 +329,9 @@ class SearchServiceTest {
 		mlist.add(module2.getId());
 
 		String badformat = "Document";
-		Set<Content> filtered = ss.filter(title, format, mlist);
-		filtered = ss.filter(title, badformat, mlist);
+		//QCALL IS TEMPORARY TO SILENCE ERRORS
+		Set<Content> filtered = ss.filter(title, format, mlist, "QcAll");
+		filtered = ss.filter(title, badformat, mlist, "QcAll");
 		boolean badFormatFilter = filtered.contains(content);
 		
 		assertFalse(badFormatFilter);
@@ -369,7 +371,8 @@ class SearchServiceTest {
 
 		List<Integer> mlist = new ArrayList<Integer>();
 		mlist.add(module3.getId());
-		Set<Content >filtered = ss.filter(title, format, mlist);
+		//QCALL IS TEMPORARY TO SILENCE ERRORS
+		Set<Content >filtered = ss.filter(title, format, mlist, "QcAll");
 		boolean badModuleFilter = filtered.contains(content);
 		assertFalse(badModuleFilter);
 	}

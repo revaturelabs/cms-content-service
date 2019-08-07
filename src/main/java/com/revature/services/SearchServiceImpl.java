@@ -96,13 +96,39 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> modules, String status) {
+	public Set<Content> filter(String title, String format, List<Integer> modules, String viewStatus) {
 		
 		Set<Content> contents = null;
 		Set<Content> copy = null;
 		
+		if(viewStatus != null && !viewStatus.equals("QcAll")) {
+			
+			contents = cr.findByStatus("approved");
+			
+			if(viewStatus.equals("showUnapp")) {
+				contents.addAll(cr.findByStatus("pending"));
+			}
+			
+		}
+		
 		if(format != null && !format.equals("All") && !format.equals("")) {
-			contents = cr.findByFormat(format);
+			if(contents == null) {
+			
+				contents = cr.findByFormat(format);
+			
+			} else {
+				
+				copy = new HashSet<Content>(contents);
+				
+				for(Content c : copy) {
+					
+					if(!c.getFormat().equals(format)){
+						contents.remove(c);
+					}
+					
+				}
+				
+			}
 		}
 		
 		if(title != null && !title.equals("")) {
@@ -149,22 +175,6 @@ public class SearchServiceImpl implements SearchService {
 				
 				if(!inModule) {
 					contents.remove(c);
-				}
-			}
-		}
-		
-		if (contents == null) {
-			contents = cr.findByStatus(status);
-		}
-		
-		copy = new HashSet<Content>(contents);
-		
-		if(!status.equals("All")) {
-			for(Content c : copy) {
-				if (c.getStatus().equals("pending")) {
-					contents.remove(c);
-					//fakeContent = c;
-					System.out.println("content check" + contents);
 				}
 			}
 		}
