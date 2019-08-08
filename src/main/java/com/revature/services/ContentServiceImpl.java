@@ -35,7 +35,7 @@ public class ContentServiceImpl implements ContentService {
 	/**
 	 * createContent first inserts the content to the database
 	 * then iterates over the set of links that are within the content
-	 * and replaces the fk of content id with the correct content id
+	 * and replaces the fk of content id with the correct content id,
 	 * then adds the set of links to the link table. 
 	 */
 	@LogException

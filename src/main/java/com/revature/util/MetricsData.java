@@ -1,6 +1,6 @@
 package com.revature.util;
 
-public class MetricsData {
+public class MetricsData { // Bean for the metrics
 	private int codeCount;
 	private int documentCount;
 	private int pptCount;
