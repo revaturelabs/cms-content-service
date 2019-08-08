@@ -50,8 +50,6 @@ public class Content {
 	public Content() {
 		super();
 	}
-	
-	
 
 	public Content(int id, String title, String format, String description, String url, Set<Link> links, String status, long dateCreated,
 			long lastModified) {
