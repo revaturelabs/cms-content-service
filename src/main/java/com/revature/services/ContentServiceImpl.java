@@ -31,6 +31,8 @@ public class ContentServiceImpl implements ContentService {
 	LinkRepository lr;
 	@Autowired
 	ModuleRepository mr;
+	@Autowired
+	ContentService cs;
 
 	/**
 	 * createContent first inserts the content to the database
@@ -184,6 +186,24 @@ public class ContentServiceImpl implements ContentService {
 				numList.put(c.getFormat(), 1);
 		}
 		return numList;
+	}
+
+
+	@Override
+	@LogException
+	public void SetDecisionById(int id, String decision) {
+		
+		Content updated = cs.getContentById(id);
+		if(decision.equals("true")) {
+			updated.setStatus("APPROVED");
+			cr.save(updated);
+		}
+		else if(decision.equals("false")) {
+			updated.setStatus("DENIED");
+			cr.save(updated);
+		}
+		System.out.println(updated);
+		
 	}
 	
 }
