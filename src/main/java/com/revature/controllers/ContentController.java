@@ -54,10 +54,18 @@ public class ContentController {
 	}
 	
 	// updates status to approved/denied
+<<<<<<< HEAD
 	@GetMapping("/content/{id}/{decision}")
 	public void getDecision(@PathVariable int id, @PathVariable String decision) {
 		contentService.SetDecisionById(id, decision);
 	}
+=======
+		@GetMapping("/content/{id}/{decision}")
+		public void getDecision(@PathVariable int id, @PathVariable String decision) {
+			contentService.SetDecisionById(id, decision);
+		}
+		
+>>>>>>> 12b41ac94d57ac0d1911461a6a533ed86749f651
 	
 	/**
 	 * Description - PUT request for updating content, updates a content in the content repository

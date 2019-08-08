@@ -196,9 +196,17 @@ public class ContentServiceImpl implements ContentService {
 		Content updated = cs.getContentById(id);
 		if(decision.equals("true")) {
 			updated.setStatus("APPROVED");
+<<<<<<< HEAD
 		}
 		else if(decision.equals("false")) {
 			updated.setStatus("DENIED");
+=======
+			cr.save(updated);
+		}
+		else if(decision.equals("false")) {
+			updated.setStatus("DENIED");
+			cr.save(updated);
+>>>>>>> 12b41ac94d57ac0d1911461a6a533ed86749f651
 		}
 		System.out.println(updated);
 		

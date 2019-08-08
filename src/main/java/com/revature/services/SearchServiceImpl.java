@@ -96,17 +96,24 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> modules, String viewStatus) {
+	public Set<Content> filter(String title, String format, List<Integer> modules, List<String> showStatus) {
 		
 		Set<Content> contents = null;
 		Set<Content> copy = null;
 		
-		if(viewStatus != null && !viewStatus.equals("QcAll")) {
+		if(showStatus != null && !(showStatus.size() == 3) && !(showStatus.isEmpty())) {
 			
-			contents = cr.findByStatus("approved");
-			
-			if(viewStatus.equals("showUnapp")) {
-				contents.addAll(cr.findByStatus("pending"));
+			for(String st : showStatus) {
+				
+				if(contents == null) {
+				
+					contents = cr.findByStatus(st);
+				
+				} else {
+					
+					contents.addAll(cr.findByStatus(st));
+					
+				}
 			}
 			
 		}
