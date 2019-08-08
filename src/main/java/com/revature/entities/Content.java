@@ -3,7 +3,12 @@ package com.revature.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Set;
 
@@ -29,10 +34,6 @@ public class Content {
 	@Column(nullable=false)
 	private String url;
 	
-	// New addition, indicates whether the content has been approved/denied or is still pending
-	@Column(nullable=false)
-	private String status;
-	
 	/**
 	 * The following fields, dateCreated and lastModified, were added in order to facilitate functionality for 
 	 * displaying a graphical representation of content created over a period of time.
@@ -47,27 +48,34 @@ public class Content {
 	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 	
+	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	@JoinColumn(name = "userid")
+	private User userid;
+	    
+	@Column(name = "status")
+	private String status;
+	
 	public Content() {
 		super();
 	}
 	
 	
 
-	public Content(int id, String title, String format, String description, String url, Set<Link> links, String status, long dateCreated,
-			long lastModified) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.format = format;
-		this.description = description;
-		this.url = url;
-		this.status = status;
-		this.links = links;
-		this.dateCreated = dateCreated;
-		this.lastModified = lastModified;
-	}
-
-
+	public Content(int id, String title, String format, String description, String url, long dateCreated,
+            long lastModified, Set<Link> links, User userid, String status) {
+        super();
+        this.id = id;
+        this.title = title;
+        this.format = format;
+        this.description = description;
+        this.url = url;
+        this.dateCreated = dateCreated;
+        this.lastModified = lastModified;
+        this.links = links;
+        this.userid = userid;
+        this.status = status;
+    }
 
 	public Content(int id, String title, String format, String description, String url, Set<Link> links, long dateCreated, long lastModified) {
 		super();
@@ -77,9 +85,10 @@ public class Content {
 		this.description = description;
 		this.url = url;
 		this.links = links;
-		this.status = "pending";
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
+		this.status = "pending";
+		this.userid = new User();
 	}
 	
 	
