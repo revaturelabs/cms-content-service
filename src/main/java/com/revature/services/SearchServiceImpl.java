@@ -97,11 +97,10 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules, List<String> showStatus) {
-		
 		Set<Content> contents = null;
 		Set<Content> copy = null;
 		
-		if(showStatus != null && !(showStatus.size() == 3) && !(showStatus.isEmpty())) {
+		if(showStatus != null && !(showStatus.isEmpty())) {
 			
 			for(String st : showStatus) {
 				
@@ -185,7 +184,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 		}
-		
+		System.out.println("content statuses" + contents);
 		return contents;
 	}
 
