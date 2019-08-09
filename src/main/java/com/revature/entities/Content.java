@@ -138,7 +138,6 @@ public class Content {
 		result = prime * result + (int) (dateCreated ^ (dateCreated >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
-		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -152,7 +151,7 @@ public class Content {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Content))
 			return false;
 		Content other = (Content) obj;
 		if (dateCreated != other.dateCreated)
@@ -166,8 +165,6 @@ public class Content {
 			if (other.format != null)
 				return false;
 		} else if (!format.equals(other.format))
-			return false;
-		if (id != other.id)
 			return false;
 		if (lastModified != other.lastModified)
 			return false;
