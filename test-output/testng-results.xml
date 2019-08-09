@@ -1,97 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="20" passed="20">
+<testng-results skipped="0" failed="0" ignored="0" total="12" passed="12">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2344" started-at="2019-08-09T16:25:04Z" finished-at="2019-08-09T16:25:06Z">
+  <suite name="Default suite" duration-ms="2086" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:38Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="2344" started-at="2019-08-09T16:25:04Z" finished-at="2019-08-09T16:25:06Z">
-      <class name="com.revature.entitiestests.ContentTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="setup" is-config="true" duration-ms="42" started-at="2019-08-09T16:25:04Z" finished-at="2019-08-09T16:25:04Z">
+    <test name="Default test" duration-ms="2086" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:38Z">
+      <class name="com.revature.entitiestests.LinkTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="setup" is-config="true" duration-ms="41" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testContent()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testContent" duration-ms="20" started-at="2019-08-09T16:25:04Z" finished-at="2019-08-09T16:25:04Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testContent -->
-        <test-method status="PASS" signature="testContentIntStringStringStringStringSetOfLinkLongLong()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testContentIntStringStringStringStringSetOfLinkLongLong" duration-ms="8" started-at="2019-08-09T16:25:04Z" finished-at="2019-08-09T16:25:04Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testContentIntStringStringStringStringSetOfLinkLongLong -->
-        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testEqualsObject" duration-ms="1881" started-at="2019-08-09T16:25:04Z" finished-at="2019-08-09T16:25:06Z">
+        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testEqualsObject" duration-ms="1856" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:37Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEqualsObject -->
-        <test-method status="PASS" signature="testGetDateCreated()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetDateCreated" duration-ms="17" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        <test-method status="PASS" signature="testGetAffiliation()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetAffiliation" duration-ms="33" started-at="2019-08-09T16:54:37Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetDateCreated -->
-        <test-method status="PASS" signature="testGetDescription()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetDescription" duration-ms="9" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testGetAffiliation -->
+        <test-method status="PASS" signature="testGetContentId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetContentId" duration-ms="6" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetDescription -->
-        <test-method status="PASS" signature="testGetFormat()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetFormat" duration-ms="21" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testGetFormat -->
-        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetId" duration-ms="6" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testGetContentId -->
+        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetId" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testGetId -->
-        <test-method status="PASS" signature="testGetLastModified()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetLastModified" duration-ms="13" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        <test-method status="PASS" signature="testGetModuleId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetModuleId" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetLastModified -->
-        <test-method status="PASS" signature="testGetLinks()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetLinks" duration-ms="2" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testGetModuleId -->
+        <test-method status="PASS" signature="testLink()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testLink" duration-ms="4" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetLinks -->
-        <test-method status="PASS" signature="testGetTitle()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetTitle" duration-ms="5" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testLink -->
+        <test-method status="PASS" signature="testLinkIntIntIntString()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testLinkIntIntIntString" duration-ms="6" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetTitle -->
-        <test-method status="PASS" signature="testGetUrl()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testGetUrl" duration-ms="5" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testLinkIntIntIntString -->
+        <test-method status="PASS" signature="testSetAffiliation()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetAffiliation" duration-ms="3" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetUrl -->
-        <test-method status="PASS" signature="testSetDateCreated()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetDateCreated" duration-ms="8" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testSetAffiliation -->
+        <test-method status="PASS" signature="testSetContentId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetContentId" duration-ms="3" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetDateCreated -->
-        <test-method status="PASS" signature="testSetDescription()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetDescription" duration-ms="12" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetDescription -->
-        <test-method status="PASS" signature="testSetFormat()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetFormat" duration-ms="4" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetFormat -->
-        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetId" duration-ms="3" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testSetContentId -->
+        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetId" duration-ms="1" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSetId -->
-        <test-method status="PASS" signature="testSetLastModified()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetLastModified" duration-ms="11" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        <test-method status="PASS" signature="testSetModuleId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetModuleId" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetLastModified -->
-        <test-method status="PASS" signature="testSetLinks()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetLinks" duration-ms="2" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetLinks -->
-        <test-method status="PASS" signature="testSetTitle()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetTitle" duration-ms="4" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetTitle -->
-        <test-method status="PASS" signature="testSetUrl()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testSetUrl" duration-ms="1" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetUrl -->
-        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.ContentTest@34451ed8]" name="testToString" duration-ms="2" started-at="2019-08-09T16:25:06Z" finished-at="2019-08-09T16:25:06Z">
+        </test-method> <!-- testSetModuleId -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testToString" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToString -->
-      </class> <!-- com.revature.entitiestests.ContentTest -->
+      </class> <!-- com.revature.entitiestests.LinkTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
