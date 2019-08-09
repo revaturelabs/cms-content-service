@@ -173,12 +173,6 @@ public static long getSerialversionuid() {
 }
 
 @Override
-public String toString() {
-	return "User [id=" + id + ", email=" + email + ", password=" + password + ", fname=" + fname + ", lname=" + lname
-			+ ", createdDate=" + createdDate + ", resetToken=" + resetToken + ", role=" + role + "]";
-}
-
-@Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;
@@ -242,10 +236,12 @@ public boolean equals(Object obj) {
 	return true;
 }
 
+@Override
+public String toString() {
+	return "User [id=" + id + ", email=" + email + ", password=" + password + ", fname=" + fname + ", lname=" + lname
+			+ ", createdDate=" + createdDate + ", resetToken=" + resetToken + ", role=" + role + "]";
+}
 
 
-
-
-	
 	
 }
