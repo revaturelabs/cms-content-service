@@ -91,7 +91,7 @@ public class LinkTest {
 
 	@Test
 	public void testEqualsObject() {
-		EqualsVerifier.forClass(Content.class)
+		EqualsVerifier.forClass(Link.class)
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();
 	}

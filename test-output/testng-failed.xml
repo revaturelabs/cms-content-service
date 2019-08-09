@@ -3,12 +3,12 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.revature.entitiestests.ContentTest">
+      <class name="com.revature.entitiestests.ModuleTest">
         <methods>
+          <include name="testSetCreated"/>
           <include name="setup"/>
-          <include name="testEqualsObject"/>
         </methods>
-      </class> <!-- com.revature.entitiestests.ContentTest -->
+      </class> <!-- com.revature.entitiestests.ModuleTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

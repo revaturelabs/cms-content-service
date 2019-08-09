@@ -2,64 +2,64 @@
 <testng-results skipped="0" failed="0" ignored="0" total="12" passed="12">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2086" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:38Z">
+  <suite name="Default suite" duration-ms="2077" started-at="2019-08-09T19:31:03Z" finished-at="2019-08-09T19:31:05Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="2086" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:38Z">
-      <class name="com.revature.entitiestests.LinkTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="setup" is-config="true" duration-ms="41" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:36Z">
+    <test name="Default test" duration-ms="2077" started-at="2019-08-09T19:31:03Z" finished-at="2019-08-09T19:31:05Z">
+      <class name="com.revature.entitiestests.ModuleTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="setup" is-config="true" duration-ms="45" started-at="2019-08-09T19:31:03Z" finished-at="2019-08-09T19:31:03Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testEqualsObject" duration-ms="1856" started-at="2019-08-09T16:54:36Z" finished-at="2019-08-09T16:54:37Z">
+        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testEqualsObject" duration-ms="1802" started-at="2019-08-09T19:31:03Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testEqualsObject -->
-        <test-method status="PASS" signature="testGetAffiliation()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetAffiliation" duration-ms="33" started-at="2019-08-09T16:54:37Z" finished-at="2019-08-09T16:54:38Z">
+        <test-method status="PASS" signature="testGetCreated()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testGetCreated" duration-ms="14" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetAffiliation -->
-        <test-method status="PASS" signature="testGetContentId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetContentId" duration-ms="6" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testGetContentId -->
-        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetId" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testGetCreated -->
+        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testGetId" duration-ms="7" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testGetId -->
-        <test-method status="PASS" signature="testGetModuleId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testGetModuleId" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        <test-method status="PASS" signature="testGetLinks()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testGetLinks" duration-ms="12" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetModuleId -->
-        <test-method status="PASS" signature="testLink()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testLink" duration-ms="4" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testGetLinks -->
+        <test-method status="PASS" signature="testGetSubject()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testGetSubject" duration-ms="5" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testLink -->
-        <test-method status="PASS" signature="testLinkIntIntIntString()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testLinkIntIntIntString" duration-ms="6" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testGetSubject -->
+        <test-method status="PASS" signature="testModule()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testModule" duration-ms="2" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testLinkIntIntIntString -->
-        <test-method status="PASS" signature="testSetAffiliation()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetAffiliation" duration-ms="3" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testModule -->
+        <test-method status="PASS" signature="testModuleIntStringIntSetOfLink()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testModuleIntStringIntSetOfLink" duration-ms="1" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetAffiliation -->
-        <test-method status="PASS" signature="testSetContentId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetContentId" duration-ms="3" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testModuleIntStringIntSetOfLink -->
+        <test-method status="PASS" signature="testSetCreated()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testSetCreated" duration-ms="4" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetContentId -->
-        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetId" duration-ms="1" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testSetCreated -->
+        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testSetId" duration-ms="3" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSetId -->
-        <test-method status="PASS" signature="testSetModuleId()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testSetModuleId" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        <test-method status="PASS" signature="testSetLinks()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testSetLinks" duration-ms="10" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetModuleId -->
-        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.LinkTest@1a538ed8]" name="testToString" duration-ms="2" started-at="2019-08-09T16:54:38Z" finished-at="2019-08-09T16:54:38Z">
+        </test-method> <!-- testSetLinks -->
+        <test-method status="PASS" signature="testSetSubject()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testSetSubject" duration-ms="1" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetSubject -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.ModuleTest@684e8c9d]" name="testToString" duration-ms="4" started-at="2019-08-09T19:31:05Z" finished-at="2019-08-09T19:31:05Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testToString -->
-      </class> <!-- com.revature.entitiestests.LinkTest -->
+      </class> <!-- com.revature.entitiestests.ModuleTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
