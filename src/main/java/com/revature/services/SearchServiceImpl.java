@@ -101,10 +101,10 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> contents = null;
 		Set<Content> copy = null;
 		
-		if(showStatus != null && !(showStatus.size() == 3) && !(showStatus.isEmpty())) {
+		if(showStatus != null && !(showStatus.isEmpty())) {
 			
 			for(String st : showStatus) {
-				
+				System.out.println("current status " + st);
 				if(contents == null) {
 				
 					contents = cr.findByStatus(st);
@@ -185,6 +185,8 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 		}
+		
+		System.out.println("Content list " + contents);
 		
 		return contents;
 	}
