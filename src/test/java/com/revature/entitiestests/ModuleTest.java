@@ -69,13 +69,13 @@ public class ModuleTest {
 
 	@Test
 	void testGetCreated() {
-		assertTrue(m1.getCreated() == new Timestamp(1544));
+		assertTrue(m1.getCreated().equals(new Timestamp(1544)));
 	}
 
 	@Test
 	void testSetCreated() {
 		m1.setCreated(new Timestamp(457744l));
-		assertTrue(m1.getCreated() == new Timestamp(457744l));
+		assertTrue(m1.getCreated().equals(new Timestamp(457744l)));
 	}
 
 	@Test
