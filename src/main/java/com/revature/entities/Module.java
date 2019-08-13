@@ -22,8 +22,7 @@ public class Module {
 
 	private String subject;
 
-	@CreationTimestamp
-	private Timestamp created;
+	private long created;
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
@@ -31,7 +30,7 @@ public class Module {
 		super();
 	}
 
-	public Module(int id, String subject, Timestamp created, Set<Link> links) {
+	public Module(int id, String subject, long created, Set<Link> links) {
 		super();
 		this.id = id;
 		this.subject = subject;
@@ -55,11 +54,11 @@ public class Module {
 		this.subject = subject;
 	}
 
-	public Timestamp getCreated() {
+	public long getCreated() {
 		return created;
 	}
 
-	public void setCreated(Timestamp created) {
+	public void setCreated(long created) {
 		this.created = created;
 	}
 
@@ -80,7 +79,7 @@ public class Module {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -93,10 +92,7 @@ public class Module {
 		if (!(obj instanceof Module))
 			return false;
 		Module other = (Module) obj;
-		if (created == null) {
-			if (other.created != null)
-				return false;
-		} else if (!created.equals(other.created))
+		if (created != other.created)
 			return false;
 		if (links == null) {
 			if (other.links != null)
@@ -110,6 +106,10 @@ public class Module {
 			return false;
 		return true;
 	}
+
+	
+	
+	
 	
 	
 }

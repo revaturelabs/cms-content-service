@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,7 +49,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module createModule(Module module) {
-		module.setCreated(new Timestamp(System.currentTimeMillis()));
+		module.setCreated(System.currentTimeMillis());
 		module = mr.save(module);
 		return module;
 	}

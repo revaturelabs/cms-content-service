@@ -25,8 +25,8 @@ public class ModuleTest {
 	
 	@BeforeTest
 	public void setup() {
-		m1 = new Module(1, "Java", new Timestamp(1544), new HashSet<Link>());
-		m2 = new Module(2, "HTML", new Timestamp(154554), new HashSet<Link>());
+		m1 = new Module(1, "Java", 1544l, new HashSet<Link>());
+		m2 = new Module(2, "HTML", 154554l, new HashSet<Link>());
 	}
 	
 	@Test
@@ -39,9 +39,9 @@ public class ModuleTest {
 
 	@Test
 	void testModuleIntStringIntSetOfLink() {
-		Module one = new Module(1, "Java", new Timestamp(1544), new HashSet<Link>());
+		Module one = new Module(1, "Java", 1544l, new HashSet<Link>());
 		assertTrue(one instanceof Module);
-		Module two = new Module(2, "HTML", new Timestamp(154554), new HashSet<Link>());
+		Module two = new Module(2, "HTML", 154554l, new HashSet<Link>());
 		assertTrue(one != two);
 	}
 
@@ -69,13 +69,13 @@ public class ModuleTest {
 
 	@Test
 	void testGetCreated() {
-		assertTrue(m1.getCreated().equals(new Timestamp(1544)));
+		assertTrue(m1.getCreated() == 1544l);
 	}
 
 	@Test
 	void testSetCreated() {
-		m1.setCreated(new Timestamp(457744l));
-		assertTrue(m1.getCreated().equals(new Timestamp(457744l)));
+		m1.setCreated(457744l);
+		assertTrue(m1.getCreated() == 457744l);
 	}
 
 	@Test

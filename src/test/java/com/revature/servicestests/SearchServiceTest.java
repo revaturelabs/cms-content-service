@@ -76,9 +76,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceTitleTest()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -111,9 +111,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceFormatTest()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -145,9 +145,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceSubjectTest()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -181,9 +181,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceModuleTest()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -217,9 +217,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceOverallFilter()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -257,9 +257,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceBadTitle()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -300,9 +300,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceBadFormat()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -343,9 +343,9 @@ class SearchServiceTest {
 	@Rollback
 	void searchServiceBadModule()
 	{
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -381,9 +381,9 @@ class SearchServiceTest {
 	@Test
 	@Rollback
 	void testMetricsFiltering() {
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
@@ -426,9 +426,9 @@ class SearchServiceTest {
 	@Test
 	@Rollback
 	void testMetricsFilteringBadInfo() {
-		Module module1 = new Module(0, "FIRST TEST MODULE", new Timestamp(0), null);
-		Module module2 = new Module(0, "SECOND TEST MODULE", new Timestamp(0), null);
-		Module module3 = new Module(0, "THIRD TEST MODULE", new Timestamp(0), null);
+		Module module1 = new Module(0, "FIRST TEST MODULE", 0, null);
+		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
+		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 			
 		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
