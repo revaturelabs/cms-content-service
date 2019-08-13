@@ -80,5 +80,9 @@ public class ModuleServiceImpl implements ModuleService {
 		return this.getAverageByModuleIds(ids);
 	}
 
+	@Override
+	public void deleteModule(Module module) {
+		mr.delete(module);
+	}
 }
 
