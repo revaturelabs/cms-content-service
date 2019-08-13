@@ -2,7 +2,7 @@ package com.revature.servicestests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+import java.sql.Timestamp;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -61,7 +61,7 @@ class ModuleServiceTest {
   @Rollback
   void moduleServiceAllTest()
   {
-		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", 0, new HashSet<Link>()));
+		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", new Timestamp(0), new HashSet<Link>()));
 
 		boolean allContains = ms.getAllModules().contains(m);
 		
@@ -77,7 +77,7 @@ class ModuleServiceTest {
   @Rollback
   void moduleServiceIdTest()
   {
-		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", 0, new HashSet<Link>()));
+		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", new Timestamp(0), new HashSet<Link>()));
 
 		Module dup = ms.getModuleById(m.getId());
 		

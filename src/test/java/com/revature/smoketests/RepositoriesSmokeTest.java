@@ -2,6 +2,7 @@ package com.revature.smoketests;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.Set;
 
@@ -66,7 +67,7 @@ class RepositoriesSmokeTest {
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);
-		m.setCreated(System.currentTimeMillis());
+		m.setCreated(new Timestamp(System.currentTimeMillis()));
 		m = mr.save(m);
 		
 		boolean savedProperly = mr.findBysubject(m.getSubject()).contains(m);
@@ -84,7 +85,7 @@ class RepositoriesSmokeTest {
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);
-		m.setCreated(System.currentTimeMillis());
+		m.setCreated(new Timestamp(System.currentTimeMillis()));
 		m = mr.save(m);
 		
 		String subj = "Another valid subject";
@@ -106,7 +107,7 @@ class RepositoriesSmokeTest {
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);
-		m.setCreated(System.currentTimeMillis());
+		m.setCreated(new Timestamp(System.currentTimeMillis()));
 		m = mr.save(m);
 
 		mr.delete(m);
@@ -211,7 +212,7 @@ class RepositoriesSmokeTest {
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);
-		m.setCreated(System.currentTimeMillis());
+		m.setCreated(new Timestamp(System.currentTimeMillis()));
 		m = mr.save(m);
 
 		Link l = new Link();
@@ -246,7 +247,7 @@ class RepositoriesSmokeTest {
 		Module m = new Module();
 		m.setSubject("A valid testing subject");
 		m.setId(0);
-		m.setCreated(System.currentTimeMillis());
+		m.setCreated(new Timestamp(System.currentTimeMillis()));
 		m = mr.save(m);
 
 		Link l = new Link();
