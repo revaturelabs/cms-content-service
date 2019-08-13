@@ -7,8 +7,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import io.micrometer.core.annotation.TimedSet;
-
+import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -24,7 +23,7 @@ public class Module {
 	private String subject;
 
 	@CreationTimestamp
-	private long created;
+	private Timestamp created;
 	
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
@@ -33,7 +32,7 @@ public class Module {
 		super();
 	}
 
-	public Module(int id, String subject, long created, Set<Link> links) {
+	public Module(int id, String subject, Timestamp created, Set<Link> links) {
 		super();
 		this.id = id;
 		this.subject = subject;
@@ -57,11 +56,11 @@ public class Module {
 		this.subject = subject;
 	}
 
-	public long getCreated() {
+	public Timestamp getCreated() {
 		return created;
 	}
 
-	public void setCreated(long created) {
+	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
 
@@ -82,7 +81,7 @@ public class Module {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (created ^ (created >>> 32));
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -97,7 +96,10 @@ public class Module {
 		if (!(obj instanceof Module))
 			return false;
 		Module other = (Module) obj;
-		if (created != other.created)
+		if (created == null) {
+			if (other.created != null)
+				return false;
+		} else if (!created.equals(other.created))
 			return false;
 		if (links == null) {
 			if (other.links != null)
@@ -111,6 +113,8 @@ public class Module {
 			return false;
 		return true;
 	}
+
+	
 	
 	
 }

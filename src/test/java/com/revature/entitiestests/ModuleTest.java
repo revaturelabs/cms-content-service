@@ -3,6 +3,7 @@ package com.revature.entitiestests;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,8 +25,8 @@ public class ModuleTest {
 	
 	@BeforeTest
 	public void setup() {
-		m1 = new Module(1, "Java", 1544l, new HashSet<Link>());
-		m2 = new Module(2, "HTML", 154554l, new HashSet<Link>());
+		m1 = new Module(1, "Java", new Timestamp(1544), new HashSet<Link>());
+		m2 = new Module(2, "HTML", new Timestamp(154554), new HashSet<Link>());
 	}
 	
 	@Test
