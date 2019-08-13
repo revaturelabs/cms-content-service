@@ -24,7 +24,6 @@ public class Module {
 
 	@CreationTimestamp
 	private Timestamp created;
-	
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
@@ -91,8 +90,6 @@ public class Module {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
 		if (!(obj instanceof Module))
 			return false;
 		Module other = (Module) obj;
@@ -113,8 +110,6 @@ public class Module {
 			return false;
 		return true;
 	}
-
-	
 	
 	
 }

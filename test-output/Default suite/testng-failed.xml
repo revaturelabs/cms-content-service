@@ -5,7 +5,9 @@
     <classes>
       <class name="com.revature.entitiestests.ModuleTest">
         <methods>
+          <include name="testGetCreated"/>
           <include name="testSetCreated"/>
+          <include name="testEqualsObject"/>
           <include name="setup"/>
         </methods>
       </class> <!-- com.revature.entitiestests.ModuleTest -->

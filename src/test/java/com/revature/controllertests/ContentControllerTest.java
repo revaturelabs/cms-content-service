@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -83,9 +84,9 @@ class ContentControllerTest {
 	
 	private Set<Content> fakeContents(){
 		
- 		Module mod1 = new Module(1, "Fakey McFake", 0, null);
-		Module mod2 = new Module(2, "Mocky McMock", 0, null);
-		Module mod3 = new Module(3, "Pastiche McPastiche", 0, null);
+ 		Module mod1 = new Module(1, "Fakey McFake", new Timestamp(0), null);
+		Module mod2 = new Module(2, "Mocky McMock", new Timestamp(0), null);
+		Module mod3 = new Module(3, "Pastiche McPastiche", new Timestamp(0), null);
 		
 		Set<Link> links = new HashSet<Link>();
 		
