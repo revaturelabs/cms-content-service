@@ -2,8 +2,11 @@ package com.revature.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Set;
 
@@ -13,14 +16,15 @@ import javax.persistence.Column;
 @Entity
 public class Module {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "m_id")
 	private int id;
 
 	private String subject;
 
+	@CreationTimestamp
 	private long created;
-	
+
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
@@ -28,11 +32,11 @@ public class Module {
 		super();
 	}
 
-	public Module(int id, String subject, int created, Set<Link> links) {
+	public Module(int id, String subject, long created, Set<Link> links) {
 		super();
 		this.id = id;
 		this.subject = subject;
-		this.created = System.currentTimeMillis();
+		this.created = created;
 		this.links = links;
 	}
 
@@ -109,6 +113,5 @@ public class Module {
 			return false;
 		return true;
 	}
-	
-	
+
 }

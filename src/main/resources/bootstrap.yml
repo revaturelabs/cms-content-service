@@ -17,6 +17,6 @@ spring:
 eureka:   
  client:
    service-url:
-     defaultZone: http://cms-dev-1861735057.us-east-1.elb.amazonaws.com/eureka
+     defaultZone: http://localhost:8761/
  instance:
    prefer-ip-address: true
