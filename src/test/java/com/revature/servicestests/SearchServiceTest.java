@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.User;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
@@ -79,11 +80,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -114,11 +119,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -148,11 +157,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -184,11 +197,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -220,11 +237,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -261,12 +282,17 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
+		
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
 		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
@@ -306,11 +332,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -351,11 +381,15 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
+		User user = new User("TEST", "USER");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
+				new HashSet<Link>(), user, "PENDING");
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
+		user = cr.save(user);
+		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");

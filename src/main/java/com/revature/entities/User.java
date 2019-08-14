@@ -48,8 +48,7 @@ public class User implements Serializable{
 	@Column(name = "resetToken")
 	private String resetToken;
 	
-//	columnDefinition forces the role to be either MANAGER, CUSTOMER, or VENDOR
-	@Column(name="role")//, columnDefinition = "VARCHAR2(50) CHECK (role IN ('ADMIN', 'QC', 'USER'))")
+	@Column(name="role")
 	private String role;
 	
 	
@@ -64,13 +63,6 @@ public User(String email, String password) {
 	this.email = email;
 	this.password = password;
 }
-
-
-//public User(String resetToken) {
-//	super();
-//	this.resetToken = resetToken;
-//}
-
 
 public User(long id, String email, String password, String firstName, String lastName, Date createdDate,
 		String resetToken, String role) {

@@ -21,25 +21,25 @@ import com.revature.util.LogException;
 public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
-	ContentRepository cr;
+	ContentRepository contentRepo;
 	@Autowired
-	ModuleRepository mr;
+	ModuleRepository moduleRepo;
 	@Autowired
-	LinkRepository lr;
+	LinkRepository linkRepo;
 	@Autowired
-	ContentService csi;
+	ContentService contentServ;
 
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		Set<Content> temp = cr.findByTitle(title); 
+		Set<Content> temp = contentRepo.findByTitle(title); 
 		return temp;
 	}
 
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {
-		return cr.findByFormat(format); 
+		return contentRepo.findByFormat(format); 
 	}
 
 	/**
@@ -56,20 +56,20 @@ public class SearchServiceImpl implements SearchService {
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> idsTemp = new HashSet<>();
 		
-		Set<Link> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
+		Set<Link> linksByModuleID = linkRepo.findByModuleId(moduleIds.get(0));
 		for(Link link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
 
 		for(int i = 1; i < moduleIds.size(); i++) {
-			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
+			linksByModuleID = linkRepo.findByModuleId(moduleIds.get(i));
 			for(Link link : linksByModuleID) {
 				idsTemp.add(link.getContentId());
 			}
 			ids.retainAll(idsTemp);
 		}
 		
-		cr.findAllById(ids).forEach(contents :: add);
+		contentRepo.findAllById(ids).forEach(contents :: add);
 		
 		return contents;	
 	}
@@ -82,9 +82,9 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
-		Set<Link> links = lr.findByModuleId(moduleId);
+		Set<Link> links = linkRepo.findByModuleId(moduleId);
 		int contentId = links.iterator().next().getContentId();
-		return cr.findById(contentId);
+		return contentRepo.findById(contentId);
 	}
 
 	/**
@@ -106,11 +106,11 @@ public class SearchServiceImpl implements SearchService {
 				System.out.println("current status " + st);
 				if(contents == null) {
 				
-					contents = cr.findByStatus(st);
+					contents = contentRepo.findByStatus(st);
 				
 				} else {
 					
-					contents.addAll(cr.findByStatus(st));
+					contents.addAll(contentRepo.findByStatus(st));
 					
 				}
 			}
@@ -120,7 +120,7 @@ public class SearchServiceImpl implements SearchService {
 		if(format != null && !format.equals("All") && !format.equals("")) {
 			if(contents == null) {
 			
-				contents = cr.findByFormat(format);
+				contents = contentRepo.findByFormat(format);
 			
 			} else {
 				
@@ -141,7 +141,7 @@ public class SearchServiceImpl implements SearchService {
 			
 			if(contents == null) {
 				
-				contents = cr.findByTitleContaining(title);
+				contents = contentRepo.findByTitleContaining(title);
 				
 			} else {
 				
@@ -156,13 +156,13 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		if(contents == null) {
-			contents = csi.getAllContent();
+			contents = contentServ.getAllContent();
 		}
 		
 		if(modules != null && !modules.isEmpty()) {
 			
 			copy = new HashSet<Content>(contents);
-			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
+			Set<Link> linksInModules = linkRepo.findByModuleIdIn(modules);
 			
 			boolean inModule;
 			
@@ -184,8 +184,6 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 		}
-		
-		System.out.println("content statuses" + contents);
 
 		return contents;
 	}
