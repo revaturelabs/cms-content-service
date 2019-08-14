@@ -82,7 +82,9 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public void deleteModule(Module module) {
-		mr.delete(module);
+		if(module != null) {
+			mr.delete(module);
+		}
 	}
 }
 

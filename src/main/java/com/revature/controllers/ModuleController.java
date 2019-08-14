@@ -42,8 +42,9 @@ public class ModuleController {
 		return moduleService.createModule(module);
 	}
 	
-	@DeleteMapping("/module")
-	public void deleteModule(@RequestBody Module module) {
+	@DeleteMapping("/module/{id}")
+	public void deleteModule(@PathVariable int id) {
+		Module module = moduleService.getModuleById(id);
 		moduleService.deleteModule(module);
 	}
 }
