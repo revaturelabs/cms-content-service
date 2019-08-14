@@ -14,10 +14,10 @@ public class Logging {
 		
 		
 		public void log() {
-			logger.info("information: stuff that is happening ");
-			logger.warn("Warning: Something that is a concern");
-			logger.error("This is for exceptions, not errors"); //your program is still running
-			logger.debug("Debugging: for development");
+			logger.info("information: stuff that is happening "); //A logger to show code is running
+			logger.warn("Warning: Something that is a concern"); //A logger for displaying issues
+			logger.error("This is for exceptions, not errors"); //Your program is still running
+			logger.debug("Debugging: for development"); //A logger for debugging? Come back to this later*
 		
 
 }
