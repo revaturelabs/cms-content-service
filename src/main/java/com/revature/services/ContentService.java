@@ -19,6 +19,4 @@ public interface ContentService {
     
     public Set<Content> getAllContentMinusLinks();
     
-    public void SetDecisionById(int id, String decision);
-    
 }

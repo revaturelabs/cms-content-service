@@ -8,32 +8,24 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentMinusLinks;
-import com.revature.entities.User;
 
 @Repository
 public interface ContentRepository extends CrudRepository<Content,Integer>{
 	
-	/**Gets content by title */
+	//Gets content by title
 	Set<Content> findByTitle(String title);
 	
-	/**Gets content by format */
+	//Gets content by format
 	Set<Content> findByFormat(String format);
 	
 	Set<Content> findById(int id);
 	
-	/** Gets content by status */
-	Set<Content> findByStatus(String status);
-	
-	/** return set of contents here; we will iterate through that set in timegraph service impl. */ 
+	// return set of contents here; we will iterate through that set in timegraph service impl. 
 	Set<Content> findByDateCreatedBetween(long startTime, long currentTime);
 	
-	/** Gets content by title */
+	//Gets content by title
 	Set<Content> findByTitleContaining(String title);
 	
-	/** Gets all content (without links to modules) */
 	List<ContentMinusLinks> findAllContentBy();
-	
-	/** Needed for unit tests */
-	User save(User user);
 	
 }
