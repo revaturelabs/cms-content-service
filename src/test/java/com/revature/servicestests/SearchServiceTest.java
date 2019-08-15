@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
-import com.revature.entities.User;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
@@ -80,15 +79,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -119,15 +114,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -157,15 +148,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -197,15 +184,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -237,15 +220,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -262,11 +241,10 @@ class SearchServiceTest {
 		String title = content.getTitle();
 		String format = content.getFormat();
 		List<Integer> mlist = new ArrayList<Integer>();
-		List<String> tempArr = new ArrayList<String>();
 		mlist.add(module1.getId());
 		mlist.add(module2.getId());
-		//tempArr IS TEMPORARY TO SILENCE ERRORS 
-		Set<Content> filtered = ss.filter(title, format, mlist, tempArr);
+
+		Set<Content> filtered = ss.filter(title, format, mlist);
 		boolean validFilter = filtered.contains(content);
 		assertTrue(validFilter);
 	}
@@ -282,17 +260,12 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
-		
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
 		Link link2 = new Link(0, content.getId(), module2.getId(), "RelevantTo");
@@ -308,14 +281,12 @@ class SearchServiceTest {
 		String title = content.getTitle();
 		String format = content.getFormat();
 		List<Integer> mlist = new ArrayList<Integer>();
-		List<String> tempArr = new ArrayList<String>();
 		mlist.add(module1.getId());
 		mlist.add(module2.getId());
 
 		String badtitle = "inaccurate title";
-		//tempArr IS TEMPORARY FIX TO SILENCE THE ERRORS
-		Set<Content> filtered = ss.filter(title, format, mlist, tempArr);
-		filtered = ss.filter(badtitle, format, mlist, tempArr);
+		Set<Content> filtered = ss.filter(title, format, mlist);
+		filtered = ss.filter(badtitle, format, mlist);
 		boolean badTitleFilter = filtered.contains(content);
 		
 		assertFalse(badTitleFilter);
@@ -332,15 +303,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -357,14 +324,12 @@ class SearchServiceTest {
 		String title = content.getTitle();
 		String format = content.getFormat();
 		List<Integer> mlist = new ArrayList<Integer>();
-		List<String> tempArr = new ArrayList<String>();
 		mlist.add(module1.getId());
 		mlist.add(module2.getId());
 
 		String badformat = "Document";
-		//tempArr IS TEMPORARY TO SILENCE ERRORS
-		Set<Content> filtered = ss.filter(title, format, mlist, tempArr);
-		filtered = ss.filter(title, badformat, mlist, tempArr);
+		Set<Content> filtered = ss.filter(title, format, mlist);
+		filtered = ss.filter(title, badformat, mlist);
 		boolean badFormatFilter = filtered.contains(content);
 		
 		assertFalse(badFormatFilter);
@@ -381,15 +346,11 @@ class SearchServiceTest {
 		Module module2 = new Module(0, "SECOND TEST MODULE", 0, null);
 		Module module3 = new Module(0, "THIRD TEST MODULE", 0, null);
 		
-		User user = new User("TEST", "USER");
-		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", 1563378565, 1563378565, 
-				new HashSet<Link>(), user, "PENDING");
+		Content content = new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION", "http://www.elmo.test", new HashSet<Link>(), 1563378565, 1563378565);
 
 		module1 =mr.save(module1);
 		module2 =mr.save(module2);
 		module3 = mr.save(module3);
-		user = cr.save(user);
-		content.setUserid(user);
 		content = cr.save(content);
 		
 		Link link1 = new Link(0, content.getId(), module1.getId(), "RelevantTo");
@@ -407,10 +368,8 @@ class SearchServiceTest {
 		String format = content.getFormat();
 
 		List<Integer> mlist = new ArrayList<Integer>();
-		List<String> tempArr = new ArrayList<String>();
 		mlist.add(module3.getId());
-		//temparr IS TEMPORARY TO SILENCE ERRORS
-		Set<Content >filtered = ss.filter(title, format, mlist, tempArr);
+		Set<Content >filtered = ss.filter(title, format, mlist);
 		boolean badModuleFilter = filtered.contains(content);
 		assertFalse(badModuleFilter);
 	}

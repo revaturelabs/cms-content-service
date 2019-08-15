@@ -3,12 +3,7 @@ package com.revature.entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Set;
 
@@ -48,32 +43,9 @@ public class Content {
 	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 	
-	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name = "userid")
-	private User userid;
-	    
-	@Column(name = "status")
-	private String status;
-	
 	public Content() {
 		super();
 	}
-
-	public Content(int id, String title, String format, String description, String url, long dateCreated,
-            long lastModified, Set<Link> links, User userid, String status) {
-        super();
-        this.id = id;
-        this.title = title;
-        this.format = format;
-        this.description = description;
-        this.url = url;
-        this.dateCreated = dateCreated;
-        this.lastModified = lastModified;
-        this.links = links;
-        this.userid = userid;
-        this.status = status;
-    }
 
 	public Content(int id, String title, String format, String description, String url, Set<Link> links, long dateCreated, long lastModified) {
 		super();
@@ -85,11 +57,8 @@ public class Content {
 		this.links = links;
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
-		this.status = "pending";
-		this.userid = new User();
 	}
-	
-	
+
 	public int getId() {
 		return id;
 	}
@@ -130,14 +99,6 @@ public class Content {
 		this.url = url;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public Set<Link> getLinks() {
 		return links;
 	}
@@ -163,19 +124,12 @@ public class Content {
 		this.lastModified = lastModified;
 	}
 
-
-
-	public User getUserid() {
-		return userid;
+	@Override
+	public String toString() {
+		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", links="
+				+ links + "]";
 	}
-
-
-
-	public void setUserid(User userid) {
-		this.userid = userid;
-	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -187,14 +141,10 @@ public class Content {
 		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
-		result = prime * result + ((userid == null) ? 0 : userid.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -226,11 +176,6 @@ public class Content {
 				return false;
 		} else if (!links.equals(other.links))
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -241,24 +186,11 @@ public class Content {
 				return false;
 		} else if (!url.equals(other.url))
 			return false;
-		if (userid == null) {
-			if (other.userid != null)
-				return false;
-		} else if (!userid.equals(other.userid))
-			return false;
 		return true;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", links="
-				+ links + ", userid=" + userid + ", status=" + status + "]";
-	}
-
 	
+
 	
 	
 }

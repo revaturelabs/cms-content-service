@@ -21,25 +21,25 @@ import com.revature.util.LogException;
 public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
-	ContentRepository contentRepo;
+	ContentRepository cr;
 	@Autowired
-	ModuleRepository moduleRepo;
+	ModuleRepository mr;
 	@Autowired
-	LinkRepository linkRepo;
+	LinkRepository lr;
 	@Autowired
-	ContentService contentServ;
+	ContentService csi;
 
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		Set<Content> temp = contentRepo.findByTitle(title); 
+		Set<Content> temp = cr.findByTitle(title); 
 		return temp;
 	}
 
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {
-		return contentRepo.findByFormat(format); 
+		return cr.findByFormat(format); 
 	}
 
 	/**
@@ -56,20 +56,20 @@ public class SearchServiceImpl implements SearchService {
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> idsTemp = new HashSet<>();
 		
-		Set<Link> linksByModuleID = linkRepo.findByModuleId(moduleIds.get(0));
+		Set<Link> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
 		for(Link link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
 
 		for(int i = 1; i < moduleIds.size(); i++) {
-			linksByModuleID = linkRepo.findByModuleId(moduleIds.get(i));
+			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
 			for(Link link : linksByModuleID) {
 				idsTemp.add(link.getContentId());
 			}
 			ids.retainAll(idsTemp);
 		}
 		
-		contentRepo.findAllById(ids).forEach(contents :: add);
+		cr.findAllById(ids).forEach(contents :: add);
 		
 		return contents;	
 	}
@@ -82,9 +82,9 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
-		Set<Link> links = linkRepo.findByModuleId(moduleId);
+		Set<Link> links = lr.findByModuleId(moduleId);
 		int contentId = links.iterator().next().getContentId();
-		return contentRepo.findById(contentId);
+		return cr.findById(contentId);
 	}
 
 	/**
@@ -96,52 +96,20 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> modules, List<String> showStatus) {
+	public Set<Content> filter(String title, String format, List<Integer> modules) {
+		
 		Set<Content> contents = null;
 		Set<Content> copy = null;
 		
-		if(showStatus != null && !(showStatus.isEmpty())) {
-			
-			for(String st : showStatus) {
-				System.out.println("current status " + st);
-				if(contents == null) {
-				
-					contents = contentRepo.findByStatus(st);
-				
-				} else {
-					
-					contents.addAll(contentRepo.findByStatus(st));
-					
-				}
-			}
-			
-		}
-		
 		if(format != null && !format.equals("All") && !format.equals("")) {
-			if(contents == null) {
-			
-				contents = contentRepo.findByFormat(format);
-			
-			} else {
-				
-				copy = new HashSet<Content>(contents);
-				
-				for(Content c : copy) {
-					
-					if(!c.getFormat().equals(format)){
-						contents.remove(c);
-					}
-					
-				}
-				
-			}
+			contents = cr.findByFormat(format);
 		}
 		
 		if(title != null && !title.equals("")) {
 			
 			if(contents == null) {
 				
-				contents = contentRepo.findByTitleContaining(title);
+				contents = cr.findByTitleContaining(title);
 				
 			} else {
 				
@@ -156,13 +124,13 @@ public class SearchServiceImpl implements SearchService {
 		}
 		
 		if(contents == null) {
-			contents = contentServ.getAllContent();
+			contents = csi.getAllContent();
 		}
 		
 		if(modules != null && !modules.isEmpty()) {
 			
 			copy = new HashSet<Content>(contents);
-			Set<Link> linksInModules = linkRepo.findByModuleIdIn(modules);
+			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
 			
 			boolean inModule;
 			
@@ -184,7 +152,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 			}
 		}
-
+		
 		return contents;
 	}
 
