@@ -33,6 +33,9 @@ public class SearchController {
 	public Set<Content> filter(@RequestBody Map<String, Object> body) {
 		@SuppressWarnings("unchecked")
 		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
-		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);
+		@SuppressWarnings("unchecked")
+		List<String> stat = (ArrayList<String>) body.get("statuses");
+		System.out.println(body.toString());
+		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst, stat);
 	}
 }

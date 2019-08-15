@@ -16,7 +16,7 @@ public interface SearchService {
 	
 	public Set<Content> getContentByModuleId(int moduleId);
 	
-	public Set<Content> filter(String title, String format, List<Integer> modules);
+	public Set<Content> filter(String title, String format, List<Integer> modules, List<String> showStatus);
 	
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters);
 }

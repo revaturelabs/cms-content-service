@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
+import com.revature.entities.User;
+import com.revature.repositories.ContentRepository;
 import com.revature.services.ContentService;
 import com.revature.services.TimegraphService;
 
@@ -55,6 +57,9 @@ public class TimeGraphServiceTest {
 	ContentService cs;
 	
 	@Autowired
+	ContentRepository cr;
+	
+	@Autowired
 	JdbcTemplate template;
 	
 	/**
@@ -66,8 +71,10 @@ public class TimeGraphServiceTest {
 	{
 		long fivemonths = ONE_MONTH * 5;
 		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
+		User user = new User("TEST", "USER");
+		user = cr.save(user);
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
+				"http://TESTURL.COM", systimeAdj5mo, systimeAdj5mo, new HashSet<Link>(), user, "PENDING"));
 
 		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
@@ -85,13 +92,15 @@ public class TimeGraphServiceTest {
 	{
 		long fivemonths = ONE_MONTH * 5;
 		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
+		User user = new User("TEST", "USER");
+		user = cr.save(user);
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
+				"http://TESTURL.COM", systimeAdj5mo, systimeAdj5mo, new HashSet<Link>(), user, "PENDING"));
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
 		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
-				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
+				"http://OLDTESTURL.COM", systimeAdj7mo, systimeAdj7mo, new HashSet<Link>(), user, "PENDING"));
 		
 		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
@@ -111,13 +120,15 @@ public class TimeGraphServiceTest {
 	{
 		long fivemonths = ONE_MONTH * 5;
 		long systimeAdj5mo = System.currentTimeMillis() - fivemonths;
+		User user = new User("TEST", "USER");
+		user = cr.save(user);
 		cs.createContent(new Content(0, "FIRST TEST CONTENT", "Code", "FIRST TEST CONTENT DESCRIPTION",
-				"http://TESTURL.COM", new HashSet<Link>(), systimeAdj5mo, systimeAdj5mo));
+				"http://TESTURL.COM", systimeAdj5mo, systimeAdj5mo, new HashSet<Link>(), user, "PENDING"));
 
 		long sevenmonths = ONE_MONTH + SIX_MONTHS;
 		long systimeAdj7mo = System.currentTimeMillis() - sevenmonths;
 		cs.createContent(new Content(0, "OLD TEST CONTENT", "Code", "OLD TEST CONTENT DESCRIPTION",
-				"http://OLDTESTURL.COM", new HashSet<Link>(), systimeAdj7mo, systimeAdj7mo));
+				"http://OLDTESTURL.COM", systimeAdj7mo, systimeAdj7mo, new HashSet<Link>(), user, "PENDING"));
 		
 		List<Long> resultSet = ts.findByCreatedBetween(SIX_MONTHS).getReturnedLongs();
 
