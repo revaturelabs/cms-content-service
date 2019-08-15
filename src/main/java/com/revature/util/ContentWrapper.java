@@ -5,8 +5,7 @@ import java.util.Arrays;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 
-public class ContentWrapper {
-
+public class ContentWrapper { //Bean used to attach an array of links to content
 	private Content content;
 	private Link[] links;
 	

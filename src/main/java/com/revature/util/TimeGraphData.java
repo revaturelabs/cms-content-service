@@ -18,7 +18,7 @@ public class TimeGraphData
 	private List<Long> returnedLongs;
 	
 	/**
-	 * numContents - Represents the number of timestamped records that were created before the date being tracked from.
+	 * numContents - Represents the number of timestamped records that were created before the date that is being tracked from.
 	 */
 	private int numContents;
 	
