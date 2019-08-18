@@ -1,65 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="12" passed="12">
+<testng-results skipped="0" failed="0" ignored="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="2215" started-at="2019-08-13T15:34:30Z" finished-at="2019-08-13T15:34:32Z">
+  <suite name="Default suite" duration-ms="51934" started-at="2019-08-18T13:54:53Z" finished-at="2019-08-18T13:55:45Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="2215" started-at="2019-08-13T15:34:30Z" finished-at="2019-08-13T15:34:32Z">
-      <class name="com.revature.entitiestests.ModuleTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="setup" is-config="true" duration-ms="133" started-at="2019-08-13T15:34:30Z" finished-at="2019-08-13T15:34:30Z">
+    <test name="Default test" duration-ms="51934" started-at="2019-08-18T13:54:53Z" finished-at="2019-08-18T13:55:45Z">
+      <class name="com.revature.controllertests.SearchControllerTest">
+        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="preTestSetup" is-config="true" duration-ms="62" started-at="2019-08-18T13:54:53Z" finished-at="2019-08-18T13:54:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preTestSetup -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="49169" started-at="2019-08-18T13:54:53Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-18T13:55:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2019-08-18T13:54:53Z" finished-at="2019-08-18T13:54:53Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="setup" is-config="true" duration-ms="2109" started-at="2019-08-18T13:55:42Z" finished-at="2019-08-18T13:55:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testEqualsObject" duration-ms="1764" started-at="2019-08-13T15:34:30Z" finished-at="2019-08-13T15:34:31Z">
+        <test-method status="PASS" signature="givenInvalidSearchGetNoContent()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="givenInvalidSearchGetNoContent" duration-ms="469" started-at="2019-08-18T13:55:44Z" finished-at="2019-08-18T13:55:45Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testEqualsObject -->
-        <test-method status="PASS" signature="testGetCreated()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testGetCreated" duration-ms="30" started-at="2019-08-13T15:34:31Z" finished-at="2019-08-13T15:34:32Z">
+        </test-method> <!-- givenInvalidSearchGetNoContent -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-18T13:55:44Z" finished-at="2019-08-18T13:55:44Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenInvalidSearchGetNoContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetCreated -->
-        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testGetId" duration-ms="5" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-18T13:55:45Z" finished-at="2019-08-18T13:55:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenValidSearchGetContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetId -->
-        <test-method status="PASS" signature="testGetLinks()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testGetLinks" duration-ms="12" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="givenValidSearchGetContent()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="givenValidSearchGetContent" duration-ms="62" started-at="2019-08-18T13:55:45Z" finished-at="2019-08-18T13:55:45Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetLinks -->
-        <test-method status="PASS" signature="testGetSubject()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testGetSubject" duration-ms="6" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
+        </test-method> <!-- givenValidSearchGetContent -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-18T13:55:45Z" finished-at="2019-08-18T13:55:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenInvalidSearchGetNoContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetSubject -->
-        <test-method status="PASS" signature="testModule()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testModule" duration-ms="7" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-18T13:55:45Z" finished-at="2019-08-18T13:55:45Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testModule -->
-        <test-method status="PASS" signature="testModuleIntStringIntSetOfLink()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testModuleIntStringIntSetOfLink" duration-ms="2" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
+        </test-method> <!-- springTestContextAfterTestClass -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@2ca923bb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-18T13:55:45Z" finished-at="2019-08-18T13:55:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenValidSearchGetContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testModuleIntStringIntSetOfLink -->
-        <test-method status="PASS" signature="testSetCreated()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testSetCreated" duration-ms="5" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetCreated -->
-        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testSetId" duration-ms="5" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetId -->
-        <test-method status="PASS" signature="testSetLinks()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testSetLinks" duration-ms="3" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetLinks -->
-        <test-method status="PASS" signature="testSetSubject()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testSetSubject" duration-ms="4" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testSetSubject -->
-        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.ModuleTest@61ffd148]" name="testToString" duration-ms="3" started-at="2019-08-13T15:34:32Z" finished-at="2019-08-13T15:34:32Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testToString -->
-      </class> <!-- com.revature.entitiestests.ModuleTest -->
+        </test-method> <!-- springTestContextAfterTestMethod -->
+      </class> <!-- com.revature.controllertests.SearchControllerTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

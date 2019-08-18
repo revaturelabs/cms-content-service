@@ -3,13 +3,18 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.revature.entitiestests.ModuleTest">
+      <class name="com.revature.controllertests.SearchControllerTest">
         <methods>
-          <include name="testGetCreated"/>
-          <include name="testSetCreated"/>
+          <include name="givenNoRequestBodyThrowException"/>
+          <include name="springTestContextBeforeTestClass"/>
           <include name="setup"/>
+          <include name="preTestSetup"/>
+          <include name="springTestContextPrepareTestInstance"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextBeforeTestMethod"/>
+          <include name="springTestContextAfterTestMethod"/>
         </methods>
-      </class> <!-- com.revature.entitiestests.ModuleTest -->
+      </class> <!-- com.revature.controllertests.SearchControllerTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
