@@ -3,18 +3,13 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.revature.servicestests.TimeGraphServiceTest2">
+      <class name="com.revature.utiltests.MetricsDataTest">
         <methods>
-          <include name="springTestContextBeforeTestClass"/>
-          <include name="preTestSetup"/>
-          <include name="timeScaleInMarginOneVal"/>
-          <include name="springTestContextPrepareTestInstance"/>
-          <include name="springTestContextAfterTestClass"/>
-          <include name="springTestContextBeforeTestMethod"/>
+          <include name="testEqualsObject"/>
+          <include name="teardown"/>
           <include name="setup"/>
-          <include name="springTestContextAfterTestMethod"/>
         </methods>
-      </class> <!-- com.revature.servicestests.TimeGraphServiceTest2 -->
+      </class> <!-- com.revature.utiltests.MetricsDataTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

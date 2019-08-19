@@ -16,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.jdbc.JdbcTestUtils;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -81,6 +82,16 @@ public class TimeGraphServiceTest extends AbstractTestNGSpringContextTests {
 		setAll.add(c2);
 		setAll.add(c3);
 		setAll.add(c4);
+	}
+	
+	@AfterTest
+	public void teardown() {
+		c1 = null;
+		c2 = null;
+		c3 = null;
+		c4 = null;
+		all = null;
+		setAll = null;
 	}
 	
 	@Test

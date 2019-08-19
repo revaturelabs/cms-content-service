@@ -7,6 +7,7 @@
 			<class name = "com.revature.entitiestests.LinkTest"/>
 			<class name = "com.revature.entitiestests.ModuleTest"/>
 			<class name = "com.revature.controllertests.ContentControllerTest"/>
+			<class name = "com.revature.controllertests.ModuleControllerTest"/>
 			<class name = "com.revature.controllertests.SearchControllerTest"/>
 			<class name = "com.revature.loggingtest.LoggingTest"/>
 			<class name = "com.revature.servicestests.TimeGraphServiceTest"/>
