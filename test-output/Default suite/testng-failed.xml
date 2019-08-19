@@ -3,13 +3,18 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.revature.entitiestests.ModuleTest">
+      <class name="com.revature.servicestests.ContentServiceTest">
         <methods>
-          <include name="testGetCreated"/>
-          <include name="testSetCreated"/>
-          <include name="setup"/>
+          <include name="springTestContextBeforeTestClass"/>
+          <include name="testGetContentByFormatWithStrings"/>
+          <include name="mockTheContent"/>
+          <include name="springTestContextPrepareTestInstance"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="springTestContextBeforeTestMethod"/>
+          <include name="springTestContextAfterTestMethod"/>
+          <include name="testGetContentById"/>
         </methods>
-      </class> <!-- com.revature.entitiestests.ModuleTest -->
+      </class> <!-- com.revature.servicestests.ContentServiceTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

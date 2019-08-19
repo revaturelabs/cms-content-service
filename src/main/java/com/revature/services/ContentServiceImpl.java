@@ -100,8 +100,16 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@Override
 	@LogException
-	public Content getContentById(int id) {	
-			return cr.findById(id).iterator().next();		
+	public Content getContentById(int id) 
+	{	
+		if(cr.findById(id).iterator().hasNext())
+		{
+			return cr.findById(id).iterator().next(); 
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/**
@@ -134,9 +142,6 @@ public class ContentServiceImpl implements ContentService {
 		newContent.setLinks(oldLinks);
 		
 		if(!newLinks.isEmpty()) {
-
-
-	
 			for(Link l : lr.saveAll(newLinks)) {
 				oldLinks.add(l);
 			}
@@ -147,8 +152,7 @@ public class ContentServiceImpl implements ContentService {
 		
 		if(oldContent == null)
 			throw new InvalidContentException("updateContent, oldContent is null");
-		
-		
+
 		return cr.save(newContent);
 	}
 	
