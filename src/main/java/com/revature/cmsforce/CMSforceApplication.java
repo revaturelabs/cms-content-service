@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class CMSforceApplication {
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) { // Driver that runs Spring Boot application
 		SpringApplication.run(CMSforceApplication.class, args);
 		
 	

@@ -26,16 +26,16 @@ import com.revature.util.LogException;
 public class ContentServiceImpl implements ContentService {
 	
 	@Autowired
-	ContentRepository cr;
+	ContentRepository cr; //Wiring ContentRepository
 	@Autowired 
-	LinkRepository lr;
+	LinkRepository lr; //Wiring LinkRepository
 	@Autowired
-	ModuleRepository mr;
+	ModuleRepository mr; //Wiring ModuleRepository
 
 	/**
 	 * createContent first inserts the content to the database
 	 * then iterates over the set of links that are within the content
-	 * and replaces the fk of content id with the correct content id,
+	 * and replaces the foreign key of content id with the correct content id,
 	 * then adds the set of links to the link table. 
 	 */
 	@LogException
@@ -45,14 +45,14 @@ public class ContentServiceImpl implements ContentService {
 		Set<Link> links = content.getLinks();
 		
 		
-		if (links == null) {
+		if (links == null) { //Throws a NullPointer exception for links that are missing
 			throw new NullPointerException();
 		}
 		
 		content.setLinks(null);
 		content = cr.save(content);
 		
-		for(Link link : links) {
+		for(Link link : links) { //Enhanced for loop
 			link.setContentId(content.getId());
 		}
 		
@@ -95,7 +95,7 @@ public class ContentServiceImpl implements ContentService {
 	}
 	
 	/**
-	 * get content from the data base that match a passed in id
+	 * get contents from the data base that match a passed in id
 	 * then returns the content with that id.
 	 */
 	@Override

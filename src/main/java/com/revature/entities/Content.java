@@ -188,9 +188,5 @@ public class Content {
 			return false;
 		return true;
 	}
-
-	
-
-	
 	
 }

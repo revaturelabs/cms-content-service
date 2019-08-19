@@ -27,15 +27,19 @@ import com.revature.services.ModuleService;
 public class ContentController {
 
 	@Autowired
-	ContentService contentService;
+	ContentService contentService; 
+	//Wiring a new instance of the ContentService for use below
 	
 	@Autowired
 	ModuleService moduleService;
+	//Same as above
 	
 	@RequestMapping(value = "/content", method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public Content createContent(@RequestBody Content content ) throws Exception{
-		
-		content = contentService.createContent(content);
+		//This method is creating content and getting 
+		//the POST request from the front-end to create content
+		content = contentService.createContent(content); 
+		//Reference to the ContentService createcontent method
 		return content;
 	}
 	
