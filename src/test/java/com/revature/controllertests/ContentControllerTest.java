@@ -8,8 +8,10 @@ import com.revature.entities.Content;
 import com.revature.services.ContentService;
 import com.revature.testingutils.ContentFactory;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.testng.Assert.assertEquals;
 
@@ -100,7 +102,7 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test 
-	void getContentById() throws Exception {
+	public void getContentById() throws Exception {
 		Content actual = null;
 		int id = ContentFactory.id;
 		
@@ -120,5 +122,39 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		
 	}
 
+	@Test
+	public void updateContent () throws Exception {
+		//given
+		Mockito.when (cs.updateContent(content)).thenReturn(content);
+		
+		//when
+		ResultActions result = mvc.perform(put ("/content")
+								.contentType(MediaType.APPLICATION_JSON_VALUE)
+								.content(gson.toJson(content)));
+		Content actual = gson.fromJson(result.andReturn().getResponse()
+				.getContentAsString(), Content.class);
 
+		//then
+		//expect status of OK
+		result.andExpect(status().isOk());
+		//should retrieve same content back
+		assertEquals (actual, content, "Failed to update content");
+				
+	}
+
+	
+	@Test
+	public void deleteContent () throws Exception {
+		//given 
+		Mockito.doNothing().when(cs).deleteContent(content);
+		
+		//when
+		ResultActions result = mvc.perform(delete ("/content/" + ContentFactory.id)
+								.contentType(MediaType.APPLICATION_JSON_VALUE)
+								.content(gson.toJson(content)));
+
+		//then
+		//expect status of OK
+		result.andExpect(status().isOk());
+	}
 }
