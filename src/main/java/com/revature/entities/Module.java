@@ -8,6 +8,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,9 +23,7 @@ public class Module {
 
 	private String subject;
 
-	
 	private long created;
-
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
@@ -36,7 +35,7 @@ public class Module {
 		super();
 		this.id = id;
 		this.subject = subject;
-		this.created = System.currentTimeMillis();
+		this.created = created;
 		this.links = links;
 	}
 
@@ -82,7 +81,6 @@ public class Module {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (created ^ (created >>> 32));
-		result = prime * result + id;
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -92,14 +90,10 @@ public class Module {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Module))
 			return false;
 		Module other = (Module) obj;
 		if (created != other.created)
-			return false;
-		if (id != other.id)
 			return false;
 		if (links == null) {
 			if (other.links != null)
