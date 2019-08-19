@@ -22,7 +22,7 @@ public class Module {
 
 	private String subject;
 
-	@CreationTimestamp
+	
 	private long created;
 
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -36,7 +36,7 @@ public class Module {
 		super();
 		this.id = id;
 		this.subject = subject;
-		this.created = created;
+		this.created = System.currentTimeMillis();
 		this.links = links;
 	}
 
