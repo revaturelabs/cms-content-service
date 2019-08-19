@@ -185,5 +185,12 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return numList;
 	}
-	
+
+
+	@Override
+	public void deleteContent(Content content) {
+		if(content != null) {
+			cr.delete(content);
+		}
+	}
 }
