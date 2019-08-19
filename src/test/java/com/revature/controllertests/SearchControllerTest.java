@@ -32,6 +32,7 @@ import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.SearchController;
 import com.revature.entities.Content;
 import com.revature.services.SearchService;
+import com.revature.testingutils.ContentFactory;
 
 
 //Getting SpringBoot to work with TestNG
@@ -92,7 +93,7 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	@BeforeTest 
 	public void preTestSetup () {
 		//generate the basic content
-		content = new Content (id, title, format, description, url, null, 1L, 1L);
+		content = ContentFactory.getContent();
 		
 		//add id value for module for this content
 		modules = new ArrayList<Integer> ();
@@ -136,8 +137,6 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		//expect to get a non-null return
 		assertNotNull (resultContent, "No content was not found");
 		
-		//expect status of OK
-		result.andExpect(status().isOk());
 		
 		//expect one result from the query
 		assertEquals (resultContent.length, 1, "Invalid number of resulting content");
