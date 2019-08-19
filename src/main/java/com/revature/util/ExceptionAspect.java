@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class ExceptionAspect {
+public class ExceptionAspect { //Aspect handling exceptions
 @Autowired
 Logging log;
 	@AfterThrowing(pointcut = "LogException()", throwing = "e")
 	public void LogException(Exception e) {
-		log.logger.error("There was an issue in " + "\n");
+		log.logger.error("There was an issue in " + "\n"); //Logger for identifying issues
 		log.logger.error(e.getMessage());
 		
 		

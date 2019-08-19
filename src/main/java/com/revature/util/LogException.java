@@ -1,5 +1,5 @@
 package com.revature.util;
 
-public @interface LogException {
+public @interface LogException {// Blank interface
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class ServiceLogAspect {
+public class ServiceLogAspect {// Logging aspect that has a list of logs for various functions that are run
 
 	@Autowired
 	Logging log;
