@@ -14,3 +14,7 @@ CMS Force is Revature's proprietary Content Management System, providing Revatur
 - **Database:** Oracle SQL, RDS
 - **DevOps:** CloudFront, S3, EC2, Jenkins, Maven, Apache Tomcat, MicroServices
 - **Testing:** Protractor (Angular), Cucumber (Java), JUnit5 (Services), JMeter (Java), BlazeMeter (JMeter, Browser Extension)
+
+## Documentaion
+- **Back End:** For all controllers, documented under swaggerhub
+  - **Link:** https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1#/
