@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <testng-results skipped="0" failed="0" ignored="0" total="6" passed="6">
   <reporter-output>
   </reporter-output>
@@ -44,6 +45,1207 @@
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.revature.servicestests.SerachServiceTest2 -->
+=======
+<testng-results skipped="0" failed="0" ignored="0" total="103" passed="103">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="45256" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:48Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="45256" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:48Z">
+      <class name="com.revature.servicestests.TimeGraphServiceTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="21" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="40363" started-at="2019-08-20T19:39:03Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-20T19:39:44Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="setup" is-config="true" duration-ms="1100" started-at="2019-08-20T19:39:44Z" finished-at="2019-08-20T19:39:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="16" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.TimeGraphServiceTest.testGetTimeGraphData()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testGetTimeGraphData()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="testGetTimeGraphData" duration-ms="16" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetTimeGraphData -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.TimeGraphServiceTest.testGetTimeGraphData()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.TimeGraphServiceTest.timeScaleInMarginOneVal()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="timeScaleInMarginOneVal()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="timeScaleInMarginOneVal" duration-ms="47" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- timeScaleInMarginOneVal -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:45Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.TimeGraphServiceTest.timeScaleInMarginOneVal()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+      </class> <!-- com.revature.servicestests.TimeGraphServiceTest -->
+      <class name="com.revature.servicestests.ModuleServiceTest">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="20" started-at="2019-08-20T19:39:46Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="setup" is-config="true" duration-ms="195" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testCreateModule()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testCreateModule()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testCreateModule" duration-ms="16" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCreateModule -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testDelete()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetAllModules()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testGetAllModules()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testGetAllModules" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAllModules -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testCreateModule()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="testDelete()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testDelete" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDelete -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testDelete()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetAverageByModuleIds()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetModuleById()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetAverageByModuleIds()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="testGetAverageByModuleIds()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testGetAverageByModuleIds" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAverageByModuleIds -->
+        <test-method status="PASS" signature="testGetModuleById()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testGetModuleById" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetModuleById -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetModuleById()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testGetAverageByAllModules()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testGetAverageByAllModules" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAverageByAllModules -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetAverageByAllModules()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetAverageByAllModules()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.ModuleServiceTest.testGetAllModules()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+      </class> <!-- com.revature.servicestests.ModuleServiceTest -->
+      <class name="com.revature.servicestests.ContentServiceTest">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="16" started-at="2019-08-20T19:39:47Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testCreateContent()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="mockTheContent()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="mockTheContent" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- mockTheContent -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testCreateContent()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="testCreateContent()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testCreateContent" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCreateContent -->
+        <test-method status="PASS" signature="testGetAllContent()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testGetAllContent" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAllContent -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testUpdateContent()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetContentById()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="testGetContentById()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testGetContentById" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetContentById -->
+        <test-method status="PASS" signature="testUpdateContent()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testUpdateContent" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testUpdateContent -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testUpdateContent()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetContentById()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetAllContent()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="testGetAllContentMinusLinks()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testGetAllContentMinusLinks" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAllContentMinusLinks -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetAllContent()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetAllContentMinusLinks()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetAllContentMinusLinks()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetContentByFormatWithContents()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetContentByFormatWithContents()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="testGetContentByFormatWithContents()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testGetContentByFormatWithContents" duration-ms="0" started-at="2019-08-20T19:39:47Z" depends-on-methods="com.revature.servicestests.ContentServiceTest.testGetContentById" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetContentByFormatWithContents -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetContentByFormatWithStrings()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testGetContentByFormatWithStrings()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="testGetContentByFormatWithStrings" duration-ms="0" started-at="2019-08-20T19:39:47Z" depends-on-methods="com.revature.servicestests.ContentServiceTest.testGetContentById" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetContentByFormatWithStrings -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.ContentServiceTest@651aed93]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.servicestests.ContentServiceTest.testGetContentByFormatWithStrings()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+      </class> <!-- com.revature.servicestests.ContentServiceTest -->
+      <class name="com.revature.utiltests.TimeGraphTest">
+        <test-method status="PASS" signature="testGetReturnedLongs()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testGetReturnedLongs" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetReturnedLongs -->
+        <test-method status="PASS" signature="testGetNumContents()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testGetNumContents" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNumContents -->
+        <test-method status="PASS" signature="testSetNumContents()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testSetNumContents" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetNumContents -->
+        <test-method status="PASS" signature="testTimeGraphData()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testTimeGraphData" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTimeGraphData -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testToString" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToString -->
+        <test-method status="PASS" signature="testTimeGraphDataListOfLongInt()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testTimeGraphDataListOfLongInt" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTimeGraphDataListOfLongInt -->
+        <test-method status="PASS" signature="testSetReturnedLongs()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="testSetReturnedLongs" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetReturnedLongs -->
+      </class> <!-- com.revature.utiltests.TimeGraphTest -->
+      <class name="com.revature.entitiestests.ModuleTest">
+        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testEqualsObject" duration-ms="418" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEqualsObject -->
+        <test-method status="PASS" signature="testGetCreated()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testGetCreated" duration-ms="1" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetCreated -->
+        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testGetId" duration-ms="1" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetId -->
+        <test-method status="PASS" signature="testGetLinks()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testGetLinks" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetLinks -->
+        <test-method status="PASS" signature="testGetSubject()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testGetSubject" duration-ms="1" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetSubject -->
+        <test-method status="PASS" signature="testModule()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testModule" duration-ms="1" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testModule -->
+        <test-method status="PASS" signature="testSetLinks()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testSetLinks" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetLinks -->
+        <test-method status="PASS" signature="testSetCreated()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testSetCreated" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetCreated -->
+        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testSetId" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetId -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testToString" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToString -->
+        <test-method status="PASS" signature="testSetSubject()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testSetSubject" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetSubject -->
+        <test-method status="PASS" signature="testModuleIntStringIntSetOfLink()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="testModuleIntStringIntSetOfLink" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testModuleIntStringIntSetOfLink -->
+      </class> <!-- com.revature.entitiestests.ModuleTest -->
+      <class name="com.revature.entitiestests.LinkTest">
+        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testEqualsObject" duration-ms="985" started-at="2019-08-20T19:39:45Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEqualsObject -->
+        <test-method status="PASS" signature="testGetAffiliation()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testGetAffiliation" duration-ms="2" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAffiliation -->
+        <test-method status="PASS" signature="testGetContentId()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testGetContentId" duration-ms="5" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetContentId -->
+        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testGetId" duration-ms="7" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetId -->
+        <test-method status="PASS" signature="testGetModuleId()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testGetModuleId" duration-ms="2" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetModuleId -->
+        <test-method status="PASS" signature="testLink()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testLink" duration-ms="1" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLink -->
+        <test-method status="PASS" signature="testLinkIntIntIntString()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testLinkIntIntIntString" duration-ms="2" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLinkIntIntIntString -->
+        <test-method status="PASS" signature="testSetAffiliation()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testSetAffiliation" duration-ms="1" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetAffiliation -->
+        <test-method status="PASS" signature="testSetContentId()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testSetContentId" duration-ms="1" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetContentId -->
+        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testSetId" duration-ms="6" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetId -->
+        <test-method status="PASS" signature="testSetModuleId()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testSetModuleId" duration-ms="2" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetModuleId -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="testToString" duration-ms="1" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToString -->
+      </class> <!-- com.revature.entitiestests.LinkTest -->
+      <class name="com.revature.controllertests.SearchControllerTest">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="93" started-at="2019-08-20T19:39:46Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="setup" is-config="true" duration-ms="145" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:46Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenInvalidSearchGetNoContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="givenInvalidSearchGetNoContent()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="givenInvalidSearchGetNoContent" duration-ms="164" started-at="2019-08-20T19:39:46Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- givenInvalidSearchGetNoContent -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenInvalidSearchGetNoContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenValidSearchGetContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="givenValidSearchGetContent()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="givenValidSearchGetContent" duration-ms="29" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- givenValidSearchGetContent -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.SearchControllerTest.givenValidSearchGetContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.revature.controllertests.SearchControllerTest -->
+      <class name="com.revature.loggingtest.LoggingTest">
+        <test-method status="PASS" signature="setLogger()[pri:0, instance:com.revature.loggingtest.LoggingTest@4dd6fd0a]" name="setLogger" is-config="true" duration-ms="16" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setLogger -->
+        <test-method status="PASS" signature="testOne()[pri:0, instance:com.revature.loggingtest.LoggingTest@4dd6fd0a]" name="testOne" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testOne -->
+      </class> <!-- com.revature.loggingtest.LoggingTest -->
+      <class name="com.revature.utiltests.MetricsDataTest">
+        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testEqualsObject" duration-ms="94" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEqualsObject -->
+        <test-method status="PASS" signature="testGetCodeCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testGetCodeCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetCodeCount -->
+        <test-method status="PASS" signature="testGetAvgResources()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testGetAvgResources" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetAvgResources -->
+        <test-method status="PASS" signature="testSetNumDiffModsCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testSetNumDiffModsCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetNumDiffModsCount -->
+        <test-method status="PASS" signature="testGetDocumentCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testGetDocumentCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetDocumentCount -->
+        <test-method status="PASS" signature="testSetCodeCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testSetCodeCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetCodeCount -->
+        <test-method status="PASS" signature="testGetTimeGraphData()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testGetTimeGraphData" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetTimeGraphData -->
+        <test-method status="PASS" signature="testGetPptCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testGetPptCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetPptCount -->
+        <test-method status="PASS" signature="testGetNumDiffModsCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testGetNumDiffModsCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetNumDiffModsCount -->
+        <test-method status="PASS" signature="testSetDocumentCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testSetDocumentCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetDocumentCount -->
+        <test-method status="PASS" signature="testMetricsDataIntIntIntIntDoubleTimeGraphData()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testMetricsDataIntIntIntIntDoubleTimeGraphData" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMetricsDataIntIntIntIntDoubleTimeGraphData -->
+        <test-method status="PASS" signature="testMetricsData()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testMetricsData" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMetricsData -->
+        <test-method status="PASS" signature="testSetAvgResources()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testSetAvgResources" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetAvgResources -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testToString" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToString -->
+        <test-method status="PASS" signature="testSetTimeGraphData()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testSetTimeGraphData" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetTimeGraphData -->
+        <test-method status="PASS" signature="testSetPptCount()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="testSetPptCount" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetPptCount -->
+      </class> <!-- com.revature.utiltests.MetricsDataTest -->
+      <class name="com.revature.controllertests.ModuleControllerTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="15" started-at="2019-08-20T19:39:47Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="setup" is-config="true" duration-ms="157" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.deleteModule() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="deleteModule()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="deleteModule" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteModule -->
+        <test-method status="PASS" signature="getAllModules()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="getAllModules" duration-ms="16" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getAllModules -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.deleteModule() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.getAllModules() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.getModuleById() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="getModuleById()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="getModuleById" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getModuleById -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.getModuleById() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="givenValidDataCreateModule()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="givenValidDataCreateModule" duration-ms="15" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- givenValidDataCreateModule -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.givenValidDataCreateModule() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.getAllModules() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="11" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ModuleControllerTest.givenValidDataCreateModule() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.revature.controllertests.ModuleControllerTest -->
+      <class name="com.revature.utiltests.ContentWrapperTest">
+        <test-method status="PASS" signature="testGetContent()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testGetContent" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetContent -->
+        <test-method status="PASS" signature="testGetLinks()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testGetLinks" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetLinks -->
+        <test-method status="PASS" signature="testContentWrapper()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testContentWrapper" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testContentWrapper -->
+        <test-method status="PASS" signature="testContentWrapperContentLinkArray()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testContentWrapperContentLinkArray" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testContentWrapperContentLinkArray -->
+        <test-method status="PASS" signature="testSetContent()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testSetContent" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetContent -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testToString" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToString -->
+        <test-method status="PASS" signature="testSetLinks()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="testSetLinks" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetLinks -->
+      </class> <!-- com.revature.utiltests.ContentWrapperTest -->
+      <class name="com.revature.entitiestests.ContentTest">
+        <test-method status="PASS" signature="testEqualsObject()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testEqualsObject" duration-ms="381" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEqualsObject -->
+        <test-method status="PASS" signature="testContentIntStringStringStringStringSetOfLinkLongLong()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testContentIntStringStringStringStringSetOfLinkLongLong" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testContentIntStringStringStringStringSetOfLinkLongLong -->
+        <test-method status="PASS" signature="testContent()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testContent" duration-ms="0" started-at="2019-08-20T19:39:47Z" finished-at="2019-08-20T19:39:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testContent -->
+        <test-method status="PASS" signature="testGetFormat()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetFormat" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetFormat -->
+        <test-method status="PASS" signature="testGetId()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetId" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetId -->
+        <test-method status="PASS" signature="testGetDescription()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetDescription" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetDescription -->
+        <test-method status="PASS" signature="testGetDateCreated()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetDateCreated" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetDateCreated -->
+        <test-method status="PASS" signature="testGetLastModified()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetLastModified" duration-ms="16" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetLastModified -->
+        <test-method status="PASS" signature="testGetUrl()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetUrl" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetUrl -->
+        <test-method status="PASS" signature="testSetLinks()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetLinks" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetLinks -->
+        <test-method status="PASS" signature="testSetDescription()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetDescription" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetDescription -->
+        <test-method status="PASS" signature="testSetId()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetId" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetId -->
+        <test-method status="PASS" signature="testSetFormat()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetFormat" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetFormat -->
+        <test-method status="PASS" signature="testSetDateCreated()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetDateCreated" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetDateCreated -->
+        <test-method status="PASS" signature="testGetLinks()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetLinks" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetLinks -->
+        <test-method status="PASS" signature="testSetLastModified()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetLastModified" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetLastModified -->
+        <test-method status="PASS" signature="testGetTitle()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testGetTitle" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testGetTitle -->
+        <test-method status="PASS" signature="testSetTitle()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetTitle" duration-ms="2" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetTitle -->
+        <test-method status="PASS" signature="testSetUrl()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testSetUrl" duration-ms="19" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetUrl -->
+        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="testToString" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testToString -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="teardown" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="teardown" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
+      </class> <!-- com.revature.entitiestests.ContentTest -->
+      <class name="com.revature.controllertests.ContentControllerTest">
+        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="preTestSetup" is-config="true" duration-ms="47" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preTestSetup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.utiltests.TimeGraphTest@3e44f2a5]" name="setup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.ContentTest@7a3793c7]" name="setup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="testSetup()[pri:0, instance:com.revature.servicestests.ModuleServiceTest@748741cb]" name="testSetup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetup -->
+        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.SearchControllerTest@5f77d0f9]" name="preTestSetup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preTestSetup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.ModuleTest@295cf707]" name="setup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.servicestests.TimeGraphServiceTest@2e32ccc5]" name="preTestSetup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preTestSetup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.utiltests.ContentWrapperTest@1b266842]" name="setup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.entitiestests.LinkTest@1130520d]" name="setup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.ModuleControllerTest@895e367]" name="preTestSetup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preTestSetup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.utiltests.MetricsDataTest@463fd068]" name="setup" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:03Z" finished-at="2019-08-20T19:39:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="32" started-at="2019-08-20T19:39:48Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="setup" is-config="true" duration-ms="225" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="deleteContent()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="deleteContent" duration-ms="62" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteContent -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.deleteContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="getAllContents()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="getAllContents" duration-ms="16" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getAllContents -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.getAllContents() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.deleteContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.getAllContents() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.givenValidDataCreateContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="givenValidDataCreateContent()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="givenValidDataCreateContent" duration-ms="41" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- givenValidDataCreateContent -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.getContentById() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.getContentById() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="getContentById()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="getContentById" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getContentById -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.givenValidDataCreateContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.updateContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="updateContent()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="updateContent" duration-ms="13" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- updateContent -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.revature.controllertests.ContentControllerTest.updateContent() throws java.lang.Exception]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.controllertests.ContentControllerTest@42b3b079]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.revature.controllertests.ContentControllerTest -->
+      <class name="com.revature.servicestests.SearchServiceTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.servicestests.SearchServiceTest@bb9e6dc]" name="setup" is-config="true" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="filterByFormatTest()[pri:0, instance:com.revature.servicestests.SearchServiceTest@bb9e6dc]" name="filterByFormatTest" duration-ms="4" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- filterByFormatTest -->
+        <test-method status="PASS" signature="filterContentByTitleTest()[pri:0, instance:com.revature.servicestests.SearchServiceTest@bb9e6dc]" name="filterContentByTitleTest" duration-ms="1" started-at="2019-08-20T19:39:48Z" finished-at="2019-08-20T19:39:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- filterContentByTitleTest -->
+      </class> <!-- com.revature.servicestests.SearchServiceTest -->
+>>>>>>> d8018e0519aaf766eadcfeceb64692a952607b6e
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

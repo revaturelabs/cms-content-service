@@ -35,51 +35,38 @@ import com.revature.services.SearchService;
 import com.revature.testingutils.ContentFactory;
 
 
-//Getting SpringBoot to work with TestNG
-//https://www.javainuse.com/spring/springboot_testng
-
-
-//Getting Mockito to inject when using SpringBoot + TestNG
-//	- suggests using Mockito's: Mockito.mock () 
-//	  instead of @MockBean
-
-//Final helping guide shows how to build MockMVC properly with the 
-//controller
-//https://www.petrikainulainen.net/programming/spring-framework/unit-testing-of-spring-mvc-controllers-configuration/
-
 @SpringBootTest(classes = CMSforceApplication.class)
 public class SearchControllerTest extends AbstractTestNGSpringContextTests {
-	
 	
 	//SearchController filter for request's body data
 	private static final String filterTitle = "title",
 								filterFormat = "format",
-								filterModules = "modules";
+								filterModules = "modules";	
+
+	//allows us to send mocked http requests
+	private MockMvc mvc;
+
+	//allows json<->object conversion
+	@Autowired
+	private Gson gson;
 	
-	//content field values
-	private static final String title = "TestTitle",
-							    format = "TestFormat",
-							    description = "Test description",
-							    url = "http://test.com";
-	private static final Integer id = 117;
-	
+	//entities being used in requests
 	private Content content;
 	private List<Integer> modules;
 	private Set<Content> retValue;
 	private Map<String, Object> reqBody;
 
-	
-	private MockMvc mvc;
-
+	//controller being tested
 	@InjectMocks
 	private SearchController sc;
+	
+	//service the controller depends on
 	@Mock
 	private SearchService ss;
 	
-	@Autowired
-	private Gson gson;
-
-	
+	/**
+	 * Initialize Mockito and mocking dependencies 
+	 */
 	@BeforeClass
 	public void setup() {
 		//build mock MVC so can build mock requests
@@ -90,6 +77,9 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		MockitoAnnotations.initMocks(this);
 	}
 	
+	/**
+	 * Ensure clean content and request information for each test
+	 */
 	@BeforeTest 
 	public void preTestSetup () {
 		//generate the basic content
@@ -105,74 +95,67 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		//generate the request body
 		reqBody = new HashMap<String,Object> ();
 		reqBody.put (filterModules, modules);
-		reqBody.put (filterTitle, title);
-		reqBody.put (filterFormat, format);
+		reqBody.put (filterTitle, ContentFactory.title);
+		reqBody.put (filterFormat, ContentFactory.format);
 	}
 	
 	
-
-	
+	/**
+	 * Test searching for content by the title and format
+	 * @throws Exception - if the http method fails
+	 */
 	@Test
 	public void givenValidSearchGetContent() throws Exception {
-		
 		//given
 		//add expected result from service search 
 		retValue.add(content);
 		//mock service return
-		Mockito.when(ss.filter(title, format, modules)).thenReturn(retValue);
-		
+		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+						.thenReturn(retValue);
 		
 		//when
 		//perform mock search
 		ResultActions result = mvc.perform(post ("/search")
 								.contentType(MediaType.APPLICATION_JSON_VALUE)
 								.content(gson.toJson(reqBody)));
-		
 		//grab the resulting json response, into content[] object
 		Content[] resultContent = gson.fromJson(result.andReturn().getResponse()
 								.getContentAsString(), Content[].class);
-		
 		
 		//then
 		//expect to get a non-null return
 		assertNotNull (resultContent, "No content was not found");
-		
-		
 		//expect one result from the query
 		assertEquals (resultContent.length, 1, "Invalid number of resulting content");
 	}
 	
+	/**
+	 * Test searching for content that is not in the system
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
 	public void givenInvalidSearchGetNoContent () throws Exception {
 		//given
 		//mock service return, expect empty search result
-		Mockito.when(ss.filter(title, format, modules)).thenReturn(retValue);
+		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+						.thenReturn(retValue);
 	
 		//when
 		//perform mock search
 		ResultActions result = mvc.perform(post ("/search")
 								.contentType(MediaType.APPLICATION_JSON_VALUE)
-								.content(gson.toJson(reqBody)));
-		
+								.content(gson.toJson(reqBody)));	
 		//grab the resulting json response, into content[] object
 		Content[] resultContent = gson.fromJson(result.andReturn().getResponse()
 								.getContentAsString(), Content[].class);
-		
-		
+				
 		//then
 		//expect to get a non-null return
 		assertNotNull (resultContent, "Invalid content response");
-		
 		//expect status of OK
 		result.andExpect(status().isOk());
-		
 		//expect no results from the query
 		assertEquals (resultContent.length, 0, "Invalid number of resulting content");
-		
 	}
 }
-
-
-
-
 

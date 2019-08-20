@@ -80,6 +80,9 @@ public class ModuleServiceImpl implements ModuleService {
 		return this.getAverageByModuleIds(ids);
 	}
 
+	/**
+	 * Remove a specified module from the database
+	 */
 	@Override
 	public void deleteModule(Module module) {
 		if(module != null) {

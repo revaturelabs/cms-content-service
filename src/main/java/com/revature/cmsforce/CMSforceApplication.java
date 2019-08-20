@@ -8,6 +8,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * Main thread for content-service found here. 
+ * @author 190617jta
+ *
+ */
 @SpringBootApplication
 @EnableJpaRepositories("com.revature.repositories")
 @EntityScan("com.revature.entities")

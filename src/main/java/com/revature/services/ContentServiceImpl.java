@@ -156,7 +156,7 @@ public class ContentServiceImpl implements ContentService {
 		return cr.save(newContent);
 	}
 	
-	/*
+	/**
 	 * gets formats and cycles through all elements in DB to return
 	 * how many times each format is used. 
 	 * Much faster than using a findByFormat

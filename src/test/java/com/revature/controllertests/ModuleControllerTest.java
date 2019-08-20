@@ -40,17 +40,27 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private static final long created = 1;
 	private static final String affiliation = "affiliation";
 	
+	//allows us to send mocked http requests
 	private MockMvc mvc;
+
+	//allows json<->object conversion
 	@Autowired
 	private Gson gson;
 
+	//the controller being tested
 	@InjectMocks
 	private ModuleController mc;
+	
+	//the service the controller depends on 
 	@Mock
 	private ModuleService ms;
 	
+	//module being used in http requests
 	private Module module;
 	
+	/**
+	 * Initialize Mockito and mocking dependencies 
+	 */
 	@BeforeClass
 	public void setup() {
 		//build mock MVC so can build mock requests
@@ -61,6 +71,9 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		MockitoAnnotations.initMocks(this);
 	}
 	
+	/**
+	 * Ensure clean module for each test
+	 */
 	@BeforeTest 
 	public void preTestSetup () {
 		Set<Link> links = new HashSet<Link> ();
@@ -70,7 +83,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		module = new Module (id,subject,created,links);
 	}
 	
-	
+	/**
+	 * Test adding a new module to the back-end
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
 	public void givenValidDataCreateModule () throws Exception {
 		//given 
@@ -78,10 +94,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		
 		//when
 		ResultActions result = mvc.perform(post ("/module")
-				.contentType (MediaType.APPLICATION_JSON)
-				.content (gson.toJson(module)));
+							.contentType (MediaType.APPLICATION_JSON)
+							.content (gson.toJson(module)));
 		Module actual = gson.fromJson(result.andReturn()
-				.getResponse().getContentAsString() , Module.class);
+							.getResponse().getContentAsString() , Module.class);
 		
 		//then
 		//expect status of OK
@@ -90,6 +106,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals (actual, module, "Module was not created");
 	}
 	
+	/**
+	 * Tests retrieving all the modules from the back-end
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
 	public void getAllModules () throws Exception {
 		//given 
@@ -112,6 +132,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 						"Failed to get back modules");
 	}
 	
+	/**
+	 * Tests retrieving a module from the back-end by id
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
 	public void getModuleById () throws Exception {
 		//given
@@ -131,6 +155,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals (actual.getId(), id, "Module has the incorrect id");
 	}
 	
+	/**
+	 * Tests removing a module from the back-end
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
 	public void deleteModule () throws Exception {
 		//given
