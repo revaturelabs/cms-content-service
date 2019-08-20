@@ -1,6 +1,8 @@
 package com.revature.servicestests;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -114,6 +116,12 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	
 //	===TESTS===
 	//EachTest will test one function to make sure base functionality works
+	
+	/**
+	 * Tests getAllModules()
+	 * Module Repository - findAll()
+	 * Asserts true if a module list is returned
+	 */
 	@Test
 	void testGetAllModules() {
 		Mockito.when(mrMock.findAll()).thenReturn(moduleList);
@@ -122,6 +130,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		assertTrue(tmp.equals(moduleList));
 	}
 	
+	/**
+	 * Tests GetModuleById()
+	 * Module Repository - findById()
+	 * Asserts True if temp variable equals m1 Module object
+	 */
 	@Test
 	void testGetModuleById() {
 		Mockito.when(mrMock.findById(idTest)).thenReturn(m1);
@@ -130,6 +143,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		assertTrue(tmp.equals(m1));
 	}
 	
+	/**
+	 * Tests createModule()
+	 * Module Repository - save()
+	 * Asserts true if temp variable equals m4 Module object
+	 */
 	@Test
 	void testCreateModule() {
 		Mockito.when(mrMock.save(m4)).thenReturn(m4);
@@ -139,6 +157,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
+	/**
+	 * Tests getAverageByModuleIds
+	 * Link Repository - findByModuleIdin()
+	 * Assert True if temp variable is greater than | equal to 0.0
+	 */
 	@Test
 	void testGetAverageByModuleIds() {
 		Mockito.when(lrMock.findByModuleIdIn(lints)).thenReturn(links);
@@ -148,6 +171,12 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		assertTrue(tmp >= 0.0);
 	}
 	
+	/**
+	 * Tests getAverageByAllModules()
+	 * Link Repository - findByModuleIdIn()
+	 * Module Repository - findAll()
+	 * Asserts true if temp variable is greater than | equal to 0.0
+	 */
 	@Test
 	void testGetAverageByAllModules() {
 		Mockito.when(lrMock.findByModuleIdIn(lintsMod)).thenReturn(links);
@@ -159,11 +188,14 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		
 	}
 	
+	/**
+	 * Tests delete()
+	 */
 	@Test
 	void testDelete() {
 		Mockito.doNothing().when(mrMock).delete(m1);
 		
-		msMock.deleteModule(m1);
+		msMock.deleteModule(m1);		
 	}
 	
 

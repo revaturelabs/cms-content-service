@@ -3,26 +3,19 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.revature.controllertests.ContentControllerTest">
+      <class name="com.revature.servicestests.ModuleServiceTest">
         <methods>
           <include name="springTestContextBeforeTestClass"/>
-          <include name="deleteContent"/>
-          <include name="setup"/>
-<<<<<<< HEAD
           <include name="testSetup"/>
-          <include name="tearDown"/>
-          <include name="filterTest"/>
-        </methods>
-      </class> <!-- com.revature.servicestests.SerachServiceTest2 -->
-=======
+          <include name="testDelete"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
+          <include name="setup"/>
+          <include name="teardown"/>
           <include name="springTestContextAfterTestMethod"/>
-          <include name="preTestSetup"/>
         </methods>
-      </class> <!-- com.revature.controllertests.ContentControllerTest -->
->>>>>>> d8018e0519aaf766eadcfeceb64692a952607b6e
+      </class> <!-- com.revature.servicestests.ModuleServiceTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
