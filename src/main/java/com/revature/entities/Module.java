@@ -17,7 +17,7 @@ import javax.persistence.Column;
 @Entity
 public class Module {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name = "m_id")
 	private int id;
 

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name = "link")
 public class Link {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name = "cm_id")
 	private int id;
 
