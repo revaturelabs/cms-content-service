@@ -1,92 +1,170 @@
 package com.revature.servicestests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertEquals;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.assertj.core.internal.Integers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
-import com.revature.services.ContentService;
 import com.revature.services.ModuleService;
-import com.revature.services.SearchService;
+import com.revature.services.ModuleServiceImpl;
 
-/**
- * Simple test for the ModuleService functionality.
- * 
- * @author wsm
- * @version 2.0
- */
-//@ExtendWith(SpringExtension.class)
-//@ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
-//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-//@Transactional
-//@SpringBootTest
 @SpringBootTest(classes = CMSforceApplication.class)
-class ModuleServiceTest {
-
-	@Autowired
-	ModuleRepository mr;
+public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	
-	@Autowired
-	ContentService cs;
-
-	@Autowired
-	ModuleService ms;
-
-	@Autowired
-	SearchService ss;
-
-	@Autowired
-	JdbcTemplate template;
-
-  /**
-   * Test for getAllModules.
-   */
-  @Test
-  @Rollback
-  void moduleServiceAllTest()
-  {
-		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", 0, new HashSet<Link>()));
-
-		boolean allContains = ms.getAllModules().contains(m);
+//	===MOCKITO INJECTIONS===
+	@InjectMocks
+	private ModuleService msMock;
+	@Mock
+	private ModuleRepository mrMock;
+	@Mock
+	private LinkRepository lrMock;
+	
+//	===FIELDS===
+	private Link l1;
+	private Link l2;
+	private Link l3;
+	private Module m1;
+	private Module m2;
+	private Module m3;
+	private Module m4;
+	private int idTest;
+	private Set<Module> moduleList;
+	private Set<Link> links;
+	private ArrayList<Integer> lints;
+	private ArrayList<Integer> lintsMod;
+	
+	
+//	===TEST SETUP===
+	@BeforeClass
+	public void setup() {
+		//Create Mock object of the test service.
+		msMock = new ModuleServiceImpl();
 		
-		mr.delete(m);
+		//Enable Mockito Annotations.
+		MockitoAnnotations.initMocks(this);
+	}
+	
+	@BeforeTest
+	public void testSetup() {
 		
-		assertTrue(allContains);
-  }
+		//Create a Link object to add to module object.
+		l1 = new Link(250, 10, 130, "testblah");
+		l2 = new Link(255, 10, 130, "testblah");
+		l3 = new Link(224, 10, 130, "testblah");
+		links = new HashSet<Link>();
+		links.add(l1);
+		
+		lints = new ArrayList<Integer>();
+		lints.add(250);
+		lints.add(255);
+		lints.add(224);
+		
+		//Create a module object for testing.
+		m1 = new Module(130, "TestSubject", 10, links);
+		m2 = new Module(145, "Java", 10, links);	
+		m3 = new Module(150, "CSS", 10, links);	
+		m4 = new Module(170, "HTML", 0, links);
+		idTest = 130;
+		
+		lintsMod = new ArrayList<Integer>();
+		lintsMod.add(130);
+		lintsMod.add(145);
+		lintsMod.add(150);
+		//Create a list of modules for testing.
+		moduleList = new HashSet<Module>();
+		moduleList.add(m1);
+		moduleList.add(m2);
+		moduleList.add(m3);
+		
+		links.add(l2);
+		links.add(l3);
+	}
+	
+	@AfterTest
+	void teardown() {
+		m1 = null;
+		m2 = null;
+		m3 = null;
+		moduleList = null;
+		l1 = null;
+		l2 = null;
+		l3 = null;
+		
+	}
+	
+//	===TESTS===
+	@Test
+	void testGetAllModules() {
+		Mockito.when(mrMock.findAll()).thenReturn(moduleList);
+		
+		Set<Module> tmp = msMock.getAllModules();
+		assertTrue(tmp.equals(moduleList));
+	}
+	
+	@Test
+	void testGetModuleById() {
+		Mockito.when(mrMock.findById(idTest)).thenReturn(m1);
+		
+		Module tmp = msMock.getModuleById(idTest);
+		assertTrue(tmp.equals(m1));
+	}
+	
+	@Test
+	void testCreateModule() {
+		Mockito.when(mrMock.save(m4)).thenReturn(m4);
+		
+		Module tmp = msMock.createModule(m4);
+		assertTrue(tmp.equals(m4));
+		
+	}
+	
+	@Test
+	void testGetAverageByModuleIds() {
+		Mockito.when(lrMock.findByModuleIdIn(lints)).thenReturn(links);
+		
+		double tmp = msMock.getAverageByModuleIds(lints);
+		
+		assertTrue(tmp != 0.0);
+	}
+	
+	@Test
+	void testGetAverageByAllModules() {
+		Mockito.when(lrMock.findByModuleIdIn(lintsMod)).thenReturn(links);
+		Mockito.when(mrMock.findAll()).thenReturn(moduleList);
+		
+		double tmp = msMock.getAverageByAllModules();
+		
+		assertTrue(tmp == 0.0);
+		
+	}
+	
+	@Test
+	void testDelete() {
+		Mockito.doNothing().when(mrMock).delete(m1);
+		
+		msMock.deleteModule(m1);
+	}
+	
 
-  /**
-   * Test for getModuleById.
-   */
-  @Test
-  @Rollback
-  void moduleServiceIdTest()
-  {
-		Module m = ms.createModule(new Module(0, "FIRST TEST MODULE", 0, new HashSet<Link>()));
-
-		Module dup = ms.getModuleById(m.getId());
-		
-		boolean idEquals = m.equals(dup);
-		
-		mr.delete(m);
-		
-		assertTrue(idEquals);
-  }
 }
