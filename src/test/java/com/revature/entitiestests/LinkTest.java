@@ -1,13 +1,11 @@
 package com.revature.entitiestests;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.entities.Content;
 import com.revature.entities.Link;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
