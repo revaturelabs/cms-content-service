@@ -36,18 +36,27 @@ import org.testng.annotations.BeforeTest;
 @SpringBootTest(classes = CMSforceApplication.class)
 class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
+	//allows us to send mocked http requests
 	private MockMvc mvc;
+
+	//allows json<->object conversion
 	@Autowired
 	private Gson gson;
 
+	//controller being tested
 	@InjectMocks
 	private ContentController cc;
+	
+	//service used by controller
 	@Mock
 	private ContentService cs;
 	
+	//content being passed to controller requests
 	private Content content;
 	
-	
+	/**
+	 * Initialize Mockito and mocking dependencies 
+	 */
 	@BeforeClass
 	public void setup () {
 		//build mock MVC so can build mock requests
@@ -58,11 +67,18 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		MockitoAnnotations.initMocks(this);
 	}
 	
+	/**
+	 * Ensure clean content for each test
+	 */
 	@BeforeTest
 	public void preTestSetup () {
 		content = ContentFactory.getContent();
 	}
 	
+	/**
+	 * Test adding new content to the back-end
+	 * @throws Exception - if mocked http request fails
+	 */
 	@Test
 	public void givenValidDataCreateContent () throws Exception {
 		//given
@@ -82,6 +98,10 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals (ret, content, "Failed to create content");
 	}
 	
+	/**
+	 * Test retrieving all content from the back-end
+	 * @throws Exception - if http request fails
+	 */
 	@Test 
 	public void getAllContents () throws Exception {
 		//given
@@ -97,10 +117,14 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		//then
 		//expect status of OK
 		result.andExpect(status().isOk());
-		//compare as json 
+		//compare as json to avoid warnings from conversion
 		assertEquals (actual, gson.toJson(expected), "Failed to find content");
 	}
 	
+	/**
+	 * Test retrieving content based upon an id 
+	 * @throws Exception - if http request fails
+	 */
 	@Test 
 	public void getContentById() throws Exception {
 		Content actual = null;
@@ -122,6 +146,10 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		
 	}
 
+	/**
+	 * Test updating existing content
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
 	public void updateContent () throws Exception {
 		//given
@@ -142,7 +170,10 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 				
 	}
 
-	
+	/**
+	 * Test deleting existing content
+	 * @throws Exception
+	 */
 	@Test
 	public void deleteContent () throws Exception {
 		//given 
@@ -156,5 +187,7 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		//then
 		//expect status of OK
 		result.andExpect(status().isOk());
+		//expect controller to request deletion of content to service
+		Mockito.verify(cs).deleteContent(content);
 	}
 }
