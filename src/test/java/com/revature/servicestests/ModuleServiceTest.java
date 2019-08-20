@@ -56,6 +56,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	
 	
 //	===TEST SETUP===
+	//This will add some of the setup needed to use spring
 	@BeforeClass
 	public void setup() {
 		//Create Mock object of the test service.
@@ -65,6 +66,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		MockitoAnnotations.initMocks(this);
 	}
 	
+	//This will set up the values before the tests
 	@BeforeTest
 	public void testSetup() {
 		
@@ -101,6 +103,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		links.add(l3);
 	}
 	
+	//tear down the setup
 	@AfterTest
 	void teardown() {
 		m1 = null;
@@ -114,6 +117,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 //	===TESTS===
+	//EachTest will test one function to make sure base functionality works
 	@Test
 	void testGetAllModules() {
 		Mockito.when(mrMock.findAll()).thenReturn(moduleList);

@@ -14,7 +14,7 @@ import javax.persistence.Column;
 @Entity
 public class Content {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Column(name = "c_id")
 	private int id;
 
