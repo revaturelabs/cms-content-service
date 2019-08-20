@@ -74,7 +74,9 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@BeforeClass
 	public void mockTheContent()
 	{
+		//Initiate Mockito mocks
 		MockitoAnnotations.initMocks(this);
+		//Create a new Content object and set fields as shown
 		mockContent = new Content();
 		mockContent.setId(5);
 		mockContent.setDateCreated(1L);
@@ -82,10 +84,14 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 		mockContent.setTitle("Blahbitty");
 		mockContent.setFormat("Blooh");
 		mockContent.setDescription("Bloohbitty");
-		mockContent.setUrl("www.blahbitty.com");		
+		mockContent.setUrl("www.blahbitty.com");
+		//Create a new Link object
 		mockLink = new Link(3,mockContent.getId(),7,"Blah");
+		//create a new HashSet of Link objects
 		links = new HashSet<Link>();
+		//Add the mock link to the list of links
 		links.add(mockLink);
+		//
 		for (Link link : links) {
 			link.setContentId(mockContent.getId());
 		}
