@@ -3,13 +3,23 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.revature.utiltests.MetricsDataTest">
+      <class name="com.revature.utiltests.ControllerLogAspectTest">
         <methods>
-          <include name="testEqualsObject"/>
-          <include name="teardown"/>
+          <include name="springTestContextBeforeTestClass"/>
+          <include name="TestlogSearch"/>
+          <include name="springTestContextPrepareTestInstance"/>
+          <include name="springTestContextBeforeTestMethod"/>
+          <include name="TestlogModuleGetAll"/>
+          <include name="TestlogContentGetAll"/>
+          <include name="TestlogContentCreation"/>
+          <include name="TestlogModuleGetId"/>
+          <include name="springTestContextAfterTestClass"/>
+          <include name="logModuleCreation"/>
+          <include name="TestlogContentGetId"/>
           <include name="setup"/>
+          <include name="springTestContextAfterTestMethod"/>
         </methods>
-      </class> <!-- com.revature.utiltests.MetricsDataTest -->
+      </class> <!-- com.revature.utiltests.ControllerLogAspectTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

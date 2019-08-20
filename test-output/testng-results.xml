@@ -1,49 +1,463 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="7" passed="7">
+<testng-results skipped="0" failed="7" ignored="0" total="7" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="109" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+  <suite name="Default suite" duration-ms="26710" started-at="2019-08-19T21:42:37Z" finished-at="2019-08-19T21:43:04Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="109" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
-      <class name="com.revature.utiltests.TimeGraphTest">
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="setup" is-config="true" duration-ms="27" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+    <test name="Default test" duration-ms="26710" started-at="2019-08-19T21:42:37Z" finished-at="2019-08-19T21:43:04Z">
+      <class name="com.revature.utiltests.ControllerLogAspectTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="31" started-at="2019-08-19T21:42:37Z" finished-at="2019-08-19T21:42:37Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="25538" started-at="2019-08-19T21:42:37Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-08-19T21:43:03Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="setup" is-config="true" duration-ms="969" started-at="2019-08-19T21:43:03Z" finished-at="2019-08-19T21:43:04Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="testGetNumContents()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testGetNumContents" duration-ms="8" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="15" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogContentCreation() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetNumContents -->
-        <test-method status="PASS" signature="testGetReturnedLongs()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testGetReturnedLongs" duration-ms="2" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="FAIL" signature="TestlogContentCreation()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="TestlogContentCreation" duration-ms="16" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logContentCreation(ControllerLogAspect.java:18)
+at com.revature.utiltests.ControllerLogAspectTest.TestlogContentCreation(ControllerLogAspectTest.java:47)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testGetReturnedLongs -->
-        <test-method status="PASS" signature="testSetNumContents()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testSetNumContents" duration-ms="4" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- TestlogContentCreation -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogContentGetAll() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetNumContents -->
-        <test-method status="PASS" signature="testSetReturnedLongs()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testSetReturnedLongs" duration-ms="11" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogContentCreation() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testSetReturnedLongs -->
-        <test-method status="PASS" signature="testTimeGraphData()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testTimeGraphData" duration-ms="1" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="FAIL" signature="TestlogContentGetAll()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="TestlogContentGetAll" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logContentGetAll(ControllerLogAspect.java:23)
+at com.revature.utiltests.ControllerLogAspectTest.TestlogContentGetAll(ControllerLogAspectTest.java:55)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testTimeGraphData -->
-        <test-method status="PASS" signature="testTimeGraphDataListOfLongInt()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testTimeGraphDataListOfLongInt" duration-ms="1" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- TestlogContentGetAll -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogContentGetAll() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testTimeGraphDataListOfLongInt -->
-        <test-method status="PASS" signature="testToString()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="testToString" duration-ms="1" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogContentGetId() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testToString -->
-        <test-method status="PASS" signature="teardown()[pri:0, instance:com.revature.utiltests.TimeGraphTest@4206a205]" name="teardown" is-config="true" duration-ms="1" started-at="2019-08-19T19:45:18Z" finished-at="2019-08-19T19:45:18Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogContentGetId() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- teardown -->
-      </class> <!-- com.revature.utiltests.TimeGraphTest -->
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="16" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogModuleGetAll() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="FAIL" signature="TestlogContentGetId()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="TestlogContentGetId" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logContentGetId(ControllerLogAspect.java:28)
+at com.revature.utiltests.ControllerLogAspectTest.TestlogContentGetId(ControllerLogAspectTest.java:63)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestlogContentGetId -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogModuleGetId() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="FAIL" signature="TestlogModuleGetAll()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="TestlogModuleGetAll" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logModuleGetAll(ControllerLogAspect.java:38)
+at com.revature.utiltests.ControllerLogAspectTest.TestlogModuleGetAll(ControllerLogAspectTest.java:79)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestlogModuleGetAll -->
+        <test-method status="FAIL" signature="TestlogModuleGetId()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="TestlogModuleGetId" duration-ms="15" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logModuleGetId(ControllerLogAspect.java:43)
+at com.revature.utiltests.ControllerLogAspectTest.TestlogModuleGetId(ControllerLogAspectTest.java:87)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestlogModuleGetId -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogModuleGetAll() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogSearch() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogModuleGetId() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="FAIL" signature="TestlogSearch()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="TestlogSearch" duration-ms="16" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logSearch(ControllerLogAspect.java:48)
+at com.revature.utiltests.ControllerLogAspectTest.TestlogSearch(ControllerLogAspectTest.java:95)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestlogSearch -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.TestlogSearch() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="16" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.logModuleCreation() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="FAIL" signature="logModuleCreation()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="logModuleCreation" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <exception class="java.lang.NullPointerException">
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException
+at com.revature.util.ControllerLogAspect.logModuleCreation(ControllerLogAspect.java:33)
+at com.revature.utiltests.ControllerLogAspectTest.logModuleCreation(ControllerLogAspectTest.java:71)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- logModuleCreation -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.utiltests.ControllerLogAspectTest.logModuleCreation() throws java.lang.Throwable]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.utiltests.ControllerLogAspectTest@35b74c5c]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2019-08-19T21:43:04Z" finished-at="2019-08-19T21:43:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.revature.utiltests.ControllerLogAspectTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
