@@ -27,7 +27,7 @@ import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 import com.revature.services.SearchServiceImpl;
 
-public class SerachServiceTest {
+public class SearchServiceTest {
 	
 //	===Mock Injections===
 	@Mock
