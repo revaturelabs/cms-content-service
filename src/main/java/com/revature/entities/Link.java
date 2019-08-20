@@ -3,15 +3,15 @@ package com.revature.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "link")
 public class Link {
-	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cm_id")
 	private int id;
 
@@ -103,6 +103,5 @@ public class Link {
 			return false;
 		return true;
 	}
-	
-	
+
 }
