@@ -16,23 +16,28 @@ import nl.jqno.equalsverifier.Warning;
 
 public class MetricsDataTest {
 	
+	//The components needed to test
 	MetricsData md1;
 	MetricsData md2;
 	
 	TimeGraphData t = new TimeGraphData();
 	
+	//initialize the components
 	@BeforeTest
 	void setup() {
 		md1 = new MetricsData(0, 10, 15, 20, 50, t);
 		md2 = new MetricsData(1, 11, 16, 21, 41, t);
 	}
 	
+	//tear down the components
 	@AfterTest
 	void teardown() {
 		md1 = null;
 		md2 = null;
 		
 	}
+	
+	//Test the constructors
 	@Test
 	void testMetricsData() {
 		MetricsData one = new MetricsData();
@@ -49,6 +54,7 @@ public class MetricsDataTest {
 		assertTrue(one != two);
 	}
 
+	//test the getters and setters
 	@Test
 	void testGetCodeCount() {
 		assertTrue(md1.getCodeCount() == 0);
@@ -116,12 +122,14 @@ public class MetricsDataTest {
 		assertTrue(md2.getTimeGraphData().equals(tmp));
 	}
 
+	//test the toString
 	@Test
 	void testToString() {
 		assertTrue(md1.toString() instanceof String);
 		assertTrue(md2.toString() instanceof String);
 	}
 
+	//test the equals and hash
 	@Test
 	void testEqualsObject() {
 		EqualsVerifier.forClass(MetricsData.class)

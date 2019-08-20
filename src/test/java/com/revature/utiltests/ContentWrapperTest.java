@@ -15,6 +15,7 @@ import com.revature.util.ContentWrapper;
 
 public class ContentWrapperTest {
 	
+	//The components needed to test
 	Content c1;
 	Content c2;
 	Link[] links;
@@ -22,6 +23,7 @@ public class ContentWrapperTest {
 	ContentWrapper cw1;
 	ContentWrapper cw2;
 	
+	//initialize the components
 	@BeforeTest
 	void setup() {
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
@@ -34,6 +36,7 @@ public class ContentWrapperTest {
 		cw2 = new ContentWrapper(c2, links);
 	}
 	
+	//tear down the components
 	@AfterTest
 	void teardown() {
 		c1 = null;
@@ -43,6 +46,7 @@ public class ContentWrapperTest {
 		cw2 = null;
 	}
 	
+	//test the constructors
 	@Test
 	public void testContentWrapper() {
 		ContentWrapper one = new ContentWrapper();
@@ -59,6 +63,7 @@ public class ContentWrapperTest {
 		assertTrue(one != two);
 	}
 
+	//test the getters and setters
 	@Test
 	public void testGetContent() {
 		assertTrue(cw1.getContent().equals(c1));
@@ -83,6 +88,7 @@ public class ContentWrapperTest {
 		assertTrue(cw2.getLinks().equals(tmp));
 	}
 
+	//test the toString
 	@Test
 	public void testToString() {
 		assertTrue(cw1.toString() instanceof String);

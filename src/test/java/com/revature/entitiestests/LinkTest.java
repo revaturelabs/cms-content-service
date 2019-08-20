@@ -3,6 +3,7 @@ package com.revature.entitiestests;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -14,15 +15,25 @@ import nl.jqno.equalsverifier.Warning;
 
 public class LinkTest {
 	
+	//Links that are being tested
 	Link l1 = null;
 	Link l2 = null;
 	
+	//The setup for the Links
 	@BeforeTest
 	public void setup() {
 		l1 = new Link(1, 2, 3, "Java Wars");
 		l2 = new Link(5, 6, 7, "HTML Track");
 	}
 	
+	//null out the Links
+	@AfterTest
+	public void teardown() {
+		l1 = null;
+		l2 = null;
+	}
+	
+	//testing the constructors
 	@Test
 	public void testLink() {
 		Link one = new Link();
@@ -39,6 +50,7 @@ public class LinkTest {
 		assertTrue(one != two);
 	}
 
+	//testing the getters and setters
 	@Test
 	public void testGetId() {
 		assertTrue(l1.getId() == 1);
@@ -83,14 +95,19 @@ public class LinkTest {
 		assertTrue(l2.getAffiliation().equals("CSS Blitz"));
 	}
 
+	//Testing the ToString
 	@Test
 	public void testToString() {
 		assertTrue(l1.toString() instanceof String);
 		assertTrue(l2.toString() instanceof String);
 	}
 
+	//Test the equals and hash
 	@Test
 	public void testEqualsObject() {
+		//equalsVerifier will test both equals and hash. It will fail and throw an error if it
+		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
+		//because it is necessary for spring boot
 		EqualsVerifier.forClass(Link.class)
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();

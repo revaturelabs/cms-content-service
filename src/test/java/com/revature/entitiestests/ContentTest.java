@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -15,9 +16,12 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 public class ContentTest {
+	
+	//The content that will be tested
 	Content c1 = null;
 	Content c2 = null;
 	
+	//initialize the testing content
 	@BeforeTest
 	public void setup() {
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
@@ -26,6 +30,15 @@ public class ContentTest {
 				new HashSet<Link>(), 1555444l, 1555444l);
 	}
 	
+	//null out the testing content
+	@AfterTest
+	public void teardown() {
+		c1 = null;
+		c2 = null;
+	}
+	
+	//run tests
+	//Constructor Tests
 	@Test
 	public void testContent() {
 		Content one = new Content();
@@ -44,6 +57,7 @@ public class ContentTest {
 		assertTrue(one != two);
 	}
 
+	//Getters and Setters tests
 	@Test
 	public void testGetId() {
 		assertTrue(c1.getId() == 99);
@@ -136,14 +150,19 @@ public class ContentTest {
 		assertTrue(c2.getLastModified() == 5542441l);
 	}
 
+	//toString Test
 	@Test
 	public void testToString() {
 		assertTrue(c1.toString() instanceof String);
 		assertTrue(c2.toString() instanceof String);
 	}
 
+	//Equals and Hash test
 	@Test
 	public void testEqualsObject() {
+		//equalsVerifier will test both equals and hash. It will fail and throw an error if it
+		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
+		//because it is necessary for spring boot
 		EqualsVerifier.forClass(Content.class)
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();
