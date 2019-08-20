@@ -186,9 +186,9 @@ public class SearchServiceTest {
 	/**
 	 * Tests filter()
 	 * There are verifications:
-	 * 1)Tests when fields are not null.
-	 * 2)Tests when the format is null.
-	 * 3)Tests when the title and format is null.
+	 * 1)verifies when fields are not null.
+	 * 2)verifies when the format is null.
+	 * 3)verifies when the title and format is null.
 	 * Content Repository - findByFormat(), findByTitleContaining()
 	 * Content Service - getAllContent()
 	 * Link Repository - findByModuleIdIn() 
@@ -212,8 +212,6 @@ public class SearchServiceTest {
 		ss.filter(titleContaining, format, moduleIds);
 		
 		verify(crMock, times(2)).findByFormat(format);
-//		verify(crMock, times(1)).findByTitleContaining(titleContaining);
-//		verify(csMock, times(1)).getAllContent();
 		verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
 		
 		//Given/Then Test 2 - format is null.
@@ -225,13 +223,5 @@ public class SearchServiceTest {
 		verify(csMock, times(1)).getAllContent();
 	}
 	
-	/**
-	 * Method is used in the Metrics Controller. 
-	 * Can be simplified/broken up into multiple methods.
-	 * Needs documentation. 
-	 */
-	@Test
-	public void filterContentTest() {
-		
-	}
+
 }
