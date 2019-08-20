@@ -99,6 +99,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
+	 * Tests filterContentById()
 	 * Content Repository - findByTitle(String title)
 	 */
 	@Test
@@ -120,6 +121,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
+	 * Tests filterContentByFormat()
 	 * Content Repository - findByFormat(String format)
 	 */
 	@Test
@@ -138,6 +140,9 @@ public class SearchServiceTest {
 	}
 	
 	/**
+	 * Tests fliterContentBySubjects()
+	 * Link Repository - findByModuleID()
+	 * Content Repository - findAllById()
 	 * Currently throws an IndexOutOfBounds Exception when you put in a ModuleId list with
 	 * more than one number.
 	 */
@@ -157,6 +162,11 @@ public class SearchServiceTest {
 		verify(crMock).findAllById(Mockito.any());
 	}
 	
+	/**
+	 * Tests getContentByModuleId()
+	 * Link Repository - findByModuleId()
+	 * Content Repository - findById()
+	 */
 	@Test
 	public void getContentByModuleIdTest() {
 		//Local Variables
@@ -173,6 +183,16 @@ public class SearchServiceTest {
 		verify(crMock, times(1)).findById(Mockito.anyInt());
 	}
 	
+	/**
+	 * Tests filter()
+	 * There are verifications:
+	 * 1)Tests when fields are not null.
+	 * 2)Tests when the format is null.
+	 * 3)Tests when the title and format is null.
+	 * Content Repository - findByFormat(), findByTitleContaining()
+	 * Content Service - getAllContent()
+	 * Link Repository - findByModuleIdIn() 
+	 */
 	@Test
 	public void filterTest() {
 		//Local Variables
@@ -206,8 +226,8 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method is not used. 
-	 * Can also be simplified/broken up into multiple methods.
+	 * Method is used in the Metrics Controller. 
+	 * Can be simplified/broken up into multiple methods.
 	 * Needs documentation. 
 	 */
 	@Test
