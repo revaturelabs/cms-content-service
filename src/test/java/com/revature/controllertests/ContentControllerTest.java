@@ -178,6 +178,8 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	public void deleteContent () throws Exception {
 		//given 
 		Mockito.doNothing().when(cs).deleteContent(content);
+		//mock content service finding content by id
+		Mockito.when(cs.getContentById(ContentFactory.id)).thenReturn(content);
 		
 		//when
 		ResultActions result = mvc.perform(delete ("/content/" + ContentFactory.id)
