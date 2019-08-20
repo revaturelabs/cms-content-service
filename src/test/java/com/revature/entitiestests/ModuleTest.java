@@ -1,9 +1,7 @@
 package com.revature.entitiestests;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 

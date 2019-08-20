@@ -56,7 +56,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	//A variable for storing the value of another Content object
 	Content testContent;
 	//A Set of Content objects to store multiple items for testing
-	Set<Content> contentSet = new HashSet();
+	Set<Content> contentSet = new HashSet<Content>();
 	//A second Set of Content to store multiple items for comparing in testing
 	Set<Content> secondContentSet;
 	//A Map of String and Integer objects for testing retrieval of Content by its format field

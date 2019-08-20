@@ -1,7 +1,6 @@
 package com.revature.utiltests;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.HashSet;
 
@@ -26,9 +25,13 @@ public class ContentWrapperTest {
 	//initialize the components
 	@BeforeTest
 	void setup() {
-		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
+		c1 = new Content(99, "Java a New Begining", "String", 
+						"The Java the brought hope back", 
+						"https://en.wikipedia.org/wiki/Star_Wars_(film)",
 				new HashSet<Link>(), 15554l, 15554l);
-		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
+		c2 = new Content(114, "Java the phantom menance", "String", 
+						"The one with the cool darth", 
+						"https://en.wikipedia.org/wiki/Star_Wars_(film)",
 				new HashSet<Link>(), 1555444l, 1555444l);
 		links = new Link[2];
 		
