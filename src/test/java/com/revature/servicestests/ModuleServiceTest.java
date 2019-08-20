@@ -19,6 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.repositories.ModuleRepository;
@@ -32,11 +33,12 @@ import com.revature.services.SearchService;
  * @author wsm
  * @version 2.0
  */
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Transactional
-@SpringBootTest
+//@ExtendWith(SpringExtension.class)
+//@ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@Transactional
+//@SpringBootTest
+@SpringBootTest(classes = CMSforceApplication.class)
 class ModuleServiceTest {
 
 	@Autowired

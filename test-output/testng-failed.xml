@@ -9,6 +9,13 @@
           <include name="filterByModuleId"/>
         </methods>
       </class> <!-- com.revature.servicestests.SerachServiceTest2 -->
+      <class name="com.revature.utiltests.MetricsDataTest">
+        <methods>
+          <include name="testEqualsObject"/>
+          <include name="teardown"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.revature.utiltests.MetricsDataTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

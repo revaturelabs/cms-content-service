@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "CMSForce">
+	<test name = "AllTests">
+		<classes>
+			<class name = "com.revature.entitiestests.ContentTest"/>
+			<class name = "com.revature.entitiestests.LinkTest"/>
+			<class name = "com.revature.entitiestests.ModuleTest"/>
+			<class name = "com.revature.controllertests.ContentControllerTest"/>
+			<class name = "com.revature.controllertests.ModuleControllerTest"/>
+			<class name = "com.revature.controllertests.SearchControllerTest"/>
+			<class name = "com.revature.loggingtest.LoggingTest"/>
+			<class name = "com.revature.servicestests.TimeGraphServiceTest"/>
+		</classes>
+	</test>
+</suite>
