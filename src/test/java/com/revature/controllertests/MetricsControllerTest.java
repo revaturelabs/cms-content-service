@@ -25,6 +25,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.revature.controllers.MetricsController;
 import com.revature.util.MetricsData;
 
+
+/**
+ * 
+ * This test class fails to test the functionality of the controller,
+ * not to mention the controller is nearly untestable at this point.
+ * These tests should be deprecated and replaced when the controller
+ * is fixed.
+ *
+ */
+
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
