@@ -60,8 +60,6 @@ import com.revature.services.SearchServiceImpl;
 @SpringBootTest(classes = CMSforceApplication.class)
 class ContentServiceTest extends AbstractTestNGSpringContextTests 
 {	
-	
-	
 	Content mockContent;
 	@InjectMocks
 	ContentServiceImpl contServe;
