@@ -15,7 +15,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.test.jdbc.JdbcTestUtils;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
@@ -134,7 +133,4 @@ public class TimeGraphServiceTest extends AbstractTestNGSpringContextTests {
 		assertFalse(resultSet.contains((sysTime - ONE_YEAR)));
 		
 	}
-	
-	
-	
 }
