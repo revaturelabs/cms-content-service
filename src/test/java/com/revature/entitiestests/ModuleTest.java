@@ -26,8 +26,8 @@ public class ModuleTest {
 	//make the modules that are being tested
 	@BeforeTest
 	public void setup() {
-		m1 = new Module(1, "Java", 1544l, new HashSet<Link>());
-		m2 = new Module(2, "HTML", 154554l, new HashSet<Link>());
+		m1 = new Module(1, "Java", 1544l, new HashSet<Link>(), null, null);
+		m2 = new Module(2, "HTML", 154554l, new HashSet<Link>(), null, null);
 	}
 	
 	//null the modules being tested
@@ -48,9 +48,9 @@ public class ModuleTest {
 
 	@Test
 	void testModuleIntStringIntSetOfLink() {
-		Module one = new Module(1, "Java", 1544l, new HashSet<Link>());
+		Module one = new Module(1, "Java", 1544l, new HashSet<Link>(), null, null);
 		assertTrue(one instanceof Module);
-		Module two = new Module(2, "HTML", 154554l, new HashSet<Link>());
+		Module two = new Module(2, "HTML", 154554l, new HashSet<Link>(), null, null);
 		assertTrue(one != two);
 	}
 

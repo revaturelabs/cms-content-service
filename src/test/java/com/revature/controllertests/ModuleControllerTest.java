@@ -80,7 +80,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Link link = new Link (id,id,id,affiliation);
 		links.add(link);
 		
-		module = new Module (id,subject,created,links);
+		module = new Module (id,subject,created,links,null,null);
 	}
 	
 	/**

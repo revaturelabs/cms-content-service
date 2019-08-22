@@ -86,7 +86,7 @@ public class SearchServiceTest {
 		this.contentMock = content;
 		//Module
 		//Constructor (Id, "Subject", DateCreated, Set<Link>)
-		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock);
+		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
 	}
 	
 	@AfterTest
