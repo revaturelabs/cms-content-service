@@ -29,6 +29,11 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	ContentService csi;
 
+	/**
+	 * filterContentByTitle takes in a string value and returns a map of 
+	 * content, with key-value pairs that are associated with the title
+	 * string that was passed into the method.
+	 */
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
@@ -36,6 +41,11 @@ public class SearchServiceImpl implements SearchService {
 		return temp;
 	}
 
+	/**
+	 * filderContentByFormat takes in a string value and returns a map of
+	 * content, with key-value pairs that are associated with the format
+	 * type string that was passed into the method
+	 */
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name = "CMSForce">
+	<test name = "AllTests">
+		<classes>
+			<!-- These are the entities test -->
+			<class name = "com.revature.entitiestests.ContentTest"/>
+			<class name = "com.revature.entitiestests.LinkTest"/>
+			<class name = "com.revature.entitiestests.ModuleTest"/>
+			<!-- These are the controller tests -->
+			<class name = "com.revature.controllertests.ContentControllerTest"/>
+			<class name = "com.revature.controllertests.ModuleControllerTest"/>
+			<class name = "com.revature.controllertests.SearchControllerTest"/>
+			<!-- This is a test that was already there not sure if it necessary -->
+			<class name = "com.revature.loggingtest.LoggingTest"/>
+			<!-- These are the Service tests -->
+			<class name = "com.revature.servicestests.TimeGraphServiceTest"/>
+			<class name = "com.revature.servicestests.ContentServiceTest"/>
+			<class name = "com.revature.servicestests.ModuleServiceTest"/>
+			<class name = "com.revature.servicestests.SearchServiceTest"/>
+			<!-- These are the Util tests -->
+			<class name = "com.revature.utiltests.MetricsDataTest"/>
+			<class name = "com.revature.utiltests.TimeGraphTest"/>
+			<class name = "com.revature.utiltests.ContentWrapperTest"/>
+		</classes>
+	</test>
+</suite>

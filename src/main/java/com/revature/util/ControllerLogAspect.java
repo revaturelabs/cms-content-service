@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class ControllerLogAspect {
+public class ControllerLogAspect { //Logging for the controllers
 	
 	@Autowired
 	Logging log;

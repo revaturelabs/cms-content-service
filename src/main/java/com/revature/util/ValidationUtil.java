@@ -20,14 +20,14 @@ public class ValidationUtil {
 	
 	private static final int MAX_CHAR_LENGTH = 254;
 	
-	@Pointcut("within(com.revature.services..*) ")
+	@Pointcut("within(com.revature.services..*) ")//Pointcut location
 	public void servicesPC() {
 		
 	}
 	
 	@LogException
 	@Before("servicesPC() && args(content,..)")
-	public void verifyContent(Content content) {
+	public void verifyContent(Content content) { //Method for throwing exceptions for content issues
 		if(content == null)
 			throw new InvalidContentException("content is of null value");
 		
@@ -46,7 +46,7 @@ public class ValidationUtil {
 	
 	@LogException
 	@Before("servicesPC() && args(module,..)")
-	public void verifyModule(Module module) {
+	public void verifyModule(Module module) { //Method for throwing exceptions if modules are empty or subjects are empty
 		if(module == null)
 			throw new InvalidContentException("Module is of null value");
 		
@@ -56,28 +56,28 @@ public class ValidationUtil {
 	
 	@LogException
 	@Before("servicesPC() && args(title,..)")
-	public void verifyStringTitle(String title) {
+	public void verifyStringTitle(String title) { //Exception thrown when titles exceed maximum length
 		if(title.length() > MAX_CHAR_LENGTH)
 			throw new InvalidSearchException("title is longer than 254 characters.");
 	}
 	
 	@LogException
 	@Before("servicesPC() && args(format,..)")
-	public void verifyStringFormat(String format) {
+	public void verifyStringFormat(String format) { //Same as above but with formats
 		if(format.length() > MAX_CHAR_LENGTH)
 			throw new InvalidSearchException("format is longer than 254 characters.");
 	}
 	
 	@LogException
 	@Before("servicesPC() && args(moduleId,..)")
-	public void verifyModuleId(int moduleId) {
+	public void verifyModuleId(int moduleId) { //Exception thrown if there is an issue with the ID index location
 		if(moduleId <= 0)
 			throw new InvalidSearchException("the ModuleId is not a valid index.");
 	}
 	
 	@LogException
 	@Before("servicesPC() && args(moduleIds,..)")
-	public void verifyListModuleId(List<Integer> moduleIds) {
+	public void verifyListModuleId(List<Integer> moduleIds) { //Verifying modules match their ID's
 		for(int x = 0; x < moduleIds.size(); x++) {
 			this.verifyModuleId(moduleIds.get(x));
 		}

@@ -35,7 +35,7 @@ public class ContentServiceImpl implements ContentService {
 	/**
 	 * createContent first inserts the content to the database
 	 * then iterates over the set of links that are within the content
-	 * and replaces the fk of content id with the correct content id
+	 * and replaces the fk of content id with the correct content id,
 	 * then adds the set of links to the link table. 
 	 */
 	@LogException
@@ -100,8 +100,16 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@Override
 	@LogException
-	public Content getContentById(int id) {	
-			return cr.findById(id).iterator().next();		
+	public Content getContentById(int id) 
+	{	
+		if(cr.findById(id).iterator().hasNext())
+		{
+			return cr.findById(id).iterator().next(); 
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/**
@@ -134,9 +142,6 @@ public class ContentServiceImpl implements ContentService {
 		newContent.setLinks(oldLinks);
 		
 		if(!newLinks.isEmpty()) {
-
-
-	
 			for(Link l : lr.saveAll(newLinks)) {
 				oldLinks.add(l);
 			}
@@ -147,12 +152,11 @@ public class ContentServiceImpl implements ContentService {
 		
 		if(oldContent == null)
 			throw new InvalidContentException("updateContent, oldContent is null");
-		
-		
+
 		return cr.save(newContent);
 	}
 	
-	/*
+	/**
 	 * gets formats and cycles through all elements in DB to return
 	 * how many times each format is used. 
 	 * Much faster than using a findByFormat
@@ -185,5 +189,12 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return numList;
 	}
-	
+
+
+	@Override
+	public void deleteContent(Content content) {
+		if(content != null) {
+			cr.delete(content);
+		}
+	}
 }

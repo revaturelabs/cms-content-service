@@ -17,4 +17,6 @@ public interface ModuleService {
 	public double getAverageByModuleIds(ArrayList<Integer> ids);
 
 	public double getAverageByAllModules();
+
+	public void deleteModule(Module module);
 }
