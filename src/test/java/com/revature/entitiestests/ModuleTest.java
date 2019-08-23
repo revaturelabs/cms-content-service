@@ -18,6 +18,7 @@ import nl.jqno.equalsverifier.Warning;
 
 
 public class ModuleTest {
+	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
 	
 	//Module to be tested
 	Module m1 = null;

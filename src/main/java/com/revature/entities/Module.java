@@ -25,9 +25,11 @@ public class Module {
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
+	//All parents of the module.
 	@ManyToMany(mappedBy = "mChild", cascade = CascadeType.ALL)
 	private Set<Module> parentModules;
 
+	//All children of the module.
 	@ManyToMany(mappedBy = "mParent", cascade = CascadeType.ALL)
 	private Set<Module> childrenModules;
 
