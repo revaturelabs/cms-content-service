@@ -34,6 +34,7 @@ import com.revature.services.ModuleService;
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
+	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
 	
 	private static final int id = 1;
 	private static final String subject = "subject";
