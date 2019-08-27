@@ -2,6 +2,7 @@ package com.revature.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -13,7 +14,7 @@ import javax.persistence.Column;
 @Entity
 public class Content {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "c_id")
 	private int id;
 
