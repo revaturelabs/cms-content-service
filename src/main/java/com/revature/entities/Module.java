@@ -27,11 +27,11 @@ public class Module {
 
 	//All parents of the module.
 	@ManyToMany(mappedBy = "mChild", cascade = CascadeType.ALL)
-	private Set<Module> parentModules;
+	private Set<ModuleHierarchy> parentModules;
 
 	//All children of the module.
 	@ManyToMany(mappedBy = "mParent", cascade = CascadeType.ALL)
-	private Set<Module> childrenModules;
+	private Set<ModuleHierarchy> childrenModules;
 
 	public Module() {
 		super();
@@ -69,24 +69,24 @@ public class Module {
 		this.links = links;
 	}
 
-	public Set<Module> getParentModules() {
+	public Set<ModuleHierarchy> getParentModules() {
 		return parentModules;
 	}
 
-	public void setParentModules(Set<Module> parentModules) {
+	public void setParentModules(Set<ModuleHierarchy> parentModules) {
 		this.parentModules = parentModules;
 	}
 
-	public Set<Module> getChildrenModules() {
+	public Set<ModuleHierarchy> getChildrenModules() {
 		return childrenModules;
 	}
 
-	public void setChildrenModules(Set<Module> childrenModules) {
+	public void setChildrenModules(Set<ModuleHierarchy> childrenModules) {
 		this.childrenModules = childrenModules;
 	}
 
-	public Module(int id, String subject, long created, Set<Link> links, Set<Module> parentModules,
-			Set<Module> childrenModules) {
+	public Module(int id, String subject, long created, Set<Link> links, Set<ModuleHierarchy> parentModules,
+			Set<ModuleHierarchy> childrenModules) {
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
