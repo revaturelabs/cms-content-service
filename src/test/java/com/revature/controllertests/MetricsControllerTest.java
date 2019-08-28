@@ -1,17 +1,12 @@
 package com.revature.controllertests;
 
-
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -24,6 +19,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.revature.controllers.MetricsController;
 import com.revature.util.MetricsData;
+
+
+/**
+ * 
+ * This test class fails to test the functionality of the controller,
+ * not to mention the controller is nearly untestable at this point.
+ * These tests should be deprecated and replaced when the controller
+ * is fixed.
+ *
+ */
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)

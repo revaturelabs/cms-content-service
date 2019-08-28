@@ -3,15 +3,15 @@ package com.revature.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "link")
 public class Link {
-	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cm_id")
 	private int id;
 
@@ -79,7 +79,6 @@ public class Link {
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + contentId;
-		result = prime * result + id;
 		result = prime * result + moduleId;
 		return result;
 	}
@@ -90,7 +89,7 @@ public class Link {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Link))
 			return false;
 		Link other = (Link) obj;
 		if (affiliation == null) {
@@ -100,12 +99,9 @@ public class Link {
 			return false;
 		if (contentId != other.contentId)
 			return false;
-		if (id != other.id)
-			return false;
 		if (moduleId != other.moduleId)
 			return false;
 		return true;
 	}
-	
-	
+
 }

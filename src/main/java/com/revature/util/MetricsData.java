@@ -1,6 +1,6 @@
 package com.revature.util;
 
-public class MetricsData {
+public class MetricsData { // Bean for the metrics
 	private int codeCount;
 	private int documentCount;
 	private int pptCount;
@@ -63,7 +63,7 @@ public class MetricsData {
 				+ timeGraphData + "]";
 	}
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		long temp;
@@ -77,12 +77,12 @@ public class MetricsData {
 		return result;
 	}
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof MetricsData))
 			return false;
 		MetricsData other = (MetricsData) obj;
 		if (Double.doubleToLongBits(avgResources) != Double.doubleToLongBits(other.avgResources))
