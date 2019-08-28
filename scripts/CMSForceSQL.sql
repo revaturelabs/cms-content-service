@@ -1,45 +1,38 @@
-/*Setup Script*/
-
-drop table content_module;
-drop table module;
-drop table content;
-
-
+drop table if exists link;
+drop table if exists joins;
+drop table if exists module;
+drop table if exists content;
 
 create table content(
-c_id number (10) primary key,
-title varchar2 (200) not null,
-format varchar2 (200) not null,
-description varchar2 (200) not null,
-url varchar2 (200) not null,
-created number (20),
-last_modified number (20)
+    c_id serial PRIMARY KEY,
+    title text NOT NULL,
+    format text NOT NULL,
+    description text NOT NULL,
+    url text unique NOT NULL,
+    created numeric,
+    last_modified numeric
+    root text
 );
-
-
 
 create table module(
-m_id number (10) primary key,
-subject varchar2 (200) unique,
-created number (20)
+    m_id serial PRIMARY KEY,
+    subject text,
+    created numeric
 );
 
-
 create table link(
-cm_id number (10) primary key,
-fk_c number (10) ,
-affiliation varchar2 (200),
-fk_m number (10),
-foreign key (fk_c) references content(c_id) on delete cascade,
-foreign key (fk_m) references module(m_id)on delete cascade
+    cm_id serial PRIMARY KEY,
+    fk_c int,
+    affiliation text,
+    fk_m int,
+    FOREIGN KEY (fk_c) REFERENCES content(c_id) on DELETE CASCADE,
+    FOREIGN KEY (fk_m) REFERENCES module(m_id) on DELETE CASCADE
 );
 
 create table joins(
-    j_id int PRIMARY KEY,
+	j_id serial primary key,
     fk_m_parent int,
     fk_m_child int,
     FOREIGN KEY (fk_m_parent) REFERENCES module(m_id) on DELETE CASCADE,
     FOREIGN KEY (fk_m_child) REFERENCES module(m_id) on DELETE CASCADE
 );
-
-create sequence HIBERNATE_SEQUENCE;
