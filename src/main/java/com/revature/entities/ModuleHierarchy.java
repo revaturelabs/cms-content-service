@@ -27,13 +27,6 @@ public class ModuleHierarchy {
 		super();
 	}
 
-	public ModuleHierarchy(int id, int mParent, int mChild) {
-		super();
-		this.id = id;
-		this.mParent = mParent;
-		this.mChild = mChild;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -91,6 +84,8 @@ public class ModuleHierarchy {
 		return true;
 	}
 
-
-
+	public ModuleHierarchy(int mParent, int mChild) {
+		this.mParent = mParent;
+		this.mChild = mChild;
+	}
 }
