@@ -55,7 +55,6 @@ public class ModuleServiceImpl implements ModuleService {
 		return module;
 	}
 
-	
 	/**
 	 * Calculate the average for all of the module's resources based on the specific inputed modules
 	 * */
