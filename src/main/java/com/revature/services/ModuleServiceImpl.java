@@ -90,12 +90,22 @@ public class ModuleServiceImpl implements ModuleService {
 			mr.delete(module);
 		}
 	}
-	
+
+	/**
+	 * Get all the root modules in the database and returns a set
+	 * of module objects.
+	 */
+
 	public Set<Module> getAllModulesByRoot(){
 		Set<Module> modules = new HashSet<>();
 		findModuleByNoParent().forEach(modules :: add);
 		return modules;
 	}
+
+	/**
+	 * Find all the root modules in the database by checking if each module have a parent
+	 * and returns a set of module objects
+	 */
 	
 	Set<Module> findModuleByNoParent(){
 		Set<Module> modules = getAllModules();
@@ -106,7 +116,13 @@ public class ModuleServiceImpl implements ModuleService {
 			}
 		}
 		return finModules;
-	}	
+	}
+	
+	/**
+	 * Get all the children modules in the database and returns a set
+	 * of module objects.
+	 */
+
 	@Override
 	public Set<Module> getChildrenByModuleId(int id){
 		Module parent = mr.findById(id);
@@ -114,6 +130,11 @@ public class ModuleServiceImpl implements ModuleService {
 		getChildren(parent).forEach(childrenModules :: add);
 		return childrenModules;
 	}
+
+	/**
+	 * Get all the children modules in the database from a particular parent and returns a set
+	 * of module objects.
+	 */
 	
 	Set<Module> getChildren(Module parent){
 		Set<Module> childrenModule = new HashSet<>();
