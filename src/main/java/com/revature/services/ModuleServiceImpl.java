@@ -51,6 +51,12 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
+		if(module.getChildrenModules() == null){
+			module.setChildrenModules(Collections.emptySet());
+		}
+		if(module.getParentModules() == null){
+			module.setParentModules(Collections.emptySet());
+		}
 		module = mr.save(module);
 		return module;
 	}
