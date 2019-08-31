@@ -19,4 +19,8 @@ public interface ModuleService {
 	public double getAverageByAllModules();
 
 	public void deleteModule(Module module);
+	
+	public Set<Module> getAllModulesByRoot();
+	
+	public Set<Module> getChildrenByModuleId(int id);
 }

@@ -47,4 +47,14 @@ public class ModuleController {
 		Module module = moduleService.getModuleById(id);
 		moduleService.deleteModule(module);
 	}
+	
+	@GetMapping("/module/roots")
+	public Set<Module> getAllModulesByRoot(){
+		return (Set<Module>) moduleService.getAllModulesByRoot();
+	}
+	
+	@GetMapping("/childrenmodules/{id}")
+    public Set<Module> getChildrenByModuleId(@PathVariable int id) {
+        return (Set<Module>) moduleService.getChildrenByModuleId(id);
+    }
 }
