@@ -57,4 +57,9 @@ public class ModuleController {
     public Set<Module> getChildrenByModuleId(@PathVariable int id) {
         return (Set<Module>) moduleService.getChildrenByModuleId(id);
     }
+	
+	@PostMapping("/childrenmodules/set/{parent}/{child}")
+	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
+		moduleService.setChildToParent(parentId,childId);
+	}
 }
