@@ -23,4 +23,6 @@ public interface ModuleService {
 	public Set<Module> getAllModulesByRoot();
 	
 	public Set<Module> getChildrenByModuleId(int id);
+	
+	public void setChildToParent(int parentId, int childId);
 }

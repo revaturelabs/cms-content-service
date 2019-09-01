@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.revature.entities.Module;
 import com.revature.entities.ModuleHierarchy;
 import com.revature.repositories.LinkRepository;
+import com.revature.repositories.ModuleHierarchyRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -20,6 +21,8 @@ public class ModuleServiceImpl implements ModuleService {
 	ModuleRepository mr;
 	@Autowired
 	LinkRepository lr;
+	@Autowired
+	ModuleHierarchyRepository mhr;
 
 	/**
 	 * Get all the modules in the database and returns a set
@@ -130,6 +133,17 @@ public class ModuleServiceImpl implements ModuleService {
 		}
 		return childrenModule;
 	}
+	
+	@Override
+	public void setChildToParent(int parentId, int childId) {
+		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(0,parentId,childId);
+		moduleHierarchy = mhr.save(moduleHierarchy);
+	}
+//	public Module createModule(Module module) {
+//		module.setCreated(System.currentTimeMillis());
+//		module = mr.save(module);
+//		return module;
+//	}
 //	@Override
 //    @LogException
 //    public Set<Module> getChildrenByModuleId(int id) {
