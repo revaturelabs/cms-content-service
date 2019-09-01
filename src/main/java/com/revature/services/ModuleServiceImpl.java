@@ -121,9 +121,9 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	Set<Module> getChildren(Module parent){
 		Set<Module> childrenModule = new HashSet<>();
-		Set<ModuleHierarchy> children = parent.getChildrenModules();
-		for(ModuleHierarchy specModuleHierarchy: children) {
-			Module child = mr.findById(specModuleHierarchy.getmChild());
+		Set<Integer> children = parent.getChildrenModules();
+		for(Integer moduleID: children) {
+			Module child = mr.findById(moduleID.intValue());
 			childrenModule.add(child);
 		}
 		return childrenModule;
