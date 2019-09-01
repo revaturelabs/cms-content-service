@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -126,9 +127,9 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	Set<Module> getChildren(Module parent){
 		Set<Module> childrenModule = new HashSet<>();
-		Set<ModuleHierarchy> children = parent.getChildrenModules();
-		for(ModuleHierarchy specModuleHierarchy: children) {
-			Module child = mr.findById(specModuleHierarchy.getmChild());
+		Set<Integer> children = parent.getChildrenModules();
+		for(Integer moduleID: children) {
+			Module child = mr.findById(moduleID.intValue());
 			childrenModule.add(child);
 		}
 		return childrenModule;
@@ -136,24 +137,8 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Override
 	public void setChildToParent(int parentId, int childId) {
-		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(0,parentId,childId);
+		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(parentId,childId);
 		moduleHierarchy = mhr.save(moduleHierarchy);
 	}
-//	public Module createModule(Module module) {
-//		module.setCreated(System.currentTimeMillis());
-//		module = mr.save(module);
-//		return module;
-//	}
-//	@Override
-//    @LogException
-//    public Set<Module> getChildrenByModuleId(int id) {
-//        Module parent = mr.findById(id);
-//        Set<Module> childModule = new HashSet<>();
-//        Set<ModuleHierarchy> children = parent.getChildrenModules();
-//        for(ModuleHierarchy specModuleHierarchy: children){
-//            childModule.add(specModuleHierarchy.getmChild());
-//        }
-//        return childModule;
-//    }
 }
 
