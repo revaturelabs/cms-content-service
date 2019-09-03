@@ -61,6 +61,8 @@ public class ModuleController {
 	@PostMapping("/childrenmodules/set/{parent}/{child}")
 	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
 		moduleService.setChildToParent(parentId,childId);
+	}
+	
 	@DeleteMapping("/module/withcontent/{id}")
 	public void deleteModuleWithContent(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);

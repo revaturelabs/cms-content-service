@@ -143,6 +143,8 @@ public class ModuleServiceImpl implements ModuleService {
 	public void setChildToParent(int parentId, int childId) {
 		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(parentId,childId);
 		moduleHierarchy = mhr.save(moduleHierarchy);
+	}
+	
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
 		Set<Link> moduleList = module.getLinks();
