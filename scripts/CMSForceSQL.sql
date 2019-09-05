@@ -10,7 +10,7 @@ create table content(
     description text NOT NULL,
     url text unique NOT NULL,
     created numeric,
-    last_modified numeric
+    last_modified numeric,
     root text
 );
 
