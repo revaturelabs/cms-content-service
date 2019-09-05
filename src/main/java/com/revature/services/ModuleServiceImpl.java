@@ -27,6 +27,7 @@ public class ModuleServiceImpl implements ModuleService {
 	LinkRepository lr;
 	@Autowired
 	ModuleHierarchyRepository mhr;
+	@Autowired
 	ContentRepository cr;
 
 	/**
