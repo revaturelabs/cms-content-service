@@ -26,7 +26,6 @@ public class Module {
 	private String subject;
 
 	private long created;
-
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
@@ -44,6 +43,14 @@ public class Module {
 
 	public Module() {
 		super();
+  }
+  
+	public Module(int id, String subject, long created, Set<Link> links) {
+		super();
+		this.id = id;
+		this.subject = subject;
+		this.created = created;
+		this.links = links;
 	}
 
 	public int getId() {
@@ -106,7 +113,48 @@ public class Module {
 	}
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
+		result = prime * result + (int) (created ^ (created >>> 32));
+		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		result = prime * result + ((parentModules == null) ? 0 : parentModules.hashCode());
+		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
+		return result;
+	}
 
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Module))
+			return false;
+		Module other = (Module) obj;
+		if (childrenModules == null) {
+			if (other.childrenModules != null)
+				return false;
+		} else if (!childrenModules.equals(other.childrenModules))
+			return false;
+		if (created != other.created)
+			return false;
+		if (links == null) {
+			if (other.links != null)
+				return false;
+		} else if (!links.equals(other.links))
+			return false;
+		if (parentModules == null) {
+			if (other.parentModules != null)
+				return false;
+		} else if (!parentModules.equals(other.parentModules))
+			return false;
+		if (subject == null) {
+			if (other.subject != null)
+				return false;
+		} else if (!subject.equals(other.subject))
+			return false;
+		return true;
+	}
 
 }
