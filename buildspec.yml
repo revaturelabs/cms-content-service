@@ -15,7 +15,7 @@ phases:
       - echo Building Maven Project
       - ls
       - mvn clean
-      - mvn install
+      - mvn install -DskipTests
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t $SERVICE_NAME:${BUILD_ID} --build-arg JAR_FILE=CMSforce-0.0.1-SNAPSHOT.jar --build-arg SPRING_ENV=dev --build-arg DB_URL=$DB_URL --build-arg DB_USER=$DB_USER --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg EUREKA_URL=${EUREKA_URL} .
