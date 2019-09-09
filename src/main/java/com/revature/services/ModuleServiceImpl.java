@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ModuleHierarchy;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
+import com.revature.repositories.ModuleHierarchyRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -22,6 +25,8 @@ public class ModuleServiceImpl implements ModuleService {
 	ModuleRepository mr;
 	@Autowired
 	LinkRepository lr;
+	@Autowired
+	ModuleHierarchyRepository mhr;
 	@Autowired
 	ContentRepository cr;
 
@@ -55,6 +60,12 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
+		if(module.getChildrenModules() == null){
+			module.setChildrenModules(Collections.emptySet());
+		}
+		if(module.getParentModules() == null){
+			module.setParentModules(Collections.emptySet());
+		}
 		module = mr.save(module);
 		return module;
 	}
@@ -93,6 +104,46 @@ public class ModuleServiceImpl implements ModuleService {
 		if(module != null) {
 			mr.delete(module);
 		}
+	}
+	
+	public Set<Module> getAllModulesByRoot(){
+		Set<Module> modules = new HashSet<>();
+		findModuleByNoParent().forEach(modules :: add);
+		return modules;
+	}
+	
+	Set<Module> findModuleByNoParent(){
+		Set<Module> modules = getAllModules();
+		Set<Module> finModules = new HashSet<>();
+		for(Module specModule: modules) {
+			if(specModule.getParentModules().size() == 0) {
+				finModules.add(specModule);
+			}
+		}
+		return finModules;
+	}	
+	@Override
+	public Set<Module> getChildrenByModuleId(int id){
+		Module parent = mr.findById(id);
+		Set<Module> childrenModules = new HashSet<>();
+		getChildren(parent).forEach(childrenModules :: add);
+		return childrenModules;
+	}
+	
+	Set<Module> getChildren(Module parent){
+		Set<Module> childrenModule = new HashSet<>();
+		Set<Integer> children = parent.getChildrenModules();
+		for(Integer moduleID: children) {
+			Module child = mr.findById(moduleID.intValue());
+			childrenModule.add(child);
+		}
+		return childrenModule;
+	}
+	
+	@Override
+	public void setChildToParent(int parentId, int childId) {
+		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(parentId,childId);
+		moduleHierarchy = mhr.save(moduleHierarchy);
 	}
 	
 	@Override
