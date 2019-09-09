@@ -22,7 +22,6 @@ public class Module {
 	private String subject;
 
 	private long created;
-
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
@@ -36,6 +35,14 @@ public class Module {
 
 	public Module() {
 		super();
+  }
+  
+	public Module(int id, String subject, long created, Set<Link> links) {
+		super();
+		this.id = id;
+		this.subject = subject;
+		this.created = created;
+		this.links = links;
 	}
 
 	public int getId() {
@@ -108,7 +115,6 @@ public class Module {
 		int result = 1;
 		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
-		result = prime * result + id;
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((parentModules == null) ? 0 : parentModules.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
@@ -119,9 +125,7 @@ public class Module {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Module))
 			return false;
 		Module other = (Module) obj;
 		if (childrenModules == null) {
@@ -130,8 +134,6 @@ public class Module {
 		} else if (!childrenModules.equals(other.childrenModules))
 			return false;
 		if (created != other.created)
-			return false;
-		if (id != other.id)
 			return false;
 		if (links == null) {
 			if (other.links != null)
