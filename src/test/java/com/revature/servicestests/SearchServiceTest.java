@@ -28,6 +28,7 @@ import com.revature.services.SearchService;
 import com.revature.services.SearchServiceImpl;
 
 public class SearchServiceTest {
+	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
 	
 //	===Mock Injections===
 	@Mock
@@ -86,7 +87,7 @@ public class SearchServiceTest {
 		this.contentMock = content;
 		//Module
 		//Constructor (Id, "Subject", DateCreated, Set<Link>)
-		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock);
+		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
 	}
 	
 	@AfterTest

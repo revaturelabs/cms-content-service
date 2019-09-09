@@ -7,7 +7,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
@@ -19,6 +22,8 @@ public class ModuleServiceImpl implements ModuleService {
 	ModuleRepository mr;
 	@Autowired
 	LinkRepository lr;
+	@Autowired
+	ContentRepository cr;
 
 	/**
 	 * Get all the modules in the database and returns a set
@@ -88,6 +93,32 @@ public class ModuleServiceImpl implements ModuleService {
 		if(module != null) {
 			mr.delete(module);
 		}
+	}
+	
+	@Override
+	public void deleteModuleWithAllContent(Module module) {
+		Set<Link> moduleList = module.getLinks();
+		for(Link specLink:moduleList) {
+			int contentId = specLink.getContentId();
+			cr.deleteById(contentId);
+		}
+		mr.delete(module);
+	}
+	
+	@Override
+	public void deleteModuleWithSpecificContent(Module module) {
+		Set<Link> moduleList = module.getLinks();
+		for(Link specLink:moduleList) {
+			int contentId = specLink.getContentId();
+			Set<Content> contentList = cr.findById(contentId);
+			for(Content specCon:contentList) {
+				if(specCon.getLinks().size() == 1) {
+					cr.deleteById(specCon.getId());
+				}
+				specCon.getLinks().remove(specLink);
+			}
+		}
+		mr.delete(module);
 	}
 }
 

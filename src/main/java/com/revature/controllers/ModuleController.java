@@ -47,4 +47,16 @@ public class ModuleController {
 		Module module = moduleService.getModuleById(id);
 		moduleService.deleteModule(module);
 	}
+	
+	@DeleteMapping("/module/withcontent/{id}")
+	public void deleteModuleWithContent(@PathVariable int id) {
+		Module module = moduleService.getModuleById(id);
+		moduleService.deleteModuleWithAllContent(module);
+	}
+	
+	@DeleteMapping("/module/speccontent/{id}")
+	public void deleteModuleWithSpecificContent(@PathVariable int id) {
+		Module module = moduleService.getModuleById(id);
+		moduleService.deleteModuleWithSpecificContent(module);
+	}
 }

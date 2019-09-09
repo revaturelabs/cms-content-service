@@ -29,6 +29,7 @@ import com.revature.services.ModuleServiceImpl;
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
+	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
 	
 //	===MOCKITO INJECTIONS===
 	@InjectMocks
@@ -81,10 +82,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		lints.add(224);
 		
 		//Create a module object for testing.
-		m1 = new Module(130, "TestSubject", 10, links);
-		m2 = new Module(145, "Java", 10, links);	
-		m3 = new Module(150, "CSS", 10, links);	
-		m4 = new Module(170, "HTML", 0, links);
+		m1 = new Module(130, "TestSubject", 10, links, null, null);
+		m2 = new Module(145, "Java", 10, links, null, null);	
+		m3 = new Module(150, "CSS", 10, links, null, null);	
+		m4 = new Module(170, "HTML", 0, links, null, null);
 		idTest = 130;
 		
 		lintsMod = new ArrayList<Integer>();

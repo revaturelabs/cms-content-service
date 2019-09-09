@@ -2,7 +2,9 @@ package com.revature.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import java.util.Set;
@@ -13,7 +15,7 @@ import javax.persistence.Column;
 @Entity
 public class Module {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "m_id")
 	private int id;
 
@@ -23,10 +25,18 @@ public class Module {
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 
+	//All parents of the module.
+	@ManyToMany(mappedBy = "mChild", cascade = CascadeType.ALL)
+	private Set<ModuleHierarchy> parentModules;
+
+	//All children of the module.
+	@ManyToMany(mappedBy = "mParent", cascade = CascadeType.ALL)
+	private Set<ModuleHierarchy> childrenModules;
+
 	public Module() {
 		super();
-	}
-
+  }
+  
 	public Module(int id, String subject, long created, Set<Link> links) {
 		super();
 		this.id = id;
@@ -67,17 +77,46 @@ public class Module {
 		this.links = links;
 	}
 
+	public Set<ModuleHierarchy> getParentModules() {
+		return parentModules;
+	}
+
+	public void setParentModules(Set<ModuleHierarchy> parentModules) {
+		this.parentModules = parentModules;
+	}
+
+	public Set<ModuleHierarchy> getChildrenModules() {
+		return childrenModules;
+	}
+
+	public void setChildrenModules(Set<ModuleHierarchy> childrenModules) {
+		this.childrenModules = childrenModules;
+	}
+
+	public Module(int id, String subject, long created, Set<Link> links, Set<ModuleHierarchy> parentModules,
+			Set<ModuleHierarchy> childrenModules) {
+		this.id = id;
+		this.subject = subject;
+		this.created = created;
+		this.links = links;
+		this.parentModules = parentModules;
+		this.childrenModules = childrenModules;
+	}
+
 	@Override
 	public String toString() {
-		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", links=" + links + "]";
+		return "Module [childrenModules=" + childrenModules + ", created=" + created + ", id=" + id + ", links=" + links
+				+ ", parentModules=" + parentModules + ", subject=" + subject + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		result = prime * result + ((parentModules == null) ? 0 : parentModules.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -89,12 +128,22 @@ public class Module {
 		if (!(obj instanceof Module))
 			return false;
 		Module other = (Module) obj;
+		if (childrenModules == null) {
+			if (other.childrenModules != null)
+				return false;
+		} else if (!childrenModules.equals(other.childrenModules))
+			return false;
 		if (created != other.created)
 			return false;
 		if (links == null) {
 			if (other.links != null)
 				return false;
 		} else if (!links.equals(other.links))
+			return false;
+		if (parentModules == null) {
+			if (other.parentModules != null)
+				return false;
+		} else if (!parentModules.equals(other.parentModules))
 			return false;
 		if (subject == null) {
 			if (other.subject != null)
