@@ -12,7 +12,5 @@ ENV DB_URL=$DB_URL
 ENV DB_USER=$DB_USER
 ENV DB_PASSWORD=$DB_PASSWORD
 EXPOSE 9002
-COPY src/main/resources/ojdbc7.jar .
-RUN mvn install:install-file -Dfile=ojdbc7.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0 -Dpackaging=jar
 COPY target/${JAR_FILE} app.jar
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/urandom -jar /app.jar" ]
