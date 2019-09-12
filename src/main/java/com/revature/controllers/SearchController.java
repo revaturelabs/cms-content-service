@@ -8,20 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import com.revature.entities.Content;
 import com.revature.services.SearchService;
@@ -45,14 +42,20 @@ public class SearchController {
 	}
 	
 	@LogException
-	@GetMapping (params= {"title", "format", "modules"})
-public Set<Content> getSearchResults(@RequestParam(value="title") String title, @RequestParam(value="format") String format, @RequestParam(value="modules") String modules) {
-//		@SuppressWarnings("unchecked")
-//		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
-//		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);
-		JSONArray moduleIds = new JSONArray(modules);
-		System.out.println(title + " " + format + " " + moduleIds);
-		return null;
+	@GetMapping /* (params= {"title", "format", "modules"}) */
+	public Set<Content> getSearchResults(
+			@RequestParam(value="title", required=false) String title,
+			@RequestParam(value="format", required=false) String format, 
+			@RequestParam(value="modules", required=false) String modules
+		) {
+		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		StringTokenizer st = new StringTokenizer(modules, ",");
+		while (st.hasMoreTokens()) {
+			moduleIdsList.add(Integer.parseInt(st.nextToken()));
+		}
+		
+		System.out.println(title + " " + format + " " + moduleIdsList);
+		return searchService.filter(title, format, moduleIdsList);
 	}
 	
 }
