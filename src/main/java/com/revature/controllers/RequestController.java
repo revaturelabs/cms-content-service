@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +27,7 @@ import com.revature.services.RequestModuleService;
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional
 @RestController
+@RequestMapping(value="/request")
 public class RequestController {
 
 	@Autowired
@@ -33,29 +36,29 @@ public class RequestController {
 	@Autowired
 	RequestModuleService requestModuleService;
 	
-	@RequestMapping(value = "/request", method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
+	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public Requests createRequest(@RequestBody Requests request ) throws Exception{
 		
 		request = requestService.createRequests(request);
 		return request;
 	}
 	
-	@GetMapping("/request")
+	@GetMapping()
 	public Set<Requests> getAllRequest() {
 		return (Set<Requests>) requestService.getAllRequests();
 	}
 	
-	@GetMapping("/request/{id}")
+	@GetMapping(value="{id}")
 	public Requests getRequestById(@PathVariable int id) {
 		return requestService.getRequestsById(id);
 	}
 	
-	@RequestMapping(value = "/request", method = RequestMethod.PUT, produces  = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Requests updateRequest(@RequestBody Requests newContent) {
 		return requestService.updateRequests(newContent);
 	}
 	
-	@DeleteMapping("/request/{id}")
+	@DeleteMapping(value="{id}")
 	public void deleteRequest(@PathVariable int id) {
 		Requests request = requestService.getRequestsById(id);
 		requestService.deleteRequests(request);
