@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +27,7 @@ import com.revature.services.ModuleService;
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional
 @RestController
+@RequestMapping(value="/content")
 public class ContentController {
 
 	@Autowired
@@ -33,7 +36,7 @@ public class ContentController {
 	@Autowired
 	ModuleService moduleService;
 	
-	@RequestMapping(value = "/content", method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
+	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content createContent(@RequestBody Content content ) throws Exception{
 		
 		content = contentService.createContent(content);
@@ -42,14 +45,14 @@ public class ContentController {
 	
 	// Returns a set of contents 
 	// Finds all the content in the repository 
-	@GetMapping("/content")
+	@GetMapping()
 	public Set<Content> getAllContent() {
 		return (Set<Content>) contentService.getAllContent();
 	}
 	
 	// Returns content depending on what ID is passed in
 	// Uses the findById method in the repository
-	@GetMapping("/content/{id}")
+	@GetMapping(value="{id}")
 	public Content getContentById(@PathVariable int id) {
 		return contentService.getContentById(id);
 	}
@@ -60,12 +63,12 @@ public class ContentController {
 	 * @return - the updated content
 	 * @throws - NullPointerException - if the newContent is null or the content doesn't already exist in content repo.
 	 */
-	@RequestMapping(value = "/content", method = RequestMethod.PUT, produces  = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content updateContent(@RequestBody Content newContent) {
 		return contentService.updateContent(newContent);
 	}
 	
-	@DeleteMapping("/content/{id}")
+	@DeleteMapping(value="{id}")
 	public void deleteContent(@PathVariable int id) {
 		Content content = contentService.getContentById(id);
 		contentService.deleteContent(content);
