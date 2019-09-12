@@ -27,7 +27,7 @@ public class Requests {
 	@Column(nullable=false)
 	private String description;
 
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private String url;
 	
 	/**
