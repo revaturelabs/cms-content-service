@@ -53,7 +53,7 @@ public class ModuleController {
 		return (Set<Module>) moduleService.getAllModulesByRoot();
 	}
 	
-	@GetMapping("/childrenmodules/{id}")
+	@GetMapping("/childrenmodules/{id}") //modules/id/children
     public Set<Module> getChildrenByModuleId(@PathVariable int id) {
         return (Set<Module>) moduleService.getChildrenByModuleId(id);
     }
