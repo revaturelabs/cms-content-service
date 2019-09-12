@@ -34,14 +34,6 @@ public class SearchController {
 	SearchService searchService;
 	
 	@LogException
-	@PostMapping
-	public Set<Content> filter(@RequestBody Map<String, Object> body) {
-		@SuppressWarnings("unchecked")
-		List<Integer> lst = (ArrayList<Integer>) body.get("modules");
-		return searchService.filter(body.get("title").toString(), body.get("format").toString(), lst);
-	}
-	
-	@LogException
 	@GetMapping /* (params= {"title", "format", "modules"}) */
 	public Set<Content> getSearchResults(
 			@RequestParam(value="title", required=false) String title,
