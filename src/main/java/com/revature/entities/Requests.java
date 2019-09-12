@@ -27,7 +27,7 @@ public class Requests {
 	@Column(nullable=false)
 	private String description;
 
-	@Column(nullable=false)
+	@Column(nullable=true)
 	private String url;
 	
 	/**
@@ -41,7 +41,7 @@ public class Requests {
 	@Column(name = "last_modified")
 	private long lastModified;
 	
-	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy ="requestId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
 	
 	public Requests() {

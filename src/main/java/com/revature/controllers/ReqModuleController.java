@@ -53,12 +53,12 @@ public class ReqModuleController {
 		return (Set<ReqModule>) reqModuleService.getAllReqModulesByRoot();
 	}
 	
-	@GetMapping("/childrenmodules/{id}")
+	@GetMapping("/childrenreqmodules/{id}")
     public Set<ReqModule> getChildrenByReqModuleId(@PathVariable int id) {
         return (Set<ReqModule>) reqModuleService.getChildrenByReqModuleId(id);
     }
 	
-	@PostMapping("/childrenmodules/set/{parent}/{child}")
+	@PostMapping("/childrenreqmodules/set/{parent}/{child}")
 	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
 		reqModuleService.setChildToParent(parentId,childId);
 	}
