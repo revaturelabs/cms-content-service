@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,7 +36,7 @@ public class ContentController {
 	@Autowired
 	ModuleService moduleService;
 	
-	@RequestMapping(method = RequestMethod.POST, produces  = MediaType.APPLICATION_JSON_VALUE) 
+	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content createContent(@RequestBody Content content ) throws Exception{
 		
 		content = contentService.createContent(content);
@@ -61,7 +63,7 @@ public class ContentController {
 	 * @return - the updated content
 	 * @throws - NullPointerException - if the newContent is null or the content doesn't already exist in content repo.
 	 */
-	@RequestMapping(method = RequestMethod.PUT, produces  = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content updateContent(@RequestBody Content newContent) {
 		return contentService.updateContent(newContent);
 	}
