@@ -42,20 +42,20 @@ public class Requests {
 	private long lastModified;
 	
 	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Zelda> zeldas;
+	private Set<ReqLink> reqLinks;
 	
 	public Requests() {
 		super();
 	}
 
-	public Requests(int id, String title, String format, String description, String url, Set<Zelda> zeldas, long dateCreated, long lastModified) {
+	public Requests(int id, String title, String format, String description, String url, Set<ReqLink> reqLinks, long dateCreated, long lastModified) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.zeldas = zeldas;
+		this.reqLinks = reqLinks;
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
 	}
@@ -100,12 +100,12 @@ public class Requests {
 		this.url = url;
 	}
 
-	public Set<Zelda> getLinks() {
-		return zeldas;
+	public Set<ReqLink> getReqLinks() {
+		return reqLinks;
 	}
 
-	public void setLinks(Set<Zelda> zeldas) {
-		this.zeldas = zeldas;
+	public void setReqLinks(Set<ReqLink> reqLinks) {
+		this.reqLinks = reqLinks;
 	}
 	
 
@@ -127,9 +127,9 @@ public class Requests {
 
 	@Override
 	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", zeldas="
-				+ zeldas + "]";
+		return "Request [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", reqLinks="
+				+ reqLinks + "]";
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class Requests {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
-		result = prime * result + ((zeldas == null) ? 0 : zeldas.hashCode());
+		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -169,10 +169,10 @@ public class Requests {
 			return false;
 		if (lastModified != other.lastModified)
 			return false;
-		if (zeldas == null) {
-			if (other.zeldas != null)
+		if (reqLinks == null) {
+			if (other.reqLinks != null)
 				return false;
-		} else if (!zeldas.equals(other.zeldas))
+		} else if (!reqLinks.equals(other.reqLinks))
 			return false;
 		if (title == null) {
 			if (other.title != null)

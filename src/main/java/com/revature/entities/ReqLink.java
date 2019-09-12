@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "zelda")
-public class Zelda {
+@Table(name = "reqLink")
+public class ReqLink {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "z_id")
@@ -23,11 +23,11 @@ public class Zelda {
 
 	private String affiliation;
 
-	public Zelda() {
+	public ReqLink() {
 		super();
 	}
 
-	public Zelda(int id, int requestId, int reqModuleId, String affiliation) {
+	public ReqLink(int id, int requestId, int reqModuleId, String affiliation) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
@@ -69,7 +69,7 @@ public class Zelda {
 
 	@Override
 	public String toString() {
-		return "Zelda [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + ", affiliation=" + affiliation
+		return "reqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + ", affiliation=" + affiliation
 				+ "]";
 	}
 
@@ -89,9 +89,9 @@ public class Zelda {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Zelda))
+		if (!(obj instanceof ReqLink))
 			return false;
-		Zelda other = (Zelda) obj;
+		ReqLink other = (ReqLink) obj;
 		if (affiliation == null) {
 			if (other.affiliation != null)
 				return false;

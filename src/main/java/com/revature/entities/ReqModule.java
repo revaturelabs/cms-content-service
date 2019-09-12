@@ -27,7 +27,7 @@ public class ReqModule {
 
 	private long created;
 	@OneToMany(mappedBy = "reqModuleId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Zelda> zeldas;
+	private Set<ReqLink> reqLinks;
 
 	//All parents of the module.
 	@ElementCollection
@@ -45,12 +45,12 @@ public class ReqModule {
 		super();
   }
   
-	public ReqModule(int id, String subject, long created, Set<Zelda> zeldas) {
+	public ReqModule(int id, String subject, long created, Set<ReqLink> reqLinks) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
-		this.zeldas = zeldas;
+		this.reqLinks = reqLinks;
 	}
 
 	public int getId() {
@@ -77,12 +77,12 @@ public class ReqModule {
 		this.created = created;
 	}
 
-	public Set<Zelda> getLinks() {
-		return zeldas;
+	public Set<ReqLink> getReqLinks() {
+		return reqLinks;
 	}
 
-	public void setLinks(Set<Zelda> zeldas) {
-		this.zeldas = zeldas;
+	public void setReqLinks(Set<ReqLink> reqLinks) {
+		this.reqLinks = reqLinks;
 	}
 	
 	public Set<Integer> getParentModules() {
@@ -101,13 +101,13 @@ public class ReqModule {
 		this.childrenModules = childrenModules;
 	}
 
-	public ReqModule(int id, String subject, long created, Set<Zelda> zeldas, Set<Integer> parentModules,
+	public ReqModule(int id, String subject, long created, Set<ReqLink> reqLinks, Set<Integer> parentModules,
 			Set<Integer> childrenModules) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
-		this.zeldas = zeldas;
+		this.reqLinks = reqLinks;
 		this.parentModules = parentModules;
 		this.childrenModules = childrenModules;
 	}
@@ -119,7 +119,7 @@ public class ReqModule {
 		int result = 1;
 		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
-		result = prime * result + ((zeldas == null) ? 0 : zeldas.hashCode());
+		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((parentModules == null) ? 0 : parentModules.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -139,10 +139,10 @@ public class ReqModule {
 			return false;
 		if (created != other.created)
 			return false;
-		if (zeldas == null) {
-			if (other.zeldas != null)
+		if (reqLinks == null) {
+			if (other.reqLinks != null)
 				return false;
-		} else if (!zeldas.equals(other.zeldas))
+		} else if (!reqLinks.equals(other.reqLinks))
 			return false;
 		if (parentModules == null) {
 			if (other.parentModules != null)
