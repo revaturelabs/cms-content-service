@@ -23,7 +23,7 @@ public interface RequestModuleService {
 	
 	public Set<ReqModule> getChildrenByReqModuleId(int id);
 	
-	public void setChildToParent(int parentId, int childId);
+	public void setChildToParent(ReqModule rmParent, ReqModule rmChild);
 
 	public void deleteReqModuleWithAllContent(ReqModule request);
 

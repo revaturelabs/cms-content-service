@@ -18,6 +18,8 @@ public interface RequestRepository extends CrudRepository<Requests,Integer>{
 	
 	Set<Requests> findById(int id);
 	
+	Set<Requests> findRequests(Requests requests);
+	
 	// return set of contents here; we will iterate through that set in timegraph service impl. 
 	Set<Requests> findByDateCreatedBetween(long startTime, long currentTime);
 	

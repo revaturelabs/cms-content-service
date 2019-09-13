@@ -62,8 +62,8 @@ public class ReqModuleController {
     }
 	
 	@PutMapping("/{parent}/children/{child}")
-	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
-		reqModuleService.setChildToParent(parentId,childId);
+	public void setChildToParent(@PathVariable("parent") ReqModule parent,@PathVariable("child") ReqModule child) {
+		reqModuleService.setChildToParent(parent,child);
 	}
 	
 	@DeleteMapping("/withrequest/{id}")

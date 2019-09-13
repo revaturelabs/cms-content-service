@@ -141,8 +141,8 @@ public class RequestModuleServiceImpl implements RequestModuleService {
 	}
 	
 	@Override
-	public void setChildToParent(int parentId, int childId) {
-		RequestModuleHierarchy reqModuleHierarchy = new RequestModuleHierarchy(parentId,childId);
+	public void setChildToParent(ReqModule rmParent, ReqModule rmChild) {
+		RequestModuleHierarchy reqModuleHierarchy = new RequestModuleHierarchy(rmParent,rmChild);
 		reqModuleHierarchy = rmhr.save(reqModuleHierarchy);
 	}
 	
@@ -150,8 +150,8 @@ public class RequestModuleServiceImpl implements RequestModuleService {
 	public void deleteReqModuleWithAllContent(ReqModule reqModule) {
 		Set<ReqLink> moduleList = reqModule.getReqLinks();
 		for(ReqLink specReqLink:moduleList) {
-			int requestId = specReqLink.getRequestId();
-			rr.deleteById(requestId);
+			Requests requests = specReqLink.getRequests();
+			rr.delete(requests);
 		}
 		rmr.delete(reqModule);
 	}
@@ -160,8 +160,8 @@ public class RequestModuleServiceImpl implements RequestModuleService {
 	public void deleteReqModuleWithSpecificContent(ReqModule reqModule) {
 		Set<ReqLink> moduleList = reqModule.getReqLinks();
 		for(ReqLink specReqLink:moduleList) {
-			int requestId = specReqLink.getRequestId();
-			Set<Requests> contentList = rr.findById(requestId);
+			Requests requests = specReqLink.getRequests();
+			Set<Requests> contentList = rr.findRequests(requests);
 			for(Requests specReq:contentList) {
 				if(specReq.getReqLinks().size() == 1) {
 					rr.deleteById(specReq.getId());
