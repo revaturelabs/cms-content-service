@@ -1,10 +1,14 @@
 package com.revature.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,11 +20,13 @@ public class RequestModuleHierarchy {
 	@Column(name = "t_id")
 	private int id;
 
-	@Column(name = "fk_rm_parent")
-	private int rmParent;
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_rm_parent")
+	private ReqModule rmParent;
 
-	@Column(name = "fk_rm_child")
-	private int rmChild;
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_rm_child")
+	private ReqModule rmChild;
 
 
 	public RequestModuleHierarchy() {
@@ -35,19 +41,19 @@ public class RequestModuleHierarchy {
 		this.id = id;
 	}
 
-	public int getmParent() {
+	public ReqModule getRmParent() {
 		return rmParent;
 	}
 
-	public void setmParent(int rmParent) {
+	public void setRmParent(ReqModule rmParent) {
 		this.rmParent = rmParent;
 	}
 
-	public int getmChild() {
+	public ReqModule getRmChild() {
 		return rmChild;
 	}
 
-	public void setmChild(int rmChild) {
+	public void setRmChild(ReqModule rmChild) {
 		this.rmChild = rmChild;
 	}
 
@@ -61,8 +67,8 @@ public class RequestModuleHierarchy {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + rmChild;
-		result = prime * result + rmParent;
+		result = prime * result + ((rmChild == null) ? 0 : rmChild.hashCode());
+		result = prime * result + ((rmParent == null) ? 0 : rmParent.hashCode());
 		return result;
 	}
 
@@ -77,14 +83,20 @@ public class RequestModuleHierarchy {
 		RequestModuleHierarchy other = (RequestModuleHierarchy) obj;
 		if (id != other.id)
 			return false;
-		if (rmChild != other.rmChild)
+		if (rmChild == null) {
+			if (other.rmChild != null)
+				return false;
+		} else if (!rmChild.equals(other.rmChild))
 			return false;
-		if (rmParent != other.rmParent)
+		if (rmParent == null) {
+			if (other.rmParent != null)
+				return false;
+		} else if (!rmParent.equals(other.rmParent))
 			return false;
 		return true;
 	}
 
-	public RequestModuleHierarchy(int rmParent, int rmChild) {
+	public RequestModuleHierarchy(ReqModule rmParent, ReqModule rmChild) {
 		this.rmParent = rmParent;
 		this.rmChild = rmChild;
 	}

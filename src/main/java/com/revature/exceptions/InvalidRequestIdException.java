@@ -6,11 +6,11 @@ package com.revature.exceptions;
  * @author 190617jta
  *
  */
-public class InvalidRequestId extends RuntimeException {
+public class InvalidRequestIdException extends RuntimeException {
 
 	private static final long serialVersionUID = -6234915356525286536L;
 
-	public InvalidRequestId(String msg) {
+	public InvalidRequestIdException(String msg) {
 		super(msg);
 	}
 }
