@@ -149,8 +149,8 @@ public class SearchServiceImpl implements SearchService {
 
 			for (Content c : copy) {
 
-				log.trace("linksInModules: " + linksInModules);
-				log.trace("c.getLinks(): " + c.getLinks());
+				log.info("linksInModules: " + linksInModules);
+				log.info("c.getLinks(): " + c.getLinks());
 
 				List<Integer> linkModuleIDs = new ArrayList<Integer>();
 
