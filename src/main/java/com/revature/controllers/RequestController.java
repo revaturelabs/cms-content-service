@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,9 +54,13 @@ public class RequestController {
 		return requestService.getRequestsById(id);
 	}
 	
-	@PutMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
-	public Requests updateRequest(@RequestBody Requests newContent) {
-		return requestService.updateRequests(newContent);
+	//is this the correct PutMapping?
+	@PutMapping(value="{id}")
+	public ResponseEntity<Requests> updateRequest(@PathVariable Integer Id, @RequestBody Requests r){
+		if(requestService.getRequestsById(Id) == null) {
+			return ResponseEntity.status(405).body(null);
+		}
+		return ResponseEntity.ok(requestService.updateRequests(r));
 	}
 	
 	@DeleteMapping(value="{id}")
