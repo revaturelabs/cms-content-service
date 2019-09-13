@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.ReqModule;
@@ -22,54 +23,55 @@ import com.revature.services.RequestModuleService;
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
 @Transactional
+@RequestMapping("/reqModules")
 public class ReqModuleController {
 
 	@Autowired
 	RequestModuleService reqModuleService;
 	
-	@GetMapping("/reqModule")
+	@GetMapping
 	public Set<ReqModule> getAllReqModules() {
 		return (Set<ReqModule>) reqModuleService.getAllReqModules();
 	}
 	
-	@GetMapping("/reqModule/{id}")
+	@GetMapping(value="{id}")
 	public ReqModule getReqModuleById(@PathVariable int id) {
 		return reqModuleService.getReqModuleById(id);
 	}
 	
-	@PostMapping("/reqModule")
+	@PostMapping
 	public ReqModule createReqModule(@RequestBody ReqModule reqModule) {
 		return reqModuleService.createReqModule(reqModule);
 	}
 	
-	@DeleteMapping("/reqModule/{id}")
+	@DeleteMapping(value="{id}")
 	public void deleteReqModule(@PathVariable int id) {
 		ReqModule reqModule = reqModuleService.getReqModuleById(id);
 		reqModuleService.deleteReqModule(reqModule);
 	}
 	
-	@GetMapping("/reqModule/roots")
+	@GetMapping("/roots")
 	public Set<ReqModule> getAllReqModulesByRoot(){
 		return (Set<ReqModule>) reqModuleService.getAllReqModulesByRoot();
 	}
 	
-	@GetMapping("/childrereqnmodules/{id}")
+	@GetMapping("/{id}/children")
     public Set<ReqModule> getChildrenByReqModuleId(@PathVariable int id) {
         return (Set<ReqModule>) reqModuleService.getChildrenByReqModuleId(id);
     }
 	
-	@PostMapping("/childrenreqmodules/set/{parent}/{child}")
+	@PostMapping("/{parent}/children/{child}")
 	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
 		reqModuleService.setChildToParent(parentId,childId);
 	}
 	
-	@DeleteMapping("/reqModule/withcontent/{id}")
+	@DeleteMapping("/withrequest/{id}")
 	public void deleteReqModuleWithContent(@PathVariable int id) {
 		ReqModule reqModule = reqModuleService.getReqModuleById(id);
 		reqModuleService.deleteReqModuleWithAllContent(reqModule);
 	}
 	
-	@DeleteMapping("/reqModule/speccontent/{id}")
+	@DeleteMapping("/specrequest/{id}")
 	public void deleteReqModuleWithSpecificContent(@PathVariable int id) {
 		ReqModule reqModule = reqModuleService.getReqModuleById(id);
 		reqModuleService.deleteReqModuleWithSpecificContent(reqModule);
