@@ -152,7 +152,7 @@ public class SearchServiceImpl implements SearchService {
 				}
 
 				/** 
-				 * For inclusive (OR) search, you want this false to begin with,
+				 * For inclusive (OR) search, you want inModule false to begin with,
 				 * and to flip inModule the moment a search tag is detected,
 				 * which tells the method that the content should be included in 
 				 * the search results
