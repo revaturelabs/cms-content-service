@@ -158,28 +158,13 @@ public class SearchServiceImpl implements SearchService {
 					linkModuleIDs.add(l.getModuleId());
 				}
 
-				if (orSearch) {
-					inModule = false;
+				inModule = !orSearch;
 
-					// if we want or search again remove ! and flip falses and trues
-					for (Integer m : modules) {
-						if (linkModuleIDs.contains(m)) {
+				for (Integer m : modules) {
+					if (linkModuleIDs.contains(m) == orSearch) {
 
-							inModule = true;
-							break;
-						}
-					}
-				}
-				else {
-					inModule = true;
-
-					// if we want or search again remove ! and flip falses and trues
-					for (Integer m : modules) {
-						if (!linkModuleIDs.contains(m)) {
-
-							inModule = false;
-							break;
-						}
+						inModule = !inModule;
+						break;
 					}
 				}
 
