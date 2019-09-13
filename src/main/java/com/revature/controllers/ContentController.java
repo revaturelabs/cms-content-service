@@ -63,7 +63,7 @@ public class ContentController {
 	 * @return - the updated content
 	 * @throws - NullPointerException - if the newContent is null or the content doesn't already exist in content repo.
 	 */
-	@PutMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value="{id}", produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content updateContent(@RequestBody Content newContent) {
 		return contentService.updateContent(newContent);
 	}

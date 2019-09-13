@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Module;
@@ -45,9 +46,21 @@ public class ModuleController {
 	}
 	
 	@DeleteMapping(value="{id}")
-	public void deleteModule(@PathVariable int id) {
+	public void deleteModule(@PathVariable int id, @RequestParam(value="type", required=false) String type) {
+		//get the module to be deleted
 		Module module = moduleService.getModuleById(id);
-		moduleService.deleteModule(module);
+		
+		//use string.equals(variable) to avoid null pointer exceptions because sometimes we don't get a value for "type"
+		if ("all".equals(type)) {
+			//delete the module and all content with any association with it
+			moduleService.deleteModuleWithAllContent(module);
+		} else if ("unique".equals(type)) {
+			//delete the module and the content that has an association with it and no other module
+			moduleService.deleteModuleWithSpecificContent(module);
+		} else {
+			//delete the module and nothing else
+			moduleService.deleteModule(module);
+		}
 	}
 	
 	@GetMapping("/roots")
@@ -64,16 +77,5 @@ public class ModuleController {
 	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
 		moduleService.setChildToParent(parentId,childId);
 	}
-	
-	@DeleteMapping("/withcontent/{id}")
-	public void deleteModuleWithContent(@PathVariable int id) {
-		Module module = moduleService.getModuleById(id);
-		moduleService.deleteModuleWithAllContent(module);
-	}
-	
-	@DeleteMapping("/speccontent/{id}")
-	public void deleteModuleWithSpecificContent(@PathVariable int id) {
-		Module module = moduleService.getModuleById(id);
-		moduleService.deleteModuleWithSpecificContent(module);
-	}
+
 }
