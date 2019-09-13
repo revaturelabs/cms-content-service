@@ -105,7 +105,7 @@ public class SearchServiceImpl implements SearchService {
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
 
-		boolean orSearch = false;
+		boolean orSearch = false;		// Allows switching between AND and OR module search
 
 		Set<Content> contents = null;
 		Set<Content> copy = null;
@@ -151,16 +151,31 @@ public class SearchServiceImpl implements SearchService {
 					linkModuleIDs.add(l.getModuleId());
 				}
 
+				/** 
+				 * For inclusive (OR) search, you want this false to begin with,
+				 * and to flip inModule the moment a search tag is detected,
+				 * which tells the method that the content should be included in 
+				 * the search results
+				 * 
+				 * For exclusive (AND) search, you want inModule to start as true
+				 * and to flip inModule to reject the content the moment a search
+				 * tag is not found in the content.
+				 */
 				inModule = !orSearch;
 
+				// This iterates through modules selected in the search box
 				for (Integer m : modules) {
-					if (linkModuleIDs.contains(m) == orSearch) {
+					
+					// When orSearch is true, any detected tag adds the content to the search	true == true
+					// When false, the current content lacking a module is rejected				false == false
+					if (linkModuleIDs.contains(m) == orSearch) {		
 
 						inModule = !inModule;
 						break;
 					}
 				}
 
+				// Removes content from the search if it does not belong there
 				if (!inModule) {
 					contents.remove(c);
 				}
