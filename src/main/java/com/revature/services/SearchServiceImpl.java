@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import com.revature.util.LogException;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-	
+
 	@Autowired
 	ContentRepository cr;
 	@Autowired
@@ -29,35 +31,36 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	ContentService csi;
 
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+
 	/**
-	 * filterContentByTitle takes in a string value and returns a map of 
-	 * content, with key-value pairs that are associated with the title
-	 * string that was passed into the method.
+	 * filterContentByTitle takes in a string value and returns a map of content,
+	 * with key-value pairs that are associated with the title string that was
+	 * passed into the method.
 	 */
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		Set<Content> temp = cr.findByTitle(title); 
+		Set<Content> temp = cr.findByTitle(title);
 		return temp;
 	}
 
 	/**
-	 * filderContentByFormat takes in a string value and returns a map of
-	 * content, with key-value pairs that are associated with the format
-	 * type string that was passed into the method
+	 * filderContentByFormat takes in a string value and returns a map of content,
+	 * with key-value pairs that are associated with the format type string that was
+	 * passed into the method
 	 */
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {
-		return cr.findByFormat(format); 
+		return cr.findByFormat(format);
 	}
 
 	/**
-	 * filterContentBySubjects takes in a list of integers that represent
-	 * module ids. It then stores all the related links of that module
-	 * in a temporary set.
-	 * then it gets all the content that relates to the selected links.
-	 * The method uses AND logic. 
+	 * filterContentBySubjects takes in a list of integers that represent module
+	 * ids. It then stores all the related links of that module in a temporary set.
+	 * then it gets all the content that relates to the selected links. The method
+	 * uses AND logic.
 	 */
 	@Override
 	@LogException
@@ -65,29 +68,28 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> contents = new HashSet<>();
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> idsTemp = new HashSet<>();
-		
+
 		Set<Link> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
-		for(Link link : linksByModuleID) {
+		for (Link link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
 
-		for(int i = 1; i < moduleIds.size(); i++) {
+		for (int i = 1; i < moduleIds.size(); i++) {
 			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
-			for(Link link : linksByModuleID) {
+			for (Link link : linksByModuleID) {
 				idsTemp.add(link.getContentId());
 			}
 			ids.retainAll(idsTemp);
 		}
-		
-		cr.findAllById(ids).forEach(contents :: add);
-		
-		return contents;	
+
+		cr.findAllById(ids).forEach(contents::add);
+
+		return contents;
 	}
-	
+
 	/**
-	 * getContentByModuleID takes in a int that is a module id and 
-	 * returns a set of content that have the inputed value as 
-	 * the moduleID.
+	 * getContentByModuleID takes in a int that is a module id and returns a set of
+	 * content that have the inputed value as the moduleID.
 	 */
 	@Override
 	@LogException
@@ -98,130 +100,152 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/**
-	 * Filter takes a content title, content format and/or
-	 * a list of Integers that represent module ids.
-	 * It will then return a set of content that contains all content that 
-	 * matches all 3 inputs using AND logic.
-	 * If an input is empty it is ignored and is not part of the logic.
+	 * Filter takes a content title, content format and/or a list of Integers that
+	 * represent module ids. It will then return a set of content that contains all
+	 * content that matches all 3 inputs using AND logic. If an input is empty it is
+	 * ignored and is not part of the logic.
 	 */
 	@Override
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> modules) {
-		
+
+		boolean orSearch = false;
+
 		Set<Content> contents = null;
 		Set<Content> copy = null;
-		
-		if(format != null && !format.equals("All") && !format.equals("")) {
+
+		if (format != null && !format.equals("All") && !format.equals("")) {
 			contents = cr.findByFormat(format);
 		}
-		
-		if(title != null && !title.equals("")) {
-			
-			if(contents == null) {
-				
+
+		if (title != null && !title.equals("")) {
+
+			if (contents == null) {
+
 				contents = cr.findByTitleContaining(title);
-				
+
 			} else {
-				
+
 				copy = new HashSet<Content>(contents);
-				
-				for(Content c : copy) {
-					
-					if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
+
+				for (Content c : copy) {
+
+					if (!c.getTitle().toLowerCase().contains(title.toLowerCase()))
 						contents.remove(c);
 				}
 			}
 		}
-		
-		if(contents == null) {
+
+		if (contents == null) {
 			contents = csi.getAllContent();
 		}
-		
-		if(modules != null && !modules.isEmpty()) {
-			
+
+		if (modules != null && !modules.isEmpty()) {
+
 			copy = new HashSet<Content>(contents);
 			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
-			
+
 			boolean inModule;
-			
-			for(Content c : copy) {
-				
-				inModule = false;
-				
-				for(Link l : c.getLinks()) {
-					
-					if(linksInModules.contains(l)) {
-						
-						inModule = true;
-						break;
+
+			for (Content c : copy) {
+
+				log.trace("linksInModules: " + linksInModules);
+				log.trace("c.getLinks(): " + c.getLinks());
+
+				List<Integer> linkModuleIDs = new ArrayList<Integer>();
+
+				for (Link l : c.getLinks()) {
+					linkModuleIDs.add(l.getModuleId());
+				}
+
+				if (orSearch) {
+					inModule = false;
+
+					// if we want or search again remove ! and flip falses and trues
+					for (Integer m : modules) {
+						if (linkModuleIDs.contains(m)) {
+
+							inModule = true;
+							break;
+						}
 					}
 				}
-				
-				if(!inModule) {
+				else {
+					inModule = true;
+
+					// if we want or search again remove ! and flip falses and trues
+					for (Integer m : modules) {
+						if (!linkModuleIDs.contains(m)) {
+
+							inModule = false;
+							break;
+						}
+					}
+				}
+
+				if (!inModule) {
 					contents.remove(c);
 				}
 			}
 		}
-		
+
 		return contents;
 	}
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
-		
+
 		Set<Content> copy;
-		
+
 		String title = (String) filters.get("title");
 		String format = (String) filters.get("format");
 		boolean isTitle = false;
 		boolean isFormat = false;
-		
-		if(title != null && !title.isEmpty()) {
+
+		if (title != null && !title.isEmpty()) {
 			isTitle = true;
 		}
-		if(format != null && !format.equals("All")) {
+		if (format != null && !format.equals("All")) {
 			isFormat = true;
 		}
-			
-		if(isTitle || isFormat) {
+
+		if (isTitle || isFormat) {
 			copy = new HashSet<Content>(contents);
-			
-			for(Content c : copy) {
-				
-				if(isTitle && !c.getTitle().toLowerCase().contains(title.toLowerCase()))
+
+			for (Content c : copy) {
+
+				if (isTitle && !c.getTitle().toLowerCase().contains(title.toLowerCase()))
 					contents.remove(c);
-				if(isFormat && !c.getFormat().equals(format))
+				if (isFormat && !c.getFormat().equals(format))
 					contents.remove(c);
 			}
 		}
-			
+
 		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
-		
-		if(ids != null && !ids.isEmpty()) {
+
+		if (ids != null && !ids.isEmpty()) {
 
 			copy = new HashSet<Content>(contents);
-			
+
 			boolean inModule = false;
-			
-			for(Content c : copy) {
-				
+
+			for (Content c : copy) {
+
 				inModule = false;
-				
-				for(Link l : c.getLinks()) {
-					
-					if(ids.contains(l.getModuleId())) {
+
+				for (Link l : c.getLinks()) {
+
+					if (ids.contains(l.getModuleId())) {
 						inModule = true;
 						break;
 					}
 				}
-				
-				if(!inModule)
+
+				if (!inModule)
 					contents.remove(c);
 			}
 		}
-		
+
 		return contents;
 	}
 }
-
-	
