@@ -139,21 +139,28 @@ public class SearchServiceImpl implements SearchService {
 		
 		if(modules != null && !modules.isEmpty()) {
 			
+			boolean orSearch = true;
+			
 			copy = new HashSet<Content>(contents);
 			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
 			
-			boolean inModule;
+			boolean inModule = false;
 			
 			for(Content c : copy) {
-				
-				inModule = false;
+				List<Integer> linkModuleIDs = new ArrayList<Integer>();
 				
 				for(Link l : c.getLinks()) {
+					linkModuleIDs.add(l.getModuleId());
+				}
+			
+				if(orSearch) {
+					inModule = false;
 					
-					if(linksInModules.contains(l)) {
-						
-						inModule = true;
-						break;
+					for (Integer m : modules) {
+						if(linkModuleIDs.contains(m)) {
+							inModule = true;
+							break;
+						}
 					}
 				}
 				
@@ -161,8 +168,36 @@ public class SearchServiceImpl implements SearchService {
 					contents.remove(c);
 				}
 			}
+			
+//			boolean orSearch = true;
+//			
+//			copy = new HashSet<Content>(contents);
+//			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
+//			
+//			boolean inModule;
+//			
+//			for(Content c : copy) {
+//				
+//				inModule = !orSearch;
+//				List<Integer> linkModuleIDs = new ArrayList<Integer>();
+//				
+//				for(Link l : c.getLinks()) {
+//					linkModuleIDs.add(l.getModuleId());
+//				}
+//				
+//				for (Integer m : modules) {
+//					if(linkModuleIDs.contains(m) == orSearch) {
+//						inModule = !inModule;
+//						break;
+//					}
+//				}
+//				
+//				if(!inModule) {
+//					contents.remove(c);
+//				}
+//			}
 		}
-		
+		System.out.println("HEllo? " + contents);
 		return contents;
 	}
 
