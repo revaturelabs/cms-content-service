@@ -6,8 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +28,6 @@ public class SearchServiceImpl implements SearchService {
 	LinkRepository lr;
 	@Autowired
 	ContentService csi;
-
-	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * filterContentByTitle takes in a string value and returns a map of content,
@@ -148,9 +144,6 @@ public class SearchServiceImpl implements SearchService {
 			boolean inModule;
 
 			for (Content c : copy) {
-
-				log.info("linksInModules: " + linksInModules);
-				log.info("c.getLinks(): " + c.getLinks());
 
 				List<Integer> linkModuleIDs = new ArrayList<Integer>();
 
