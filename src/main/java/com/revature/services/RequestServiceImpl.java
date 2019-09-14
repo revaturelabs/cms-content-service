@@ -3,7 +3,6 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,14 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.entities.Requests;
-import com.revature.entities.RequestsMinusReqLinks;
 import com.revature.entities.ReqLink;
+import com.revature.entities.Requests;
 import com.revature.exceptions.InvalidRequestException;
-import com.revature.exceptions.InvalidRequestId;
+import com.revature.exceptions.InvalidRequestIdException;
+import com.revature.repositories.ModuleRepository;
 import com.revature.repositories.ReqLinkRepository;
 import com.revature.repositories.RequestRepository;
-import com.revature.repositories.ReqModuleRepository;
 import com.revature.util.LogException;
 
 @Service
@@ -30,7 +28,7 @@ public class RequestServiceImpl implements RequestService {
 	@Autowired 
 	ReqLinkRepository rlr;
 	@Autowired
-	ReqModuleRepository rmr;
+	ModuleRepository rmr;
 
 	@LogException
 	@Override
@@ -76,19 +74,6 @@ public class RequestServiceImpl implements RequestService {
 		}
 	
 	/**
-	 * Ignores the additional DB call to get the list of reqLinks associated with a requests object
-	 */
-	public Set<Requests> getAllRequestsMinusReqLinks(){		
-		Set<Requests> requests = new HashSet<>();
-		List<RequestsMinusReqLinks> req = rr.findAllRequestsBy();
-		
-		for(RequestsMinusReqLinks r: req) {
-			requests.add(new Requests(r.getId(), r.getTitle(), r.getFormat(), r.getDescription(), r.getUrl(), null, r.getDateCreated(), r.getLastModified()));
-		}
-		return requests;
-	}
-	
-	/**
 	 * get requests from the data base that match a passed in id
 	 * then returns the requests with that id.
 	 */
@@ -120,7 +105,7 @@ public class RequestServiceImpl implements RequestService {
 			throw new InvalidRequestException("updateRequests, newRequests is null");
 		
 		if(Character.isDigit(newRequests.getId()))
-			throw new InvalidRequestId("updateRequests, newRequests does not have a valid Id");
+			throw new InvalidRequestIdException("updateRequests, newRequests does not have a valid Id");
 		
 		Set<ReqLink> oldReqLinks = new HashSet<>();
 		Set<ReqLink> newReqLinks = new HashSet<>();
@@ -145,7 +130,7 @@ public class RequestServiceImpl implements RequestService {
 		Requests oldRequests = this.getRequestsById(newRequests.getId());
 		
 		if(oldRequests == null)
-			throw new InvalidRequestException("updateRequests, newRequests is null");
+			throw new InvalidRequestIdException("updateRequests, newRequests is null");
 
 		return rr.save(newRequests);
 	}

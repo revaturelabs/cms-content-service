@@ -1,13 +1,11 @@
 package com.revature.repositories;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Requests;
-import com.revature.entities.RequestsMinusReqLinks;
 
 @Repository
 public interface RequestRepository extends CrudRepository<Requests,Integer>{
@@ -25,7 +23,5 @@ public interface RequestRepository extends CrudRepository<Requests,Integer>{
 	
 	//Gets content by title
 	Set<Requests> findByTitleContaining(String title);
-	
-	List<RequestsMinusReqLinks> findAllRequestsBy();
 	
 }

@@ -18,12 +18,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Requests;
 import com.revature.services.RequestService;
-import com.revature.services.RequestModuleService;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional
@@ -33,9 +31,6 @@ public class RequestController {
 
 	@Autowired
 	RequestService requestService;
-	
-	@Autowired
-	RequestModuleService requestModuleService;
 	
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public Requests createRequest(@RequestBody Requests request ) throws Exception{

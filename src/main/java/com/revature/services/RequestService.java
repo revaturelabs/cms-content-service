@@ -17,7 +17,5 @@ public interface RequestService {
     
     public Requests updateRequests(Requests newRequests);
     
-    public Set<Requests> getAllRequestsMinusReqLinks();
-    
     public void deleteRequests(Requests requests);
 }

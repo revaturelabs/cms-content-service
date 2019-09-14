@@ -35,11 +35,11 @@ public class Requests {
 	 * displaying a graphical representation of content created over a period of time.
 	 */
 	
-	@Column(name = "created")
-	private long dateCreated;
+	@Column(name = "created", nullable=true)
+	private Long dateCreated;
 	
-	@Column(name = "last_modified")
-	private long lastModified;
+	@Column(name = "last_modified", nullable=true)
+	private Long lastModified;
 	
 	@OneToMany(mappedBy ="requestId", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
@@ -48,7 +48,7 @@ public class Requests {
 		super();
 	}
 
-	public Requests(int id, String title, String format, String description, String url, Set<ReqLink> reqLinks, long dateCreated, long lastModified) {
+	public Requests(int id, String title, String format, String description, String url, Set<ReqLink> reqLinks, Long dateCreated, Long lastModified) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -136,10 +136,11 @@ public class Requests {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (dateCreated ^ (dateCreated >>> 32));
+		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
-		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
+		result = prime * result + id;
+		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
 		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
@@ -152,10 +153,13 @@ public class Requests {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Requests))
+		if (getClass() != obj.getClass())
 			return false;
 		Requests other = (Requests) obj;
-		if (dateCreated != other.dateCreated)
+		if (dateCreated == null) {
+			if (other.dateCreated != null)
+				return false;
+		} else if (!dateCreated.equals(other.dateCreated))
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -167,7 +171,12 @@ public class Requests {
 				return false;
 		} else if (!format.equals(other.format))
 			return false;
-		if (lastModified != other.lastModified)
+		if (id != other.id)
+			return false;
+		if (lastModified == null) {
+			if (other.lastModified != null)
+				return false;
+		} else if (!lastModified.equals(other.lastModified))
 			return false;
 		if (reqLinks == null) {
 			if (other.reqLinks != null)

@@ -3,7 +3,6 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,12 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentMinusLinks;
 import com.revature.entities.Link;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -80,19 +78,6 @@ public class ContentServiceImpl implements ContentService {
 			cr.findAll().forEach(contents :: add);
 			return contents;
 		}
-	
-	/**
-	 * Ignores the additional DB call to get the list of links associated with a content object
-	 */
-	public Set<Content> getAllContentMinusLinks(){		
-		Set<Content> contents = new HashSet<>();
-		List<ContentMinusLinks> con = cr.findAllContentBy();
-		
-		for(ContentMinusLinks c: con) {
-			contents.add(new Content(c.getId(), c.getTitle(), c.getFormat(), c.getDescription(), c.getUrl(), null, c.getDateCreated(), c.getLastModified()));
-		}
-		return contents;
-	}
 	
 	/**
 	 * get content from the data base that match a passed in id

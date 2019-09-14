@@ -21,18 +21,15 @@ public class ReqLink {
 	@Column(name = "fk_rm")
 	private int reqModuleId;
 
-	private String affiliation;
-
 	public ReqLink() {
 		super();
 	}
 
-	public ReqLink(int id, int requestId, int reqModuleId, String affiliation) {
+	public ReqLink(int id, int requestId, int reqModuleId) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
 		this.reqModuleId = reqModuleId;
-		this.affiliation = affiliation;
 	}
 
 	public int getId() {
@@ -59,27 +56,18 @@ public class ReqLink {
 		this.reqModuleId = reqModuleId;
 	}
 
-	public String getAffiliation() {
-		return affiliation;
-	}
-
-	public void setAffiliation(String affiliation) {
-		this.affiliation = affiliation;
-	}
-
 	@Override
 	public String toString() {
-		return "reqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + ", affiliation=" + affiliation
-				+ "]";
+		return "ReqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
-		result = prime * result + requestId;
+		result = prime * result + id;
 		result = prime * result + reqModuleId;
+		result = prime * result + requestId;
 		return result;
 	}
 
@@ -89,17 +77,14 @@ public class ReqLink {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof ReqLink))
+		if (getClass() != obj.getClass())
 			return false;
 		ReqLink other = (ReqLink) obj;
-		if (affiliation == null) {
-			if (other.affiliation != null)
-				return false;
-		} else if (!affiliation.equals(other.affiliation))
-			return false;
-		if (requestId != other.requestId)
+		if (id != other.id)
 			return false;
 		if (reqModuleId != other.reqModuleId)
+			return false;
+		if (requestId != other.requestId)
 			return false;
 		return true;
 	}
