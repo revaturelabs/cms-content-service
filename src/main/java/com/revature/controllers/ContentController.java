@@ -61,7 +61,7 @@ public class ContentController {
 	}
 	
 	@LogException
-	@GetMapping /* (params= {"title", "format", "modules"}) */
+	@GetMapping (params= {"title", "format", "modules"})
 	public Set<Content> getSearchResults(
 			@RequestParam(value="title", required=false) String title,
 			@RequestParam(value="format", required=false) String format, 
