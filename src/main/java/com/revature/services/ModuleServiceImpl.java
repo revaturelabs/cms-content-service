@@ -62,9 +62,11 @@ public class ModuleServiceImpl implements ModuleService {
 		if(module.getChildrenModules() == null){
 			module.setChildrenModules(Collections.emptySet());
 		}
+		/*
 		if(module.getParentModules() == null){
 			module.setParentModules(Collections.emptySet());
 		}
+		*/
 		module = mr.save(module);
 		return module;
 	}
@@ -112,7 +114,8 @@ public class ModuleServiceImpl implements ModuleService {
 		return modules;
 	}
 	
-	Set<Module> findModuleByNoParent(){
+	public Set<Module> findModuleByNoParent(){
+		/*
 		Set<Module> modules = getAllModules();
 		Set<Module> finModules = new HashSet<>();
 		for(Module specModule: modules) {
@@ -121,7 +124,10 @@ public class ModuleServiceImpl implements ModuleService {
 			}
 		}
 		return finModules;
+		*/
+		return null;
 	}	
+	
 	@Override
 	public Set<Module> getChildrenByModuleId(int id){
 		Module parent = mr.findById(id);
