@@ -36,6 +36,7 @@ public class ModuleController {
 	//create a single module
 	@PostMapping
 	public ResponseEntity<Module> createModule(@RequestBody Module module) {
+		System.out.println("Getting here");
 		return ResponseEntity.ok(moduleService.createModule(module));
 	}
 	

@@ -58,15 +58,17 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
-		if(module.getChildrenModules() == null){
-			module.setChildrenModules(Collections.emptySet());
+		if(module.getChildModules() == null){
+			module.setChildModules(Collections.emptySet());
 		}
 		/*
 		if(module.getParentModules() == null){
 			module.setParentModules(Collections.emptySet());
 		}
 		*/
+		System.out.println("Module to be saved: " + module);
 		module = mr.save(module);
+		System.out.println("Module has been saved");
 		return module;
 	}
 
@@ -137,9 +139,9 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	Set<Module> getChildren(Module parent){
 		Set<Module> childrenModule = new HashSet<>();
-		Set<Integer> children = parent.getChildrenModules();
-		for(Integer moduleID: children) {
-			Module child = mr.findById(moduleID.intValue());
+		Set<Module> children = parent.getChildModules();
+		for(Module module: children) {
+			Module child = mr.findById(module.getId());
 			childrenModule.add(child);
 		}
 		return childrenModule;
