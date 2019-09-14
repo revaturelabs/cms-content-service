@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,11 @@ public class ModuleController {
 	@Autowired
 	ModuleService moduleService;
 	
+	@PostMapping
+	public Module createModule(@RequestBody Module module) {
+		return moduleService.createModule(module);
+	}
+	
 	@GetMapping
 	public Set<Module> getAllModules() {
 		return (Set<Module>) moduleService.getAllModules();
@@ -40,9 +46,19 @@ public class ModuleController {
 		return moduleService.getModuleById(id);
 	}
 	
-	@PostMapping
-	public Module createModule(@RequestBody Module module) {
-		return moduleService.createModule(module);
+	@GetMapping("/roots")
+	public Set<Module> getAllModulesByRoot(){
+		return (Set<Module>) moduleService.getAllModulesByRoot();
+	}
+	
+	@GetMapping("/{id}/children")
+    public Set<Module> getChildrenByModuleId(@PathVariable int id) {
+        return (Set<Module>) moduleService.getChildrenByModuleId(id);
+    }
+	
+	@PutMapping("/{id}")
+	public void updateModule(@PathVariable("id") int id, @RequestBody Module module) {
+		moduleService.updateModule(module);
 	}
 	
 	@DeleteMapping(value="{id}")
@@ -52,7 +68,7 @@ public class ModuleController {
 		
 		//use string.equals(variable) to avoid null pointer exceptions because sometimes we don't get a value for "type"
 		if ("all".equals(type)) {
-			//delete the module and all content with any association with it
+			//delete the module and all content that has an association with it
 			moduleService.deleteModuleWithAllContent(module);
 		} else if ("unique".equals(type)) {
 			//delete the module and the content that has an association with it and no other module
@@ -61,21 +77,6 @@ public class ModuleController {
 			//delete the module and nothing else
 			moduleService.deleteModule(module);
 		}
-	}
-	
-	@GetMapping("/roots")
-	public Set<Module> getAllModulesByRoot(){
-		return (Set<Module>) moduleService.getAllModulesByRoot();
-	}
-
-	@GetMapping("/{id}/children")
-    public Set<Module> getChildrenByModuleId(@PathVariable int id) {
-        return (Set<Module>) moduleService.getChildrenByModuleId(id);
-    }
-	
-	@PostMapping("/{parent}/children/{child}")
-	public void setChildToParent(@PathVariable("parent") int parentId,@PathVariable("child") int childId) {
-		moduleService.setChildToParent(parentId,childId);
 	}
 
 }

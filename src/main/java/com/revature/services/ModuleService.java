@@ -24,9 +24,9 @@ public interface ModuleService {
 	
 	public Set<Module> getChildrenByModuleId(int id);
 	
-	public void setChildToParent(int parentId, int childId);
-
 	public void deleteModuleWithAllContent(Module module);
 
 	public void deleteModuleWithSpecificContent(Module module);
+
+	public void updateModule(Module module);
 }

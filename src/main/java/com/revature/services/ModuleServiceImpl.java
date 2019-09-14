@@ -141,12 +141,6 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 	
 	@Override
-	public void setChildToParent(int parentId, int childId) {
-		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(parentId,childId);
-		moduleHierarchy = mhr.save(moduleHierarchy);
-	}
-	
-	@Override
 	public void deleteModuleWithAllContent(Module module) {
 		Set<Link> moduleList = module.getLinks();
 		for(Link specLink:moduleList) {
@@ -170,6 +164,12 @@ public class ModuleServiceImpl implements ModuleService {
 			}
 		}
 		mr.delete(module);
+	}
+
+	@Override
+	public void updateModule(Module module) {
+		mr.save(module);
+		
 	}
 }
 

@@ -1,10 +1,12 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
  */
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,12 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
 import com.revature.services.ContentService;
-import com.revature.services.ModuleService;
+import com.revature.services.SearchService;
+import com.revature.util.LogException;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional
@@ -34,7 +37,7 @@ public class ContentController {
 	ContentService contentService;
 	
 	@Autowired
-	ModuleService moduleService;
+	SearchService searchService;
 	
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content createContent(@RequestBody Content content ) throws Exception{
@@ -55,6 +58,21 @@ public class ContentController {
 	@GetMapping(value="{id}")
 	public Content getContentById(@PathVariable int id) {
 		return contentService.getContentById(id);
+	}
+	
+	@LogException
+	@GetMapping /* (params= {"title", "format", "modules"}) */
+	public Set<Content> getSearchResults(
+			@RequestParam(value="title", required=false) String title,
+			@RequestParam(value="format", required=false) String format, 
+			@RequestParam(value="modules", required=false) String modules
+		) {
+		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		StringTokenizer st = new StringTokenizer(modules, ",");
+		while (st.hasMoreTokens()) {
+			moduleIdsList.add(Integer.parseInt(st.nextToken()));
+		}
+		return searchService.filter(title, format, moduleIdsList);
 	}
 	
 	/**
