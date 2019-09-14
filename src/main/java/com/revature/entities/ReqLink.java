@@ -19,13 +19,11 @@ public class ReqLink {
 	@Column(name = "z_id")
 	private int id;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name = "fk_r")
-	private Requests requests;
+	@Column(name = "fk_r")
+	private int requestId;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name = "fk_rm")
-	private ReqModule reqModule;
+	@Column(name = "fk_rm")
+	private int reqModuleId;
 
 	public ReqLink() {
 		super();
@@ -46,20 +44,20 @@ public class ReqLink {
 		this.id = id;
 	}
 
-	public Requests getRequests() {
-		return requests;
+	public int getRequestId() {
+		return requestId;
 	}
 
-	public void setRequests(Requests requests) {
-		this.requests = requests;
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
 	}
 
-	public ReqModule getReqModule() {
-		return reqModule;
+	public int getReqModuleId() {
+		return reqModuleId;
 	}
 
-	public void setReqModule(ReqModule reqModule) {
-		this.reqModule = reqModule;
+	public void setReqModuleId(int reqModuleId) {
+		this.reqModuleId = reqModuleId;
 	}
 
 	@Override
@@ -88,15 +86,7 @@ public class ReqLink {
 		ReqLink other = (ReqLink) obj;
 		if (id != other.id)
 			return false;
-		if (reqModule == null) {
-			if (other.reqModule != null)
-				return false;
-		} else if (!reqModule.equals(other.reqModule))
-			return false;
-		if (requests == null) {
-			if (other.requests != null)
-				return false;
-		} else if (!requests.equals(other.requests))
+		if (reqModuleId != other.reqModuleId)
 			return false;
 		if (requestId != other.requestId)
 			return false;
