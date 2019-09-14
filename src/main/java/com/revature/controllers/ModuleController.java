@@ -7,6 +7,8 @@ package com.revature.controllers;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -62,7 +64,13 @@ public class ModuleController {
 	}
 	
 	@DeleteMapping(value="{id}")
-	public void deleteModule(@PathVariable int id, @RequestParam(value="type", required=false) String type) {
+	public void deleteModule(@PathVariable int id) {
+		Module module = moduleService.getModuleById(id);
+		moduleService.deleteModule(module);
+	}
+	
+	@DeleteMapping(value="{id}", params= {"type"})
+	public ResponseEntity deleteModule(@PathVariable int id, @RequestParam(value="type", required=false) String type) {
 		//get the module to be deleted
 		Module module = moduleService.getModuleById(id);
 		
@@ -74,9 +82,9 @@ public class ModuleController {
 			//delete the module and the content that has an association with it and no other module
 			moduleService.deleteModuleWithSpecificContent(module);
 		} else {
-			//delete the module and nothing else
-			moduleService.deleteModule(module);
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
+		return new ResponseEntity(HttpStatus.OK);
 	}
 
 }
