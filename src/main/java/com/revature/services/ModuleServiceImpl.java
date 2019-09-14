@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
@@ -141,8 +141,8 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
-		Set<Link> moduleList = module.getLinks();
-		for(Link specLink:moduleList) {
+		Set<ContentPlusModules> moduleList = module.getLinks();
+		for(ContentPlusModules specLink:moduleList) {
 			int contentId = specLink.getContentId();
 			cr.deleteById(contentId);
 		}
@@ -151,8 +151,8 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
-		Set<Link> moduleList = module.getLinks();
-		for(Link specLink:moduleList) {
+		Set<ContentPlusModules> moduleList = module.getLinks();
+		for(ContentPlusModules specLink:moduleList) {
 			int contentId = specLink.getContentId();
 			Set<Content> contentList = cr.findById(contentId);
 			for(Content specCon:contentList) {

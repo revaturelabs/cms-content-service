@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.util.ContentWrapper;
 
 public class ContentWrapperTest {
@@ -17,7 +17,7 @@ public class ContentWrapperTest {
 	//The components needed to test
 	Content c1;
 	Content c2;
-	Link[] links;
+	ContentPlusModules[] links;
 	
 	ContentWrapper cw1;
 	ContentWrapper cw2;
@@ -28,12 +28,12 @@ public class ContentWrapperTest {
 		c1 = new Content(99, "Java a New Begining", "String", 
 						"The Java the brought hope back", 
 						"https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), 15554l, 15554l);
+				new HashSet<ContentPlusModules>(), 15554l, 15554l);
 		c2 = new Content(114, "Java the phantom menance", "String", 
 						"The one with the cool darth", 
 						"https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), 1555444l, 1555444l);
-		links = new Link[2];
+				new HashSet<ContentPlusModules>(), 1555444l, 1555444l);
+		links = new ContentPlusModules[2];
 		
 		cw1 = new ContentWrapper(c1, links);
 		cw2 = new ContentWrapper(c2, links);
@@ -86,7 +86,7 @@ public class ContentWrapperTest {
 
 	@Test
 	public void testSetLinks() {
-		Link[] tmp = new Link[8];
+		ContentPlusModules[] tmp = new ContentPlusModules[8];
 		cw2.setLinks(tmp);
 		assertTrue(cw2.getLinks().equals(tmp));
 	}

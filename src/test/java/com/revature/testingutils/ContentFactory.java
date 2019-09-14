@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 
 /**
  * This is a utility class meant to reduce the repetition caused by
@@ -32,8 +32,8 @@ public class ContentFactory {
 	 */
 	public static Content getContent () {
 		//generate link set
-		Set<Link> links = new HashSet<Link> ();
-		Link link = new Link (linkId, id, moduleId,"link-affiliation");
+		Set<ContentPlusModules> links = new HashSet<ContentPlusModules> ();
+		ContentPlusModules link = new ContentPlusModules (linkId, id, moduleId,"link-affiliation");
 		links.add(link);
 		
 		//generate content object

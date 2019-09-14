@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -25,9 +25,9 @@ public class ContentTest {
 	@BeforeTest
 	public void setup() {
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), 15554l, 15554l);
+				new HashSet<ContentPlusModules>(), 15554l, 15554l);
 		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), 1555444l, 1555444l);
+				new HashSet<ContentPlusModules>(), 1555444l, 1555444l);
 	}
 	
 	//null out the testing content
@@ -50,10 +50,10 @@ public class ContentTest {
 	@Test
 	public void testContentIntStringStringStringStringSetOfLinkLongLong() {
 		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), 15554l, 15554l);
+				new HashSet<ContentPlusModules>(), 15554l, 15554l);
 		assertTrue(one instanceof Content);
 		Content two = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), 1555444l, 1555444l);
+				new HashSet<ContentPlusModules>(), 1555444l, 1555444l);
 		assertTrue(one != two);
 	}
 
@@ -116,14 +116,14 @@ public class ContentTest {
 
 	@Test
 	public void testGetLinks() {
-		Set<Link> link = new HashSet<Link>();
+		Set<ContentPlusModules> link = new HashSet<ContentPlusModules>();
 		assertTrue(c1.getLinks().equals(link));
 	}
 
 	@Test
 	public void testSetLinks() {
-		Set<Link> link = new HashSet<Link>();
-		link.add(new Link(55, 484, 555, "Java Wars"));
+		Set<ContentPlusModules> link = new HashSet<ContentPlusModules>();
+		link.add(new ContentPlusModules(55, 484, 555, "Java Wars"));
 		c2.setLinks(link);
 		assertTrue(c2.getLinks().equals(link));
 	}

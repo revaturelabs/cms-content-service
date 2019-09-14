@@ -16,7 +16,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
@@ -46,11 +46,11 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@Mock
 	ModuleRepository modRep;
 	//A Set of Link objects to store the links within the content
-	Set<Link> links;
+	Set<ContentPlusModules> links;
 	//A variable to store the Link value for the content
-	Link mockLink;
+	ContentPlusModules mockLink;
 	//A variable for storing the value of the Link returned
-	Link retLink;
+	ContentPlusModules retLink;
 	//A variable for storing the value for the Content returned
 	Content ret;
 	//A variable for storing the value of another Content object
@@ -86,13 +86,13 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 		mockContent.setDescription("Bloohbitty");
 		mockContent.setUrl("www.blahbitty.com");
 		//Create a new Link object
-		mockLink = new Link(3,mockContent.getId(),7,"Blah");
+		mockLink = new ContentPlusModules(3,mockContent.getId(),7,"Blah");
 		//create a new HashSet of Link objects
-		links = new HashSet<Link>();
+		links = new HashSet<ContentPlusModules>();
 		//Add the mock link to the list of links
 		links.add(mockLink);
 		//
-		for (Link link : links) {
+		for (ContentPlusModules link : links) {
 			link.setContentId(mockContent.getId());
 		}
 		
@@ -132,7 +132,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@Test
 	public void testUpdateContent()
 	{
-		links.add(new Link(5,mockContent.getId(),9,"BlahbittyBlooh"));
+		links.add(new ContentPlusModules(5,mockContent.getId(),9,"BlahbittyBlooh"));
 		testContent.setLinks(links);
 		contentSet.add(testContent);
 		when(contRep.findById(testContent.getId())).thenReturn(contentSet);

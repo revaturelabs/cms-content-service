@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
 import com.revature.entities.ContentMinusLinks;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
 import com.revature.repositories.LinkRepository;
@@ -42,7 +42,7 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Content createContent(Content content) {
 		
-		Set<Link> links = content.getLinks();
+		Set<ContentPlusModules> links = content.getLinks();
 		
 		
 		if (links == null) {
@@ -52,7 +52,7 @@ public class ContentServiceImpl implements ContentService {
 		content.setLinks(null);
 		content = cr.save(content);
 		
-		for(Link link : links) {
+		for(ContentPlusModules link : links) {
 			link.setContentId(content.getId());
 		}
 		
@@ -128,10 +128,10 @@ public class ContentServiceImpl implements ContentService {
 		if(Character.isDigit(newContent.getId()))
 			throw new InvalidContentId("updateContent, newContent does not have a valid Id");
 		
-		Set<Link> oldLinks = new HashSet<>();
-		Set<Link> newLinks = new HashSet<>();
+		Set<ContentPlusModules> oldLinks = new HashSet<>();
+		Set<ContentPlusModules> newLinks = new HashSet<>();
 		
-		for(Link link : newContent.getLinks()) {
+		for(ContentPlusModules link : newContent.getLinks()) {
 			if(link.getId() == 0) {
 				newLinks.add(link);
 			} else {
@@ -142,7 +142,7 @@ public class ContentServiceImpl implements ContentService {
 		newContent.setLinks(oldLinks);
 		
 		if(!newLinks.isEmpty()) {
-			for(Link l : lr.saveAll(newLinks)) {
+			for(ContentPlusModules l : lr.saveAll(newLinks)) {
 				oldLinks.add(l);
 			}
 			newContent.setLinks(oldLinks);

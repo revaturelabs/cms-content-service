@@ -7,18 +7,18 @@ import java.util.Set;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 
 @Repository
-public interface LinkRepository extends CrudRepository<Link,Integer> {
+public interface LinkRepository extends CrudRepository<ContentPlusModules,Integer> {
 	
 	//Gets links for a content
-	Set<Link> findByContentId(int contentId);
+	Set<ContentPlusModules> findByContentId(int contentId);
 	
 	//Gets links for a module
-	Set<Link> findByModuleId(int moduleId);
+	Set<ContentPlusModules> findByModuleId(int moduleId);
 	
 	//sends back links for Modules given
-	Set<Link> findByModuleIdIn(List<Integer> modules);
+	Set<ContentPlusModules> findByModuleIdIn(List<Integer> modules);
 
 }

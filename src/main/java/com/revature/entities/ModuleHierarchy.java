@@ -11,6 +11,8 @@ import javax.persistence.Table;
 @Table(name = "joins")
 public class ModuleHierarchy {
 	
+	//ToDo: get Module to a place where I can delete this
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "j_id")

@@ -18,7 +18,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
@@ -44,8 +44,8 @@ public class SearchServiceTest {
 	private SearchService ss = new SearchServiceImpl();
 
 //	===Fields===
-	Link linkMock;
-	Set<Link> linkSetMock = new HashSet<Link>();
+	ContentPlusModules linkMock;
+	Set<ContentPlusModules> linkSetMock = new HashSet<ContentPlusModules>();
 	
 	Content contentMock;
 	Set<Content> contentSetMock = new HashSet<Content>();
@@ -63,12 +63,12 @@ public class SearchServiceTest {
 	public void testSetup() {
 		//Link Objects and Set
 		//Constructor (ID, ContentID, ModuleID, "Affiliation")
-		Link link;
-		link = new Link(1,50,100,"link-affiliation");
+		ContentPlusModules link;
+		link = new ContentPlusModules(1,50,100,"link-affiliation");
 		linkSetMock.add(link);
-		link = new Link(2,51,100,"link-affiliation2");
+		link = new ContentPlusModules(2,51,100,"link-affiliation2");
 		linkSetMock.add(link);
-		link = new Link(3,52,101,"link-affiliation3");
+		link = new ContentPlusModules(3,52,101,"link-affiliation3");
 		linkSetMock.add(link);
 		this.linkMock = link;
 		

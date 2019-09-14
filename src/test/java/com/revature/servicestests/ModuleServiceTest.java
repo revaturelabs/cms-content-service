@@ -20,7 +20,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
@@ -40,16 +40,16 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	private LinkRepository lrMock;
 	
 //	===FIELDS===
-	private Link l1;
-	private Link l2;
-	private Link l3;
+	private ContentPlusModules l1;
+	private ContentPlusModules l2;
+	private ContentPlusModules l3;
 	private Module m1;
 	private Module m2;
 	private Module m3;
 	private Module m4;
 	private int idTest;
 	private Set<Module> moduleList;
-	private Set<Link> links;
+	private Set<ContentPlusModules> links;
 	private ArrayList<Integer> lints;
 	private ArrayList<Integer> lintsMod;
 	
@@ -70,10 +70,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	public void testSetup() {
 		
 		//Create a Link object to add to module object.
-		l1 = new Link(250, 10, 130, "testblah");
-		l2 = new Link(255, 10, 130, "testblah");
-		l3 = new Link(224, 10, 130, "testblah");
-		links = new HashSet<Link>();
+		l1 = new ContentPlusModules(250, 10, 130, "testblah");
+		l2 = new ContentPlusModules(255, 10, 130, "testblah");
+		l3 = new ContentPlusModules(224, 10, 130, "testblah");
+		links = new HashSet<ContentPlusModules>();
 		links.add(l1);
 		
 		lints = new ArrayList<Integer>();

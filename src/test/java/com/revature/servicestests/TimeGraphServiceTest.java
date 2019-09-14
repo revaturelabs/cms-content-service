@@ -22,7 +22,7 @@ import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.repositories.ContentRepository;
 import com.revature.services.TimegraphServiceImpl;
 
@@ -71,13 +71,13 @@ public class TimeGraphServiceTest extends AbstractTestNGSpringContextTests {
 	@BeforeTest
 	public void preTestSetup() {
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), (sysTime - ONE_MONTH), (sysTime - ONE_MONTH));
+				new HashSet<ContentPlusModules>(), (sysTime - ONE_MONTH), (sysTime - ONE_MONTH));
 		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), (sysTime - (ONE_MONTH * 5)), (sysTime - ONE_MONTH));
+				new HashSet<ContentPlusModules>(), (sysTime - (ONE_MONTH * 5)), (sysTime - ONE_MONTH));
 		c3 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), (sysTime - ONE_YEAR), (sysTime - ONE_MONTH));
+				new HashSet<ContentPlusModules>(), (sysTime - ONE_YEAR), (sysTime - ONE_MONTH));
 		c4 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<Link>(), sysTime, sysTime);
+				new HashSet<ContentPlusModules>(), sysTime, sysTime);
 		all = new ArrayList<Content>();
 		all.add(c1);
 		all.add(c2);

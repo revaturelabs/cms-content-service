@@ -6,7 +6,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -14,14 +14,14 @@ import nl.jqno.equalsverifier.Warning;
 public class LinkTest {
 	
 	//Links that are being tested
-	Link l1 = null;
-	Link l2 = null;
+	ContentPlusModules l1 = null;
+	ContentPlusModules l2 = null;
 	
 	//The setup for the Links
 	@BeforeTest
 	public void setup() {
-		l1 = new Link(1, 2, 3, "Java Wars");
-		l2 = new Link(5, 6, 7, "HTML Track");
+		l1 = new ContentPlusModules(1, 2, 3, "Java Wars");
+		l2 = new ContentPlusModules(5, 6, 7, "HTML Track");
 	}
 	
 	//null out the Links
@@ -34,17 +34,17 @@ public class LinkTest {
 	//testing the constructors
 	@Test
 	public void testLink() {
-		Link one = new Link();
-		assertTrue(one instanceof Link);
-		Link two = new Link();
+		ContentPlusModules one = new ContentPlusModules();
+		assertTrue(one instanceof ContentPlusModules);
+		ContentPlusModules two = new ContentPlusModules();
 		assertTrue(one != two);
 	}
 
 	@Test
 	public void testLinkIntIntIntString() {
-		Link one = new Link(1, 2, 3, "Java Wars");
-		assertTrue(one instanceof Link);
-		Link two = new Link(5, 6, 7, "HTML Track");
+		ContentPlusModules one = new ContentPlusModules(1, 2, 3, "Java Wars");
+		assertTrue(one instanceof ContentPlusModules);
+		ContentPlusModules two = new ContentPlusModules(5, 6, 7, "HTML Track");
 		assertTrue(one != two);
 	}
 
@@ -106,7 +106,7 @@ public class LinkTest {
 		//equalsVerifier will test both equals and hash. It will fail and throw an error if it
 		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
 		//because it is necessary for spring boot
-		EqualsVerifier.forClass(Link.class)
+		EqualsVerifier.forClass(ContentPlusModules.class)
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();
 	}

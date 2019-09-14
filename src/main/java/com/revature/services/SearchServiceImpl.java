@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
+import com.revature.entities.ContentPlusModules;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
@@ -65,14 +65,14 @@ public class SearchServiceImpl implements SearchService {
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> idsTemp = new HashSet<>();
 
-		Set<Link> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
-		for (Link link : linksByModuleID) {
+		Set<ContentPlusModules> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
+		for (ContentPlusModules link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
 
 		for (int i = 1; i < moduleIds.size(); i++) {
 			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
-			for (Link link : linksByModuleID) {
+			for (ContentPlusModules link : linksByModuleID) {
 				idsTemp.add(link.getContentId());
 			}
 			ids.retainAll(idsTemp);
@@ -90,7 +90,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
-		Set<Link> links = lr.findByModuleId(moduleId);
+		Set<ContentPlusModules> links = lr.findByModuleId(moduleId);
 		int contentId = links.iterator().next().getContentId();
 		return cr.findById(contentId);
 	}
@@ -139,7 +139,7 @@ public class SearchServiceImpl implements SearchService {
 		if (modules != null && !modules.isEmpty()) {
 
 			copy = new HashSet<Content>(contents);
-			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
+			Set<ContentPlusModules> linksInModules = lr.findByModuleIdIn(modules);
 
 			boolean inModule;
 
@@ -147,7 +147,7 @@ public class SearchServiceImpl implements SearchService {
 
 				List<Integer> linkModuleIDs = new ArrayList<Integer>();
 
-				for (Link l : c.getLinks()) {
+				for (ContentPlusModules l : c.getLinks()) {
 					linkModuleIDs.add(l.getModuleId());
 				}
 
@@ -226,7 +226,7 @@ public class SearchServiceImpl implements SearchService {
 
 				inModule = false;
 
-				for (Link l : c.getLinks()) {
+				for (ContentPlusModules l : c.getLinks()) {
 
 					if (ids.contains(l.getModuleId())) {
 						inModule = true;

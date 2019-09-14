@@ -27,14 +27,20 @@ public class Module {
 
 	private long created;
 	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Link> links;
+	private Set<ContentPlusModules> links;
 
+	
+	//ToDo: update this to 'private Module parentModule;' which will contain the Module
+		//object of this Module Object's parent. 
+		//We want to restrict Module Objects to only one parent
 	//All parents of the module.
 	@ElementCollection
 	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_child"))
 	@Column(name="fk_m_parent")
 	private Set<Integer> parentModules;
 
+	//ToDo: update this to 'private Set<Module> childrenModules;' which will
+		//contain all of the children modules of this module
 	//All children of the module.
 	@ElementCollection
 	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_parent"))
@@ -45,7 +51,7 @@ public class Module {
 		super();
   }
   
-	public Module(int id, String subject, long created, Set<Link> links) {
+	public Module(int id, String subject, long created, Set<ContentPlusModules> links) {
 		super();
 		this.id = id;
 		this.subject = subject;
@@ -77,11 +83,11 @@ public class Module {
 		this.created = created;
 	}
 
-	public Set<Link> getLinks() {
+	public Set<ContentPlusModules> getLinks() {
 		return links;
 	}
 
-	public void setLinks(Set<Link> links) {
+	public void setLinks(Set<ContentPlusModules> links) {
 		this.links = links;
 	}
 	
@@ -101,7 +107,7 @@ public class Module {
 		this.childrenModules = childrenModules;
 	}
 
-	public Module(int id, String subject, long created, Set<Link> links, Set<Integer> parentModules,
+	public Module(int id, String subject, long created, Set<ContentPlusModules> links, Set<Integer> parentModules,
 			Set<Integer> childrenModules) {
 		super();
 		this.id = id;
