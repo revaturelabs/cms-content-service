@@ -22,7 +22,6 @@ import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
-import com.revature.entities.ContentPlusModules;
 import com.revature.repositories.ContentRepository;
 import com.revature.services.TimegraphServiceImpl;
 
@@ -70,6 +69,7 @@ public class TimeGraphServiceTest extends AbstractTestNGSpringContextTests {
 	//Initialize the components
 	@BeforeTest
 	public void preTestSetup() {
+		/*
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
 				new HashSet<ContentPlusModules>(), (sysTime - ONE_MONTH), (sysTime - ONE_MONTH));
 		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
@@ -83,6 +83,8 @@ public class TimeGraphServiceTest extends AbstractTestNGSpringContextTests {
 		all.add(c2);
 		all.add(c3);
 		all.add(c4);
+		*/
+		
 		
 		setAll = new HashSet<Content>();
 		setAll.add(c1);

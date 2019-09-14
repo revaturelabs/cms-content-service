@@ -9,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
-import com.revature.repositories.LinkRepository;
-import com.revature.repositories.ModuleHierarchyRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -22,10 +19,12 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
 	ModuleRepository mr;
+	/*
 	@Autowired
 	LinkRepository lr;
 	@Autowired
 	ModuleHierarchyRepository mhr;
+	*/
 	@Autowired
 	ContentRepository cr;
 
@@ -160,7 +159,7 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
-		Set<ContentPlusModules> moduleList = module.getLinks();
+		// Set<ContentPlusModules> moduleList = module.getLinks();
 		/*
 		for(ContentPlusModules specLink:moduleList) {
 			int contentId = specLink.getContentId();

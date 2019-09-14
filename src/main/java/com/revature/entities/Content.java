@@ -1,9 +1,12 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
@@ -13,7 +16,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 
 @Entity
 @SecondaryTables ({
@@ -53,7 +58,15 @@ public class Content {
 	@Column(name = "last_modified")
 	private long lastModified;
 	
-	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
+	/*
+	@ElementCollection
+	@CollectionTable(name="link", joinColumns=@JoinColumn(name="fk_c"))
+	@OneToMany(mappedBy ="m_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	*/
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(name="link",
+			joinColumns=@JoinColumn(name="fk_c"),
+			inverseJoinColumns=@JoinColumn(name="fk_m"))
 	private Set<Module> modules = new HashSet<Module>();
 	
 	public Content() {

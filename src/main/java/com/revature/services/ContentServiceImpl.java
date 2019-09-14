@@ -12,11 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
-// import com.revature.entities.ContentMinusLinks;
-import com.revature.entities.ContentPlusModules;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
@@ -27,8 +24,8 @@ public class ContentServiceImpl implements ContentService {
 	
 	@Autowired
 	ContentRepository cr;
-	@Autowired 
-	LinkRepository lr;
+	// @Autowired 
+	//  LinkRepository lr;
 	@Autowired
 	ModuleRepository mr;
 
@@ -134,8 +131,8 @@ public class ContentServiceImpl implements ContentService {
 		if(Character.isDigit(newContent.getId()))
 			throw new InvalidContentId("updateContent, newContent does not have a valid Id");
 		
-		Set<ContentPlusModules> oldLinks = new HashSet<>();
-		Set<ContentPlusModules> newLinks = new HashSet<>();
+		// Set<ContentPlusModules> oldLinks = new HashSet<>();
+		// Set<ContentPlusModules> newLinks = new HashSet<>();
 		
 		/*
 		for(ContentPlusModules link : newContent.getLinks()) {
@@ -148,14 +145,14 @@ public class ContentServiceImpl implements ContentService {
 		*/
 		
 		// newContent.setLinks(oldLinks);
-		
+		/*
 		if(!newLinks.isEmpty()) {
 			for(ContentPlusModules l : lr.saveAll(newLinks)) {
 				oldLinks.add(l);
 			}
 			// newContent.setLinks(oldLinks);
 		}
-		
+		*/
 		Content oldContent = this.getContentById(newContent.getId());
 		
 		if(oldContent == null)

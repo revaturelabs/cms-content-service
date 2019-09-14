@@ -9,7 +9,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -19,7 +18,7 @@ import nl.jqno.equalsverifier.Warning;
 
 public class ModuleTest {
 	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
-	
+	/*
 	//Module to be tested
 	Module m1 = null;
 	Module m2 = null;
@@ -120,4 +119,5 @@ public class ModuleTest {
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();
 	}
+	*/
 }

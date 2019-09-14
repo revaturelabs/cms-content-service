@@ -1,12 +1,14 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 
 import java.util.Set;
@@ -26,18 +28,26 @@ public class Module {
 	private String subject;
 
 	private long created;
-	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<ContentPlusModules> links;
+	
+	// @OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
+	// private Set<ContentPlusModules> links;
 
 	
 	//ToDo: update this to 'private Module parentModule;' which will contain the Module
 		//object of this Module Object's parent. 
 		//We want to restrict Module Objects to only one parent
 	//All parents of the module.
-	@ElementCollection
-	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_child"))
-	@Column(name="fk_m_parent")
+	// what they had - H
+	// @ElementCollection
+	// @CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_child"))
+	// @Column(name="fk_m_parent")
 	//private Set<Integer> parentModules;
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(name="joins",
+			joinColumns=@JoinColumn(name="fk_m_child"),
+			inverseJoinColumns=@JoinColumn(name="fk_m_parent"))
+	// first attempt -H
+	// @Column(name="fk_m_parent")
 	private Module parentModule;
 	
 	//ToDo: update this to 'private Set<Module> childrenModules;' which will
@@ -52,12 +62,12 @@ public class Module {
 		super();
   }
   
-	public Module(int id, String subject, long created, Set<ContentPlusModules> links) {
+	public Module(int id, String subject, long created/*, Set<ContentPlusModules> links*/) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
-		this.links = links;
+		// this.links = links;
 	}
 
 	public int getId() {
@@ -83,7 +93,7 @@ public class Module {
 	public void setCreated(long created) {
 		this.created = created;
 	}
-
+/*
 	public Set<ContentPlusModules> getLinks() {
 		return links;
 	}
@@ -91,7 +101,7 @@ public class Module {
 	public void setLinks(Set<ContentPlusModules> links) {
 		this.links = links;
 	}
-
+*/
 	public Module getParentModule() {
 		return parentModule;
 	}
@@ -108,7 +118,7 @@ public class Module {
 		this.childrenModules = childrenModules;
 	}
 
-	public Module(int id, String subject, long created, Set<ContentPlusModules> links, 
+	public Module(int id, String subject, long created,/* Set<ContentPlusModules> links, */
 			/* Set<Integer> parentModules, */
 			Module parentModule,
 			Set<Integer> childrenModules) {
@@ -116,7 +126,7 @@ public class Module {
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
-		this.links = links;
+		// this.links = links;
 		this.parentModule = parentModule;
 		this.childrenModules = childrenModules;
 	}
@@ -128,7 +138,7 @@ public class Module {
 		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + id;
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		// result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((parentModule == null) ? 0 : parentModule.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -152,11 +162,13 @@ public class Module {
 			return false;
 		if (id != other.id)
 			return false;
+		/*
 		if (links == null) {
 			if (other.links != null)
 				return false;
 		} else if (!links.equals(other.links))
 			return false;
+		*/
 		if (parentModule == null) {
 			if (other.parentModule != null)
 				return false;

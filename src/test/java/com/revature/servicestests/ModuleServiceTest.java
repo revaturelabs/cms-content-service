@@ -20,9 +20,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
-import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.services.ModuleService;
 import com.revature.services.ModuleServiceImpl;
@@ -36,20 +34,23 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	private ModuleService msMock;
 	@Mock
 	private ModuleRepository mrMock;
+	/*
 	@Mock
 	private LinkRepository lrMock;
-	
+	*/
 //	===FIELDS===
+	/*
 	private ContentPlusModules l1;
 	private ContentPlusModules l2;
 	private ContentPlusModules l3;
+	*/
 	private Module m1;
 	private Module m2;
 	private Module m3;
 	private Module m4;
 	private int idTest;
 	private Set<Module> moduleList;
-	private Set<ContentPlusModules> links;
+	// private Set<ContentPlusModules> links;
 	private ArrayList<Integer> lints;
 	private ArrayList<Integer> lintsMod;
 	
@@ -68,7 +69,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	//This will set up the values before the tests
 	@BeforeTest
 	public void testSetup() {
-		
+		/*
 		//Create a Link object to add to module object.
 		l1 = new ContentPlusModules(250, 10, 130, "testblah");
 		l2 = new ContentPlusModules(255, 10, 130, "testblah");
@@ -100,6 +101,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		
 		links.add(l2);
 		links.add(l3);
+		*/
 	}
 	
 	//tear down the setup
@@ -109,10 +111,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		m2 = null;
 		m3 = null;
 		moduleList = null;
+		/*
 		l1 = null;
 		l2 = null;
 		l3 = null;
-		
+		*/
 	}
 	
 //	===TESTS===
@@ -165,7 +168,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByModuleIds() {
-		Mockito.when(lrMock.findByModuleIdIn(lints)).thenReturn(links);
+		// Mockito.when(lrMock.findByModuleIdIn(lints)).thenReturn(links);
 		
 		double tmp = msMock.getAverageByModuleIds(lints);
 		
@@ -180,7 +183,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByAllModules() {
-		Mockito.when(lrMock.findByModuleIdIn(lintsMod)).thenReturn(links);
+		// Mockito.when(lrMock.findByModuleIdIn(lintsMod)).thenReturn(links);
 		Mockito.when(mrMock.findAll()).thenReturn(moduleList);
 		
 		double tmp = msMock.getAverageByAllModules();

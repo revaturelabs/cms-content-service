@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentPlusModules;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
@@ -24,8 +22,10 @@ public class SearchServiceImpl implements SearchService {
 	ContentRepository cr;
 	@Autowired
 	ModuleRepository mr;
+	/*
 	@Autowired
 	LinkRepository lr;
+	*/
 	@Autowired
 	ContentService csi;
 

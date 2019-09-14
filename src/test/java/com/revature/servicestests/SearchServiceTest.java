@@ -18,10 +18,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentPlusModules;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
-import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.services.ContentService;
 import com.revature.services.SearchService;
@@ -35,8 +33,10 @@ public class SearchServiceTest {
 	private ContentRepository crMock;
 	@Mock
 	private ModuleRepository mrMock;
+	/*
 	@Mock
 	private LinkRepository lrMock;
+	*/
 	@Mock
 	private ContentService csMock;
 	
@@ -44,8 +44,8 @@ public class SearchServiceTest {
 	private SearchService ss = new SearchServiceImpl();
 
 //	===Fields===
-	ContentPlusModules linkMock;
-	Set<ContentPlusModules> linkSetMock = new HashSet<ContentPlusModules>();
+	// ontentPlusModules linkMock;
+	// Set<ContentPlusModules> linkSetMock = new HashSet<ContentPlusModules>();
 	
 	Content contentMock;
 	Set<Content> contentSetMock = new HashSet<Content>();
@@ -63,7 +63,8 @@ public class SearchServiceTest {
 	public void testSetup() {
 		//Link Objects and Set
 		//Constructor (ID, ContentID, ModuleID, "Affiliation")
-		ContentPlusModules link;
+		// ContentPlusModules link;
+		/*
 		link = new ContentPlusModules(1,50,100,"link-affiliation");
 		linkSetMock.add(link);
 		link = new ContentPlusModules(2,51,100,"link-affiliation2");
@@ -71,10 +72,12 @@ public class SearchServiceTest {
 		link = new ContentPlusModules(3,52,101,"link-affiliation3");
 		linkSetMock.add(link);
 		this.linkMock = link;
+		*/
 		
 		//Content Objects and Set
 		//Constructor (ID, "Title", "Format", "Desc", "URL", Set<Link>, DateCreated, DateModified)
 		Content content;
+		/*
 		content = new Content(50, "Test 1", "format", "Test Content #1", 
 				"www.example.com", this.linkSetMock, 1L, 1L );
 		this.contentSetMock.add(content);
@@ -85,17 +88,18 @@ public class SearchServiceTest {
 				"www.example.com", this.linkSetMock, 1L, 1L );
 		this.contentSetMock.add(content);
 		this.contentMock = content;
+		*/
 		//Module
 		//Constructor (Id, "Subject", DateCreated, Set<Link>)
-		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
+		this.moduleMock = new Module(100, "Test Subject 1", 1L/*, this.linkSetMock*/, null, null);
 	}
 	
 	@AfterTest
 	public void tearDown() {
 		this.contentSetMock = null;
 		this.contentMock = null;
-		this.linkSetMock = null;
-		this.linkMock = null;
+		// this.linkSetMock = null;
+		// this.linkMock = null;
 		this.moduleMock = null;
 	}
 	
@@ -154,12 +158,12 @@ public class SearchServiceTest {
 		
 		moduleIds.add(100);
 		//Given
-		Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
+		// Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
 		Mockito.when(crMock.findAllById(Mockito.any())).thenReturn(this.contentSetMock);
 		
 		//When 
 		ss.filterContentBySubjects(moduleIds);
-		verify(lrMock).findByModuleId(Mockito.anyInt());
+		// verify(lrMock).findByModuleId(Mockito.anyInt());
 		verify(crMock).findAllById(Mockito.any());
 	}
 	
@@ -173,14 +177,14 @@ public class SearchServiceTest {
 		//Local Variables
 		int moduleId = 100;
 		//Given
-		Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
+		// Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
 		Mockito.when(crMock.findById(Mockito.anyInt())).thenReturn(this.contentSetMock);
 		
 		//When
 		ss.getContentByModuleId(moduleId);
 		
 		//Then
-		verify(lrMock, times(2)).findByModuleId(moduleId);
+		// verify(lrMock, times(2)).findByModuleId(moduleId);
 		verify(crMock, times(1)).findById(Mockito.anyInt());
 	}
 	
@@ -207,13 +211,13 @@ public class SearchServiceTest {
 		Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
 		Mockito.when(crMock.findByTitleContaining(titleContaining)).thenReturn(contentSetMock);
 		Mockito.when(csMock.getAllContent()).thenReturn(contentSetMock);
-		Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
+		// Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
 		
 		//Given/Then Test 1 - fields are not null
 		ss.filter(titleContaining, format, moduleIds);
 		
 		verify(crMock, times(2)).findByFormat(format);
-		verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
+		// verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
 		
 		//Given/Then Test 2 - format is null.
 		ss.filter(titleContaining, null, moduleIds);

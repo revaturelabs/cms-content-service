@@ -3,20 +3,19 @@ package com.revature.util;
 import java.util.Arrays;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentPlusModules;
 
 public class ContentWrapper { //Bean used to attach an array of links to content
 	private Content content;
-	private ContentPlusModules[] links;
+	// private ContentPlusModules[] links;
 	
 	public ContentWrapper() {
 		super();
 	}
 
-	public ContentWrapper(Content content, ContentPlusModules[] links) {
+	public ContentWrapper(Content content/*, ContentPlusModules[] links*/) {
 		super();
 		this.content = content;
-		this.links = links;
+		// this.links = links;
 	}
 
 	public Content getContent() {
@@ -26,7 +25,7 @@ public class ContentWrapper { //Bean used to attach an array of links to content
 	public void setContent(Content content) {
 		this.content = content;
 	}
-
+/*
 	public ContentPlusModules[] getLinks() {
 		return links;
 	}
@@ -34,9 +33,17 @@ public class ContentWrapper { //Bean used to attach an array of links to content
 	public void setLinks(ContentPlusModules[] links) {
 		this.links = links;
 	}
-
+*/
+	/*
 	@Override
 	public String toString() {
 		return "ContentWrapper [content=" + content + ", links=" + Arrays.toString(links) + "]";
 	}
+	*/
+
+	@Override
+	public String toString() {
+		return "ContentWrapper [content=" + content + "]";
+	}
+	
 }
