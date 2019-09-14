@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
-import com.revature.entities.ModuleHierarchy;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleHierarchyRepository;
@@ -167,8 +166,9 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public void updateModule(Module module) {
+	public Module updateModule(Module module) {
 		mr.save(module);
+		return module;
 		
 	}
 }

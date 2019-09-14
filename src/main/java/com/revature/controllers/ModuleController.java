@@ -33,42 +33,52 @@ public class ModuleController {
 	@Autowired
 	ModuleService moduleService;
 	
+	//create a single module
 	@PostMapping
-	public Module createModule(@RequestBody Module module) {
-		return moduleService.createModule(module);
+	public ResponseEntity<Module> createModule(@RequestBody Module module) {
+		return ResponseEntity.ok(moduleService.createModule(module));
 	}
 	
+	//get all the modules
 	@GetMapping
-	public Set<Module> getAllModules() {
-		return (Set<Module>) moduleService.getAllModules();
+	public ResponseEntity<Set<Module>> getAllModules() {
+		return ResponseEntity.ok(moduleService.getAllModules());
 	}
 	
+	//get a specific module
 	@GetMapping(value="{id}")
-	public Module getModuleById(@PathVariable int id) {
-		return moduleService.getModuleById(id);
+	public ResponseEntity<Module> getModuleById(@PathVariable int id) {
+		return ResponseEntity.ok(moduleService.getModuleById(id));
 	}
 	
+	//get all modules without a parent
 	@GetMapping("/roots")
-	public Set<Module> getAllModulesByRoot(){
-		return (Set<Module>) moduleService.getAllModulesByRoot();
+	public ResponseEntity<Set<Module>> getAllModulesByRoot(){
+		return ResponseEntity.ok(moduleService.getAllModulesByRoot());
 	}
 	
+	//get all the children of a specific module
 	@GetMapping("/{id}/children")
-    public Set<Module> getChildrenByModuleId(@PathVariable int id) {
-        return (Set<Module>) moduleService.getChildrenByModuleId(id);
+    public ResponseEntity<Set<Module>> getChildrenByModuleId(@PathVariable int id) {
+        return ResponseEntity.ok(moduleService.getChildrenByModuleId(id));
     }
 	
+	//update a specific module
 	@PutMapping("/{id}")
-	public void updateModule(@PathVariable("id") int id, @RequestBody Module module) {
-		moduleService.updateModule(module);
+	public ResponseEntity<Module> updateModule(@PathVariable("id") int id, @RequestBody Module module) {
+		return ResponseEntity.ok(moduleService.updateModule(module));
 	}
 	
+	//delete a specific module and only that module
+		//no cascade
 	@DeleteMapping(value="{id}")
-	public void deleteModule(@PathVariable int id) {
+	public ResponseEntity deleteModule(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);
 		moduleService.deleteModule(module);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 	
+	//delete some or all associated content along with deleting the module
 	@DeleteMapping(value="{id}", params= {"type"})
 	public ResponseEntity deleteModule(@PathVariable int id, @RequestParam(value="type", required=false) String type) {
 		//get the module to be deleted
