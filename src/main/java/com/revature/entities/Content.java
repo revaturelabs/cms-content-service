@@ -41,10 +41,8 @@ public class Content {
 	@Column(name = "last_modified")
 	private long lastModified;
 	
-	//ToDo: update this to 'private Set<Module> modules;' which will contain all Module
-		//objects associated with a Content object
 	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Link> links;
+	private Set<Module> modules;
 	
 	public Content() {
 		super();
