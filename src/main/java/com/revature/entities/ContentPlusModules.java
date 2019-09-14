@@ -36,11 +36,11 @@ public class ContentPlusModules {
 		super();
 	}
 
-	public ContentPlusModules(int id, Content content, Set<Module> modules, String affiliation) {
+	public ContentPlusModules(int id, Content content, Module module, String affiliation) {
 		super();
 		this.id = id;
 		this.content = content;
-		this.modules = modules;
+		this.module = module;
 		this.affiliation = affiliation;
 	}
 
@@ -60,12 +60,12 @@ public class ContentPlusModules {
 		this.content = content;
 	}
 
-	public Set<Module> getModules() {
-		return modules;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setModules(Set<Module> modules) {
-		this.modules = modules;
+	public void setModuleId(Module module) {
+		this.module = module;
 	}
 
 	public String getAffiliation() {
@@ -83,7 +83,7 @@ public class ContentPlusModules {
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
+		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		return result;
 	}
 
@@ -108,22 +108,17 @@ public class ContentPlusModules {
 			return false;
 		if (id != other.id)
 			return false;
-		if (modules == null) {
-			if (other.modules != null)
+		if (module == null) {
+			if (other.module != null)
 				return false;
-		} else if (!modules.equals(other.modules))
+		} else if (!module.equals(other.module))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "ContentPlusModules [id=" + id + ", content=" + content + ", modules=" + modules + ", affiliation="
-				+ affiliation + "]";
+		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation + "]";
 	}
-
-	
-
-	
 
 }
