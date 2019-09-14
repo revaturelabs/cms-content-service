@@ -20,8 +20,8 @@ public class LinkTest {
 	//The setup for the Links
 	@BeforeTest
 	public void setup() {
-		l1 = new Link(1, 2, 3, "Java Wars");
-		l2 = new Link(5, 6, 7, "HTML Track");
+		l1 = new Link(1, 2, 3);
+		l2 = new Link(5, 6, 7);
 	}
 	
 	//null out the Links
@@ -42,9 +42,9 @@ public class LinkTest {
 
 	@Test
 	public void testLinkIntIntIntString() {
-		Link one = new Link(1, 2, 3, "Java Wars");
+		Link one = new Link(1, 2, 3);
 		assertTrue(one instanceof Link);
-		Link two = new Link(5, 6, 7, "HTML Track");
+		Link two = new Link(5, 6, 7);
 		assertTrue(one != two);
 	}
 
@@ -80,17 +80,6 @@ public class LinkTest {
 	public void testSetModuleId() {
 		l1.setModuleId(445);
 		assertTrue(l1.getModuleId() == 445);
-	}
-
-	@Test
-	public void testGetAffiliation() {
-		assertTrue(l2.getAffiliation().equals("HTML Track"));
-	}
-
-	@Test
-	public void testSetAffiliation() {
-		l2.setAffiliation("CSS Blitz");
-		assertTrue(l2.getAffiliation().equals("CSS Blitz"));
 	}
 
 	//Testing the ToString

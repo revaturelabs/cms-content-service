@@ -5,13 +5,11 @@ package com.revature.controllers;
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
  */
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,7 +48,7 @@ public class MetricsController {
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
 
 		if(idsIn.isEmpty()) {
-			contents = contentService.getAllContentMinusLinks();
+			contents = contentService.getAllContent();
 			filtContents = searchService.filterContent(contents, filters);
 		} else {
 			contents = contentService.getAllContent();

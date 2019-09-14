@@ -8,28 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "link")
-public class Link {
+@Table(name = "reqLink")
+public class ReqLink {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cm_id")
+	@Column(name = "z_id")
 	private int id;
 
-	@Column(name = "fk_c")
-	private int contentId;
+	@Column(name = "fk_r")
+	private int requestId;
 
-	@Column(name = "fk_m")
-	private int moduleId;
+	@Column(name = "fk_rm")
+	private int reqModuleId;
 
-	public Link() {
+	public ReqLink() {
 		super();
 	}
 
-	public Link(int id, int contentId, int moduleId) {
+	public ReqLink(int id, int requestId, int reqModuleId) {
 		super();
 		this.id = id;
-		this.contentId = contentId;
-		this.moduleId = moduleId;
+		this.requestId = requestId;
+		this.reqModuleId = reqModuleId;
 	}
 
 	public int getId() {
@@ -40,34 +40,34 @@ public class Link {
 		this.id = id;
 	}
 
-	public int getContentId() {
-		return contentId;
+	public int getRequestId() {
+		return requestId;
 	}
 
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
 	}
 
-	public int getModuleId() {
-		return moduleId;
+	public int getReqModuleId() {
+		return reqModuleId;
 	}
 
-	public void setModuleId(int moduleId) {
-		this.moduleId = moduleId;
+	public void setReqModuleId(int reqModuleId) {
+		this.reqModuleId = reqModuleId;
 	}
 
 	@Override
 	public String toString() {
-		return "Link [id=" + id + ", contentId=" + contentId + ", moduleId=" + moduleId + "]";
+		return "ReqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + contentId;
 		result = prime * result + id;
-		result = prime * result + moduleId;
+		result = prime * result + reqModuleId;
+		result = prime * result + requestId;
 		return result;
 	}
 
@@ -79,12 +79,12 @@ public class Link {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Link other = (Link) obj;
-		if (contentId != other.contentId)
-			return false;
+		ReqLink other = (ReqLink) obj;
 		if (id != other.id)
 			return false;
-		if (moduleId != other.moduleId)
+		if (reqModuleId != other.reqModuleId)
+			return false;
+		if (requestId != other.requestId)
 			return false;
 		return true;
 	}

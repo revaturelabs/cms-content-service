@@ -1,6 +1,6 @@
 package com.revature.entities;
 
-public interface ContentMinusLinks {
+public interface RequestsMinusReqLinks {
 
 	
 	public int getId();
@@ -11,6 +11,6 @@ public interface ContentMinusLinks {
 	public long getDateCreated();
 	public long getLastModified();
 	default String tooString() {
-		return "ContentMinusLinks: id=" + getId() + ", Title=" + getTitle() + ", format=" + getFormat();
+		return "RequestsMinusReqLinks: id=" + getId() + ", Title=" + getTitle() + ", format=" + getFormat();
 	}
 }
