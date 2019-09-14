@@ -80,7 +80,7 @@ public class ModuleController {
 	
 	//delete some or all associated content along with deleting the module
 	@DeleteMapping(value="{id}", params= {"type"})
-	public ResponseEntity deleteModule(@PathVariable int id, @RequestParam(value="type", required=false) String type) {
+	public ResponseEntity<String> deleteModule(@PathVariable int id, @RequestParam(value="type", required=false) String type) {
 		//get the module to be deleted
 		Module module = moduleService.getModuleById(id);
 		
@@ -92,9 +92,9 @@ public class ModuleController {
 			//delete the module and the content that has an association with it and no other module
 			moduleService.deleteModuleWithSpecificContent(module);
 		} else {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bad Value For 'type' Parameter");
 		}
-		return new ResponseEntity(HttpStatus.OK);
+		return ResponseEntity.ok("Delete Success");
 	}
 
 }
