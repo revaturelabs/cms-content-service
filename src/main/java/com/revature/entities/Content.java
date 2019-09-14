@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
 
 import java.util.Set;
 
@@ -12,6 +15,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
+@SecondaryTables ({
+	@SecondaryTable(name="module"),
+	@SecondaryTable(name="link")
+})
+
 public class Content {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
