@@ -64,12 +64,13 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> contents = new HashSet<>();
 		Set<Integer> ids = new HashSet<>();
 		Set<Integer> idsTemp = new HashSet<>();
-
+/*
 		Set<ContentPlusModules> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
 		for (ContentPlusModules link : linksByModuleID) {
 			ids.add(link.getContentId());
 		}
-
+*/
+/*
 		for (int i = 1; i < moduleIds.size(); i++) {
 			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
 			for (ContentPlusModules link : linksByModuleID) {
@@ -77,7 +78,7 @@ public class SearchServiceImpl implements SearchService {
 			}
 			ids.retainAll(idsTemp);
 		}
-
+*/
 		cr.findAllById(ids).forEach(contents::add);
 
 		return contents;
@@ -90,9 +91,10 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
-		Set<ContentPlusModules> links = lr.findByModuleId(moduleId);
-		int contentId = links.iterator().next().getContentId();
-		return cr.findById(contentId);
+		// Set<ContentPlusModules> links = lr.findByModuleId(moduleId);
+		// int contentId = links.iterator().next().getContentId();
+		// return cr.findById(contentId);
+		return null;
 	}
 
 	/**
@@ -139,18 +141,18 @@ public class SearchServiceImpl implements SearchService {
 		if (modules != null && !modules.isEmpty()) {
 
 			copy = new HashSet<Content>(contents);
-			Set<ContentPlusModules> linksInModules = lr.findByModuleIdIn(modules);
+			// Set<ContentPlusModules> linksInModules = lr.findByModuleIdIn(modules);
 
 			boolean inModule;
 
 			for (Content c : copy) {
 
 				List<Integer> linkModuleIDs = new ArrayList<Integer>();
-
+/*
 				for (ContentPlusModules l : c.getLinks()) {
 					linkModuleIDs.add(l.getModuleId());
 				}
-
+*/
 				/** 
 				 * For inclusive (OR) search, you want inModule false to begin with,
 				 * and to flip inModule the moment a search tag is detected,
@@ -225,7 +227,7 @@ public class SearchServiceImpl implements SearchService {
 			for (Content c : copy) {
 
 				inModule = false;
-
+/*
 				for (ContentPlusModules l : c.getLinks()) {
 
 					if (ids.contains(l.getModuleId())) {
@@ -233,7 +235,7 @@ public class SearchServiceImpl implements SearchService {
 						break;
 					}
 				}
-
+*/
 				if (!inModule)
 					contents.remove(c);
 			}

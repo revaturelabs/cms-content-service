@@ -9,6 +9,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 import javax.persistence.SecondaryTables;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -63,6 +64,7 @@ public class Content {
 		this.format = format;
 		this.description = description;
 		this.url = url;
+		this.modules = new HashSet<Module>();
 		/* this.links = links; */
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
@@ -133,11 +135,12 @@ public class Content {
 		this.lastModified = lastModified;
 	}
 
-	@Override
-	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + /*", links="
-				+ links +*/ "]";
+	public Set<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(Set<Module> modules) {
+		this.modules = modules;
 	}
 
 	@Override
@@ -147,8 +150,9 @@ public class Content {
 		result = prime * result + (int) (dateCreated ^ (dateCreated >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
+		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
-		// result = prime * result + ((links == null) ? 0 : links.hashCode());
+		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -160,7 +164,7 @@ public class Content {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Content))
+		if (getClass() != obj.getClass())
 			return false;
 		Content other = (Content) obj;
 		if (dateCreated != other.dateCreated)
@@ -175,15 +179,15 @@ public class Content {
 				return false;
 		} else if (!format.equals(other.format))
 			return false;
+		if (id != other.id)
+			return false;
 		if (lastModified != other.lastModified)
 			return false;
-		/*
-		if (links == null) {
-			if (other.links != null)
+		if (modules == null) {
+			if (other.modules != null)
 				return false;
-		} else if (!links.equals(other.links))
+		} else if (!modules.equals(other.modules))
 			return false;
-		*/
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -196,6 +200,15 @@ public class Content {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", modules="
+				+ modules + "]";
+	}
+
+	
 
 	
 

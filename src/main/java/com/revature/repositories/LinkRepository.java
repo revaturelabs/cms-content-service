@@ -15,10 +15,11 @@ public interface LinkRepository extends CrudRepository<ContentPlusModules,Intege
 	//Gets links for a content
 	Set<ContentPlusModules> findByContentId(int contentId);
 	
+	/* Not sure if safe or advised to delete
 	//Gets links for a module
 	Set<ContentPlusModules> findByModuleId(int moduleId);
 	
 	//sends back links for Modules given
 	Set<ContentPlusModules> findByModuleIdIn(List<Integer> modules);
-
+*/
 }

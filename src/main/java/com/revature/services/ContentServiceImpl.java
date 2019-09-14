@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
-import com.revature.entities.ContentMinusLinks;
+// import com.revature.entities.ContentMinusLinks;
 import com.revature.entities.ContentPlusModules;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
@@ -42,23 +42,27 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Content createContent(Content content) {
 		
-		Set<ContentPlusModules> links = content.getLinks();
+		//Set<ContentPlusModules> links = content.getLinks();
 		
-		
+		/*
 		if (links == null) {
 			throw new NullPointerException();
 		}
+		*/
 		
+		/*
 		content.setLinks(null);
 		content = cr.save(content);
-		
+		*/
+		/*
 		for(ContentPlusModules link : links) {
 			link.setContentId(content.getId());
 		}
+		*/
 		
-		lr.saveAll(links);
+		// lr.saveAll(links);
 		
-		content.setLinks(links);
+		// content.setLinks(links);
 		
 		if(content.getDateCreated() == 0L && content.getLastModified() == 0L) {
 		content.setDateCreated(System.currentTimeMillis());
@@ -85,12 +89,14 @@ public class ContentServiceImpl implements ContentService {
 	 * Ignores the additional DB call to get the list of links associated with a content object
 	 */
 	public Set<Content> getAllContentMinusLinks(){		
-		Set<Content> contents = new HashSet<>();
-		List<ContentMinusLinks> con = cr.findAllContentBy();
+		Set<Content> contents = new HashSet<Content>();
+		// List<ContentMinusLinks> con = cr.findAllContentBy();
 		
+		/*
 		for(ContentMinusLinks c: con) {
 			contents.add(new Content(c.getId(), c.getTitle(), c.getFormat(), c.getDescription(), c.getUrl(), null, c.getDateCreated(), c.getLastModified()));
 		}
+		*/
 		return contents;
 	}
 	
@@ -131,6 +137,7 @@ public class ContentServiceImpl implements ContentService {
 		Set<ContentPlusModules> oldLinks = new HashSet<>();
 		Set<ContentPlusModules> newLinks = new HashSet<>();
 		
+		/*
 		for(ContentPlusModules link : newContent.getLinks()) {
 			if(link.getId() == 0) {
 				newLinks.add(link);
@@ -138,14 +145,15 @@ public class ContentServiceImpl implements ContentService {
 				oldLinks.add(link);
 			}
 		}
+		*/
 		
-		newContent.setLinks(oldLinks);
+		// newContent.setLinks(oldLinks);
 		
 		if(!newLinks.isEmpty()) {
 			for(ContentPlusModules l : lr.saveAll(newLinks)) {
 				oldLinks.add(l);
 			}
-			newContent.setLinks(oldLinks);
+			// newContent.setLinks(oldLinks);
 		}
 		
 		Content oldContent = this.getContentById(newContent.getId());

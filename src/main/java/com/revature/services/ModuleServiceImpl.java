@@ -76,9 +76,10 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public double getAverageByModuleIds(ArrayList<Integer> ids) {
-		int size = lr.findByModuleIdIn(ids).size();
+		// int size = lr.findByModuleIdIn(ids).size();
 		
-		return (double) size / (double) ids.size();
+		// return (double) size / (double) ids.size();
+		return 0.0;
 	}
 
 	/**
@@ -141,17 +142,20 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
+		/*
 		Set<ContentPlusModules> moduleList = module.getLinks();
 		for(ContentPlusModules specLink:moduleList) {
 			int contentId = specLink.getContentId();
 			cr.deleteById(contentId);
 		}
 		mr.delete(module);
+		*/
 	}
 	
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
 		Set<ContentPlusModules> moduleList = module.getLinks();
+		/*
 		for(ContentPlusModules specLink:moduleList) {
 			int contentId = specLink.getContentId();
 			Set<Content> contentList = cr.findById(contentId);
@@ -163,6 +167,7 @@ public class ModuleServiceImpl implements ModuleService {
 			}
 		}
 		mr.delete(module);
+		*/
 	}
 
 	@Override
