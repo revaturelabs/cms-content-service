@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "reqLink")
+@Table(name = "req_link")
 public class ReqLink {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
