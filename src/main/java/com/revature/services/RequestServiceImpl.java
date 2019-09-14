@@ -14,8 +14,8 @@ import com.revature.entities.ReqLink;
 import com.revature.entities.Requests;
 import com.revature.exceptions.InvalidRequestException;
 import com.revature.exceptions.InvalidRequestIdException;
+import com.revature.repositories.ModuleRepository;
 import com.revature.repositories.ReqLinkRepository;
-import com.revature.repositories.ReqModuleRepository;
 import com.revature.repositories.RequestRepository;
 import com.revature.util.LogException;
 
@@ -28,7 +28,7 @@ public class RequestServiceImpl implements RequestService {
 	@Autowired 
 	ReqLinkRepository rlr;
 	@Autowired
-	ReqModuleRepository rmr;
+	ModuleRepository rmr;
 
 	@LogException
 	@Override
@@ -130,7 +130,7 @@ public class RequestServiceImpl implements RequestService {
 		Requests oldRequests = this.getRequestsById(newRequests.getId());
 		
 		if(oldRequests == null)
-			throw new InvalidRequestException("updateRequests, newRequests is null");
+			throw new InvalidRequestIdException("updateRequests, newRequests is null");
 
 		return rr.save(newRequests);
 	}

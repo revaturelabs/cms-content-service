@@ -98,7 +98,7 @@ public class ModuleTest {
 	@Test
 	void testSetLinks() {
 		Set<Link> link = new HashSet<Link>();
-		link.add(new Link(1, 2, 3, "Java Wars"));
+		link.add(new Link(1, 2, 3));
 		m2.setLinks(link);
 		assertTrue(m2.getLinks().equals(link));
 	}

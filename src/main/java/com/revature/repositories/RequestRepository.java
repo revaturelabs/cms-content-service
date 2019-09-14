@@ -26,5 +26,4 @@ public interface RequestRepository extends CrudRepository<Requests,Integer>{
 	//Gets content by title
 	Set<Requests> findByTitleContaining(String title);
 	
-	
 }

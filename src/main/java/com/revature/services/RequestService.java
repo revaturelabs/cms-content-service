@@ -16,6 +16,6 @@ public interface RequestService {
     public Map<String, Integer> getRequestsByFormat(Set<Requests> contents);   
     
     public Requests updateRequests(Requests newRequests);
-        
+    
     public void deleteRequests(Requests requests);
 }

@@ -2,9 +2,7 @@ drop table if exists link;
 drop table if exists joins;
 drop table if exists module;
 drop table if exists content;
-drop table if exists reqLink;
-drop table if exists ties;
-drop table if exists req_module;
+drop table if exists req_link;
 drop table if exists requests;
 create table content(
    c_id serial PRIMARY KEY,
@@ -12,9 +10,8 @@ create table content(
    format text NOT NULL,
    description text NOT NULL,
    url text unique NOT NULL,
-   created numeric,
-   last_modified numeric,
-   root text
+   created numeric NOT NULL,
+   last_modified numeric NOT NULL
 );
 create table module(
    m_id serial PRIMARY KEY,
@@ -24,7 +21,6 @@ create table module(
 create table link(
    cm_id serial PRIMARY KEY,
    fk_c int,
-   affiliation text,
    fk_m int,
    FOREIGN KEY (fk_c) REFERENCES content(c_id) on DELETE CASCADE,
    FOREIGN KEY (fk_m) REFERENCES module(m_id) on DELETE CASCADE
@@ -42,27 +38,17 @@ create table requests(
   format text NOT NULL,
   description text NOT NULL,
   url text unique,
-  created numeric,
-  last_modified numeric,
-  root text
+  created numeric NOT NULL,
+  last_modified numeric NOT NULL
 );
-create table req_module(
-  rm_id serial PRIMARY KEY,
-  subject text,
-  created numeric
-);
-create table reqLink(
+create table req_link(
   z_id serial PRIMARY KEY,
   fk_r int,
-  affiliation text,
   fk_rm int,
   FOREIGN KEY (fk_r) REFERENCES requests(r_id) on DELETE CASCADE,
-  FOREIGN KEY (fk_rm) REFERENCES req_module(rm_id) on DELETE CASCADE
+  FOREIGN KEY (fk_rm) REFERENCES module(m_id) on DELETE CASCADE
 );
-create table ties(
-    t_id serial primary key,
-   fk_rm_parent int,
-   fk_rm_child int,
-   FOREIGN KEY (fk_rm_parent) REFERENCES req_module(rm_id) on DELETE CASCADE,
-   FOREIGN KEY (fk_rm_child) REFERENCES req_module(rm_id) on DELETE CASCADE
-);
+insert into requests (r_id, title, format, description) values (100, 'something', 'something2', 'something3', 'http://www.b.com', 2, 2);
+insert into requests (r_id, title, format, description, url, created, last_modified) values (101, 'something', 'something2', 'something3', 'http://www.a.com', 1, 1);
+select * from requests;
+commit work;
