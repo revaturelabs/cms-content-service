@@ -91,9 +91,9 @@ public class ContentController {
 	
 	//deletes a single Content
 	@DeleteMapping(value="{id}")
-	public ResponseEntity deleteContent(@PathVariable int id) {
+	public ResponseEntity<String> deleteContent(@PathVariable int id) {
 		Content content = contentService.getContentById(id);
 		contentService.deleteContent(content);
-		return new ResponseEntity(HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body("Content Deleted");
 	}
 }

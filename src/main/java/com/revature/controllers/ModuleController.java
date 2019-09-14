@@ -72,10 +72,10 @@ public class ModuleController {
 	//delete a specific module and only that module
 		//no cascade
 	@DeleteMapping(value="{id}")
-	public ResponseEntity deleteModule(@PathVariable int id) {
+	public ResponseEntity<String> deleteModule(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);
 		moduleService.deleteModule(module);
-		return new ResponseEntity(HttpStatus.OK);
+		return ResponseEntity.status(HttpStatus.OK).body("Module Deleted");
 	}
 	
 	//delete some or all associated content along with deleting the module
