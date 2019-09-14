@@ -17,8 +17,11 @@ import javax.persistence.Column;
 
 @Entity
 @SecondaryTables ({
-	@SecondaryTable(name="module"),
+	@SecondaryTable(name="module")
+	/*
+	,
 	@SecondaryTable(name="link")
+	*/
 })
 
 public class Content {
@@ -51,20 +54,20 @@ public class Content {
 	private long lastModified;
 	
 	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Module> modules;
+	private Set<Module> modules = new HashSet<Module>();
 	
 	public Content() {
 		super();
 	}
 
-	public Content(int id, String title, String format, String description, String url/*, Set<Link> links*/, long dateCreated, long lastModified) {
+	public Content(int id, String title, String format, String description, String url/*, Set<Link> links*/, Set<Module> modules, long dateCreated, long lastModified) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.modules = new HashSet<Module>();
+		this.modules = modules;
 		/* this.links = links; */
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;

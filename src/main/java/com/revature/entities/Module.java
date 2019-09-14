@@ -37,8 +37,9 @@ public class Module {
 	@ElementCollection
 	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_child"))
 	@Column(name="fk_m_parent")
-	private Set<Integer> parentModules;
-
+	//private Set<Integer> parentModules;
+	private Module parentModule;
+	
 	//ToDo: update this to 'private Set<Module> childrenModules;' which will
 		//contain all of the children modules of this module
 	//All children of the module.
@@ -90,13 +91,13 @@ public class Module {
 	public void setLinks(Set<ContentPlusModules> links) {
 		this.links = links;
 	}
-	
-	public Set<Integer> getParentModules() {
-		return parentModules;
+
+	public Module getParentModule() {
+		return parentModule;
 	}
 
-	public void setParentModules(Set<Integer> parentModules) {
-		this.parentModules = parentModules;
+	public void setParentModule(Module parentModule) {
+		this.parentModule = parentModule;
 	}
 
 	public Set<Integer> getChildrenModules() {
@@ -107,17 +108,18 @@ public class Module {
 		this.childrenModules = childrenModules;
 	}
 
-	public Module(int id, String subject, long created, Set<ContentPlusModules> links, Set<Integer> parentModules,
+	public Module(int id, String subject, long created, Set<ContentPlusModules> links, 
+			/* Set<Integer> parentModules, */
+			Module parentModule,
 			Set<Integer> childrenModules) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
 		this.links = links;
-		this.parentModules = parentModules;
+		this.parentModule = parentModule;
 		this.childrenModules = childrenModules;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -125,8 +127,9 @@ public class Module {
 		int result = 1;
 		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
+		result = prime * result + id;
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
-		result = prime * result + ((parentModules == null) ? 0 : parentModules.hashCode());
+		result = prime * result + ((parentModule == null) ? 0 : parentModule.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -135,7 +138,9 @@ public class Module {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Module))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Module other = (Module) obj;
 		if (childrenModules == null) {
@@ -145,15 +150,17 @@ public class Module {
 			return false;
 		if (created != other.created)
 			return false;
+		if (id != other.id)
+			return false;
 		if (links == null) {
 			if (other.links != null)
 				return false;
 		} else if (!links.equals(other.links))
 			return false;
-		if (parentModules == null) {
-			if (other.parentModules != null)
+		if (parentModule == null) {
+			if (other.parentModule != null)
 				return false;
-		} else if (!parentModules.equals(other.parentModules))
+		} else if (!parentModule.equals(other.parentModule))
 			return false;
 		if (subject == null) {
 			if (other.subject != null)
