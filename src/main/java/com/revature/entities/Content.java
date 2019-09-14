@@ -56,14 +56,14 @@ public class Content {
 		super();
 	}
 
-	public Content(int id, String title, String format, String description, String url, Set<Link> links, long dateCreated, long lastModified) {
+	public Content(int id, String title, String format, String description, String url/*, Set<Link> links*/, long dateCreated, long lastModified) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.links = links;
+		/* this.links = links; */
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
 	}
@@ -107,7 +107,7 @@ public class Content {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+/*
 	public Set<Link> getLinks() {
 		return links;
 	}
@@ -115,7 +115,7 @@ public class Content {
 	public void setLinks(Set<Link> links) {
 		this.links = links;
 	}
-	
+	*/
 
 	public long getDateCreated() {
 		return dateCreated;
@@ -136,8 +136,8 @@ public class Content {
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", links="
-				+ links + "]";
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + /*", links="
+				+ links +*/ "]";
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class Content {
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		// result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -177,11 +177,13 @@ public class Content {
 			return false;
 		if (lastModified != other.lastModified)
 			return false;
+		/*
 		if (links == null) {
 			if (other.links != null)
 				return false;
 		} else if (!links.equals(other.links))
 			return false;
+		*/
 		if (title == null) {
 			if (other.title != null)
 				return false;
