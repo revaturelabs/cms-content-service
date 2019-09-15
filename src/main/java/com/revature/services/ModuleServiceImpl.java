@@ -41,9 +41,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module getModuleById(int id) {
-		System.out.println("Id: " + id + " & mr: " + mr);
 		Module module = mr.findById(id);
-		System.out.println("Module: " + module);
 		return module;
 	}
 

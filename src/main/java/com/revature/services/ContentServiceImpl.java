@@ -61,18 +61,8 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@LogException
 	public Content getContentById(int id) {	
-		System.out.println("At content service with cr: " + cr);
 		Content content = (Content) cr.findById(id);
-		System.out.println("Content: " + content);
 		return content;
-//		if(cr.findById(id).iterator().hasNext())
-//		{
-//			return cr.findById(id).iterator().next(); 
-//		}
-//		else
-//		{
-//			return null;
-//		}
 	}
 	
 	/**
