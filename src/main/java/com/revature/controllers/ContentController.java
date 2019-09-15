@@ -38,7 +38,7 @@ public class ContentController {
 	
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public Content createContent(@RequestBody Content content ) throws Exception{
-		
+		System.out.println("ContentController: " + content);
 		content = contentService.createContent(content);
 		return content;
 	}
@@ -54,6 +54,7 @@ public class ContentController {
 	// Uses the findById method in the repository
 	@GetMapping(value="{id}")
 	public Content getContentById(@PathVariable int id) {
+		System.out.println("At Controller: " + id);
 		return contentService.getContentById(id);
 	}
 	

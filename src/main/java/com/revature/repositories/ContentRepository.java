@@ -1,6 +1,5 @@
 package com.revature.repositories;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.repository.CrudRepository;
@@ -17,7 +16,7 @@ public interface ContentRepository extends CrudRepository<Content,Integer>{
 	//Gets content by format
 	Set<Content> findByFormat(String format);
 	
-	Set<Content> findById(int id);
+	Content findById(int id);
 	
 	// return set of contents here; we will iterate through that set in timegraph service impl. 
 	Set<Content> findByDateCreatedBetween(long startTime, long currentTime);

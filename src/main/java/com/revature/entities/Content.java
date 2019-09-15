@@ -7,8 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
+import org.hibernate.annotations.IndexColumn;
+
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,10 +50,11 @@ public class Content {
 	private long lastModified;
 	
 	//Set of modules the content is related to
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="link",
 			joinColumns=@JoinColumn(name="fk_c"),
 			inverseJoinColumns=@JoinColumn(name="fk_m"))
+	@OrderColumn
 	private Set<Module> modules;
 	
 	public Content() {
