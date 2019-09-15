@@ -28,7 +28,6 @@ import org.testng.annotations.Test;
 import com.google.gson.Gson;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ModuleController;
-import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.services.ModuleService;
 
@@ -77,11 +76,11 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeTest 
 	public void preTestSetup () {
-		Set<Link> links = new HashSet<Link> ();
-		Link link = new Link (id,id,id,affiliation);
-		links.add(link);
-		
-		module = new Module (id,subject,created,links,null,null);
+//		Set<Link> links = new HashSet<Link> ();
+//		Link link = new Link (id,id,id,affiliation);
+//		links.add(link);
+//		
+//		module = new Module (id,subject,created,links,null,null);
 	}
 	
 	/**

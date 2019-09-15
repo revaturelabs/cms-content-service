@@ -16,8 +16,6 @@ public interface ContentService {
     public Map<String, Integer> getContentByFormat(Set<Content> contents);   
     
     public Content updateContent(Content newContent);
-    
-    public Set<Content> getAllContentMinusLinks();
-    
+        
     public void deleteContent(Content content);
 }

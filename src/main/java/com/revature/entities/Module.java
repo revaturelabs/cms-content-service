@@ -1,20 +1,20 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 
 @Entity
 public class Module {
@@ -23,34 +23,46 @@ public class Module {
 	@Column(name = "m_id")
 	private int id;
 
+	@Column
 	private String subject;
 
+	@Column
 	private long created;
-	@OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Link> links;
 
-	//All parents of the module.
-	@ElementCollection
-	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_child"))
-	@Column(name="fk_m_parent")
-	private Set<Integer> parentModules;
+	//parent of the module.
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(name="joins",
+			joinColumns=@JoinColumn(name="fk_m_child"),
+			inverseJoinColumns=@JoinColumn(name="fk_m_parent"))
+	private Module parentModule;
 
 	//All children of the module.
-	@ElementCollection
-	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_parent"))
-	@Column(name="fk_m_child")
-	private Set<Integer> childrenModules;
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="joins",
+			joinColumns=@JoinColumn(name="fk_m_parent"),
+			inverseJoinColumns=@JoinColumn(name="fk_m_child"))
+	private Set<Module> childModules;
+	
+	//All content associated to the module
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="link", 
+			joinColumns=@JoinColumn(name="fk_m"),
+			inverseJoinColumns=@JoinColumn(name="fk_c"))
+	private Set<Content> content;
 
 	public Module() {
 		super();
-  }
-  
-	public Module(int id, String subject, long created, Set<Link> links) {
+	}
+
+	public Module(int id, String subject, long created, Module parentModule, Set<Module> childModules,
+			Set<Content> content) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
-		this.links = links;
+		this.parentModule = parentModule;
+		this.childModules = childModules;
+		this.content = content;
 	}
 
 	public int getId() {
@@ -77,50 +89,39 @@ public class Module {
 		this.created = created;
 	}
 
-	public Set<Link> getLinks() {
-		return links;
+	public Module getParentModule() {
+		return parentModule;
 	}
 
-	public void setLinks(Set<Link> links) {
-		this.links = links;
-	}
-	
-	public Set<Integer> getParentModules() {
-		return parentModules;
+	public void setParentModule(Module parentModule) {
+		this.parentModule = parentModule;
 	}
 
-	public void setParentModules(Set<Integer> parentModules) {
-		this.parentModules = parentModules;
+	public Set<Module> getChildModules() {
+		return childModules;
 	}
 
-	public Set<Integer> getChildrenModules() {
-		return childrenModules;
+	public void setChildModules(Set<Module> childModules) {
+		this.childModules = childModules;
 	}
 
-	public void setChildrenModules(Set<Integer> childrenModules) {
-		this.childrenModules = childrenModules;
+	public Set<Content> getContent() {
+		return content;
 	}
 
-	public Module(int id, String subject, long created, Set<Link> links, Set<Integer> parentModules,
-			Set<Integer> childrenModules) {
-		super();
-		this.id = id;
-		this.subject = subject;
-		this.created = created;
-		this.links = links;
-		this.parentModules = parentModules;
-		this.childrenModules = childrenModules;
+	public void setContent(Set<Content> content) {
+		this.content = content;
 	}
-
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((childrenModules == null) ? 0 : childrenModules.hashCode());
+		result = prime * result + ((childModules == null) ? 0 : childModules.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
-		result = prime * result + ((parentModules == null) ? 0 : parentModules.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((parentModule == null) ? 0 : parentModule.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -129,25 +130,29 @@ public class Module {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Module))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Module other = (Module) obj;
-		if (childrenModules == null) {
-			if (other.childrenModules != null)
+		if (childModules == null) {
+			if (other.childModules != null)
 				return false;
-		} else if (!childrenModules.equals(other.childrenModules))
+		} else if (!childModules.equals(other.childModules))
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
 			return false;
 		if (created != other.created)
 			return false;
-		if (links == null) {
-			if (other.links != null)
-				return false;
-		} else if (!links.equals(other.links))
+		if (id != other.id)
 			return false;
-		if (parentModules == null) {
-			if (other.parentModules != null)
+		if (parentModule == null) {
+			if (other.parentModule != null)
 				return false;
-		} else if (!parentModules.equals(other.parentModules))
+		} else if (!parentModule.equals(other.parentModule))
 			return false;
 		if (subject == null) {
 			if (other.subject != null)
@@ -155,6 +160,12 @@ public class Module {
 		} else if (!subject.equals(other.subject))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", parentModule=" + parentModule
+				+ ", childModules=" + childModules + ", content=" + content + "]";
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.revature.entities.Content;
-import com.revature.entities.Link;
 
 /**
  * This is a utility class meant to reduce the repetition caused by
@@ -31,13 +30,14 @@ public class ContentFactory {
 	 * @return - new instance of a content object
 	 */
 	public static Content getContent () {
-		//generate link set
-		Set<Link> links = new HashSet<Link> ();
-		Link link = new Link (linkId, id, moduleId,"link-affiliation");
-		links.add(link);
-		
-		//generate content object
-		return new Content (id, title, format, description, url, links, 1L, 1L);
+//		//generate link set
+//		Set<Link> links = new HashSet<Link> ();
+//		Link link = new Link (linkId, id, moduleId,"link-affiliation");
+//		links.add(link);
+//		
+//		//generate content object
+//		return new Content (id, title, format, description, url, links, 1L, 1L);
+		return null;
 	}
 	
 	/**

@@ -1,9 +1,12 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import java.util.Set;
@@ -41,23 +44,28 @@ public class Content {
 	@Column(name = "last_modified")
 	private long lastModified;
 	
-	@OneToMany(mappedBy ="contentId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<Link> links;
+	//Set of modules the content is related to
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinTable(name="link",
+			joinColumns=@JoinColumn(name="fk_c"),
+			inverseJoinColumns=@JoinColumn(name="fk_m"))
+	private Set<Module> modules;
 	
 	public Content() {
 		super();
 	}
 
-	public Content(int id, String title, String format, String description, String url, Set<Link> links, long dateCreated, long lastModified) {
+	public Content(int id, String title, String format, String description, String url, long dateCreated,
+			long lastModified, Set<Module> modules) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.links = links;
-		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
+		this.lastModified = lastModified;
+		this.modules = modules;
 	}
 
 	public int getId() {
@@ -100,15 +108,6 @@ public class Content {
 		this.url = url;
 	}
 
-	public Set<Link> getLinks() {
-		return links;
-	}
-
-	public void setLinks(Set<Link> links) {
-		this.links = links;
-	}
-	
-
 	public long getDateCreated() {
 		return dateCreated;
 	}
@@ -125,11 +124,12 @@ public class Content {
 		this.lastModified = lastModified;
 	}
 
-	@Override
-	public String toString() {
-		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", links="
-				+ links + "]";
+	public Set<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(Set<Module> modules) {
+		this.modules = modules;
 	}
 
 	@Override
@@ -139,8 +139,9 @@ public class Content {
 		result = prime * result + (int) (dateCreated ^ (dateCreated >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
+		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -152,7 +153,7 @@ public class Content {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Content))
+		if (getClass() != obj.getClass())
 			return false;
 		Content other = (Content) obj;
 		if (dateCreated != other.dateCreated)
@@ -167,12 +168,14 @@ public class Content {
 				return false;
 		} else if (!format.equals(other.format))
 			return false;
+		if (id != other.id)
+			return false;
 		if (lastModified != other.lastModified)
 			return false;
-		if (links == null) {
-			if (other.links != null)
+		if (modules == null) {
+			if (other.modules != null)
 				return false;
-		} else if (!links.equals(other.links))
+		} else if (!modules.equals(other.modules))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -187,8 +190,11 @@ public class Content {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", modules="
+				+ modules + "]";
+	}
 
-	
-	
 }
