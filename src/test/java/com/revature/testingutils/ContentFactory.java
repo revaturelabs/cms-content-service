@@ -14,7 +14,7 @@ import com.revature.entities.Content;
  * Link object instance.
  */
 public class ContentFactory {
-
+/*
 	//content field values
 	public static final String title = "TestTitle",
 							    format = "TestFormat",
@@ -29,6 +29,7 @@ public class ContentFactory {
 	 * constant values provided in this class
 	 * @return - new instance of a content object
 	 */
+	/*
 	public static Content getContent () {
 //		//generate link set
 //		Set<Link> links = new HashSet<Link> ();
@@ -39,15 +40,18 @@ public class ContentFactory {
 //		return new Content (id, title, format, description, url, links, 1L, 1L);
 		return null;
 	}
+	*/
 	
 	/**
 	 * Returns a list of modules meant to be related to the default link
 	 * data.
 	 * @return - List of module ids related to the sample content
 	 */
+	/*
 	public static List<Integer> getModules () {
 		List<Integer> modules = new ArrayList<Integer> ();
 		modules.add(moduleId);
 		return modules;
 	}
+	*/
 }

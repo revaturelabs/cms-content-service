@@ -34,13 +34,17 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	private ModuleService msMock;
 	@Mock
 	private ModuleRepository mrMock;
-//	@Mock
-//	private LinkRepository lrMock;
-	
+
+	/*
+	@Mock
+	private LinkRepository lrMock;
+	*/
 //	===FIELDS===
-//	private Link l1;
-//	private Link l2;
-//	private Link l3;
+	/*
+	private ContentPlusModules l1;
+	private ContentPlusModules l2;
+	private ContentPlusModules l3;
+	*/
 	private Module m1;
 	private Module m2;
 	private Module m3;
@@ -66,38 +70,40 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	//This will set up the values before the tests
 	@BeforeTest
 	public void testSetup() {
+
+		/*
+		//Create a Link object to add to module object.
+		l1 = new ContentPlusModules(250, 10, 130, "testblah");
+		l2 = new ContentPlusModules(255, 10, 130, "testblah");
+		l3 = new ContentPlusModules(224, 10, 130, "testblah");
+		links = new HashSet<ContentPlusModules>();
+		links.add(l1);
 		
-//		//Create a Link object to add to module object.
-//		l1 = new Link(250, 10, 130, "testblah");
-//		l2 = new Link(255, 10, 130, "testblah");
-//		l3 = new Link(224, 10, 130, "testblah");
-//		links = new HashSet<Link>();
-//		links.add(l1);
-//		
-//		lints = new ArrayList<Integer>();
-//		lints.add(250);
-//		lints.add(255);
-//		lints.add(224);
-//		
-//		//Create a module object for testing.
-//		m1 = new Module(130, "TestSubject", 10, links, null, null);
-//		m2 = new Module(145, "Java", 10, links, null, null);	
-//		m3 = new Module(150, "CSS", 10, links, null, null);	
-//		m4 = new Module(170, "HTML", 0, links, null, null);
-//		idTest = 130;
-//		
-//		lintsMod = new ArrayList<Integer>();
-//		lintsMod.add(130);
-//		lintsMod.add(145);
-//		lintsMod.add(150);
-//		//Create a list of modules for testing.
-//		moduleList = new HashSet<Module>();
-//		moduleList.add(m1);
-//		moduleList.add(m2);
-//		moduleList.add(m3);
-//		
-//		links.add(l2);
-//		links.add(l3);
+		lints = new ArrayList<Integer>();
+		lints.add(250);
+		lints.add(255);
+		lints.add(224);
+		
+		//Create a module object for testing.
+		m1 = new Module(130, "TestSubject", 10, links, null, null);
+		m2 = new Module(145, "Java", 10, links, null, null);	
+		m3 = new Module(150, "CSS", 10, links, null, null);	
+		m4 = new Module(170, "HTML", 0, links, null, null);
+		idTest = 130;
+		
+		lintsMod = new ArrayList<Integer>();
+		lintsMod.add(130);
+		lintsMod.add(145);
+		lintsMod.add(150);
+		//Create a list of modules for testing.
+		moduleList = new HashSet<Module>();
+		moduleList.add(m1);
+		moduleList.add(m2);
+		moduleList.add(m3);
+		
+		links.add(l2);
+		links.add(l3);
+		*/
 	}
 	
 	//tear down the setup
@@ -107,10 +113,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		m2 = null;
 		m3 = null;
 		moduleList = null;
-//		l1 = null;
-//		l2 = null;
-//		l3 = null;
-		
+		/*
+		l1 = null;
+		l2 = null;
+		l3 = null;
+		*/
 	}
 	
 //	===TESTS===
@@ -168,6 +175,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 //		double tmp = msMock.getAverageByModuleIds(lints);
 //		
 //		assertTrue(tmp >= 0.0);
+
 	}
 	
 	/**
@@ -184,6 +192,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 //		double tmp = msMock.getAverageByAllModules();
 //		
 //		assertTrue(tmp >= 0.0);
+
 		
 	}
 	

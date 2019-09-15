@@ -23,5 +23,5 @@ public interface ContentRepository extends CrudRepository<Content,Integer>{
 	
 	//Gets content by title
 	Set<Content> findByTitleContaining(String title);
-		
+
 }

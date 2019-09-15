@@ -19,15 +19,16 @@ import javax.persistence.Column;
 @Entity
 public class Module {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "m_id")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "m_id", updatable = false, nullable = false)
+	private Integer id;
 
 	@Column
 	private String subject;
 
 	@Column
 	private long created;
+
 
 	//parent of the module.
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
@@ -36,12 +37,14 @@ public class Module {
 			inverseJoinColumns=@JoinColumn(name="fk_m_parent"))
 	private Module parentModule;
 
+
 	//All children of the module.
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="joins",
 			joinColumns=@JoinColumn(name="fk_m_parent"),
 			inverseJoinColumns=@JoinColumn(name="fk_m_child"))
 	private Set<Module> childModules;
+
 	
 	//All content associated to the module
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
@@ -50,9 +53,11 @@ public class Module {
 			inverseJoinColumns=@JoinColumn(name="fk_c"))
 	private Set<Content> content;
 
+
 	public Module() {
 		super();
 	}
+
 
 	public Module(int id, String subject, long created, Module parentModule, Set<Module> childModules,
 			Set<Content> content) {
@@ -111,6 +116,7 @@ public class Module {
 
 	public void setContent(Set<Content> content) {
 		this.content = content;
+
 	}
 
 	@Override
@@ -167,5 +173,5 @@ public class Module {
 		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", parentModule=" + parentModule
 				+ ", childModules=" + childModules + ", content=" + content + "]";
 	}
-
+	
 }

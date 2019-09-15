@@ -29,4 +29,6 @@ public interface ModuleService {
 	public void deleteModuleWithAllContent(Module module);
 
 	public void deleteModuleWithSpecificContent(Module module);
+
+	public Module updateModule(Module module);
 }

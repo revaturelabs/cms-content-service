@@ -61,7 +61,7 @@ public class ContentTest {
 		assertTrue(one instanceof Content);
 		Content two = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
 				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Module>());
-		
+
 		assertTrue(one != two);
 	}
 
@@ -123,20 +123,6 @@ public class ContentTest {
 	}
 
 	@Test
-	public void testGetLinks() {
-//		Set<Link> link = new HashSet<Link>();
-//		assertTrue(c1.getLinks().equals(link));
-	}
-
-	@Test
-	public void testSetLinks() {
-//		Set<Link> link = new HashSet<Link>();
-//		link.add(new Link(55, 484, 555, "Java Wars"));
-//		c2.setLinks(link);
-//		assertTrue(c2.getLinks().equals(link));
-	}
-
-	@Test
 	public void testGetDateCreated() {
 		assertTrue(c2.getDateCreated() == 1555444l);
 	}
@@ -175,4 +161,5 @@ public class ContentTest {
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();
 	}
+	*/
 }

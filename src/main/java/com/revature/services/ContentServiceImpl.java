@@ -80,7 +80,6 @@ public class ContentServiceImpl implements ContentService {
 		
 		if(Character.isDigit(newContent.getId()))
 			throw new InvalidContentId("updateContent, newContent does not have a valid Id");
-		
 		Content oldContent = this.getContentById(newContent.getId());
 		
 		if(oldContent == null)

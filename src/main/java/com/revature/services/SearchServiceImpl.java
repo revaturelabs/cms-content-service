@@ -26,8 +26,6 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	ModuleRepository mr;
 	@Autowired
-	ContentService cs;
-	@Autowired
 	ModuleService ms;
 
 	/**
@@ -63,8 +61,7 @@ public class SearchServiceImpl implements SearchService {
 	@LogException
 	public Set<Content> filterContentBySubjects(List<Integer> moduleIds) {
 		Set<Module> modules = new HashSet<Module>();
-		Set<Content> contents = new HashSet<>();
-		
+		Set<Content> contents = new HashSet<>();		
 		//get modules by moduleIds
 		for (Integer id : moduleIds) {
 			modules.add(ms.getModuleById(id));
@@ -82,8 +79,6 @@ public class SearchServiceImpl implements SearchService {
 				break;
 			}
 		}
-
-		
 		return contents;	
 	}
 
@@ -113,61 +108,6 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> moduleContent = this.filterContentBySubjects(moduleIds);
 		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
 		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
-		
-//		if(format != null && !format.equals("All") && !format.equals("")) {
-//			contents = cr.findByFormat(format);
-//		}
-//		
-//		if(title != null && !"".equals(title)) {
-//			
-//			if(contents == null) {
-//				
-//				contents = cr.findByTitleContaining(title);
-//				
-//			} else {
-//				
-//				copy = new HashSet<Content>(contents);
-//				
-//				for(Content c : copy) {
-//					
-//					if(!c.getTitle().toLowerCase().contains(title.toLowerCase()))
-//						contents.remove(c);
-//				}
-//			}
-//		}
-//		
-//		if(contents == null) {
-//			contents = cs.getAllContent();
-//		}
-//		
-//		if(modules != null && !modules.isEmpty()) {
-//			
-//			copy = new HashSet<Content>(contents);
-//			Set<Link> linksInModules = lr.findByModuleIdIn(modules);
-//			
-//			boolean inModule;
-//			
-//			for(Content c : copy) {
-//				
-//				inModule = false;
-//				
-//				for(Link l : c.getLinks()) {
-//					
-//					if(linksInModules.contains(l)) {
-//						
-//						inModule = true;
-//						break;
-//					}
-//				}
-//				
-//				if(!inModule) {
-//					contents.remove(c);
-//				}
-//			}
-//		}
-//		
-//		return contents;
-
 	}
 
 	@Override
@@ -181,62 +121,9 @@ public class SearchServiceImpl implements SearchService {
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-		
+
 		Set<Content> moduleContent = this.filterContentBySubjects(moduleIdsList);
 		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
 		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
 	}
-//		Set<Content> copy;
-//		
-//		String title = (String) filters.get("title");
-//		String format = (String) filters.get("format");
-//		boolean isTitle = false;
-//		boolean isFormat = false;
-//		
-//		if(title != null && !title.isEmpty()) {
-//			isTitle = true;
-//		}
-//		if(format != null && !format.equals("All")) {
-//			isFormat = true;
-//		}
-//			
-//		if(isTitle || isFormat) {
-//			copy = new HashSet<Content>(contents);
-//			
-//			for(Content c : copy) {
-//				
-//				if(isTitle && !c.getTitle().toLowerCase().contains(title.toLowerCase()))
-//					contents.remove(c);
-//				if(isFormat && !c.getFormat().equals(format))
-//					contents.remove(c);
-//			}
-//		}
-//			
-//		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
-//		
-//		if(ids != null && !ids.isEmpty()) {
-//
-//			copy = new HashSet<Content>(contents);
-//			
-//			boolean inModule = false;
-//			
-//			for(Content c : copy) {
-//				
-//				inModule = false;
-//				
-//				for(Link l : c.getLinks()) {
-//					
-//					if(ids.contains(l.getModuleId())) {
-//						inModule = true;
-//						break;
-//					}
-//				}
-//				
-//				if(!inModule)
-//					contents.remove(c);
-//			}
-//		}
-//		
-//		return contents;
-//	}
 }

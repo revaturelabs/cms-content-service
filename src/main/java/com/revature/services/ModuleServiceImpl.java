@@ -19,6 +19,7 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
 	ModuleRepository mr;
+
 	@Autowired
 	ContentRepository cr;
 
@@ -59,7 +60,9 @@ public class ModuleServiceImpl implements ModuleService {
 		if(module.getParentModule() == null){
 			module.setParentModule(null);
 		}
+		//System.out.println("Module to be saved: " + module);
 		module = mr.save(module);
+		// System.out.println("Module has been saved");
 		return module;
 	}
 
@@ -103,6 +106,31 @@ public class ModuleServiceImpl implements ModuleService {
 		return parent.getChildModules();
 	}
 	
+	public Set<Module> findModuleByNoParent(){
+		/*
+		Set<Module> modules = getAllModules();
+		Set<Module> finModules = new HashSet<>();
+		for(Module specModule: modules) {
+			if(specModule.getParentModules().size() == 0) {
+				finModules.add(specModule);
+			}
+		}
+		return finModules;
+		*/
+		return null;
+	}	
+
+	
+	Set<Module> getChildren(Module parent){
+		Set<Module> childrenModule = new HashSet<>();
+		Set<Module> children = parent.getChildModules();
+		for(Module module: children) {
+			Module child = mr.findById(module.getId());
+			childrenModule.add(child);
+		}
+		return childrenModule;
+	}
+	
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
 
@@ -111,21 +139,10 @@ public class ModuleServiceImpl implements ModuleService {
 		for (Content content : mContent) {
 			cr.delete(content);
 		}
-		
-		//transfer children of module to parent of module
-		Set<Module> childModules = module.getChildModules();
-		Module newParent = module.getParentModule();
-		for (Module child : childModules) {
-			child.setParentModule(newParent);
-		}
-		
-		//delete module
-		mr.delete(module);
 	}
 	
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
-		
 		//delete all content associated ONLY with given module
 		Set<Content> mContent = module.getContent();
 		for (Content content : mContent) {
@@ -133,16 +150,13 @@ public class ModuleServiceImpl implements ModuleService {
 				cr.delete(content);
 			}
 		}
+	}
+
+	@Override
+	public Module updateModule(Module module) {
+		mr.save(module);
+		return module;
 		
-		//transfer children of module to parent of module
-		Set<Module> childModules = module.getChildModules();
-		Module newParent = module.getParentModule();
-		for (Module child : childModules) {
-			child.setParentModule(newParent);
-		}
-		
-		//delete module
-		mr.delete(module);
 	}
 
 	@Override
