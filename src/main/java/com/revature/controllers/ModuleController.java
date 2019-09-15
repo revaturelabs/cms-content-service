@@ -34,6 +34,7 @@ public class ModuleController {
 	
 	@GetMapping("/module/{id}")
 	public Module getModuleById(@PathVariable int id) {
+		System.out.println("Here: " + id);
 		return moduleService.getModuleById(id);
 	}
 	
