@@ -20,7 +20,7 @@ import com.revature.util.LogException;
 
 @Service
 public class SearchServiceImpl implements SearchService {
-	
+
 	@Autowired
 	ContentRepository cr;
 	@Autowired
@@ -31,21 +31,21 @@ public class SearchServiceImpl implements SearchService {
 	ModuleService ms;
 
 	/**
-	 * filterContentByTitle takes in a string value and returns a map of 
-	 * content, with key-value pairs that are associated with the title
-	 * string that was passed into the method.
+	 * filterContentByTitle takes in a string value and returns a map of content,
+	 * with key-value pairs that are associated with the title string that was
+	 * passed into the method.
 	 */
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		Set<Content> temp = cr.findByTitle(title); 
+		Set<Content> temp = cr.findByTitle(title);
 		return temp;
 	}
 
 	/**
-	 * filderContentByFormat takes in a string value and returns a map of
-	 * content, with key-value pairs that are associated with the format
-	 * type string that was passed into the method
+	 * filderContentByFormat takes in a string value and returns a map of content,
+	 * with key-value pairs that are associated with the format type string that was
+	 * passed into the method
 	 */
 	@Override
 	@LogException
@@ -54,11 +54,10 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/**
-	 * filterContentBySubjects takes in a list of integers that represent
-	 * module ids. It then stores all the related links of that module
-	 * in a temporary set.
-	 * then it gets all the content that relates to the selected links.
-	 * The method uses AND logic. 
+	 * filterContentBySubjects takes in a list of integers that represent module
+	 * ids. It then stores all the related links of that module in a temporary set.
+	 * then it gets all the content that relates to the selected links. The method
+	 * uses AND logic.
 	 */
 	@Override
 	@LogException
@@ -83,14 +82,14 @@ public class SearchServiceImpl implements SearchService {
 				break;
 			}
 		}
+
 		
 		return contents;	
 	}
-	
+
 	/**
-	 * getContentByModuleID takes in a int that is a module id and 
-	 * returns a set of content that have the inputed value as 
-	 * the moduleID.
+	 * getContentByModuleID takes in a int that is a module id and returns a set of
+	 * content that have the inputed value as the moduleID.
 	 */
 	@Override
 	@LogException
@@ -100,11 +99,10 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/**
-	 * Filter takes a content title, content format and/or
-	 * a list of Integers that represent module ids.
-	 * It will then return a set of content that contains all content that 
-	 * matches all 3 inputs using AND logic.
-	 * If an input is empty it is ignored and is not part of the logic.
+	 * Filter takes a content title, content format and/or a list of Integers that
+	 * represent module ids. It will then return a set of content that contains all
+	 * content that matches all 3 inputs using AND logic. If an input is empty it is
+	 * ignored and is not part of the logic.
 	 */
 	@Override
 	@LogException
@@ -169,6 +167,7 @@ public class SearchServiceImpl implements SearchService {
 //		}
 //		
 //		return contents;
+
 	}
 
 	@Override
@@ -241,5 +240,3 @@ public class SearchServiceImpl implements SearchService {
 //		return contents;
 //	}
 }
-
-	
