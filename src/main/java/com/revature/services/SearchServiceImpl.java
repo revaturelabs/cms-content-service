@@ -126,4 +126,5 @@ public class SearchServiceImpl implements SearchService {
 		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
 		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
 	}
+
 }
