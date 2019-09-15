@@ -76,6 +76,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeTest 
 	public void preTestSetup () {
+		// TODO: best of luck, Adam & Dan
 		// Set<ContentPlusModules> links = new HashSet<ContentPlusModules> ();
 		// ContentPlusModules link = new ContentPlusModules (id,id,id,affiliation);
 		// links.add(link);

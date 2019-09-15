@@ -6,8 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 
 import java.util.Set;
@@ -22,54 +23,51 @@ public class Module {
 	@Column(name = "m_id", updatable = false, nullable = false)
 	private Integer id;
 
+	@Column
 	private String subject;
 
+	@Column
 	private long created;
-	
-	// @OneToMany(mappedBy = "moduleId", cascade = CascadeType.ALL, orphanRemoval = true)
-	// private Set<ContentPlusModules> links;
 
-	
-	//ToDo: update this to 'private Module parentModule;' which will contain the Module
-		//object of this Module Object's parent. 
-		//We want to restrict Module Objects to only one parent
-	//All parents of the module.
-	// what they had - H
-	// @ElementCollection
-	// @CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_child"))
-	// @Column(name="fk_m_parent")
-	//private Set<Integer> parentModules;
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+
+	//parent of the module.
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="joins",
 			joinColumns=@JoinColumn(name="fk_m_child"),
 			inverseJoinColumns=@JoinColumn(name="fk_m_parent"))
 	private Module parentModule;
-	
-	//ToDo: update this to 'private Set<Module> childrenModules;' which will
-		//contain all of the children modules of this module
-//	//All children of the module.
-//	@ElementCollection
-//	@CollectionTable(name="joins",joinColumns=@JoinColumn(name="fk_m_parent"))
-//	@Column(name="fk_m_child")
-//	private Set<Integer> childrenModules;
-	
+
+
+	//All children of the module.
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="joins",
 			joinColumns=@JoinColumn(name="fk_m_parent"),
 			inverseJoinColumns=@JoinColumn(name="fk_m_child"))
 	private Set<Module> childModules;
 
+	
+	//All content associated to the module
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinTable(name="link", 
+			joinColumns=@JoinColumn(name="fk_m"),
+			inverseJoinColumns=@JoinColumn(name="fk_c"))
+	private Set<Content> content;
+
+
 	public Module() {
 		super();
 	}
 
-	public Module(int id, String subject, long created, Module parentModule, Set<Module> childModules) {
+
+	public Module(int id, String subject, long created, Module parentModule, Set<Module> childModules,
+			Set<Content> content) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
 		this.parentModule = parentModule;
 		this.childModules = childModules;
+		this.content = content;
 	}
 
 	public int getId() {
@@ -112,11 +110,21 @@ public class Module {
 		this.childModules = childModules;
 	}
 
+	public Set<Content> getContent() {
+		return content;
+	}
+
+	public void setContent(Set<Content> content) {
+		this.content = content;
+
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((childModules == null) ? 0 : childModules.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + id;
 		result = prime * result + ((parentModule == null) ? 0 : parentModule.hashCode());
@@ -138,6 +146,11 @@ public class Module {
 				return false;
 		} else if (!childModules.equals(other.childModules))
 			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
 		if (created != other.created)
 			return false;
 		if (id != other.id)
@@ -158,8 +171,7 @@ public class Module {
 	@Override
 	public String toString() {
 		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", parentModule=" + parentModule
-				+ ", childModules=" + childModules + "]";
+				+ ", childModules=" + childModules + ", content=" + content + "]";
 	}
-
 	
 }

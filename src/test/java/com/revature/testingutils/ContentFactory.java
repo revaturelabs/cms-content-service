@@ -31,13 +31,14 @@ public class ContentFactory {
 	 */
 	/*
 	public static Content getContent () {
-		//generate link set
-		Set<ContentPlusModules> links = new HashSet<ContentPlusModules> ();
-		ContentPlusModules link = new ContentPlusModules (linkId, id, moduleId,"link-affiliation");
-		links.add(link);
-		
-		//generate content object
-		return new Content (id, title, format, description, url, links, 1L, 1L);
+//		//generate link set
+//		Set<Link> links = new HashSet<Link> ();
+//		Link link = new Link (linkId, id, moduleId,"link-affiliation");
+//		links.add(link);
+//		
+//		//generate content object
+//		return new Content (id, title, format, description, url, links, 1L, 1L);
+		return null;
 	}
 	*/
 	

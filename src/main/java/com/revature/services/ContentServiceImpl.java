@@ -1,9 +1,7 @@
 package com.revature.services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,49 +22,23 @@ public class ContentServiceImpl implements ContentService {
 	
 	@Autowired
 	ContentRepository cr;
-	// @Autowired 
-	//  LinkRepository lr;
-	@Autowired
+	@Autowired 
 	ModuleRepository mr;
 
 	/**
-	 * createContent first inserts the content to the database
-	 * then iterates over the set of links that are within the content
-	 * and replaces the fk of content id with the correct content id,
-	 * then adds the set of links to the link table. 
+	 * Creates a new Content in the database
 	 */
 	@LogException
 	@Override
-	public Content createContent(Content content) {
-		
-		//Set<ContentPlusModules> links = content.getLinks();
-		
-		/*
-		if (links == null) {
-			throw new NullPointerException();
-		}
-		*/
-		
-		/*
-		content.setLinks(null);
-		content = cr.save(content);
-		*/
-		/*
-		for(ContentPlusModules link : links) {
-			link.setContentId(content.getId());
-		}
-		*/
-		
-		// lr.saveAll(links);
-		
-		// content.setLinks(links);
-		
+	public Content createContent(Content content) {	
+		//set date created and date modified
 		if(content.getDateCreated() == 0L && content.getLastModified() == 0L) {
-		content.setDateCreated(System.currentTimeMillis());
-		
-		content.setLastModified(System.currentTimeMillis());
+			content.setDateCreated(System.currentTimeMillis());
+			content.setLastModified(System.currentTimeMillis());
 		}
-		
+		//save the content to the database
+		content = cr.save(content);
+		//return the saved content
 		return content;
 	}
 	
@@ -83,36 +55,14 @@ public class ContentServiceImpl implements ContentService {
 		}
 	
 	/**
-	 * Ignores the additional DB call to get the list of links associated with a content object
-	 */
-	public Set<Content> getAllContentMinusLinks(){		
-		Set<Content> contents = new HashSet<Content>();
-		// List<ContentMinusLinks> con = cr.findAllContentBy();
-		
-		/*
-		for(ContentMinusLinks c: con) {
-			contents.add(new Content(c.getId(), c.getTitle(), c.getFormat(), c.getDescription(), c.getUrl(), null, c.getDateCreated(), c.getLastModified()));
-		}
-		*/
-		return contents;
-	}
-	
-	/**
 	 * get content from the data base that match a passed in id
 	 * then returns the content with that id.
 	 */
 	@Override
 	@LogException
-	public Content getContentById(int id) 
-	{	
-		if(cr.findById(id).iterator().hasNext())
-		{
-			return cr.findById(id).iterator().next(); 
-		}
-		else
-		{
-			return null;
-		}
+	public Content getContentById(int id) {	
+		Content content = (Content) cr.findById(id);
+		return content;
 	}
 	
 	/**
@@ -130,29 +80,6 @@ public class ContentServiceImpl implements ContentService {
 		
 		if(Character.isDigit(newContent.getId()))
 			throw new InvalidContentId("updateContent, newContent does not have a valid Id");
-		
-		// Set<ContentPlusModules> oldLinks = new HashSet<>();
-		// Set<ContentPlusModules> newLinks = new HashSet<>();
-		
-		/*
-		for(ContentPlusModules link : newContent.getLinks()) {
-			if(link.getId() == 0) {
-				newLinks.add(link);
-			} else {
-				oldLinks.add(link);
-			}
-		}
-		*/
-		
-		// newContent.setLinks(oldLinks);
-		/*
-		if(!newLinks.isEmpty()) {
-			for(ContentPlusModules l : lr.saveAll(newLinks)) {
-				oldLinks.add(l);
-			}
-			// newContent.setLinks(oldLinks);
-		}
-		*/
 		Content oldContent = this.getContentById(newContent.getId());
 		
 		if(oldContent == null)
@@ -170,13 +97,13 @@ public class ContentServiceImpl implements ContentService {
 	@LogException
 	public Map<String, Integer> getContentByFormat(String[] formats) {
 		Map<String, Integer> numList = new HashMap<>();
-		ArrayList<Content> all = (ArrayList<Content>) cr.findAll();
+		Set<Content> allContent = (Set<Content>) cr.findAll();
 		
-		for(Content c : all) {
-			if(numList.containsKey(c.getFormat()))
-				numList.put(c.getFormat(), numList.get(c.getFormat()) + 1);
+		for(Content content : allContent) {
+			if(numList.containsKey(content.getFormat()))
+				numList.put(content.getFormat(), numList.get(content.getFormat()) + 1);
 			else
-				numList.put(c.getFormat(), 1);
+				numList.put(content.getFormat(), 1);
 		}
 		return numList;
 	}

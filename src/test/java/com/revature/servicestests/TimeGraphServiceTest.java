@@ -69,28 +69,26 @@ public class TimeGraphServiceTest extends AbstractTestNGSpringContextTests {
 	//Initialize the components
 	@BeforeTest
 	public void preTestSetup() {
-		/*
-		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), (sysTime - ONE_MONTH), (sysTime - ONE_MONTH));
-		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), (sysTime - (ONE_MONTH * 5)), (sysTime - ONE_MONTH));
-		c3 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), (sysTime - ONE_YEAR), (sysTime - ONE_MONTH));
-		c4 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), sysTime, sysTime);
-		all = new ArrayList<Content>();
-		all.add(c1);
-		all.add(c2);
-		all.add(c3);
-		all.add(c4);
-		*/
-		
-		
-		setAll = new HashSet<Content>();
-		setAll.add(c1);
-		setAll.add(c2);
-		setAll.add(c3);
-		setAll.add(c4);
+//		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
+//				new HashSet<Link>(), (sysTime - ONE_MONTH), (sysTime - ONE_MONTH));
+//		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
+//				new HashSet<Link>(), (sysTime - (ONE_MONTH * 5)), (sysTime - ONE_MONTH));
+//		c3 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
+//				new HashSet<Link>(), (sysTime - ONE_YEAR), (sysTime - ONE_MONTH));
+//		c4 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
+//				new HashSet<Link>(), sysTime, sysTime);
+//		all = new ArrayList<Content>();
+//		all.add(c1);
+//		all.add(c2);
+//		all.add(c3);
+//		all.add(c4);
+//		
+//		setAll = new HashSet<Content>();
+//		setAll.add(c1);
+//		setAll.add(c2);
+//		setAll.add(c3);
+//		setAll.add(c4);
+
 	}
 	
 	//tear down the components

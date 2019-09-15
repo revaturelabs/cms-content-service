@@ -33,6 +33,7 @@ public class SearchServiceTest {
 	private ContentRepository crMock;
 	@Mock
 	private ModuleRepository mrMock;
+
 	/*
 	@Mock
 	private LinkRepository lrMock;
@@ -44,8 +45,9 @@ public class SearchServiceTest {
 	private SearchService ss = new SearchServiceImpl();
 
 //	===Fields===
-	// ontentPlusModules linkMock;
-	// Set<ContentPlusModules> linkSetMock = new HashSet<ContentPlusModules>();
+//	Link linkMock;
+//	Set<Link> linkSetMock = new HashSet<Link>();
+
 	
 	Content contentMock;
 	Set<Content> contentSetMock = new HashSet<Content>();
@@ -91,16 +93,17 @@ public class SearchServiceTest {
 		*/
 		//Module
 		//Constructor (Id, "Subject", DateCreated, Set<Link>)
-		this.moduleMock = new Module(100, "Test Subject 1", 1L/*, this.linkSetMock*/, null, null);
+		// this.moduleMock = new Module(100, "Test Subject 1", 1L/*, this.linkSetMock*/, null, null);
 	}
 	
 	@AfterTest
 	public void tearDown() {
-		this.contentSetMock = null;
-		this.contentMock = null;
-		// this.linkSetMock = null;
-		// this.linkMock = null;
-		this.moduleMock = null;
+//		this.contentSetMock = null;
+//		this.contentMock = null;
+//		this.linkSetMock = null;
+//		this.linkMock = null;
+//		this.moduleMock = null;
+
 	}
 	
 	/**
@@ -153,18 +156,19 @@ public class SearchServiceTest {
 	 */
 	@Test
 	public void filterContentBySubjectsTest() {
-		//Local Variables
-		List<Integer> moduleIds = new ArrayList<Integer>();
-		
-		moduleIds.add(100);
-		//Given
-		// Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
-		Mockito.when(crMock.findAllById(Mockito.any())).thenReturn(this.contentSetMock);
-		
-		//When 
-		ss.filterContentBySubjects(moduleIds);
-		// verify(lrMock).findByModuleId(Mockito.anyInt());
-		verify(crMock).findAllById(Mockito.any());
+//		//Local Variables
+//		List<Integer> moduleIds = new ArrayList<Integer>();
+//		
+//		moduleIds.add(100);
+//		//Given
+//		Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
+//		Mockito.when(crMock.findAllById(Mockito.any())).thenReturn(this.contentSetMock);
+//		
+//		//When 
+//		ss.filterContentBySubjects(moduleIds);
+//		verify(lrMock).findByModuleId(Mockito.anyInt());
+//		verify(crMock).findAllById(Mockito.any());
+
 	}
 	
 	/**
@@ -174,18 +178,19 @@ public class SearchServiceTest {
 	 */
 	@Test
 	public void getContentByModuleIdTest() {
-		//Local Variables
-		int moduleId = 100;
-		//Given
-		// Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
-		Mockito.when(crMock.findById(Mockito.anyInt())).thenReturn(this.contentSetMock);
-		
-		//When
-		ss.getContentByModuleId(moduleId);
-		
-		//Then
-		// verify(lrMock, times(2)).findByModuleId(moduleId);
-		verify(crMock, times(1)).findById(Mockito.anyInt());
+//		//Local Variables
+//		int moduleId = 100;
+//		//Given
+//		Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
+//		Mockito.when(crMock.findById(Mockito.anyInt())).thenReturn(this.contentSetMock);
+//		
+//		//When
+//		ss.getContentByModuleId(moduleId);
+//		
+//		//Then
+//		verify(lrMock, times(2)).findByModuleId(moduleId);
+//		verify(crMock, times(1)).findById(Mockito.anyInt());
+
 	}
 	
 	/**
@@ -200,32 +205,33 @@ public class SearchServiceTest {
 	 */
 	@Test
 	public void filterTest() {
-		//Local Variables
-		String format = "format";
-		String titleContaining = "Test";
-		List<Integer> moduleIds = new ArrayList<Integer>();
-		moduleIds.add(100);
-		
-		
-		//When
-		Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
-		Mockito.when(crMock.findByTitleContaining(titleContaining)).thenReturn(contentSetMock);
-		Mockito.when(csMock.getAllContent()).thenReturn(contentSetMock);
-		// Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
-		
-		//Given/Then Test 1 - fields are not null
-		ss.filter(titleContaining, format, moduleIds);
-		
-		verify(crMock, times(2)).findByFormat(format);
-		// verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
-		
-		//Given/Then Test 2 - format is null.
-		ss.filter(titleContaining, null, moduleIds);
-		verify(crMock, times(1)).findByTitleContaining(titleContaining);
-		
-		//Given/Then Test 3 - title and format is null
-		ss.filter(null, null, moduleIds);
-		verify(csMock, times(1)).getAllContent();
+//		//Local Variables
+//		String format = "format";
+//		String titleContaining = "Test";
+//		List<Integer> moduleIds = new ArrayList<Integer>();
+//		moduleIds.add(100);
+//		
+//		
+//		//When
+//		Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
+//		Mockito.when(crMock.findByTitleContaining(titleContaining)).thenReturn(contentSetMock);
+//		Mockito.when(csMock.getAllContent()).thenReturn(contentSetMock);
+//		Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
+//		
+//		//Given/Then Test 1 - fields are not null
+//		ss.filter(titleContaining, format, moduleIds);
+//		
+//		verify(crMock, times(2)).findByFormat(format);
+//		verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
+//		
+//		//Given/Then Test 2 - format is null.
+//		ss.filter(titleContaining, null, moduleIds);
+//		verify(crMock, times(1)).findByTitleContaining(titleContaining);
+//		
+//		//Given/Then Test 3 - title and format is null
+//		ss.filter(null, null, moduleIds);
+//		verify(csMock, times(1)).getAllContent();
+
 	}
 	
 

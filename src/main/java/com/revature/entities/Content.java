@@ -7,28 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 
 @Entity
-@SecondaryTables ({
-	@SecondaryTable(name="module")
-	/*
-	,
-	@SecondaryTable(name="link")
-	*/
-})
-
 public class Content {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,32 +45,30 @@ public class Content {
 	@Column(name = "last_modified")
 	private long lastModified;
 	
-	/*
-	@ElementCollection
-	@CollectionTable(name="link", joinColumns=@JoinColumn(name="fk_c"))
-	@OneToMany(mappedBy ="m_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	*/
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	//Set of modules the content is related to
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="link",
 			joinColumns=@JoinColumn(name="fk_c"),
 			inverseJoinColumns=@JoinColumn(name="fk_m"))
-	private Set<Module> modules = new HashSet<Module>();
+	@OrderColumn
+	private Set<Module> modules;
+
 	
 	public Content() {
 		super();
 	}
 
-	public Content(int id, String title, String format, String description, String url/*, Set<Link> links*/, Set<Module> modules, long dateCreated, long lastModified) {
+	public Content(int id, String title, String format, String description, String url, long dateCreated,
+			long lastModified, Set<Module> modules) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.modules = modules;
-		/* this.links = links; */
-		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
+		this.lastModified = lastModified;
+		this.modules = modules;
 	}
 
 	public int getId() {
@@ -125,15 +110,6 @@ public class Content {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-/*
-	public Set<Link> getLinks() {
-		return links;
-	}
-
-	public void setLinks(Set<Link> links) {
-		this.links = links;
-	}
-	*/
 
 	public long getDateCreated() {
 		return dateCreated;
@@ -224,10 +200,4 @@ public class Content {
 				+ modules + "]";
 	}
 
-	
-
-	
-
-	
-	
 }

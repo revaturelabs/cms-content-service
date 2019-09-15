@@ -1,8 +1,8 @@
 package com.revature.services;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,7 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Autowired
 	ModuleRepository mr;
-	/*
-	@Autowired
-	LinkRepository lr;
-	@Autowired
-	ModuleHierarchyRepository mhr;
-	*/
+
 	@Autowired
 	ContentRepository cr;
 
@@ -47,7 +42,8 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module getModuleById(int id) {
-		return mr.findById(id);
+		Module module = mr.findById(id);
+		return module;
 	}
 
 	/**
@@ -61,14 +57,12 @@ public class ModuleServiceImpl implements ModuleService {
 		if(module.getChildModules() == null){
 			module.setChildModules(Collections.emptySet());
 		}
-		/*
-		if(module.getParentModules() == null){
-			module.setParentModules(Collections.emptySet());
+		if(module.getParentModule() == null){
+			module.setParentModule(null);
 		}
-		*/
-		System.out.println("Module to be saved: " + module);
+		//System.out.println("Module to be saved: " + module);
 		module = mr.save(module);
-		System.out.println("Module has been saved");
+		// System.out.println("Module has been saved");
 		return module;
 	}
 
@@ -78,11 +72,12 @@ public class ModuleServiceImpl implements ModuleService {
 	 * */
 	@Override
 	@LogException
-	public double getAverageByModuleIds(ArrayList<Integer> ids) {
-		// int size = lr.findByModuleIdIn(ids).size();
-		
-		// return (double) size / (double) ids.size();
-		return 0.0;
+	public double getAverageByModuleIds(Set<Module> modules) {
+		Integer numContent = 0;
+		for (Module module : modules) {
+			numContent += module.getContent().size();
+		}
+		return (double) numContent / (double) modules.size();
 	}
 
 	/**
@@ -91,12 +86,8 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public double getAverageByAllModules() {
 		Set<Module> allMods = this.getAllModules();
-		ArrayList<Integer> ids = new ArrayList<Integer>();
 		
-		for(Module m : allMods) {
-			ids.add(m.getId());
-		}
-		return this.getAverageByModuleIds(ids);
+		return this.getAverageByModuleIds(allMods);
 	}
 
 	/**
@@ -109,10 +100,10 @@ public class ModuleServiceImpl implements ModuleService {
 		}
 	}
 	
-	public Set<Module> getAllModulesByRoot(){
-		Set<Module> modules = new HashSet<>();
-		findModuleByNoParent().forEach(modules :: add);
-		return modules;
+	@Override
+	public Set<Module> getChildrenByModuleId(int id){
+		Module parent = mr.findById(id);
+		return parent.getChildModules();
 	}
 	
 	public Set<Module> findModuleByNoParent(){
@@ -128,14 +119,7 @@ public class ModuleServiceImpl implements ModuleService {
 		*/
 		return null;
 	}	
-	
-	@Override
-	public Set<Module> getChildrenByModuleId(int id){
-		Module parent = mr.findById(id);
-		Set<Module> childrenModules = new HashSet<>();
-		getChildren(parent).forEach(childrenModules :: add);
-		return childrenModules;
-	}
+
 	
 	Set<Module> getChildren(Module parent){
 		Set<Module> childrenModule = new HashSet<>();
@@ -149,32 +133,23 @@ public class ModuleServiceImpl implements ModuleService {
 	
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
-		/*
-		Set<ContentPlusModules> moduleList = module.getLinks();
-		for(ContentPlusModules specLink:moduleList) {
-			int contentId = specLink.getContentId();
-			cr.deleteById(contentId);
+
+		//delete all content associated with given module
+		Set<Content> mContent = module.getContent();
+		for (Content content : mContent) {
+			cr.delete(content);
 		}
-		mr.delete(module);
-		*/
 	}
 	
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
-		// Set<ContentPlusModules> moduleList = module.getLinks();
-		/*
-		for(ContentPlusModules specLink:moduleList) {
-			int contentId = specLink.getContentId();
-			Set<Content> contentList = cr.findById(contentId);
-			for(Content specCon:contentList) {
-				if(specCon.getLinks().size() == 1) {
-					cr.deleteById(specCon.getId());
-				}
-				specCon.getLinks().remove(specLink);
+		//delete all content associated ONLY with given module
+		Set<Content> mContent = module.getContent();
+		for (Content content : mContent) {
+			if (content.getModules().size() <= 1) {
+				cr.delete(content);
 			}
 		}
-		mr.delete(module);
-		*/
 	}
 
 	@Override
@@ -183,5 +158,24 @@ public class ModuleServiceImpl implements ModuleService {
 		return module;
 		
 	}
+
+	@Override
+	public Set<Module> getAllRootModules() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<Module> getAllModulesByRoot() {
+		Set<Module> modules = getAllModules();
+		Set<Module> rootModules = new HashSet<>();
+		for(Module module: modules) {
+			if(module.getParentModule() == null) {
+				rootModules.add(module);
+			}
+		}
+		return rootModules;
+	}
+
 }
 

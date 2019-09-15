@@ -64,6 +64,7 @@ public class ModuleController {
         return ResponseEntity.ok(moduleService.getChildrenByModuleId(id));
     }
 	
+
 	//update a specific module
 	@PutMapping("/{id}")
 	public ResponseEntity<Module> updateModule(@PathVariable("id") int id, @RequestBody Module module) {
