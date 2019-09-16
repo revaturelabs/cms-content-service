@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
-import com.revature.entities.ModuleHierarchy;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleHierarchyRepository;
@@ -141,12 +140,6 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 	
 	@Override
-	public void setChildToParent(int parentId, int childId) {
-		ModuleHierarchy moduleHierarchy = new ModuleHierarchy(parentId,childId);
-		moduleHierarchy = mhr.save(moduleHierarchy);
-	}
-	
-	@Override
 	public void deleteModuleWithAllContent(Module module) {
 		Set<Link> moduleList = module.getLinks();
 		for(Link specLink:moduleList) {
@@ -170,6 +163,13 @@ public class ModuleServiceImpl implements ModuleService {
 			}
 		}
 		mr.delete(module);
+	}
+
+	@Override
+	public Module updateModule(Module module) {
+		mr.save(module);
+		return module;
+		
 	}
 }
 

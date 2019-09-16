@@ -29,7 +29,7 @@ import org.testng.annotations.Test;
 
 import com.google.gson.Gson;
 import com.revature.cmsforce.CMSforceApplication;
-import com.revature.controllers.SearchController;
+import com.revature.controllers.ContentController;
 import com.revature.entities.Content;
 import com.revature.services.SearchService;
 import com.revature.testingutils.ContentFactory;
@@ -58,7 +58,7 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 
 	//controller being tested
 	@InjectMocks
-	private SearchController sc;
+	private ContentController cc;
 	
 	//service the controller depends on
 	@Mock
@@ -70,8 +70,8 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	@BeforeClass
 	public void setup() {
 		//build mock MVC so can build mock requests
-		sc = new SearchController ();
-		mvc = MockMvcBuilders.standaloneSetup(sc).build();
+		cc = new ContentController ();
+		mvc = MockMvcBuilders.standaloneSetup(cc).build();
 		
 		//enables mockito annotations
 		MockitoAnnotations.initMocks(this);
