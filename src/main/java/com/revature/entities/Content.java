@@ -49,7 +49,7 @@ public class Content {
 	private long lastModified;
 
 	//Set of modules the content is related to
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="link",
 			joinColumns=@JoinColumn(name="fk_c"),
 			inverseJoinColumns=@JoinColumn(name="fk_m"))

@@ -30,7 +30,7 @@ public class Module {
 	private long created;
 
 	//parent of the module.
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinTable(name="joins",
 		joinColumns=@JoinColumn(name="fk_m_child"),
 		inverseJoinColumns=@JoinColumn(name="fk_m_parent"))

@@ -44,7 +44,9 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Set<Module> getAllModules() {
-		return (Set<Module>) mr.findAll();
+		Set<Module> modules = new HashSet<>();
+		mr.findAll().forEach(modules :: add);
+		return modules;
 	}
 
 	/**

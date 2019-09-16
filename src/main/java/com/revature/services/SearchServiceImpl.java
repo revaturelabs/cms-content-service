@@ -37,6 +37,9 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
+		if ("".equals(title)) {
+			return cs.getAllContent();
+		}
 		return cr.findByTitle(title);
 	}
 
@@ -48,6 +51,9 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {
+		if ("".equals(format)) {
+			return cs.getAllContent();
+		}
 		return cr.findByFormat(format);
 	}
 
@@ -60,6 +66,9 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentBySubjects(List<Integer> moduleIds) {
+		if (moduleIds.size() <= 0) {
+			return cs.getAllContent();
+		}
 		Set<Module> modules = new HashSet<Module>();
 		Set<Content> content = new HashSet<>();		
 		//get modules by moduleIds
@@ -101,7 +110,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> moduleIds) {
-
+		
 		Set<Content> titleContent = this.filterContentByTitle(title);
 		Set<Content> formatContent = this.filterContentByFormat(format);
 		Set<Content> moduleContent = this.filterContentBySubjects(moduleIds);

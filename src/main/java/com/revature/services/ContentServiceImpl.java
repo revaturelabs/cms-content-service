@@ -49,7 +49,9 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@LogException
 	public Set<Content> getAllContent() {
-		return (Set<Content>) cr.findAll();
+		Set<Content> contents = new HashSet<>();
+		cr.findAll().forEach(contents :: add);
+		return contents;
 	}
 	
 	/**
