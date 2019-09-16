@@ -43,7 +43,7 @@ public class ControllerLogAspect { //Logging for the controllers
 		log.logger.info("Returning Module by id " + jp.toString());
 	}
 	
-	@AfterReturning("execution(public * com.revature.controllers.SearchController.filter(..))")
+	@AfterReturning("execution(public * com.revature.controllers.ContentController.getSearchResults(..))")
 	public void logSearch(JoinPoint jp) {
 		log.logger.info("Reterned search results "+ jp.toString());
 	}
