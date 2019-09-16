@@ -180,7 +180,8 @@ public class SearchServiceImpl implements SearchService {
 					contents.remove(c);
 				}
 			}
-
+			
+		}
 		return contents;
 	}
 
