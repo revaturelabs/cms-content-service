@@ -1,16 +1,18 @@
 package com.revature.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Sets;
 import com.revature.entities.Content;
+import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
@@ -22,12 +24,10 @@ public class SearchServiceImpl implements SearchService {
 	ContentRepository cr;
 	@Autowired
 	ModuleRepository mr;
-	/*
 	@Autowired
-	LinkRepository lr;
-	*/
+	ContentService cs;
 	@Autowired
-	ContentService csi;
+	ModuleService ms;
 
 	/**
 	 * filterContentByTitle takes in a string value and returns a map of content,
@@ -37,8 +37,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByTitle(String title) {
-		Set<Content> temp = cr.findByTitle(title);
-		return temp;
+		return cr.findByTitle(title);
 	}
 
 	/**
@@ -61,27 +60,26 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentBySubjects(List<Integer> moduleIds) {
-		Set<Content> contents = new HashSet<>();
-		Set<Integer> ids = new HashSet<>();
-		Set<Integer> idsTemp = new HashSet<>();
-/*
-		Set<ContentPlusModules> linksByModuleID = lr.findByModuleId(moduleIds.get(0));
-		for (ContentPlusModules link : linksByModuleID) {
-			ids.add(link.getContentId());
+		Set<Module> modules = new HashSet<Module>();
+		Set<Content> content = new HashSet<>();		
+		//get modules by moduleIds
+		for (Integer id : moduleIds) {
+			modules.add(ms.getModuleById(id));
 		}
-*/
-/*
-		for (int i = 1; i < moduleIds.size(); i++) {
-			linksByModuleID = lr.findByModuleId(moduleIds.get(i));
-			for (ContentPlusModules link : linksByModuleID) {
-				idsTemp.add(link.getContentId());
+		//get all content of each module
+		for(Module module : modules) {
+			//the first iteration, contents will be empty so we don't want to do an intersection yet
+			if (content.size() <= 0) {
+				content.add((Content) module.getContent());
+			} else {
+				content = Sets.intersection(content, module.getContent());
 			}
-			ids.retainAll(idsTemp);
+			//if contents is empty at the end of an iteration, that means there was no content relating to that module
+			if (content.size() <= 0) {
+				break;
+			}
 		}
-*/
-		cr.findAllById(ids).forEach(contents::add);
-
-		return contents;
+		return content;
 	}
 
 	/**
@@ -91,10 +89,8 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
-		// Set<ContentPlusModules> links = lr.findByModuleId(moduleId);
-		// int contentId = links.iterator().next().getContentId();
-		// return cr.findById(contentId);
-		return null;
+		return mr.findById(moduleId).getContent();
+		 
 	}
 
 	/**
@@ -105,142 +101,28 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> modules) {
+	public Set<Content> filter(String title, String format, List<Integer> moduleIds) {
+		Set<Content> titleContent = this.filterContentByTitle(title);
+		Set<Content> formatContent = this.filterContentByFormat(format);
+		Set<Content> moduleContent = this.filterContentBySubjects(moduleIds);
+		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
+		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
 
-		boolean orSearch = false;		// Allows switching between AND and OR module search
-
-		Set<Content> contents = null;
-		Set<Content> copy = null;
-
-		if (format != null && !format.equals("All") && !format.equals("")) {
-			contents = cr.findByFormat(format);
-		}
-
-		if (title != null && !title.equals("")) {
-
-			if (contents == null) {
-
-				contents = cr.findByTitleContaining(title);
-
-			} else {
-
-				copy = new HashSet<Content>(contents);
-
-				for (Content c : copy) {
-
-					if (!c.getTitle().toLowerCase().contains(title.toLowerCase()))
-						contents.remove(c);
-				}
-			}
-		}
-
-		if (contents == null) {
-			contents = csi.getAllContent();
-		}
-
-		if (modules != null && !modules.isEmpty()) {
-
-			copy = new HashSet<Content>(contents);
-			// Set<ContentPlusModules> linksInModules = lr.findByModuleIdIn(modules);
-
-			boolean inModule;
-
-			for (Content c : copy) {
-
-				List<Integer> linkModuleIDs = new ArrayList<Integer>();
-/*
-				for (ContentPlusModules l : c.getLinks()) {
-					linkModuleIDs.add(l.getModuleId());
-				}
-*/
-				/** 
-				 * For inclusive (OR) search, you want inModule false to begin with,
-				 * and to flip inModule the moment a search tag is detected,
-				 * which tells the method that the content should be included in 
-				 * the search results
-				 * 
-				 * For exclusive (AND) search, you want inModule to start as true
-				 * and to flip inModule to reject the content the moment a search
-				 * tag is not found in the content.
-				 */
-				inModule = !orSearch;
-
-				// This iterates through modules selected in the search box
-				for (Integer m : modules) {
-					
-					// When orSearch is true, any detected tag adds the content to the search	true == true
-					// When false, the current content lacking a module is rejected				false == false
-					if (linkModuleIDs.contains(m) == orSearch) {		
-
-						inModule = !inModule;
-						break;
-					}
-				}
-
-				// Removes content from the search if it does not belong there
-				if (!inModule) {
-					contents.remove(c);
-				}
-			}
-		}
-
-		return contents;
 	}
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
-
-		Set<Content> copy;
-
-		String title = (String) filters.get("title");
-		String format = (String) filters.get("format");
-		boolean isTitle = false;
-		boolean isFormat = false;
-
-		if (title != null && !title.isEmpty()) {
-			isTitle = true;
+		Set<Content> titleContent = this.filterContentByTitle(filters.get("title").toString());
+		Set<Content> formatContent = this.filterContentByFormat(filters.get("format").toString());
+		
+		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		StringTokenizer st = new StringTokenizer(filters.get("modules").toString(), ",");
+		while (st.hasMoreTokens()) {
+			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-		if (format != null && !format.equals("All")) {
-			isFormat = true;
-		}
-
-		if (isTitle || isFormat) {
-			copy = new HashSet<Content>(contents);
-
-			for (Content c : copy) {
-
-				if (isTitle && !c.getTitle().toLowerCase().contains(title.toLowerCase()))
-					contents.remove(c);
-				if (isFormat && !c.getFormat().equals(format))
-					contents.remove(c);
-			}
-		}
-
-		ArrayList<Integer> ids = (ArrayList<Integer>) filters.get("modules");
-
-		if (ids != null && !ids.isEmpty()) {
-
-			copy = new HashSet<Content>(contents);
-
-			boolean inModule = false;
-
-			for (Content c : copy) {
-
-				inModule = false;
-/*
-				for (ContentPlusModules l : c.getLinks()) {
-
-					if (ids.contains(l.getModuleId())) {
-						inModule = true;
-						break;
-					}
-				}
-*/
-				if (!inModule)
-					contents.remove(c);
-			}
-		}
-
-		return contents;
+		
+		Set<Content> moduleContent = this.filterContentBySubjects(moduleIdsList);
+		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
+		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
 	}
 }

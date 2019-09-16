@@ -26,6 +26,8 @@ import com.revature.services.SearchService;
 import com.revature.services.SearchServiceImpl;
 
 public class SearchServiceTest {
+	
+	/*
 	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
 	
 //	===Mock Injections===
@@ -33,10 +35,8 @@ public class SearchServiceTest {
 	private ContentRepository crMock;
 	@Mock
 	private ModuleRepository mrMock;
-	/*
 	@Mock
 	private LinkRepository lrMock;
-	*/
 	@Mock
 	private ContentService csMock;
 	
@@ -44,8 +44,8 @@ public class SearchServiceTest {
 	private SearchService ss = new SearchServiceImpl();
 
 //	===Fields===
-	// ontentPlusModules linkMock;
-	// Set<ContentPlusModules> linkSetMock = new HashSet<ContentPlusModules>();
+	Link linkMock;
+	Set<Link> linkSetMock = new HashSet<Link>();
 	
 	Content contentMock;
 	Set<Content> contentSetMock = new HashSet<Content>();
@@ -63,21 +63,20 @@ public class SearchServiceTest {
 	public void testSetup() {
 		//Link Objects and Set
 		//Constructor (ID, ContentID, ModuleID, "Affiliation")
-		// ContentPlusModules link;
-		/*
-		link = new ContentPlusModules(1,50,100,"link-affiliation");
+		Link link;
+		
+		link = new Link(1,50,100,"link-affiliation");
 		linkSetMock.add(link);
-		link = new ContentPlusModules(2,51,100,"link-affiliation2");
+		link = new Link(2,51,100,"link-affiliation2");
 		linkSetMock.add(link);
-		link = new ContentPlusModules(3,52,101,"link-affiliation3");
+		link = new Link(3,52,101,"link-affiliation3");
 		linkSetMock.add(link);
 		this.linkMock = link;
-		*/
 		
 		//Content Objects and Set
 		//Constructor (ID, "Title", "Format", "Desc", "URL", Set<Link>, DateCreated, DateModified)
 		Content content;
-		/*
+		
 		content = new Content(50, "Test 1", "format", "Test Content #1", 
 				"www.example.com", this.linkSetMock, 1L, 1L );
 		this.contentSetMock.add(content);
@@ -88,25 +87,25 @@ public class SearchServiceTest {
 				"www.example.com", this.linkSetMock, 1L, 1L );
 		this.contentSetMock.add(content);
 		this.contentMock = content;
-		*/
+		
 		//Module
 		//Constructor (Id, "Subject", DateCreated, Set<Link>)
-		this.moduleMock = new Module(100, "Test Subject 1", 1L/*, this.linkSetMock*/, null, null);
+		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
 	}
 	
 	@AfterTest
 	public void tearDown() {
 		this.contentSetMock = null;
 		this.contentMock = null;
-		// this.linkSetMock = null;
-		// this.linkMock = null;
+		this.linkSetMock = null;
+		this.linkMock = null;
 		this.moduleMock = null;
 	}
 	
 	/**
 	 * Tests filterContentById()
 	 * Content Repository - findByTitle(String title)
-	 */
+	 *//*
 	@Test
 	public void filterContentByTitleTest() {
 		
@@ -128,7 +127,7 @@ public class SearchServiceTest {
 	/**
 	 * Tests filterContentByFormat()
 	 * Content Repository - findByFormat(String format)
-	 */
+	 *//*
 	@Test
 	public void filterContentByFormatTest() {
 		//Local Variables
@@ -150,7 +149,7 @@ public class SearchServiceTest {
 	 * Content Repository - findAllById()
 	 * Currently throws an IndexOutOfBounds Exception when you put in a ModuleId list with
 	 * more than one number.
-	 */
+	 *//*
 	@Test
 	public void filterContentBySubjectsTest() {
 		//Local Variables
@@ -158,12 +157,12 @@ public class SearchServiceTest {
 		
 		moduleIds.add(100);
 		//Given
-		// Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
+		Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
 		Mockito.when(crMock.findAllById(Mockito.any())).thenReturn(this.contentSetMock);
 		
 		//When 
 		ss.filterContentBySubjects(moduleIds);
-		// verify(lrMock).findByModuleId(Mockito.anyInt());
+		verify(lrMock).findByModuleId(Mockito.anyInt());
 		verify(crMock).findAllById(Mockito.any());
 	}
 	
@@ -171,20 +170,20 @@ public class SearchServiceTest {
 	 * Tests getContentByModuleId()
 	 * Link Repository - findByModuleId()
 	 * Content Repository - findById()
-	 */
+	 *//*
 	@Test
 	public void getContentByModuleIdTest() {
 		//Local Variables
 		int moduleId = 100;
 		//Given
-		// Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
+		Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
 		Mockito.when(crMock.findById(Mockito.anyInt())).thenReturn(this.contentSetMock);
 		
 		//When
 		ss.getContentByModuleId(moduleId);
 		
 		//Then
-		// verify(lrMock, times(2)).findByModuleId(moduleId);
+		verify(lrMock, times(2)).findByModuleId(moduleId);
 		verify(crMock, times(1)).findById(Mockito.anyInt());
 	}
 	
@@ -197,7 +196,7 @@ public class SearchServiceTest {
 	 * Content Repository - findByFormat(), findByTitleContaining()
 	 * Content Service - getAllContent()
 	 * Link Repository - findByModuleIdIn() 
-	 */
+	 *//*
 	@Test
 	public void filterTest() {
 		//Local Variables
@@ -227,6 +226,5 @@ public class SearchServiceTest {
 		ss.filter(null, null, moduleIds);
 		verify(csMock, times(1)).getAllContent();
 	}
-	
-
+	*/
 }

@@ -72,7 +72,7 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeTest
 	public void preTestSetup () {
-		// content = ContentFactory.getContent();
+		//content = ContentFactory.getContent();
 	}
 	
 	/**

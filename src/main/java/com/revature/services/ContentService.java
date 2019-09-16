@@ -5,7 +5,7 @@ import java.util.Set;
 import com.revature.entities.Content;
 public interface ContentService {
 	
-    public Content createContent(Content content);
+	public Content createContent(Content content);
     
     public Set<Content> getAllContent();
     
@@ -16,8 +16,6 @@ public interface ContentService {
     public Map<String, Integer> getContentByFormat(Set<Content> contents);   
     
     public Content updateContent(Content newContent);
-    
-    public Set<Content> getAllContentMinusLinks();
-    
+        
     public void deleteContent(Content content);
 }

@@ -36,7 +36,6 @@ public class ModuleController {
 	//create a single module
 	@PostMapping
 	public ResponseEntity<Module> createModule(@RequestBody Module module) {
-		System.out.println("Getting here");
 		return ResponseEntity.ok(moduleService.createModule(module));
 	}
 	
@@ -54,14 +53,14 @@ public class ModuleController {
 	
 	//get all modules without a parent
 	@GetMapping("/roots")
-	public ResponseEntity<Set<Module>> getAllModulesByRoot(){
-		return ResponseEntity.ok(moduleService.getAllModulesByRoot());
+	public ResponseEntity<Set<Module>> getAllRootModules(){
+		return ResponseEntity.ok(moduleService.getAllRootModules());
 	}
 	
 	//get all the children of a specific module
 	@GetMapping("/{id}/children")
     public ResponseEntity<Set<Module>> getChildrenByModuleId(@PathVariable int id) {
-        return ResponseEntity.ok(moduleService.getChildrenByModuleId(id));
+        return ResponseEntity.ok(moduleService.getChildrenByParentId(id));
     }
 	
 	//update a specific module
@@ -70,8 +69,7 @@ public class ModuleController {
 		return ResponseEntity.ok(moduleService.updateModule(module));
 	}
 	
-	//delete a specific module and only that module
-		//no cascade
+	//delete a specific module, retaining all content
 	@DeleteMapping(value="{id}")
 	public ResponseEntity<String> deleteModule(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);

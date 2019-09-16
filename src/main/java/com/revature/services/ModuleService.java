@@ -1,32 +1,31 @@
 package com.revature.services;
 
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Set;
 
 import com.revature.entities.Module;
 
 public interface ModuleService {
+	
+	public Module createModule(Module module);
 
 	public Set<Module> getAllModules();
 
 	public Module getModuleById(int id);
 
-	public Module createModule(Module module);
-
-	public double getAverageByModuleIds(ArrayList<Integer> ids);
+	public double getAverageByModuleIds(Set<Module> modules);
 
 	public double getAverageByAllModules();
-
+	
+	public Set<Module> getAllRootModules();
+	
+	public Set<Module> getChildrenByParentId(int id);
+	
+	public Module updateModule(Module module);
+	
 	public void deleteModule(Module module);
-	
-	public Set<Module> getAllModulesByRoot();
-	
-	public Set<Module> getChildrenByModuleId(int id);
 	
 	public void deleteModuleWithAllContent(Module module);
 
 	public void deleteModuleWithSpecificContent(Module module);
 
-	public Module updateModule(Module module);
 }
