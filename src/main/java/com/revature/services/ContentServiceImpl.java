@@ -53,6 +53,7 @@ public class ContentServiceImpl implements ContentService {
 		cr.findAll().forEach(contents :: add);
 		return contents;
 	}
+
 	
 	/**
 	 * get content from the data base that match a passed in id

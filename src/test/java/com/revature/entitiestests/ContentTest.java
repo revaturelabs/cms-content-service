@@ -122,6 +122,20 @@ public class ContentTest {
 		assertTrue(c1.getUrl().equals("https://www.imdb.com/title/tt0076759/"));
 	}
 
+//	@Test
+//	public void testGetLinks() {
+//		Set<Link> link = new HashSet<Link>();
+//		assertTrue(c1.getLinks().equals(link));
+//	}
+//
+//	@Test
+//	public void testSetLinks() {
+//		Set<Link> link = new HashSet<Link>();
+//		link.add(new Link(55, 484, 555));
+//		c2.setLinks(link);
+//		assertTrue(c2.getLinks().equals(link));
+//	}
+
 	@Test
 	public void testGetDateCreated() {
 		assertTrue(c2.getDateCreated() == 1555444l);

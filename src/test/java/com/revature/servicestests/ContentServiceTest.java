@@ -1,12 +1,14 @@
 package com.revature.servicestests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
-import java.util.Set;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
 import com.revature.repositories.ContentRepository;
@@ -27,7 +30,7 @@ import com.revature.services.ContentServiceImpl;
  * @version 2.0
  */
 @SpringBootTest(classes = CMSforceApplication.class)
-class ContentServiceTest extends AbstractTestNGSpringContextTests 
+class ContentServiceTest// extends AbstractTestNGSpringContextTests 
 {	
 	/*
 	//Variable to store the Content object
@@ -76,6 +79,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@BeforeClass
 	public void mockTheContent()
 	{
+<<<<<<< HEAD
 //		//Initiate Mockito mocks
 //		MockitoAnnotations.initMocks(this);
 //		//Create a new Content object and set fields as shown
@@ -107,6 +111,39 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 //		when(linkRep.saveAll(mockContent.getLinks())).thenReturn(mockContent.getLinks());
 //		
 //		testContent = contServe.createContent(mockContent);
+=======
+		//Initiate Mockito mocks
+		MockitoAnnotations.initMocks(this);
+		//Create a new Content object and set fields as shown
+		mockContent = new Content();
+		mockContent.setId(5);
+		mockContent.setDateCreated(1L);
+		mockContent.setLastModified(1L);
+		mockContent.setTitle("Blahbitty");
+		mockContent.setFormat("Blooh");
+		mockContent.setDescription("Bloohbitty");
+		mockContent.setUrl("www.blahbitty.com");
+		//Create a new Link object
+		mockLink = new Link(3,mockContent.getId(),7);
+		//create a new HashSet of Link objects
+		links = new HashSet<Link>();
+		//Add the mock link to the list of links
+		links.add(mockLink);
+		//
+		for (Link link : links) {
+			link.setContentId(mockContent.getId());
+		}
+		
+		//Set the value of content links to null and mock the save function within the ContentRepository
+		mockContent.setLinks(null);
+		when(contRep.save(mockContent)).thenReturn(mockContent);
+		
+		//Set the value of content links to their previous values and mock the saveAll method of the LinkRepository
+		mockContent.setLinks(links);
+		when(linkRep.saveAll(mockContent.getLinks())).thenReturn(mockContent.getLinks());
+		
+		testContent = contServe.createContent(mockContent);
+>>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
 	}
 	*/
 	
@@ -138,6 +175,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@Test
 	public void testUpdateContent()
 	{
+<<<<<<< HEAD
 //		links.add(new Link(5,mockContent.getId(),9,"BlahbittyBlooh"));
 //		testContent.setLinks(links);
 //		contentSet.add(testContent);
@@ -145,6 +183,14 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 //		mockContent = contServe.updateContent(testContent);
 //		assertTrue(testContent.equals(mockContent));
 
+=======
+		links.add(new Link(5,mockContent.getId(),9));
+		testContent.setLinks(links);
+		contentSet.add(testContent);
+		when(contRep.findById(testContent.getId())).thenReturn(contentSet);
+		mockContent = contServe.updateContent(testContent);
+		assertTrue(testContent.equals(mockContent));
+>>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
 	}
 	*/
 	
@@ -160,6 +206,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 		secondContentSet = contServe.getAllContent();
 		assertTrue(contServe.getAllContent().equals(secondContentSet));
 	}
+
 	*/
 	//This method tests the functionality of the .getAllContentMinusLinks method within the ContentServiceImpl class
 	/*
@@ -170,6 +217,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 //		assertNotNull(contentSet);
 	}
 	*/
+
 	
 	/*
 	 * This method tests the functionality of the .getContentByFormatWithStrings method within the ContentServiceImpl class

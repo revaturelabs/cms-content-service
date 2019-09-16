@@ -13,8 +13,12 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Sets;
 import com.revature.entities.Content;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
+import com.revature.entities.Requests;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.repositories.ReqLinkRepository;
+import com.revature.repositories.RequestRepository;
 import com.revature.util.LogException;
 
 @Service
@@ -23,11 +27,15 @@ public class SearchServiceImpl implements SearchService {
 	@Autowired
 	ContentRepository cr;
 	@Autowired
+	RequestRepository rr;
+	@Autowired
 	ModuleRepository mr;
 	@Autowired
 	ContentService cs;
 	@Autowired
 	ModuleService ms;
+	@Autowired
+	RequestService rs;
 
 	/**
 	 * filterContentByTitle takes in a string value and returns a map of content,
@@ -117,6 +125,96 @@ public class SearchServiceImpl implements SearchService {
 		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
 		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
 
+	}
+	
+	/**
+	 * Filter takes a content title, content format and/or a list of Integers that
+	 * represent module ids. It will then return a set of content that contains all
+	 * content that matches all 3 inputs using AND logic. If an input is empty it is
+	 * ignored and is not part of the logic.
+	 */
+	@Override
+	@LogException
+	public Set<Requests> filterReq(String title, String format, List<Module> modules) {
+
+		boolean orSearch = false;		// Allows switching between AND and OR module search
+
+		Set<Requests> requests = null;
+		Set<Requests> copy = null;
+
+		if (format != null && !format.equals("All") && !format.equals("")) {
+			requests = rr.findByFormat(format);
+		}
+
+		if (title != null && !title.equals("")) {
+
+			if (requests == null) {
+
+				requests = rr.findByTitleContaining(title);
+
+			} else {
+
+				copy = new HashSet<Requests>(requests);
+
+				for (Requests r : copy) {
+
+					if (!r.getTitle().toLowerCase().contains(title.toLowerCase()))
+						requests.remove(r);
+				}
+			}
+		}
+
+		if (requests == null) {
+			requests = rs.getAllRequests();
+		}
+
+		if (modules != null && !modules.isEmpty()) {
+
+			copy = new HashSet<Requests>(requests);
+			//Set<ReqLink> reqLinksInModules = rlr.findByReqModuleIdIn(modules);
+
+			boolean inModule;
+
+			for (Requests r : copy) {
+
+				List<Module> reqLinkModules = new ArrayList<Module>();
+
+				for (ReqLink rl : r.getReqLinks()) {
+					reqLinkModules.add(rl.getReqModule());
+				}
+
+				/** 
+				 * For inclusive (OR) search, you want inModule false to begin with,
+				 * and to flip inModule the moment a search tag is detected,
+				 * which tells the method that the content should be included in 
+				 * the search results
+				 * 
+				 * For exclusive (AND) search, you want inModule to start as true
+				 * and to flip inModule to reject the content the moment a search
+				 * tag is not found in the content.
+				 */
+				inModule = !orSearch;
+
+				// This iterates through modules selected in the search box
+				for (Module m : modules) {
+					
+					// When orSearch is true, any detected tag adds the content to the search	true == true
+					// When false, the current content lacking a module is rejected				false == false
+					if (reqLinkModules.contains(m) == orSearch) {		
+
+						inModule = !inModule;
+						break;
+					}
+				}
+
+				// Removes content from the search if it does not belong there
+				if (!inModule) {
+					requests.remove(r);
+				}
+			}
+		}
+
+		return requests;
 	}
 
 	@Override

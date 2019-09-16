@@ -57,6 +57,7 @@ public class MetricsController {
 		if(idsIn.isEmpty()) {
 			contents = contentService.getAllContent();
 			filtContents = searchService.filterContent(contents, filter);
+
 		} else {
 			contents = contentService.getAllContent();
 			filtContents = searchService.filterContent(contents, filter); }

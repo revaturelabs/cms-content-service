@@ -65,12 +65,11 @@ public class SearchServiceTest {
 		//Link Objects and Set
 		//Constructor (ID, ContentID, ModuleID, "Affiliation")
 		Link link;
-		
-		link = new Link(1,50,100,"link-affiliation");
+		link = new Link(1,50,100);
 		linkSetMock.add(link);
-		link = new Link(2,51,100,"link-affiliation2");
+		link = new Link(2,51,100);
 		linkSetMock.add(link);
-		link = new Link(3,52,101,"link-affiliation3");
+		link = new Link(3,52,101);
 		linkSetMock.add(link);
 		this.linkMock = link;
 		
@@ -154,7 +153,7 @@ public class SearchServiceTest {
 	 *//*
 	@Test
 	public void filterContentBySubjectsTest() {
-<<<<<<< HEAD
+
 		//Local Variables
 		List<Integer> moduleIds = new ArrayList<Integer>();
 		
@@ -176,7 +175,6 @@ public class SearchServiceTest {
 	 *//*
 	@Test
 	public void getContentByModuleIdTest() {
-<<<<<<< HEAD
 		//Local Variables
 		int moduleId = 100;
 		//Given

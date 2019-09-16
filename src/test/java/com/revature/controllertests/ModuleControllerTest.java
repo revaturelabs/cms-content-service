@@ -38,7 +38,6 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private static final int id = 1;
 	private static final String subject = "subject";
 	private static final long created = 1;
-	private static final String affiliation = "affiliation";
 	
 	//allows us to send mocked http requests
 	private MockMvc mvc;
@@ -76,14 +75,11 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeTest 
 	public void preTestSetup () {
-		/*
+
 		// TODO: best of luck, Adam & Dan
 		// Set<ContentPlusModules> links = new HashSet<ContentPlusModules> ();
 		// ContentPlusModules link = new ContentPlusModules (id,id,id,affiliation);
 		// links.add(link);
-		
-		module = new Module (id,subject,created,links,null,null);
-		*/
 	}
 	
 	/**
