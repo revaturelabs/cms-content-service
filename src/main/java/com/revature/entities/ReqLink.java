@@ -21,21 +21,21 @@ public class ReqLink {
 
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_r")
-	private Requests requestId;
+	private Requests requests;
 
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_rm")
-	private Module reqModuleId;
+	private Module reqModule;
 
 	public ReqLink() {
 		super();
 	}
 
-	public ReqLink(int id, Requests requestId, Module reqModuleId) {
+	public ReqLink(int id, Requests requests, Module reqModule) {
 		super();
 		this.id = id;
-		this.requestId = requestId;
-		this.reqModuleId = reqModuleId;
+		this.requests = requests;
+		this.reqModule = reqModule;
 	}
 
 	public int getId() {
@@ -46,25 +46,25 @@ public class ReqLink {
 		this.id = id;
 	}
 
-	public Requests getRequestId() {
-		return requestId;
+	public Requests getRequests() {
+		return requests;
 	}
 
-	public void setRequestId(Requests requestId) {
-		this.requestId = requestId;
+	public void setRequests(Requests requests) {
+		this.requests = requests;
 	}
 
-	public Module getReqModuleId() {
-		return reqModuleId;
+	public Module getReqModule() {
+		return reqModule;
 	}
 
-	public void setReqModuleId(Module reqModuleId) {
-		this.reqModuleId = reqModuleId;
+	public void setReqModule(Module reqModule) {
+		this.reqModule = reqModule;
 	}
 
 	@Override
 	public String toString() {
-		return "ReqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + "]";
+		return "ReqLink [id=" + id + ", requests=" + requests + ", reqModule=" + reqModule + "]";
 	}
 
 	@Override
@@ -72,8 +72,8 @@ public class ReqLink {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((reqModuleId == null) ? 0 : reqModuleId.hashCode());
-		result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
+		result = prime * result + ((reqModule == null) ? 0 : reqModule.hashCode());
+		result = prime * result + ((requests == null) ? 0 : requests.hashCode());
 		return result;
 	}
 
@@ -88,15 +88,15 @@ public class ReqLink {
 		ReqLink other = (ReqLink) obj;
 		if (id != other.id)
 			return false;
-		if (reqModuleId == null) {
-			if (other.reqModuleId != null)
+		if (reqModule == null) {
+			if (other.reqModule != null)
 				return false;
-		} else if (!reqModuleId.equals(other.reqModuleId))
+		} else if (!reqModule.equals(other.reqModule))
 			return false;
-		if (requestId == null) {
-			if (other.requestId != null)
+		if (requests == null) {
+			if (other.requests != null)
 				return false;
-		} else if (!requestId.equals(other.requestId))
+		} else if (!requests.equals(other.requests))
 			return false;
 		return true;
 	}

@@ -249,7 +249,7 @@ public class SearchServiceImpl implements SearchService {
 				List<Module> reqLinkModules = new ArrayList<Module>();
 
 				for (ReqLink rl : r.getReqLinks()) {
-					reqLinkModules.add(rl.getReqModuleId());
+					reqLinkModules.add(rl.getReqModule());
 				}
 
 				/** 

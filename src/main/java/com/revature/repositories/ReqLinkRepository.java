@@ -8,15 +8,16 @@ import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
+import com.revature.entities.Requests;
 
 @Repository
 public interface ReqLinkRepository extends CrudRepository<ReqLink,Integer> {
 	
 	//Gets links for a content
-	Set<ReqLink> findByRequestId(int requestId);
+	Set<ReqLink> findByRequests(Requests requests);
 	
 	//Gets links for a module
-	Set<ReqLink> findByReqModuleId(int reqModuleId);
+	Set<ReqLink> findByReqModule(Module reqModule);
 	
 	//sends back links for Modules given
 	Set<ReqLink> findByReqModuleIdIn(List<Module> reqModules);

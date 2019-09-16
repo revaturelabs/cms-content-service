@@ -45,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
 		requests = rr.save(requests);
 		
 		for(ReqLink reqLink : reqLinks) {
-			reqLink.setRequestId(requests);
+			reqLink.setRequests(requests);
 		}
 		
 		rlr.saveAll(reqLinks);
