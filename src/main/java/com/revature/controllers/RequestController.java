@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.entities.Module;
 import com.revature.entities.Requests;
 import com.revature.services.RequestService;
 import com.revature.services.SearchService;
@@ -59,20 +60,20 @@ public class RequestController {
 	//This query returns a subset of Content based on the values of the query parameters passed in
     //If a parameter is empty, it is not used in the filtering process.
     //modules is a string in comma separated format of integers ex. "1,2,3,4"
-//    @LogException
-//    @GetMapping (params= {"title", "format", "modules"})
-//    public ResponseEntity<Set<Requests>> getSearchResults(
-//            @RequestParam(value="title", required=false) String title,
-//            @RequestParam(value="format", required=false) String format,
-//            @RequestParam(value="modules", required=false) String modules
-//        ) {
-//        ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
-//        StringTokenizer st = new StringTokenizer(modules, ",");
-//        while (st.hasMoreTokens()) {
-//            moduleIdsList.add(Integer.parseInt(st.nextToken()));
-//        }
-//        return ResponseEntity.ok(searchService.filter(title, format, moduleIdsList));
-//    }
+    @LogException
+    @GetMapping (params= {"title", "format", "modules"})
+    public ResponseEntity<Set<Requests>> getSearchResults(
+            @RequestParam(value="title", required=false) String title,
+            @RequestParam(value="format", required=false) String format,
+            @RequestParam(value="modules", required=false) String modules
+        ) {
+        ArrayList<Module> moduleList = new ArrayList<Module>();
+        StringTokenizer st = new StringTokenizer(modules, ",");
+        while (st.hasMoreTokens()) {
+            moduleList.add((Module) st.nextElement());
+        }
+        return ResponseEntity.ok(searchService.filterReq(title, format, moduleList));
+    }
 	
 	@PutMapping(value="{id}")
 	public ResponseEntity<Requests> updateRequest(@PathVariable Integer Id, @RequestBody Requests r){
