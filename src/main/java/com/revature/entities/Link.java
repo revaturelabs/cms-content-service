@@ -20,21 +20,30 @@ public class Link {
 	@Column(name = "cm_id")
 	private int id;
 
+	/*
 	@Column(name = "fk_c")
 	private int contentId;
 
 	@Column(name = "fk_m")
 	private int moduleId;
-
+	 */
+	
+	@Column(name="fk_m")
+	private Module module;
+	
+	// SUPER IMPORTANT, according to the owner.
+	// ANNOTATION GOES HERE.
+	private String affiliation;
+	
 	public Link() {
 		super();
 	}
 
-	public Link(int id, int contentId, int moduleId) {
+	public Link(int id, Module module, String affiliation) {
 		super();
 		this.id = id;
-		this.contentId = contentId;
-		this.moduleId = moduleId;
+		this.module = module;
+		this.affiliation = affiliation;
 	}
 
 	public int getId() {
@@ -45,34 +54,29 @@ public class Link {
 		this.id = id;
 	}
 
-	public int getContentId() {
-		return contentId;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setModule(Module module) {
+		this.module = module;
 	}
 
-	public int getModuleId() {
-		return moduleId;
+	public String getAffiliation() {
+		return affiliation;
 	}
 
-	public void setModuleId(int moduleId) {
-		this.moduleId = moduleId;
-	}
-
-	@Override
-	public String toString() {
-		return "Link [id=" + id + ", contentId=" + contentId + ", moduleId=" + moduleId + "]";
+	public void setAffiliation(String affiliation) {
+		this.affiliation = affiliation;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + contentId;
+		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + id;
-		result = prime * result + moduleId;
+		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		return result;
 	}
 
@@ -85,13 +89,25 @@ public class Link {
 		if (getClass() != obj.getClass())
 			return false;
 		Link other = (Link) obj;
-		if (contentId != other.contentId)
+		if (affiliation == null) {
+			if (other.affiliation != null)
+				return false;
+		} else if (!affiliation.equals(other.affiliation))
 			return false;
 		if (id != other.id)
 			return false;
-		if (moduleId != other.moduleId)
+		if (module == null) {
+			if (other.module != null)
+				return false;
+		} else if (!module.equals(other.module))
 			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Link [id=" + id + ", module=" + module + ", affiliation=" + affiliation + "]";
+	}
+
+	
 }
