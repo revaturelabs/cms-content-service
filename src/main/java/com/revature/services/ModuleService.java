@@ -12,7 +12,7 @@ public interface ModuleService {
 	
 	public Module getModuleById(int id);
 
-	public double getAverageByModuleIds(Set<Module> modules);
+	public double getAverageByModules(Set<Module> modules);
 
 	public double getAverageByAllModules();
 	

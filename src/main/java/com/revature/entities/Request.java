@@ -1,9 +1,13 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import java.util.Set;
@@ -12,52 +16,58 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
-public class Requests {
+public class Request {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "r_id")
 	private int id;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String title;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String format;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String description;
 
-	@Column(nullable=true)
+	@Column(nullable = true)
 	private String url;
-	
+
 	/**
-	 * The following fields, dateCreated and lastModified, were added in order to facilitate functionality for 
-	 * displaying a graphical representation of content created over a period of time.
+	 * The following fields, dateCreated and lastModified, were added in order to
+	 * facilitate functionality for displaying a graphical representation of content
+	 * created over a period of time.
 	 */
-	
-	@Column(name = "created", nullable=true)
+
+	@Column(name = "created", nullable = true)
 	private Long dateCreated;
-	
-	@Column(name = "last_modified", nullable=true)
+
+	@Column(name = "last_modified", nullable = true)
 	private Long lastModified;
-	
-	@OneToMany(mappedBy ="requests", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<ReqLink> reqLinks;
-	
-	public Requests() {
+
+	// Set of modules the content is related to
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "req_link", 
+		joinColumns = @JoinColumn(name = "fk_r"), 
+		inverseJoinColumns = @JoinColumn(name = "fk_rm"))
+	private Set<Module> modules;
+
+	public Request() {
 		super();
 	}
 
-	public Requests(int id, String title, String format, String description, String url, Set<ReqLink> reqLinks, Long dateCreated, Long lastModified) {
+	public Request(int id, String title, String format, String description, String url, Long dateCreated,
+			Long lastModified, Set<Module> modules) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.reqLinks = reqLinks;
-		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
+		this.lastModified = lastModified;
+		this.modules = modules;
 	}
 
 	public int getId() {
@@ -100,36 +110,28 @@ public class Requests {
 		this.url = url;
 	}
 
-	public Set<ReqLink> getReqLinks() {
-		return reqLinks;
-	}
-
-	public void setReqLinks(Set<ReqLink> reqLinks) {
-		this.reqLinks = reqLinks;
-	}
-	
-
-	public long getDateCreated() {
+	public Long getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(long dateCreated) {
+	public void setDateCreated(Long dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
-	public long getLastModified() {
+	public Long getLastModified() {
 		return lastModified;
 	}
 
-	public void setLastModified(long lastModified) {
+	public void setLastModified(Long lastModified) {
 		this.lastModified = lastModified;
 	}
 
-	@Override
-	public String toString() {
-		return "Request [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", reqLinks="
-				+ reqLinks + "]";
+	public Set<Module> getModules() {
+		return modules;
+	}
+
+	public void setModules(Set<Module> modules) {
+		this.modules = modules;
 	}
 
 	@Override
@@ -141,7 +143,7 @@ public class Requests {
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
-		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
+		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -155,7 +157,7 @@ public class Requests {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Requests other = (Requests) obj;
+		Request other = (Request) obj;
 		if (dateCreated == null) {
 			if (other.dateCreated != null)
 				return false;
@@ -178,10 +180,10 @@ public class Requests {
 				return false;
 		} else if (!lastModified.equals(other.lastModified))
 			return false;
-		if (reqLinks == null) {
-			if (other.reqLinks != null)
+		if (modules == null) {
+			if (other.modules != null)
 				return false;
-		} else if (!reqLinks.equals(other.reqLinks))
+		} else if (!modules.equals(other.modules))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -196,8 +198,11 @@ public class Requests {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Requests [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", modules="
+				+ modules + "]";
+	}
 
-	
-	
 }

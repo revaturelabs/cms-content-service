@@ -69,7 +69,7 @@ public class MetricsController {
 		
 		double avgMods = 0;
 		if(idsIn != null && !idsIn.isEmpty()) {
-			avgMods = moduleService.getAverageByModuleIds(modulesIdsIn);
+			avgMods = moduleService.getAverageByModules(modulesIdsIn);
 		} else {
 			avgMods = moduleService.getAverageByAllModules();
 		}

@@ -65,7 +65,7 @@ public class ModuleServiceImpl implements ModuleService {
 	 * */
 	@Override
 	@LogException
-	public double getAverageByModuleIds(Set<Module> modules) {
+	public double getAverageByModules(Set<Module> modules) {
 		Integer numContent = 0;
 		for (Module module : modules) {
 			numContent += module.getContent().size();
@@ -79,7 +79,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public double getAverageByAllModules() {
 		Set<Module> allMods = this.getAllModules();		
-		return this.getAverageByModuleIds(allMods);
+		return this.getAverageByModules(allMods);
 	}
 	
 	@Override

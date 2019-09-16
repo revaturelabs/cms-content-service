@@ -30,44 +30,22 @@ public class Module {
 	private long created;
 
 	// parent of the module.
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "joins", 
 		joinColumns = @JoinColumn(name = "fk_m_child"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_m_parent"))
 	private Module parentModule;
 
-//	// All children of the module.
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable(name = "joins", 
-//		joinColumns = @JoinColumn(name = "fk_m_parent"), 
-//		inverseJoinColumns = @JoinColumn(name = "fk_m_child"))
-//	private Set<Module> childModules;
-
-	// All content associated to the module
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "link", 
-		joinColumns = @JoinColumn(name = "fk_m"), 
-		inverseJoinColumns = @JoinColumn(name = "fk_c"))
-	private Set<Content> content;
-
-//	//All requests associated to the module
-//	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-//	@JoinTable(name="reqLink", 
-//		joinColumns=@JoinColumn(name="fk_m"),
-//		inverseJoinColumns=@JoinColumn(name="fk_c"))
-//	private Set<Request> requests;
-
 	public Module() {
 		super();
 	}
 
-	public Module(Integer id, String subject, long created, Module parentModule, Set<Content> content) {
+	public Module(Integer id, String subject, long created, Module parentModule) {
 		super();
 		this.id = id;
 		this.subject = subject;
 		this.created = created;
 		this.parentModule = parentModule;
-		this.content = content;
 	}
 
 	public Integer getId() {
@@ -102,19 +80,10 @@ public class Module {
 		this.parentModule = parentModule;
 	}
 
-	public Set<Content> getContent() {
-		return content;
-	}
-
-	public void setContent(Set<Content> content) {
-		this.content = content;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((parentModule == null) ? 0 : parentModule.hashCode());
@@ -131,11 +100,6 @@ public class Module {
 		if (getClass() != obj.getClass())
 			return false;
 		Module other = (Module) obj;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
 		if (created != other.created)
 			return false;
 		if (id == null) {
@@ -159,7 +123,7 @@ public class Module {
 	@Override
 	public String toString() {
 		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", parentModule=" + parentModule
-				+ ", content=" + content + "]";
+				+ "]";
 	}
 
 }

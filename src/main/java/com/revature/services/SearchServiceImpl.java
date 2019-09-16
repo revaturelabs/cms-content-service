@@ -14,7 +14,7 @@ import com.google.common.collect.Sets;
 import com.revature.entities.Content;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
-import com.revature.entities.Requests;
+import com.revature.entities.Request;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.repositories.ReqLinkRepository;
@@ -135,12 +135,12 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Requests> filterReq(String title, String format, List<Module> modules) {
+	public Set<Request> filterReq(String title, String format, List<Module> modules) {
 
 		boolean orSearch = false;		// Allows switching between AND and OR module search
 
-		Set<Requests> requests = null;
-		Set<Requests> copy = null;
+		Set<Request> requests = null;
+		Set<Request> copy = null;
 
 		if (format != null && !format.equals("All") && !format.equals("")) {
 			requests = rr.findByFormat(format);
@@ -154,9 +154,9 @@ public class SearchServiceImpl implements SearchService {
 
 			} else {
 
-				copy = new HashSet<Requests>(requests);
+				copy = new HashSet<Request>(requests);
 
-				for (Requests r : copy) {
+				for (Request r : copy) {
 
 					if (!r.getTitle().toLowerCase().contains(title.toLowerCase()))
 						requests.remove(r);
@@ -170,12 +170,12 @@ public class SearchServiceImpl implements SearchService {
 
 		if (modules != null && !modules.isEmpty()) {
 
-			copy = new HashSet<Requests>(requests);
+			copy = new HashSet<Request>(requests);
 			//Set<ReqLink> reqLinksInModules = rlr.findByReqModuleIdIn(modules);
 
 			boolean inModule;
 
-			for (Requests r : copy) {
+			for (Request r : copy) {
 
 				List<Module> reqLinkModules = new ArrayList<Module>();
 
