@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,17 +19,19 @@ public class ReqLink {
 	@Column(name = "z_id")
 	private int id;
 
-	@Column(name = "fk_r")
-	private int requestId;
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_r")
+	private Requests requestId;
 
-	@Column(name = "fk_rm")
-	private int reqModuleId;
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_rm")
+	private Module reqModuleId;
 
 	public ReqLink() {
 		super();
 	}
 
-	public ReqLink(int id, int requestId, int reqModuleId) {
+	public ReqLink(int id, Requests requestId, Module reqModuleId) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
@@ -44,19 +46,19 @@ public class ReqLink {
 		this.id = id;
 	}
 
-	public int getRequestId() {
+	public Requests getRequestId() {
 		return requestId;
 	}
 
-	public void setRequestId(int requestId) {
+	public void setRequestId(Requests requestId) {
 		this.requestId = requestId;
 	}
 
-	public int getReqModuleId() {
+	public Module getReqModuleId() {
 		return reqModuleId;
 	}
 
-	public void setReqModuleId(int reqModuleId) {
+	public void setReqModuleId(Module reqModuleId) {
 		this.reqModuleId = reqModuleId;
 	}
 
@@ -70,8 +72,8 @@ public class ReqLink {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + reqModuleId;
-		result = prime * result + requestId;
+		result = prime * result + ((reqModuleId == null) ? 0 : reqModuleId.hashCode());
+		result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
 		return result;
 	}
 
@@ -86,9 +88,15 @@ public class ReqLink {
 		ReqLink other = (ReqLink) obj;
 		if (id != other.id)
 			return false;
-		if (reqModuleId != other.reqModuleId)
+		if (reqModuleId == null) {
+			if (other.reqModuleId != null)
+				return false;
+		} else if (!reqModuleId.equals(other.reqModuleId))
 			return false;
-		if (requestId != other.requestId)
+		if (requestId == null) {
+			if (other.requestId != null)
+				return false;
+		} else if (!requestId.equals(other.requestId))
 			return false;
 		return true;
 	}
