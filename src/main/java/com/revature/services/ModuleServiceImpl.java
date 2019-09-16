@@ -30,9 +30,9 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
-		if(module.getChildModules() == null){
-			module.setChildModules(Collections.emptySet());
-		}
+//		if(module.getChildModules() == null){
+//			module.setChildModules(Collections.emptySet());
+//		}
 		module = mr.save(module);
 		return module;
 	}
@@ -85,7 +85,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public Set<Module> getChildrenByParentId(int id){
 		Module parent = mr.findById(id);
-		return parent.getChildModules();
+		return null;//parent.getChildModules();
 	}
 	
 	@Override
@@ -122,13 +122,13 @@ public class ModuleServiceImpl implements ModuleService {
 		for (Content content : mContent) {
 			cr.delete(content);
 		}
-		//transfer children of module to parent of module
-		Set<Module> childModules = module.getChildModules();
-		Module newParent = module.getParentModule();
-		for (Module child : childModules) {
-			child.setParentModule(newParent);
-			mr.save(child);
-		}
+//		//transfer children of module to parent of module
+//		Set<Module> childModules = module.getChildModules();
+//		Module newParent = module.getParentModule();
+//		for (Module child : childModules) {
+//			child.setParentModule(newParent);
+//			mr.save(child);
+//		}
 		//delete module
 		mr.delete(module);
 	}
@@ -142,12 +142,12 @@ public class ModuleServiceImpl implements ModuleService {
 				cr.delete(content);
 			}
 		}
-		//transfer children of module to parent of module
-		Set<Module> childModules = module.getChildModules();
-		Module newParent = module.getParentModule();
-		for (Module child : childModules) {
-			child.setParentModule(newParent);
-		}
+//		//transfer children of module to parent of module
+//		Set<Module> childModules = module.getChildModules();
+//		Module newParent = module.getParentModule();
+//		for (Module child : childModules) {
+//			child.setParentModule(newParent);
+//		}
 		//delete module
 		mr.delete(module);
 	}
