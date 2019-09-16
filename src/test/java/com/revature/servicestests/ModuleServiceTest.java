@@ -1,8 +1,6 @@
 package com.revature.servicestests;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,9 +68,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	public void testSetup() {
 		
 		//Create a Link object to add to module object.
-		l1 = new Link(250, 10, 130, "testblah");
-		l2 = new Link(255, 10, 130, "testblah");
-		l3 = new Link(224, 10, 130, "testblah");
+		l1 = new Link(250, 10, 130);
+		l2 = new Link(255, 10, 130);
+		l3 = new Link(224, 10, 130);
 		links = new HashSet<Link>();
 		links.add(l1);
 		

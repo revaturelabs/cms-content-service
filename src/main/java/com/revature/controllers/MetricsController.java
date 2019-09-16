@@ -48,7 +48,7 @@ public class MetricsController {
 		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
 
 		if(idsIn.isEmpty()) {
-			contents = contentService.getAllContentMinusLinks();
+			contents = contentService.getAllContent();
 			filtContents = searchService.filterContent(contents, filters);
 		} else {
 			contents = contentService.getAllContent();

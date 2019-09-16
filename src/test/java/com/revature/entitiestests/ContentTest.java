@@ -123,7 +123,7 @@ public class ContentTest {
 	@Test
 	public void testSetLinks() {
 		Set<Link> link = new HashSet<Link>();
-		link.add(new Link(55, 484, 555, "Java Wars"));
+		link.add(new Link(55, 484, 555));
 		c2.setLinks(link);
 		assertTrue(c2.getLinks().equals(link));
 	}

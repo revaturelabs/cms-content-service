@@ -1,12 +1,14 @@
 package com.revature.servicestests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
-import static org.testng.Assert.*;
-import java.util.Set;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -14,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
@@ -86,7 +89,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 		mockContent.setDescription("Bloohbitty");
 		mockContent.setUrl("www.blahbitty.com");
 		//Create a new Link object
-		mockLink = new Link(3,mockContent.getId(),7,"Blah");
+		mockLink = new Link(3,mockContent.getId(),7);
 		//create a new HashSet of Link objects
 		links = new HashSet<Link>();
 		//Add the mock link to the list of links
@@ -132,7 +135,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@Test
 	public void testUpdateContent()
 	{
-		links.add(new Link(5,mockContent.getId(),9,"BlahbittyBlooh"));
+		links.add(new Link(5,mockContent.getId(),9));
 		testContent.setLinks(links);
 		contentSet.add(testContent);
 		when(contRep.findById(testContent.getId())).thenReturn(contentSet);
@@ -150,14 +153,6 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 		when(contRep.findAll()).thenReturn(contentSet);
 		secondContentSet = contServe.getAllContent();
 		assertTrue(contServe.getAllContent().equals(secondContentSet));
-	}
-	
-	//This method tests the functionality of the .getAllContentMinusLinks method within the ContentServiceImpl class
-	@Test
-	public void testGetAllContentMinusLinks()
-	{
-		contentSet = contServe.getAllContentMinusLinks();
-		assertNotNull(contentSet);
 	}
 	
 	/*
