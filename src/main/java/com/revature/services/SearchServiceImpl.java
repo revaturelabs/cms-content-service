@@ -90,7 +90,6 @@ public class SearchServiceImpl implements SearchService {
 	@LogException
 	public Set<Content> getContentByModuleId(int moduleId) {
 		return mr.findById(moduleId).getContent();
-		 
 	}
 
 	/**
@@ -102,6 +101,7 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filter(String title, String format, List<Integer> moduleIds) {
+
 		Set<Content> titleContent = this.filterContentByTitle(title);
 		Set<Content> formatContent = this.filterContentByFormat(format);
 		Set<Content> moduleContent = this.filterContentBySubjects(moduleIds);
@@ -112,6 +112,7 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
+
 		Set<Content> titleContent = this.filterContentByTitle(filters.get("title").toString());
 		Set<Content> formatContent = this.filterContentByFormat(filters.get("format").toString());
 		
@@ -120,9 +121,10 @@ public class SearchServiceImpl implements SearchService {
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-		
+
 		Set<Content> moduleContent = this.filterContentBySubjects(moduleIdsList);
 		//this is an AND search, if you want to do an OR search, just use the <set>.addAll() method instead of the Sets.intersection() method
 		return Sets.intersection(titleContent, Sets.intersection(formatContent, moduleContent));
 	}
+
 }

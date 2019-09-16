@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,8 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module getModuleById(int id) {
-		return mr.findById(id);
+		Module module = mr.findById(id);
+		return module;
 	}
 	
 	/**
@@ -74,8 +76,14 @@ public class ModuleServiceImpl implements ModuleService {
 	 */
 	@Override
 	public double getAverageByAllModules() {
-		Set<Module> allMods = this.getAllModules();
+		Set<Module> allMods = this.getAllModules();		
 		return this.getAverageByModuleIds(allMods);
+	}
+	
+	@Override
+	public Set<Module> getChildrenByParentId(int id){
+		Module parent = mr.findById(id);
+		return parent.getChildModules();
 	}
 	
 	@Override
@@ -89,12 +97,6 @@ public class ModuleServiceImpl implements ModuleService {
 		}
 		return roots;
 	}	
-	
-	@Override
-	public Set<Module> getChildrenByParentId(int id){
-		Module parent = mr.findById(id);
-		return parent.getChildModules();
-	}
 	
 	@Override
 	public Module updateModule(Module module) {
@@ -119,11 +121,12 @@ public class ModuleServiceImpl implements ModuleService {
 			cr.delete(content);
 		}
 		//transfer children of module to parent of module
-			Set<Module> childModules = module.getChildModules();
-			Module newParent = module.getParentModule();
-			for (Module child : childModules) {
-				child.setParentModule(newParent);
-			}
+		Set<Module> childModules = module.getChildModules();
+		Module newParent = module.getParentModule();
+		for (Module child : childModules) {
+			child.setParentModule(newParent);
+			mr.save(child);
+		}
 		//delete module
 		mr.delete(module);
 	}
@@ -146,5 +149,6 @@ public class ModuleServiceImpl implements ModuleService {
 		//delete module
 		mr.delete(module);
 	}
+
 }
 

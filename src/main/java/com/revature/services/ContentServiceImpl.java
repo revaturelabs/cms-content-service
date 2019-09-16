@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,12 +30,15 @@ public class ContentServiceImpl implements ContentService {
 	 */
 	@LogException
 	@Override
-	public Content createContent(Content content) {
-		
+	public Content createContent(Content content) {	
+		//set date created and date modified
 		if(content.getDateCreated() == 0L && content.getLastModified() == 0L) {
 			content.setDateCreated(System.currentTimeMillis());
 			content.setLastModified(System.currentTimeMillis());
 		}
+		//save the content to the database
+		content = cr.save(content);
+		//return the saved content
 		return content;
 	}
 	

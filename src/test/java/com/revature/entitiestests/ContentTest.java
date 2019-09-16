@@ -3,19 +3,27 @@ package com.revature.entitiestests;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
-import java.util.Set;
 
+//import org.testng.annotations.AfterTest;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
+import com.revature.entities.Module;
+import com.revature.repositories.ContentRepository;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
+@Component
 public class ContentTest {
-	/*
+	
+	@Autowired
+	ContentRepository cr;
+	
 	//The content that will be tested
 	Content c1 = null;
 	Content c2 = null;
@@ -23,10 +31,10 @@ public class ContentTest {
 	//initialize the testing content
 	@BeforeTest
 	public void setup() {
-		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), 15554l, 15554l);
-		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), 1555444l, 1555444l);
+		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back",
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Module>());
+		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Module>());
 	}
 	
 	//null out the testing content
@@ -47,12 +55,13 @@ public class ContentTest {
 	}
 
 	@Test
-	public void testContentIntStringStringStringStringSetOfLinkLongLong() {
-		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), 15554l, 15554l);
+	public void testContentIntStringStringStringLongLongSetOfModules() {
+		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", 
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Module>());
 		assertTrue(one instanceof Content);
-		Content two = new Content(114, "Java the phantom menance", "String", "The one with the cool darth", "https://en.wikipedia.org/wiki/Star_Wars_(film)",
-				new HashSet<ContentPlusModules>(), 1555444l, 1555444l);
+		Content two = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Module>());
+
 		assertTrue(one != two);
 	}
 
@@ -114,20 +123,6 @@ public class ContentTest {
 	}
 
 	@Test
-	public void testGetLinks() {
-		Set<ContentPlusModules> link = new HashSet<ContentPlusModules>();
-		assertTrue(c1.getLinks().equals(link));
-	}
-
-	@Test
-	public void testSetLinks() {
-		Set<ContentPlusModules> link = new HashSet<ContentPlusModules>();
-		link.add(new ContentPlusModules(55, 484, 555, "Java Wars"));
-		c2.setLinks(link);
-		assertTrue(c2.getLinks().equals(link));
-	}
-
-	@Test
 	public void testGetDateCreated() {
 		assertTrue(c2.getDateCreated() == 1555444l);
 	}
@@ -166,5 +161,5 @@ public class ContentTest {
 		.suppress(Warning.NONFINAL_FIELDS)
 		.verify();
 	}
-	*/
+	
 }

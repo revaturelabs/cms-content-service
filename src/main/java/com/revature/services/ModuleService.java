@@ -9,7 +9,7 @@ public interface ModuleService {
 	public Module createModule(Module module);
 
 	public Set<Module> getAllModules();
-
+	
 	public Module getModuleById(int id);
 
 	public double getAverageByModuleIds(Set<Module> modules);

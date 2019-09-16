@@ -53,6 +53,7 @@ public class MetricsController {
 			modulesIdsIn.add(moduleService.getModuleById(id));
 		}
 
+		//what is the difference between these two if/else outcomes?
 		if(idsIn.isEmpty()) {
 			contents = contentService.getAllContent();
 			filtContents = searchService.filterContent(contents, filter);

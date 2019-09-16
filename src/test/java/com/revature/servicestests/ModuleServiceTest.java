@@ -37,6 +37,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Mock
 	private ModuleRepository mrMock;
 
+<<<<<<< HEAD
+=======
+	/*
+>>>>>>> d9196d7a107f11a9fef1d2deba4dbef8e26387aa
 	@Mock
 	private LinkRepository lrMock;
 
@@ -53,6 +57,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	private int idTest;
 	private Set<Module> moduleList;
 	// private Set<Link> links;
+
 	private ArrayList<Integer> lints;
 	private ArrayList<Integer> lintsMod;
 	
@@ -71,6 +76,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	//This will set up the values before the tests
 	@BeforeTest
 	public void testSetup() {
+<<<<<<< HEAD
+=======
+
+		/*
+>>>>>>> d9196d7a107f11a9fef1d2deba4dbef8e26387aa
 		//Create a Link object to add to module object.
 		l1 = new Link(250, 10, 130, "testblah");
 		l2 = new Link(255, 10, 130, "testblah");
@@ -190,7 +200,6 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		double tmp = msMock.getAverageByAllModules();
 		
 		assertTrue(tmp >= 0.0);
-		
 	}
 	
 	/**

@@ -8,8 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderColumn;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -45,28 +48,30 @@ public class Content {
 	@Column(name = "last_modified")
 	private long lastModified;
 
-	//retrieve all of the modules that have an association with this content
-	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	//Set of modules the content is related to
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="link",
 			joinColumns=@JoinColumn(name="fk_c"),
 			inverseJoinColumns=@JoinColumn(name="fk_m"))
-	private Set<Module> modules = new HashSet<Module>();
+	private Set<Module> modules;
+
 	
 	public Content() {
 		super();
 	}
 
-	public Content(int id, String title, String format, String description, String url, 
-			Set<Module> modules, long dateCreated, long lastModified) {
+	public Content(int id, String title, String format, String description, String url, long dateCreated,
+			long lastModified, Set<Module> modules) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
 		this.url = url;
-		this.modules = modules;
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
+		this.lastModified = lastModified;
+		this.modules = modules;
 	}
 
 	public int getId() {
@@ -108,7 +113,7 @@ public class Content {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public long getDateCreated() {
 		return dateCreated;
 	}
@@ -198,10 +203,4 @@ public class Content {
 				+ modules + "]";
 	}
 
-	
-
-	
-
-	
-	
 }
