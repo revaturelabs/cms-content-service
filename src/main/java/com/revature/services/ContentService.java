@@ -17,7 +17,5 @@ public interface ContentService {
     
     public Content updateContent(Content newContent);
     
-    public Set<Content> getAllContentMinusLinks();
-    
     public void deleteContent(Content content);
 }
