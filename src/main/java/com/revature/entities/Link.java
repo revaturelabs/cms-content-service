@@ -7,6 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/*
+ * DO NOT DELETE THIS FILE. According to the product owner.
+ * 
+ */
+
 @Entity
 @Table(name = "link")
 public class Link {
