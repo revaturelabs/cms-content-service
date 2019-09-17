@@ -74,12 +74,10 @@ public class ReqLink {
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "ReqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + ", affiliation="
+
+		return "ReqLink [id=" + id + ", requests=" + requests + ", reqModule=" + reqModule + ", affiliation="
 				+ affiliation + "]";
-=======
-		return "ReqLink [id=" + id + ", requests=" + requests + ", reqModule=" + reqModule + "]";
->>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
+
 	}
 
 	@Override
