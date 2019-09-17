@@ -2,14 +2,22 @@ package com.revature.entities;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "joins")
 public class ModuleHierarchy {
 
-	// TODO: missing annotation
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(name = "joins", 
+		joinColumns = @JoinColumn(name = "fk_m_child"), 
+		inverseJoinColumns = @JoinColumn(name = "fk_m_parent"))
 	private Module primaryModule;
 	
 	// TODO: missing annotation

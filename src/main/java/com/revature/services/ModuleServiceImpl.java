@@ -29,6 +29,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module createModule(Module module) {
+		System.out.println("Attempting to create module: " + module);
 		module.setCreated(System.currentTimeMillis());
 //		if(module.getChildModules() == null){
 //			module.setChildModules(Collections.emptySet());
@@ -68,7 +69,7 @@ public class ModuleServiceImpl implements ModuleService {
 	public double getAverageByModules(Set<Module> modules) {
 		Integer numContent = 0;
 		for (Module module : modules) {
-			numContent += module.getContent().size();
+			//numContent += module.getContent().size();
 		}
 		return (double) numContent / (double) modules.size();
 	}
@@ -118,10 +119,12 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
 		//delete all content associated with given module
+		/*
 		Set<Content> mContent = module.getContent();
 		for (Content content : mContent) {
 			cr.delete(content);
 		}
+		*/
 //		//transfer children of module to parent of module
 //		Set<Module> childModules = module.getChildModules();
 //		Module newParent = module.getParentModule();
@@ -136,12 +139,14 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
 		//delete all content associated ONLY with given module
+		/*
 		Set<Content> mContent = module.getContent();
 		for (Content content : mContent) {
 			if (content.getModules().size() <= 1) {
 				cr.delete(content);
 			}
 		}
+		*/
 //		//transfer children of module to parent of module
 //		Set<Module> childModules = module.getChildModules();
 //		Module newParent = module.getParentModule();
