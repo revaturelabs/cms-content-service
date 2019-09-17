@@ -1,10 +1,14 @@
 package com.revature.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,24 +19,25 @@ public class ReqLink {
 	@Column(name = "z_id")
 	private int id;
 
-	@Column(name = "fk_r")
-	private int requestId;
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_r")
+	private Requests requests;
 
-	@Column(name = "fk_rm")
-	private int reqModuleId;
-	
-	//unimplemented
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name = "fk_rm")
+	private Module reqModule;
+
 	private String affiliation;
 
 	public ReqLink() {
 		super();
 	}
 
-	public ReqLink(int id, int requestId, int reqModuleId) {
+	public ReqLink(int id, Requests requests, Module reqModule) {
 		super();
 		this.id = id;
-		this.requestId = requestId;
-		this.reqModuleId = reqModuleId;
+		this.requests = requests;
+		this.reqModule = reqModule;
 	}
 
 	public int getId() {
@@ -43,20 +48,20 @@ public class ReqLink {
 		this.id = id;
 	}
 
-	public int getRequestId() {
-		return requestId;
+	public Requests getRequests() {
+		return requests;
 	}
 
-	public void setRequestId(int requestId) {
-		this.requestId = requestId;
+	public void setRequests(Requests requests) {
+		this.requests = requests;
 	}
 
-	public int getReqModuleId() {
-		return reqModuleId;
+	public Module getReqModule() {
+		return reqModule;
 	}
 
-	public void setReqModuleId(int reqModuleId) {
-		this.reqModuleId = reqModuleId;
+	public void setReqModule(Module reqModule) {
+		this.reqModule = reqModule;
 	}
 
 	public String getAffiliation() {
@@ -69,8 +74,12 @@ public class ReqLink {
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		return "ReqLink [id=" + id + ", requestId=" + requestId + ", reqModuleId=" + reqModuleId + ", affiliation="
 				+ affiliation + "]";
+=======
+		return "ReqLink [id=" + id + ", requests=" + requests + ", reqModule=" + reqModule + "]";
+>>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
 	}
 
 	@Override
@@ -79,8 +88,8 @@ public class ReqLink {
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + id;
-		result = prime * result + reqModuleId;
-		result = prime * result + requestId;
+		result = prime * result + ((reqModule == null) ? 0 : reqModule.hashCode());
+		result = prime * result + ((requests == null) ? 0 : requests.hashCode());
 		return result;
 	}
 
@@ -100,9 +109,15 @@ public class ReqLink {
 			return false;
 		if (id != other.id)
 			return false;
-		if (reqModuleId != other.reqModuleId)
+		if (reqModule == null) {
+			if (other.reqModule != null)
+				return false;
+		} else if (!reqModule.equals(other.reqModule))
 			return false;
-		if (requestId != other.requestId)
+		if (requests == null) {
+			if (other.requests != null)
+				return false;
+		} else if (!requests.equals(other.requests))
 			return false;
 		return true;
 	}

@@ -41,7 +41,7 @@ public class Requests {
 	@Column(name = "last_modified", nullable=true)
 	private Long lastModified;
 	
-	@OneToMany(mappedBy ="requestId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy ="requests", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
 	
 	public Requests() {
