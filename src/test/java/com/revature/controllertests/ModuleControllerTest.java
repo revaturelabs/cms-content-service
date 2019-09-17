@@ -93,7 +93,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.createModule(module)).thenReturn(module);
 		
 		//when
-		ResultActions result = mvc.perform(post ("/module")
+		ResultActions result = mvc.perform(post ("/modules")
 							.contentType (MediaType.APPLICATION_JSON)
 							.content (gson.toJson(module)));
 		Module actual = gson.fromJson(result.andReturn()
@@ -118,7 +118,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.getAllModules()).thenReturn(modules);
 		
 		//when
-		ResultActions result = mvc.perform(get ("/module")
+		ResultActions result = mvc.perform(get ("/modules")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(gson.toJson(module)));
 		String actual = result.andReturn().getResponse()
@@ -142,7 +142,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
 		
 		//then
-		ResultActions result = mvc.perform(get ("/module/" + id));
+		ResultActions result = mvc.perform(get ("/modules/" + id));
 		Module actual = gson.fromJson(result.andReturn()
 				.getResponse().getContentAsString() , Module.class); 
 		
@@ -166,7 +166,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
 		
 		//then
-		ResultActions result = mvc.perform(delete ("/module/" + id));
+		ResultActions result = mvc.perform(delete ("/modules/" + id));
 		
 		//then
 		//expect status of OK
