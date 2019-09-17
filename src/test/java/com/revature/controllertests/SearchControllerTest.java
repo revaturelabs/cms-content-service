@@ -5,6 +5,7 @@ import static org.testng.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.reflect.TypeToken;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -112,21 +114,24 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		//mock service return
 		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
 						.thenReturn(retValue);
-		
+
 		//when
 		//perform mock search
-		ResultActions result = mvc.perform(post ("/search")
-								.contentType(MediaType.APPLICATION_JSON_VALUE)
-								.content(gson.toJson(reqBody)));
-		//grab the resulting json response, into content[] object
-		Content[] resultContent = gson.fromJson(result.andReturn().getResponse()
-								.getContentAsString(), Content[].class);
-		
+		ResultActions result = mvc.perform(get ("/content")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param(filterTitle, (String) reqBody.get(filterTitle))
+				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterModules, modules.get(0).toString()));
+		//grab the resulting json response, into Set<Content> object
+		Type setType = new TypeToken<Set<Content>>(){}.getType();
+		Set<Content> resultContent = gson.fromJson(result.andReturn().getResponse()
+								.getContentAsString(), setType);
+
 		//then
 		//expect to get a non-null return
 		assertNotNull (resultContent, "No content was not found");
 		//expect one result from the query
-		assertEquals (resultContent.length, 1, "Invalid number of resulting content");
+		assertEquals (resultContent.size(), 1, "Invalid number of resulting content");
 	}
 	
 	/**
@@ -142,20 +147,23 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	
 		//when
 		//perform mock search
-		ResultActions result = mvc.perform(post ("/search")
-								.contentType(MediaType.APPLICATION_JSON_VALUE)
-								.content(gson.toJson(reqBody)));	
-		//grab the resulting json response, into content[] object
-		Content[] resultContent = gson.fromJson(result.andReturn().getResponse()
-								.getContentAsString(), Content[].class);
-				
+		ResultActions result = mvc.perform(get ("/content")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param(filterTitle, (String) reqBody.get(filterTitle))
+				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterModules, modules.get(0).toString()));
+		//grab the resulting json response, into Set<Content> object
+		Type setType = new TypeToken<Set<Content>>(){}.getType();
+		Set<Content> resultContent = gson.fromJson(result.andReturn().getResponse()
+				.getContentAsString(), setType);
+
 		//then
 		//expect to get a non-null return
 		assertNotNull (resultContent, "Invalid content response");
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//expect no results from the query
-		assertEquals (resultContent.length, 0, "Invalid number of resulting content");
+		assertEquals (resultContent.size(), 0, "Invalid number of resulting content");
 	}
 }
 
