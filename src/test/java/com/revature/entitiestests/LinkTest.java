@@ -20,8 +20,8 @@ public class LinkTest {
 	//The setup for the Links
 	@BeforeTest
 	public void setup() {
-		l1 = new Link(1, 2, 3);
-		l2 = new Link(5, 6, 7);
+		l1 = new Link(1, 2, 3, "string here");
+		l2 = new Link(5, 6, 7, "a");
 	}
 	
 	//null out the Links
@@ -42,9 +42,9 @@ public class LinkTest {
 
 	@Test
 	public void testLinkIntIntIntString() {
-		Link one = new Link(1, 2, 3);
+		Link one = new Link(1, 2, 3, "test1");
 		assertTrue(one instanceof Link);
-		Link two = new Link(5, 6, 7);
+		Link two = new Link(5, 6, 7, "test2");
 		assertTrue(one != two);
 	}
 
