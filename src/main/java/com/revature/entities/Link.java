@@ -21,15 +21,19 @@ public class Link {
 	@Column(name = "fk_m")
 	private int moduleId;
 
+	//unimplemented right now
+	private String affiliation;
+	
 	public Link() {
 		super();
 	}
 
-	public Link(int id, int contentId, int moduleId) {
+	public Link(int id, int contentId, int moduleId, String affiliation) {
 		super();
 		this.id = id;
 		this.contentId = contentId;
 		this.moduleId = moduleId;
+		this.affiliation = affiliation;
 	}
 
 	public int getId() {
@@ -55,16 +59,25 @@ public class Link {
 	public void setModuleId(int moduleId) {
 		this.moduleId = moduleId;
 	}
+	public String getAffiliation() {
+		return affiliation;
+	}
+
+	public void setAffiliation(String affiliation) {
+		this.affiliation = affiliation;
+	}
 
 	@Override
 	public String toString() {
-		return "Link [id=" + id + ", contentId=" + contentId + ", moduleId=" + moduleId + "]";
+		return "Link [id=" + id + ", contentId=" + contentId + ", moduleId=" + moduleId + ", affiliation=" + affiliation
+				+ "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + contentId;
 		result = prime * result + id;
 		result = prime * result + moduleId;
@@ -80,6 +93,11 @@ public class Link {
 		if (getClass() != obj.getClass())
 			return false;
 		Link other = (Link) obj;
+		if (affiliation == null) {
+			if (other.affiliation != null)
+				return false;
+		} else if (!affiliation.equals(other.affiliation))
+			return false;
 		if (contentId != other.contentId)
 			return false;
 		if (id != other.id)
