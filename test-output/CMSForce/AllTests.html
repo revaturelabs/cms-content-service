@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>AllTests</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>103/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>102/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Aug 19 22:02:37 CDT 2019</td>
+<td>Started on:</td><td>Tue Sep 17 09:41:46 EDT 2019</td>
 </tr>
-<tr><td>Total time:</td><td>35 seconds (35583 ms)</td>
+<tr><td>Total time:</td><td>17 seconds (17578 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,6 +67,58 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.revature.controllertests.ModuleControllerTest.getAllModules()'><b>getAllModules</b><br>Test class: com.revature.controllertests.ModuleControllerTest</td>
+<td><div><pre>java.lang.AssertionError: Failed to get back modules expected [[{&quot;id&quot;:1,&quot;subject&quot;:&quot;subject&quot;,&quot;created&quot;:1,&quot;links&quot;:[{&quot;id&quot;:1,&quot;contentId&quot;:1,&quot;moduleId&quot;:1,&quot;affiliation&quot;:&quot;affiliation&quot;}]}]] but found [[{&quot;id&quot;:1,&quot;subject&quot;:&quot;subject&quot;,&quot;created&quot;:1,&quot;links&quot;:[{&quot;id&quot;:1,&quot;contentId&quot;:1,&quot;moduleId&quot;:1,&quot;affiliation&quot;:&quot;affiliation&quot;}],&quot;parentModules&quot;:null,&quot;childrenModules&quot;:null}]]
+	at com.revature.controllertests.ModuleControllerTest.getAllModules(ModuleControllerTest.java:132)
+	at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+... Removed 32 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace65106457", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace65106457'><pre>java.lang.AssertionError: Failed to get back modules expected [[{&quot;id&quot;:1,&quot;subject&quot;:&quot;subject&quot;,&quot;created&quot;:1,&quot;links&quot;:[{&quot;id&quot;:1,&quot;contentId&quot;:1,&quot;moduleId&quot;:1,&quot;affiliation&quot;:&quot;affiliation&quot;}]}]] but found [[{&quot;id&quot;:1,&quot;subject&quot;:&quot;subject&quot;,&quot;created&quot;:1,&quot;links&quot;:[{&quot;id&quot;:1,&quot;contentId&quot;:1,&quot;moduleId&quot;:1,&quot;affiliation&quot;:&quot;affiliation&quot;}],&quot;parentModules&quot;:null,&quot;childrenModules&quot;:null}]]
+	at org.testng.Assert.fail(Assert.java:96)
+	at org.testng.Assert.failNotEquals(Assert.java:776)
+	at org.testng.Assert.assertEqualsImpl(Assert.java:137)
+	at org.testng.Assert.assertEquals(Assert.java:118)
+	at org.testng.Assert.assertEquals(Assert.java:453)
+	at com.revature.controllertests.ModuleControllerTest.getAllModules(ModuleControllerTest.java:132)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+	at org.testng.internal.MethodInvocationHelper$1.runTestMethod(MethodInvocationHelper.java:230)
+	at org.springframework.test.context.testng.AbstractTestNGSpringContextTests.run(AbstractTestNGSpringContextTests.java:180)
+	at org.testng.internal.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:242)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:579)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+	at org.testng.TestRunner.run(TestRunner.java:505)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+	at org.testng.TestNG.runSuites(TestNG.java:1049)
+	at org.testng.TestNG.run(TestNG.java:1017)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:115)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+</pre></div></td>
+<td>0</td>
+<td>com.revature.controllertests.ModuleControllerTest@13bc8645</td></tr>
+</table><p>
 <table width='100%' border='1' class='invocation-passed'>
 <tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
@@ -78,517 +130,512 @@ function toggleAllBoxes() {
 <td title='com.revature.controllertests.ContentControllerTest.deleteContent()'><b>deleteContent</b><br>Test class: com.revature.controllertests.ContentControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ContentControllerTest@6f2a1ff0</td></tr>
+<td>com.revature.controllertests.ContentControllerTest@14f232c4</td></tr>
 <tr>
 <td title='com.revature.controllertests.ModuleControllerTest.deleteModule()'><b>deleteModule</b><br>Test class: com.revature.controllertests.ModuleControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ModuleControllerTest@647ce968</td></tr>
+<td>com.revature.controllertests.ModuleControllerTest@13bc8645</td></tr>
 <tr>
-<td title='com.revature.servicestests.SearchServiceTest.filterByFormatTest()'><b>filterByFormatTest</b><br>Test class: com.revature.servicestests.SearchServiceTest</td>
+<td title='com.revature.servicestests.SearchServiceTest.filterContentByFormatTest()'><b>filterContentByFormatTest</b><br>Test class: com.revature.servicestests.SearchServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.SearchServiceTest@63846fa4</td></tr>
+<td>com.revature.servicestests.SearchServiceTest@7ba8c737</td></tr>
+<tr>
+<td title='com.revature.servicestests.SearchServiceTest.filterContentBySubjectsTest()'><b>filterContentBySubjectsTest</b><br>Test class: com.revature.servicestests.SearchServiceTest</td>
+<td></td>
+<td>0</td>
+<td>com.revature.servicestests.SearchServiceTest@7ba8c737</td></tr>
 <tr>
 <td title='com.revature.servicestests.SearchServiceTest.filterContentByTitleTest()'><b>filterContentByTitleTest</b><br>Test class: com.revature.servicestests.SearchServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.SearchServiceTest@63846fa4</td></tr>
+<td>com.revature.servicestests.SearchServiceTest@7ba8c737</td></tr>
+<tr>
+<td title='com.revature.servicestests.SearchServiceTest.filterTest()'><b>filterTest</b><br>Test class: com.revature.servicestests.SearchServiceTest</td>
+<td></td>
+<td>0</td>
+<td>com.revature.servicestests.SearchServiceTest@7ba8c737</td></tr>
 <tr>
 <td title='com.revature.controllertests.ContentControllerTest.getAllContents()'><b>getAllContents</b><br>Test class: com.revature.controllertests.ContentControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ContentControllerTest@6f2a1ff0</td></tr>
-<tr>
-<td title='com.revature.controllertests.ModuleControllerTest.getAllModules()'><b>getAllModules</b><br>Test class: com.revature.controllertests.ModuleControllerTest</td>
-<td></td>
-<td>0</td>
-<td>com.revature.controllertests.ModuleControllerTest@647ce968</td></tr>
+<td>com.revature.controllertests.ContentControllerTest@14f232c4</td></tr>
 <tr>
 <td title='com.revature.controllertests.ContentControllerTest.getContentById()'><b>getContentById</b><br>Test class: com.revature.controllertests.ContentControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ContentControllerTest@6f2a1ff0</td></tr>
+<td>com.revature.controllertests.ContentControllerTest@14f232c4</td></tr>
+<tr>
+<td title='com.revature.servicestests.SearchServiceTest.getContentByModuleIdTest()'><b>getContentByModuleIdTest</b><br>Test class: com.revature.servicestests.SearchServiceTest</td>
+<td></td>
+<td>0</td>
+<td>com.revature.servicestests.SearchServiceTest@7ba8c737</td></tr>
 <tr>
 <td title='com.revature.controllertests.ModuleControllerTest.getModuleById()'><b>getModuleById</b><br>Test class: com.revature.controllertests.ModuleControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ModuleControllerTest@647ce968</td></tr>
+<td>com.revature.controllertests.ModuleControllerTest@13bc8645</td></tr>
 <tr>
 <td title='com.revature.controllertests.SearchControllerTest.givenInvalidSearchGetNoContent()'><b>givenInvalidSearchGetNoContent</b><br>Test class: com.revature.controllertests.SearchControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.SearchControllerTest@2a2b3aff</td></tr>
+<td>com.revature.controllertests.SearchControllerTest@24c22fe</td></tr>
 <tr>
 <td title='com.revature.controllertests.ContentControllerTest.givenValidDataCreateContent()'><b>givenValidDataCreateContent</b><br>Test class: com.revature.controllertests.ContentControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ContentControllerTest@6f2a1ff0</td></tr>
+<td>com.revature.controllertests.ContentControllerTest@14f232c4</td></tr>
 <tr>
 <td title='com.revature.controllertests.ModuleControllerTest.givenValidDataCreateModule()'><b>givenValidDataCreateModule</b><br>Test class: com.revature.controllertests.ModuleControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ModuleControllerTest@647ce968</td></tr>
+<td>com.revature.controllertests.ModuleControllerTest@13bc8645</td></tr>
 <tr>
 <td title='com.revature.controllertests.SearchControllerTest.givenValidSearchGetContent()'><b>givenValidSearchGetContent</b><br>Test class: com.revature.controllertests.SearchControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.SearchControllerTest@2a2b3aff</td></tr>
+<td>com.revature.controllertests.SearchControllerTest@24c22fe</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testContent()'><b>testContent</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testContentIntStringStringStringStringSetOfLinkLongLong()'><b>testContentIntStringStringStringStringSetOfLinkLongLong</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testContentWrapper()'><b>testContentWrapper</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testContentWrapperContentLinkArray()'><b>testContentWrapperContentLinkArray</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.servicestests.ContentServiceTest.testCreateContent()'><b>testCreateContent</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
+<td>com.revature.servicestests.ContentServiceTest@31edaa7d</td></tr>
 <tr>
 <td title='com.revature.servicestests.ModuleServiceTest.testCreateModule()'><b>testCreateModule</b><br>Test class: com.revature.servicestests.ModuleServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ModuleServiceTest@74a3160d</td></tr>
+<td>com.revature.servicestests.ModuleServiceTest@cd1e646</td></tr>
 <tr>
 <td title='com.revature.servicestests.ModuleServiceTest.testDelete()'><b>testDelete</b><br>Test class: com.revature.servicestests.ModuleServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ModuleServiceTest@74a3160d</td></tr>
+<td>com.revature.servicestests.ModuleServiceTest@cd1e646</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testEqualsObject()'><b>testEqualsObject</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
-<td>1</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>0</td>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testEqualsObject()'><b>testEqualsObject</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testEqualsObject()'><b>testEqualsObject</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testEqualsObject()'><b>testEqualsObject</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
-<tr>
-<td title='com.revature.entitiestests.LinkTest.testGetAffiliation()'><b>testGetAffiliation</b><br>Test class: com.revature.entitiestests.LinkTest</td>
-<td></td>
-<td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.servicestests.ContentServiceTest.testGetAllContent()'><b>testGetAllContent</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
-<tr>
-<td title='com.revature.servicestests.ContentServiceTest.testGetAllContentMinusLinks()'><b>testGetAllContentMinusLinks</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
-<td></td>
-<td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
+<td>com.revature.servicestests.ContentServiceTest@31edaa7d</td></tr>
 <tr>
 <td title='com.revature.servicestests.ModuleServiceTest.testGetAllModules()'><b>testGetAllModules</b><br>Test class: com.revature.servicestests.ModuleServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ModuleServiceTest@74a3160d</td></tr>
+<td>com.revature.servicestests.ModuleServiceTest@cd1e646</td></tr>
 <tr>
 <td title='com.revature.servicestests.ModuleServiceTest.testGetAverageByAllModules()'><b>testGetAverageByAllModules</b><br>Test class: com.revature.servicestests.ModuleServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ModuleServiceTest@74a3160d</td></tr>
+<td>com.revature.servicestests.ModuleServiceTest@cd1e646</td></tr>
 <tr>
 <td title='com.revature.servicestests.ModuleServiceTest.testGetAverageByModuleIds()'><b>testGetAverageByModuleIds</b><br>Test class: com.revature.servicestests.ModuleServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ModuleServiceTest@74a3160d</td></tr>
+<td>com.revature.servicestests.ModuleServiceTest@cd1e646</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testGetAvgResources()'><b>testGetAvgResources</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testGetCodeCount()'><b>testGetCodeCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testGetContent()'><b>testGetContent</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.servicestests.ContentServiceTest.testGetContentByFormatWithContents()'><b>testGetContentByFormatWithContents</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
+<td>com.revature.servicestests.ContentServiceTest@31edaa7d</td></tr>
 <tr>
 <td title='com.revature.servicestests.ContentServiceTest.testGetContentByFormatWithStrings()'><b>testGetContentByFormatWithStrings</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
+<td>com.revature.servicestests.ContentServiceTest@31edaa7d</td></tr>
 <tr>
 <td title='com.revature.servicestests.ContentServiceTest.testGetContentById()'><b>testGetContentById</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
+<td>com.revature.servicestests.ContentServiceTest@31edaa7d</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testGetContentId()'><b>testGetContentId</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testGetCreated()'><b>testGetCreated</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetDateCreated()'><b>testGetDateCreated</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetDescription()'><b>testGetDescription</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testGetDocumentCount()'><b>testGetDocumentCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetFormat()'><b>testGetFormat</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetId()'><b>testGetId</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testGetId()'><b>testGetId</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testGetId()'><b>testGetId</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetLastModified()'><b>testGetLastModified</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetLinks()'><b>testGetLinks</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testGetLinks()'><b>testGetLinks</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testGetLinks()'><b>testGetLinks</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.servicestests.ModuleServiceTest.testGetModuleById()'><b>testGetModuleById</b><br>Test class: com.revature.servicestests.ModuleServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ModuleServiceTest@74a3160d</td></tr>
+<td>com.revature.servicestests.ModuleServiceTest@cd1e646</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testGetModuleId()'><b>testGetModuleId</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testGetNumContents()'><b>testGetNumContents</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testGetNumDiffModsCount()'><b>testGetNumDiffModsCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testGetPptCount()'><b>testGetPptCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testGetReturnedLongs()'><b>testGetReturnedLongs</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testGetSubject()'><b>testGetSubject</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.servicestests.TimeGraphServiceTest.testGetTimeGraphData()'><b>testGetTimeGraphData</b><br>Test class: com.revature.servicestests.TimeGraphServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.TimeGraphServiceTest@4bc9451b</td></tr>
+<td>com.revature.servicestests.TimeGraphServiceTest@93081b6</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testGetTimeGraphData()'><b>testGetTimeGraphData</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetTitle()'><b>testGetTitle</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testGetUrl()'><b>testGetUrl</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testLink()'><b>testLink</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testLinkIntIntIntString()'><b>testLinkIntIntIntString</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testMetricsData()'><b>testMetricsData</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testMetricsDataIntIntIntIntDoubleTimeGraphData()'><b>testMetricsDataIntIntIntIntDoubleTimeGraphData</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testModule()'><b>testModule</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testModuleIntStringIntSetOfLink()'><b>testModuleIntStringIntSetOfLink</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.loggingtest.LoggingTest.testOne()'><b>testOne</b><br>Test class: com.revature.loggingtest.LoggingTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.loggingtest.LoggingTest@6987b74e</td></tr>
-<tr>
-<td title='com.revature.entitiestests.LinkTest.testSetAffiliation()'><b>testSetAffiliation</b><br>Test class: com.revature.entitiestests.LinkTest</td>
-<td></td>
-<td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.loggingtest.LoggingTest@2bec854f</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testSetAvgResources()'><b>testSetAvgResources</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testSetCodeCount()'><b>testSetCodeCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testSetContent()'><b>testSetContent</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testSetContentId()'><b>testSetContentId</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testSetCreated()'><b>testSetCreated</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetDateCreated()'><b>testSetDateCreated</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetDescription()'><b>testSetDescription</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testSetDocumentCount()'><b>testSetDocumentCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetFormat()'><b>testSetFormat</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetId()'><b>testSetId</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testSetId()'><b>testSetId</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testSetId()'><b>testSetId</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetLastModified()'><b>testSetLastModified</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetLinks()'><b>testSetLinks</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testSetLinks()'><b>testSetLinks</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testSetLinks()'><b>testSetLinks</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testSetModuleId()'><b>testSetModuleId</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testSetNumContents()'><b>testSetNumContents</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testSetNumDiffModsCount()'><b>testSetNumDiffModsCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testSetPptCount()'><b>testSetPptCount</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testSetReturnedLongs()'><b>testSetReturnedLongs</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testSetSubject()'><b>testSetSubject</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testSetTimeGraphData()'><b>testSetTimeGraphData</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetTitle()'><b>testSetTitle</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testSetUrl()'><b>testSetUrl</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testTimeGraphData()'><b>testTimeGraphData</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testTimeGraphDataListOfLongInt()'><b>testTimeGraphDataListOfLongInt</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ContentTest.testToString()'><b>testToString</b><br>Test class: com.revature.entitiestests.ContentTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ContentTest@542beecb</td></tr>
+<td>com.revature.entitiestests.ContentTest@30b6ffe0</td></tr>
 <tr>
 <td title='com.revature.entitiestests.LinkTest.testToString()'><b>testToString</b><br>Test class: com.revature.entitiestests.LinkTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.LinkTest@332fa6ce</td></tr>
+<td>com.revature.entitiestests.LinkTest@791d1f8b</td></tr>
 <tr>
 <td title='com.revature.entitiestests.ModuleTest.testToString()'><b>testToString</b><br>Test class: com.revature.entitiestests.ModuleTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.entitiestests.ModuleTest@2cc9a948</td></tr>
+<td>com.revature.entitiestests.ModuleTest@2415fc55</td></tr>
 <tr>
 <td title='com.revature.utiltests.MetricsDataTest.testToString()'><b>testToString</b><br>Test class: com.revature.utiltests.MetricsDataTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.MetricsDataTest@77978658</td></tr>
+<td>com.revature.utiltests.MetricsDataTest@1890516e</td></tr>
 <tr>
 <td title='com.revature.utiltests.TimeGraphTest.testToString()'><b>testToString</b><br>Test class: com.revature.utiltests.TimeGraphTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.TimeGraphTest@498b697</td></tr>
+<td>com.revature.utiltests.TimeGraphTest@15a04efb</td></tr>
 <tr>
 <td title='com.revature.utiltests.ContentWrapperTest.testToString()'><b>testToString</b><br>Test class: com.revature.utiltests.ContentWrapperTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.utiltests.ContentWrapperTest@5f8da82</td></tr>
+<td>com.revature.utiltests.ContentWrapperTest@16c069df</td></tr>
 <tr>
 <td title='com.revature.servicestests.ContentServiceTest.testUpdateContent()'><b>testUpdateContent</b><br>Test class: com.revature.servicestests.ContentServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.ContentServiceTest@22e95960</td></tr>
+<td>com.revature.servicestests.ContentServiceTest@31edaa7d</td></tr>
 <tr>
 <td title='com.revature.servicestests.TimeGraphServiceTest.timeScaleInMarginOneVal()'><b>timeScaleInMarginOneVal</b><br>Test class: com.revature.servicestests.TimeGraphServiceTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.servicestests.TimeGraphServiceTest@4bc9451b</td></tr>
+<td>com.revature.servicestests.TimeGraphServiceTest@93081b6</td></tr>
 <tr>
 <td title='com.revature.controllertests.ContentControllerTest.updateContent()'><b>updateContent</b><br>Test class: com.revature.controllertests.ContentControllerTest</td>
 <td></td>
 <td>0</td>
-<td>com.revature.controllertests.ContentControllerTest@6f2a1ff0</td></tr>
+<td>com.revature.controllertests.ContentControllerTest@14f232c4</td></tr>
 </table><p>
 </body>
 </html>
