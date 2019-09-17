@@ -89,7 +89,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 		mockContent.setDescription("Bloohbitty");
 		mockContent.setUrl("www.blahbitty.com");
 		//Create a new Link object
-		mockLink = new Link(3,mockContent.getId(),7);
+		mockLink = new Link(3,mockContent.getId(),7, "stuff");
 		//create a new HashSet of Link objects
 		links = new HashSet<Link>();
 		//Add the mock link to the list of links
@@ -135,7 +135,7 @@ class ContentServiceTest extends AbstractTestNGSpringContextTests
 	@Test
 	public void testUpdateContent()
 	{
-		links.add(new Link(5,mockContent.getId(),9));
+		links.add(new Link(5,mockContent.getId(),9, "other stuff"));
 		testContent.setLinks(links);
 		contentSet.add(testContent);
 		when(contRep.findById(testContent.getId())).thenReturn(contentSet);

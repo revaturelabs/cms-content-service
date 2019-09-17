@@ -49,7 +49,6 @@ public class RequestController {
 		return requestService.getRequestsById(id);
 	}
 	
-	//is this the correct PutMapping?
 	@PutMapping(value="{id}")
 	public ResponseEntity<Requests> updateRequest(@PathVariable Integer Id, @RequestBody Requests r){
 		if(requestService.getRequestsById(Id) == null) {
