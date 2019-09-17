@@ -46,19 +46,19 @@ public class Request {
 	@Column(name = "last_modified", nullable = true)
 	private Long lastModified;
 
-	// Set of modules the content is related to
+	// Set of links that connect the request to a module and the relationship between them
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "req_link", 
 		joinColumns = @JoinColumn(name = "fk_r"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_rm"))
-	private Set<Module> modules;
+	private Set<ReqLink> reqLinks;
 
 	public Request() {
 		super();
 	}
 
 	public Request(int id, String title, String format, String description, String url, Long dateCreated,
-			Long lastModified, Set<Module> modules) {
+			Long lastModified, Set<ReqLink> reqLinks) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -67,7 +67,7 @@ public class Request {
 		this.url = url;
 		this.dateCreated = dateCreated;
 		this.lastModified = lastModified;
-		this.modules = modules;
+		this.reqLinks = reqLinks;
 	}
 
 	public int getId() {
@@ -126,12 +126,12 @@ public class Request {
 		this.lastModified = lastModified;
 	}
 
-	public Set<Module> getModules() {
-		return modules;
+	public Set<ReqLink> getReqLinks() {
+		return reqLinks;
 	}
 
-	public void setModules(Set<Module> modules) {
-		this.modules = modules;
+	public void setReqLinks(Set<ReqLink> reqLinks) {
+		this.reqLinks = reqLinks;
 	}
 
 	@Override
@@ -143,7 +143,7 @@ public class Request {
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
-		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
+		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -180,10 +180,10 @@ public class Request {
 				return false;
 		} else if (!lastModified.equals(other.lastModified))
 			return false;
-		if (modules == null) {
-			if (other.modules != null)
+		if (reqLinks == null) {
+			if (other.reqLinks != null)
 				return false;
-		} else if (!modules.equals(other.modules))
+		} else if (!reqLinks.equals(other.reqLinks))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -200,9 +200,9 @@ public class Request {
 
 	@Override
 	public String toString() {
-		return "Requests [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", modules="
-				+ modules + "]";
+		return "Request [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", reqLinks="
+				+ reqLinks + "]";
 	}
 
 }

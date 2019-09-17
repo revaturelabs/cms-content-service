@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -21,6 +23,8 @@ public class ModuleServiceImpl implements ModuleService {
 	ModuleRepository mr;
 	@Autowired
 	ContentRepository cr;
+	@Autowired
+	LinkRepository lr;
 
 	/**
 	 * Take the module passed in and change the created value 
@@ -31,9 +35,9 @@ public class ModuleServiceImpl implements ModuleService {
 	public Module createModule(Module module) {
 		System.out.println("Attempting to create module: " + module);
 		module.setCreated(System.currentTimeMillis());
-//		if(module.getChildModules() == null){
-//			module.setChildModules(Collections.emptySet());
-//		}
+		if(module.getChildren() == null){
+			module.setChildren(Collections.emptySet());
+		}
 		module = mr.save(module);
 		return module;
 	}
@@ -69,7 +73,7 @@ public class ModuleServiceImpl implements ModuleService {
 	public double getAverageByModules(Set<Module> modules) {
 		Integer numContent = 0;
 		for (Module module : modules) {
-			//numContent += module.getContent().size();
+			numContent += module.getLinks().size();
 		}
 		return (double) numContent / (double) modules.size();
 	}
@@ -86,7 +90,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public Set<Module> getChildrenByParentId(int id){
 		Module parent = mr.findById(id);
-		return null;//parent.getChildModules();
+		return parent.getChildren();
 	}
 	
 	@Override
@@ -94,7 +98,7 @@ public class ModuleServiceImpl implements ModuleService {
 		Set<Module> modules = this.getAllModules();
 		Set<Module> roots = new HashSet<Module>();
 		for (Module module : modules) {
-			if (module.getParentModule() == null) {
+			if (module.getParents().size() <= 0) {
 				roots.add(module);
 			}
 		}
@@ -119,17 +123,17 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
 		//delete all content associated with given module
-		/*
-		Set<Content> mContent = module.getContent();
-		for (Content content : mContent) {
-			cr.delete(content);
+		
+		Set<Link> links = module.getLinks();
+		for (Link link : links) {
+			lr.delete(link);
 		}
-		*/
+		
 //		//transfer children of module to parent of module
-//		Set<Module> childModules = module.getChildModules();
-//		Module newParent = module.getParentModule();
+//		Set<Module> childModules = module.getChildren();
+//		Set<Module> newParents = module.getParents();
 //		for (Module child : childModules) {
-//			child.setParentModule(newParent);
+//			child.setParents(newParents);
 //			mr.save(child);
 //		}
 		//delete module
@@ -139,14 +143,14 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
 		//delete all content associated ONLY with given module
-		/*
-		Set<Content> mContent = module.getContent();
-		for (Content content : mContent) {
-			if (content.getModules().size() <= 1) {
-				cr.delete(content);
+		
+		Set<Link> links = module.getLinks();
+		for (Link link : links) {
+			if (link.getContent().getLinks().size() <= 1) {
+				lr.delete(link);
 			}
 		}
-		*/
+		
 //		//transfer children of module to parent of module
 //		Set<Module> childModules = module.getChildModules();
 //		Module newParent = module.getParentModule();

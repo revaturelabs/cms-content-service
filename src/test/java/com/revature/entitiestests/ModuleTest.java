@@ -99,7 +99,7 @@ public class ModuleTest {
 	@Test
 	void testSetLinks() {
 		Set<Link> link = new HashSet<Link>();
-		link.add(new Link(1, 2, 3));
+		link.add(new Link(1, 2, 3, "affiliation"));
 		m2.setLinks(link);
 		assertTrue(m2.getLinks().equals(link));
 	}

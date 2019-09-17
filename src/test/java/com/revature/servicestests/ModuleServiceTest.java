@@ -80,9 +80,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		/*
 >>>>>>> d9196d7a107f11a9fef1d2deba4dbef8e26387aa
 		//Create a Link object to add to module object.
-		l1 = new Link(250, 10, 130);
-		l2 = new Link(255, 10, 130);
-		l3 = new Link(224, 10, 130);
+		l1 = new Link(250, 10, 130, "testing1");
+		l2 = new Link(255, 10, 130, "testing2");
+		l3 = new Link(224, 10, 130, "testing4");
 		links = new HashSet<Link>();
 		links.add(l1);
 		

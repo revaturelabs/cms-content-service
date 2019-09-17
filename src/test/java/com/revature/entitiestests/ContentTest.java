@@ -3,6 +3,7 @@ package com.revature.entitiestests;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
+import java.util.Set;
 
 //import org.testng.annotations.AfterTest;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
 
@@ -32,9 +34,9 @@ public class ContentTest {
 	@BeforeTest
 	public void setup() {
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back",
-				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Module>());
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
-				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Module>());
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Link>());
 	}
 	
 	//null out the testing content
@@ -57,10 +59,10 @@ public class ContentTest {
 	@Test
 	public void testContentIntStringStringStringLongLongSetOfModules() {
 		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", 
-				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Module>());
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		assertTrue(one instanceof Content);
 		Content two = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
-				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Module>());
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Link>());
 
 		assertTrue(one != two);
 	}
@@ -122,19 +124,19 @@ public class ContentTest {
 		assertTrue(c1.getUrl().equals("https://www.imdb.com/title/tt0076759/"));
 	}
 
-//	@Test
-//	public void testGetLinks() {
-//		Set<Link> link = new HashSet<Link>();
-//		assertTrue(c1.getLinks().equals(link));
-//	}
-//
-//	@Test
-//	public void testSetLinks() {
-//		Set<Link> link = new HashSet<Link>();
-//		link.add(new Link(55, 484, 555));
+	@Test
+	public void testGetLinks() {
+		Set<Link> link = new HashSet<Link>();
+		assertTrue(c1.getLinks().equals(link));
+	}
+
+	@Test
+	public void testSetLinks() {
+		Set<Link> link = new HashSet<Link>();
+//		link.add(new Link(55, 484, 555, "test"));
 //		c2.setLinks(link);
 //		assertTrue(c2.getLinks().equals(link));
-//	}
+	}
 
 	@Test
 	public void testGetDateCreated() {

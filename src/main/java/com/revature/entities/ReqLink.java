@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,13 +19,15 @@ public class ReqLink {
 	@Column(name = "z_id")
 	private int id;
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_r")
-	private Request requests;
+	private Request request;
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_rm")
 	private Module reqModule;
+
+	private String affiliation;
 
 	public ReqLink() {
 		super();
@@ -34,7 +36,7 @@ public class ReqLink {
 	public ReqLink(int id, Request requests, Module reqModule) {
 		super();
 		this.id = id;
-		this.requests = requests;
+		this.request = requests;
 		this.reqModule = reqModule;
 	}
 
@@ -47,11 +49,11 @@ public class ReqLink {
 	}
 
 	public Request getRequest() {
-		return requests;
+		return request;
 	}
 
 	public void setRequest(Request requests) {
-		this.requests = requests;
+		this.request = requests;
 	}
 
 	public Module getReqModule() {
@@ -62,18 +64,30 @@ public class ReqLink {
 		this.reqModule = reqModule;
 	}
 
+	public String getAffiliation() {
+		return affiliation;
+	}
+
+	public void setAffiliation(String affiliation) {
+		this.affiliation = affiliation;
+	}
+
 	@Override
 	public String toString() {
-		return "ReqLink [id=" + id + ", requests=" + requests + ", reqModule=" + reqModule + "]";
+
+		return "ReqLink [id=" + id + ", requests=" + request + ", reqModule=" + reqModule + ", affiliation="
+				+ affiliation + "]";
+
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((reqModule == null) ? 0 : reqModule.hashCode());
-		result = prime * result + ((requests == null) ? 0 : requests.hashCode());
+		result = prime * result + ((request == null) ? 0 : request.hashCode());
 		return result;
 	}
 
@@ -86,6 +100,11 @@ public class ReqLink {
 		if (getClass() != obj.getClass())
 			return false;
 		ReqLink other = (ReqLink) obj;
+		if (affiliation == null) {
+			if (other.affiliation != null)
+				return false;
+		} else if (!affiliation.equals(other.affiliation))
+			return false;
 		if (id != other.id)
 			return false;
 		if (reqModule == null) {
@@ -93,10 +112,10 @@ public class ReqLink {
 				return false;
 		} else if (!reqModule.equals(other.reqModule))
 			return false;
-		if (requests == null) {
-			if (other.requests != null)
+		if (request == null) {
+			if (other.request != null)
 				return false;
-		} else if (!requests.equals(other.requests))
+		} else if (!request.equals(other.request))
 			return false;
 		return true;
 	}

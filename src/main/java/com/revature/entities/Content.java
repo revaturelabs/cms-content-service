@@ -53,14 +53,14 @@ public class Content {
 	@JoinTable(name="link",
 			joinColumns=@JoinColumn(name="fk_c"),
 			inverseJoinColumns=@JoinColumn(name="fk_m"))
-	private Set<Module> modules;
+	private Set<Link> links;
 	
 	public Content() {
 		super();
 	}
 
 	public Content(int id, String title, String format, String description, String url, long dateCreated,
-			long lastModified, Set<Module> modules) {
+			long lastModified, Set<Link> links) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -70,7 +70,7 @@ public class Content {
 		this.lastModified = lastModified;
 		this.dateCreated = dateCreated;
 		this.lastModified = lastModified;
-		this.modules = modules;
+		this.links = links;
 	}
 
 	public int getId() {
@@ -129,12 +129,12 @@ public class Content {
 		this.lastModified = lastModified;
 	}
 
-	public Set<Module> getModules() {
-		return modules;
+	public Set<Link> getLinks() {
+		return links;
 	}
 
-	public void setModules(Set<Module> modules) {
-		this.modules = modules;
+	public void setLinks(Set<Link> links) {
+		this.links = links;
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class Content {
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
-		result = prime * result + ((modules == null) ? 0 : modules.hashCode());
+		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -177,10 +177,10 @@ public class Content {
 			return false;
 		if (lastModified != other.lastModified)
 			return false;
-		if (modules == null) {
-			if (other.modules != null)
+		if (links == null) {
+			if (other.links != null)
 				return false;
-		} else if (!modules.equals(other.modules))
+		} else if (!links.equals(other.links))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -199,7 +199,7 @@ public class Content {
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
 				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", modules="
-				+ modules + "]";
+				+ links + "]";
 	}
 
 }

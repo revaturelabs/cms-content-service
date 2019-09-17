@@ -65,11 +65,11 @@ public class SearchServiceTest {
 		//Link Objects and Set
 		//Constructor (ID, ContentID, ModuleID, "Affiliation")
 		Link link;
-		link = new Link(1,50,100);
+		link = new Link(1,50,100,"link-affiliation");
 		linkSetMock.add(link);
-		link = new Link(2,51,100);
+		link = new Link(2,51,100,"lonk-affiliation");
 		linkSetMock.add(link);
-		link = new Link(3,52,101);
+		link = new Link(3,52,101,"lank-affiliation");
 		linkSetMock.add(link);
 		this.linkMock = link;
 		

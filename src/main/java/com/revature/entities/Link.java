@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
@@ -20,28 +22,27 @@ public class Link {
 	@Column(name = "cm_id")
 	private int id;
 
-	/*
-	@Column(name = "fk_c")
-	private int contentId;
-
-	@Column(name = "fk_m")
-	private int moduleId;
-	 */
+	@ManyToOne
+	@JoinColumn(name="fk_content")
+	private Content content;
 	
-	@Column(name="fk_m")
+	@ManyToOne
+	@JoinColumn(name="fk_m")
 	private Module module;
 	
-	// SUPER IMPORTANT, according to the owner.
-	// ANNOTATION GOES HERE.
+	//The affiliation property is for a feature that will be asked for 
+		//by some future batch. For now, product owner has simply ask that we include it.
+	@Column
 	private String affiliation;
 	
 	public Link() {
 		super();
 	}
 
-	public Link(int id, Module module, String affiliation) {
+	public Link(int id, Content content, Module module, String affiliation) {
 		super();
 		this.id = id;
+		this.content = content;
 		this.module = module;
 		this.affiliation = affiliation;
 	}
@@ -52,6 +53,14 @@ public class Link {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Content getContent() {
+		return content;
+	}
+
+	public void setContent(Content content) {
+		this.content = content;
 	}
 
 	public Module getModule() {
@@ -75,6 +84,7 @@ public class Link {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		return result;
@@ -94,6 +104,11 @@ public class Link {
 				return false;
 		} else if (!affiliation.equals(other.affiliation))
 			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
 		if (id != other.id)
 			return false;
 		if (module == null) {
@@ -106,8 +121,7 @@ public class Link {
 
 	@Override
 	public String toString() {
-		return "Link [id=" + id + ", module=" + module + ", affiliation=" + affiliation + "]";
+		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation + "]";
 	}
 
-	
 }

@@ -32,7 +32,7 @@ import com.revature.services.ContentServiceImpl;
 @SpringBootTest(classes = CMSforceApplication.class)
 class ContentServiceTest// extends AbstractTestNGSpringContextTests 
 {	
-	/*
+
 	//Variable to store the Content object
 	Content mockContent;
 	//The mocked ContentServiceImple into which the dependencies are injected
@@ -70,29 +70,28 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	String[] contentFormats = {"Blooh", "Blah"};
 	//An ArrayList of Content items to mock a method within the getContentWithStrings method
 	ArrayList<Content> contentList = new ArrayList<Content>();
-	*/
+
 	
 	/*
 	 * A method to set up mocked methods and dependencies for the tests that follow
 	 * */
-	/*
+	
 	@BeforeClass
 	public void mockTheContent()
 	{
-<<<<<<< HEAD
-//		//Initiate Mockito mocks
-//		MockitoAnnotations.initMocks(this);
-//		//Create a new Content object and set fields as shown
-//		mockContent = new Content();
-//		mockContent.setId(5);
-//		mockContent.setDateCreated(1L);
-//		mockContent.setLastModified(1L);
-//		mockContent.setTitle("Blahbitty");
-//		mockContent.setFormat("Blooh");
-//		mockContent.setDescription("Bloohbitty");
-//		mockContent.setUrl("www.blahbitty.com");
+		//Initiate Mockito mocks
+		MockitoAnnotations.initMocks(this);
+		//Create a new Content object and set fields as shown
+		mockContent = new Content();
+		mockContent.setId(5);
+		mockContent.setDateCreated(1L);
+		mockContent.setLastModified(1L);
+		mockContent.setTitle("Blahbitty");
+		mockContent.setFormat("Blooh");
+		mockContent.setDescription("Bloohbitty");
+		mockContent.setUrl("www.blahbitty.com");
 //		//Create a new Link object
-//		mockLink = new Link(3,mockContent.getId(),7,"Blah");
+//		mockLink = new Link(3,mockContent.getId(),7, "stuff");
 //		//create a new HashSet of Link objects
 //		links = new HashSet<Link>();
 //		//Add the mock link to the list of links
@@ -109,95 +108,53 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 //		//Set the value of content links to their previous values and mock the saveAll method of the LinkRepository
 //		mockContent.setLinks(links);
 //		when(linkRep.saveAll(mockContent.getLinks())).thenReturn(mockContent.getLinks());
-//		
-//		testContent = contServe.createContent(mockContent);
-=======
-		//Initiate Mockito mocks
-		MockitoAnnotations.initMocks(this);
-		//Create a new Content object and set fields as shown
-		mockContent = new Content();
-		mockContent.setId(5);
-		mockContent.setDateCreated(1L);
-		mockContent.setLastModified(1L);
-		mockContent.setTitle("Blahbitty");
-		mockContent.setFormat("Blooh");
-		mockContent.setDescription("Bloohbitty");
-		mockContent.setUrl("www.blahbitty.com");
-		//Create a new Link object
-		mockLink = new Link(3,mockContent.getId(),7);
-		//create a new HashSet of Link objects
-		links = new HashSet<Link>();
-		//Add the mock link to the list of links
-		links.add(mockLink);
-		//
-		for (Link link : links) {
-			link.setContentId(mockContent.getId());
-		}
-		
-		//Set the value of content links to null and mock the save function within the ContentRepository
-		mockContent.setLinks(null);
-		when(contRep.save(mockContent)).thenReturn(mockContent);
-		
-		//Set the value of content links to their previous values and mock the saveAll method of the LinkRepository
-		mockContent.setLinks(links);
-		when(linkRep.saveAll(mockContent.getLinks())).thenReturn(mockContent.getLinks());
 		
 		testContent = contServe.createContent(mockContent);
->>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
 	}
-	*/
+	
 	
 	/*
 	 * This test is testing the functionality of the createContent method within the ContentServiceImpl class
 	 * */
-	/*
+	
 	@Test
 	public void testCreateContent() 
 	{
 		ret = contServe.createContent(mockContent);
 		assertEquals(ret, mockContent, "Should get back same content");
 	}
-	*/
+	
 	/*
 	 * This method tests the functionality of the .getConentById method within the ContentServiceImpl class
 	 * */
-	/*
+	
 	@Test
 	public void testGetContentById()
 	{
 		assertTrue(contRep.findById(testContent.getId()).equals(contRep.findById(mockContent.getId())));
 	}
-	*/
+	
 	/*
 	 * This method tests the functionality of the .updateContent method within the ContentServiceImpl class
 	 * */
-	/*
+	
 	@Test
 	public void testUpdateContent()
 	{
-<<<<<<< HEAD
-//		links.add(new Link(5,mockContent.getId(),9,"BlahbittyBlooh"));
+
+//		links.add(new Link(5,mockContent.getId(),9, "other stuff"));
 //		testContent.setLinks(links);
 //		contentSet.add(testContent);
 //		when(contRep.findById(testContent.getId())).thenReturn(contentSet);
 //		mockContent = contServe.updateContent(testContent);
 //		assertTrue(testContent.equals(mockContent));
-
-=======
-		links.add(new Link(5,mockContent.getId(),9));
-		testContent.setLinks(links);
-		contentSet.add(testContent);
-		when(contRep.findById(testContent.getId())).thenReturn(contentSet);
-		mockContent = contServe.updateContent(testContent);
-		assertTrue(testContent.equals(mockContent));
->>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
 	}
-	*/
+	
 	
 	/*
 	 * This method tests the functionality of the .getAllContent method within the ContentServiceImpl class
 	 * */
-	/*
+	
 	@Test
 	public void testGetAllContent()
 	{
@@ -207,22 +164,22 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		assertTrue(contServe.getAllContent().equals(secondContentSet));
 	}
 
-	*/
+	
 	//This method tests the functionality of the .getAllContentMinusLinks method within the ContentServiceImpl class
-	/*
+	
 	@Test
 	public void testGetAllContentMinusLinks()
 	{
 //		contentSet = contServe.getAllContentMinusLinks();
 //		assertNotNull(contentSet);
 	}
-	*/
+	
 
 	
 	/*
 	 * This method tests the functionality of the .getContentByFormatWithStrings method within the ContentServiceImpl class
 	 * */
-	/*
+	
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetContentByFormatWithStrings()
 	{
@@ -236,12 +193,12 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		secondContentByFormat = contServe.getContentByFormat(contentFormats);
 		assertTrue(contentByFormat.equals(secondContentByFormat));
 	}
-	*/
+	
 	
 	/*
 	 * This method tests the functionality of the .getContentByFormatWithStrings method within the ContentServiceImpl class
 	 * */
-	/*
+
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetContentByFormatWithContents()
 	{
@@ -249,5 +206,5 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		secondContentByFormat = contServe.getContentByFormat(contentSet);
 		assertTrue(contentByFormat.equals(secondContentByFormat));
 	}
-	*/
+
 }

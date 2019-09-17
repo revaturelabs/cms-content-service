@@ -74,7 +74,7 @@ public class RequestController {
         }
         return ResponseEntity.ok(searchService.filterReq(title, format, moduleList));
     }
-	
+
 	@PutMapping(value="{id}")
 	public ResponseEntity<Request> updateRequest(@PathVariable Integer Id, @RequestBody Request r){
 		if(requestService.getRequestsById(Id) == null) {

@@ -43,7 +43,7 @@ public class ContentFactory {
 =======
 		//generate link set
 		Set<Link> links = new HashSet<Link> ();
-		Link link = new Link (linkId, id, moduleId);
+		Link link = new Link (linkId, id, moduleId,"link-affiliation");
 		links.add(link);
 		
 		//generate content object
