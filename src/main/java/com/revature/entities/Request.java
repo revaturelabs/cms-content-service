@@ -1,14 +1,12 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import java.util.Set;
 
@@ -31,8 +29,9 @@ public class Request {
 	@Column(nullable = false)
 	private String description;
 
-	@Column(nullable = true)
-	private String url;
+	@OneToOne
+	@JoinColumn(name="url", nullable = true)
+	private Content content;
 
 	/**
 	 * The following fields, dateCreated and lastModified, were added in order to
@@ -54,14 +53,14 @@ public class Request {
 		super();
 	}
 
-	public Request(int id, String title, String format, String description, String url, Long dateCreated,
+	public Request(int id, String title, String format, String description, Content content, Long dateCreated,
 			Long lastModified, Set<ReqLink> reqLinks) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.format = format;
 		this.description = description;
-		this.url = url;
+		this.content = content;
 		this.dateCreated = dateCreated;
 		this.lastModified = lastModified;
 		this.reqLinks = reqLinks;
@@ -99,12 +98,12 @@ public class Request {
 		this.description = description;
 	}
 
-	public String getUrl() {
-		return url;
+	public Content getContent() {
+		return content;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setContent(Content content) {
+		this.content = content;
 	}
 
 	public Long getDateCreated() {
@@ -135,6 +134,7 @@ public class Request {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
@@ -142,7 +142,6 @@ public class Request {
 		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
 		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
 	}
 
@@ -155,6 +154,11 @@ public class Request {
 		if (getClass() != obj.getClass())
 			return false;
 		Request other = (Request) obj;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
 		if (dateCreated == null) {
 			if (other.dateCreated != null)
 				return false;
@@ -187,19 +191,14 @@ public class Request {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", reqLinks="
-				+ reqLinks + "]";
+				+ ", content=" + content + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified
+				+ ", reqLinks=" + reqLinks + "]";
 	}
 
 }
