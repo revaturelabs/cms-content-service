@@ -15,8 +15,8 @@ create table content(
    format text NOT NULL,
    description text NOT NULL,
    url text unique NOT NULL,
-   created numeric,
-   last_modified numeric
+   created numeric NOT NULL,
+   last_modified numeric NOT NULL
 );
 create table module(
    m_id serial PRIMARY KEY,
@@ -46,8 +46,8 @@ create table requests(
   format text NOT NULL,
   description text NOT NULL,
   url text unique,
-  created numeric,
-  last_modified numeric
+  created numeric NOT NULL,
+  last_modified numeric NOT NULL
 );
 create table req_link(
   z_id serial PRIMARY KEY,
