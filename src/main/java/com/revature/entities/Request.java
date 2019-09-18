@@ -47,10 +47,7 @@ public class Request {
 	private Long lastModified;
 
 	// Set of links that connect the request to a module and the relationship between them
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "req_link", 
-		joinColumns = @JoinColumn(name = "fk_r"), 
-		inverseJoinColumns = @JoinColumn(name = "fk_rm"))
+	@OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
 
 	public Request() {

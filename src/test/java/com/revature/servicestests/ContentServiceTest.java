@@ -189,8 +189,8 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 			contentList.add(item);
 		}
 		when(contRep.findAll()).thenReturn(contentList);
-		contentByFormat = contServe.getContentByFormat(contentFormats);
-		secondContentByFormat = contServe.getContentByFormat(contentFormats);
+		contentByFormat = contServe.getFormatCount(contentFormats);
+		secondContentByFormat = contServe.getFormatCount(contentFormats);
 		assertTrue(contentByFormat.equals(secondContentByFormat));
 	}
 	
@@ -202,8 +202,8 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetContentByFormatWithContents()
 	{
-		contentByFormat = contServe.getContentByFormat(contentSet);
-		secondContentByFormat = contServe.getContentByFormat(contentSet);
+		contentByFormat = contServe.getFormatCount(contentSet);
+		secondContentByFormat = contServe.getFormatCount(contentSet);
 		assertTrue(contentByFormat.equals(secondContentByFormat));
 	}
 

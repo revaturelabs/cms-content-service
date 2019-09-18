@@ -30,17 +30,11 @@ public class Module {
 	private long created;
 	
 	//the set of link objects associated with the module
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "link", 
-		joinColumns = @JoinColumn(name = "fk_m"), 
-		inverseJoinColumns = @JoinColumn(name = "fk_c"))
+	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 	
 	//the set of link objects associated with the module
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "req_link", 
-		joinColumns = @JoinColumn(name = "fk_rm"), 
-		inverseJoinColumns = @JoinColumn(name = "fk_r"))
+	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
 
 	//parents of the module. A requirement of CMS force is that modules can have many parents

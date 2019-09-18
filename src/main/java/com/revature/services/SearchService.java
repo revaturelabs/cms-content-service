@@ -20,7 +20,13 @@ public interface SearchService {
 	
 	public Set<Content> filter(String title, String format, List<Integer> modules);
 	
-	public Set<Request> filterReq(String title, String format, List<Module> modules);
-	
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters);
+	
+	public Set<Request> filterRequestByTitle(String title);
+	
+	public Set<Request> filterRequestByFormat(String format);
+	
+	public Set<Request> filterRequestBySubjectIds(List<Integer> moduleIds);
+	
+	public Set<Request> filterReq(String title, String format, List<Integer> modules);
 }

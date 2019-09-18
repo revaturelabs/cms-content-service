@@ -148,96 +148,6 @@ public class SearchServiceImpl implements SearchService {
 
 	}
 
-	/**
-	 * Filter takes a content title, content format and/or a list of Integers that
-	 * represent module ids. It will then return a set of content that contains all
-	 * content that matches all 3 inputs using AND logic. If an input is empty it is
-	 * ignored and is not part of the logic.
-	 */
-	@Override
-	@LogException
-	public Set<Request> filterReq(String title, String format, List<Module> modules) {
-
-		boolean orSearch = false; // Allows switching between AND and OR module search
-
-		Set<Request> requests = null;
-		Set<Request> copy = null;
-
-		if (format != null && !format.equals("All") && !format.equals("")) {
-			requests = rr.findByFormat(format);
-		}
-
-		if (title != null && !title.equals("")) {
-
-			if (requests == null) {
-
-				requests = rr.findByTitleContaining(title);
-
-			} else {
-
-				copy = new HashSet<Request>(requests);
-
-				for (Request r : copy) {
-
-					if (!r.getTitle().toLowerCase().contains(title.toLowerCase()))
-						requests.remove(r);
-				}
-			}
-		}
-
-		if (requests == null) {
-			requests = rs.getAllRequests();
-		}
-
-		if (modules != null && !modules.isEmpty()) {
-
-			copy = new HashSet<Request>(requests);
-			// Set<ReqLink> reqLinksInModules = rlr.findByReqModuleIdIn(modules);
-
-			boolean inModule;
-
-			for (Request r : copy) {
-
-				List<Module> reqLinkModules = new ArrayList<Module>();
-
-				for (ReqLink rl : r.getReqLinks()) {
-					reqLinkModules.add(rl.getReqModule());
-				}
-
-				/**
-				 * For inclusive (OR) search, you want inModule false to begin with, and to flip
-				 * inModule the moment a search tag is detected, which tells the method that the
-				 * content should be included in the search results
-				 * 
-				 * For exclusive (AND) search, you want inModule to start as true and to flip
-				 * inModule to reject the content the moment a search tag is not found in the
-				 * content.
-				 */
-				inModule = !orSearch;
-
-				// This iterates through modules selected in the search box
-				for (Module m : modules) {
-
-					// When orSearch is true, any detected tag adds the content to the search true
-					// == true
-					// When false, the current content lacking a module is rejected false == false
-					if (reqLinkModules.contains(m) == orSearch) {
-
-						inModule = !inModule;
-						break;
-					}
-				}
-
-				// Removes content from the search if it does not belong there
-				if (!inModule) {
-					requests.remove(r);
-				}
-			}
-		}
-
-		return requests;
-	}
-
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
 
@@ -247,23 +157,25 @@ public class SearchServiceImpl implements SearchService {
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
 		Set<Integer> givenModIds = new HashSet<Integer>();
 
-		//turn the string of integers we recieved into an ArrayList of integers
+		// turn the string of integers we recieved into an ArrayList of integers
 		StringTokenizer st = new StringTokenizer(filters.get("modules").toString(), ",");
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
 
-		//Step through each content provided to see if they are what we are looking for
+		// Step through each content provided to see if they are what we are looking for
 		for (Content content : contents) {
-			//if a search parameter is left "blank", then it is supposed to be disregarded in the search
-			if ((title.equals(content.getTitle()) || title.equals("")) && (format.equals(content.getFormat()) || format.equals(""))) {
-				//make sure givenModIds starts empty
+			// if a search parameter is left "blank", then it is supposed to be disregarded
+			// in the search
+			if ((title.equals(content.getTitle()) || title.equals(""))
+					&& (format.equals(content.getFormat()) || format.equals(""))) {
+				// make sure givenModIds starts empty
 				givenModIds.clear();
-				//extract the ids of the modules of the current content
+				// extract the ids of the modules of the current content
 				for (Link link : content.getLinks()) {
 					givenModIds.add(link.getId());
 				}
-				//check if the current content contains all of the mod id's in the filter
+				// check if the current content contains all of the mod id's in the filter
 				boolean hasAllModIds = true;
 				for (Integer i : moduleIdsList) {
 					if (!(givenModIds.contains(i))) {
@@ -282,4 +194,81 @@ public class SearchServiceImpl implements SearchService {
 		return filteredContent;
 	}
 
+	@Override
+	public Set<Request> filterRequestByTitle(String title) {
+		return rr.findByTitle(title);
+	}
+
+	@Override
+	public Set<Request> filterRequestByFormat(String format) {
+		return rr.findByFormat(format);
+	}
+
+	@Override
+	public Set<Request> filterRequestBySubjectIds(List<Integer> moduleIds) {
+		Set<Module> modules = new HashSet<Module>();
+		Set<ReqLink> reqLinks = new HashSet<ReqLink>();
+		Set<Request> tempRequests = new HashSet<Request>();
+		Set<Request> requests = new HashSet<Request>();
+
+		// get modules by moduleIds
+		for (Integer id : moduleIds) {
+			modules.add(ms.getModuleById(id));
+		}
+		// get all requests of each module
+		for (Module module : modules) {
+
+			// get links of module, the reqLinks hold the request within them
+			reqLinks = module.getReqLinks();
+
+			// make sure tempRequest is empty at the start of a new iteration
+			tempRequests.clear();
+
+			// add requests in reqLinks to tempRequests so we can work with it
+			for (ReqLink reqLink : reqLinks) {
+				tempRequests.add(reqLink.getRequest());
+			}
+			// if it is the first iteration, we just want to put tempRequests into requests
+			if (requests.isEmpty()) {
+				requests = tempRequests;
+			}
+			// in order to only get requests associated to ALL provided modules, we perform
+			// an intersection on requests and tempRequests
+			else {
+				requests = Sets.intersection(requests, tempRequests);
+
+				// if requests is empty after the intersection, then there is no request
+				// associated with ALL provided modules
+				if (requests.isEmpty()) {
+					return requests;
+				}
+			}
+		}
+		return requests;
+	}
+
+	/**
+	 * Filter takes a content title, content format and/or a list of Integers that
+	 * represent module ids. It will then return a set of content that contains all
+	 * content that matches all 3 inputs using AND logic. If an input is empty it is
+	 * ignored and is not part of the logic.
+	 */
+	@Override
+	@LogException
+	public Set<Request> filterReq(String title, String format, List<Integer> moduleIds) {
+		Set<Request> requests = rs.getAllRequests();
+
+		if (!("".equals(title))) {
+			requests = Sets.intersection(requests, this.filterRequestByTitle(title));
+		}
+		if (!("".equals(format))) {
+			requests = Sets.intersection(requests, this.filterRequestByFormat(format));
+		}
+		if (!(moduleIds.isEmpty())) {
+			requests = Sets.intersection(requests, this.filterRequestBySubjectIds(moduleIds));
+		}
+		// this is an AND search, if you want to do an OR search, just use the
+		// <set>.addAll() method instead of the Sets.intersection() method
+		return requests;
+	}
 }

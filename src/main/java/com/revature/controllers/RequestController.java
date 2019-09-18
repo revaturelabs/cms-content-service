@@ -67,12 +67,12 @@ public class RequestController {
             @RequestParam(value="format", required=false) String format,
             @RequestParam(value="modules", required=false) String modules
         ) {
-        ArrayList<Module> moduleList = new ArrayList<Module>();
-        StringTokenizer st = new StringTokenizer(modules, ",");
-        while (st.hasMoreTokens()) {
-            moduleList.add((Module) st.nextElement());
-        }
-        return ResponseEntity.ok(searchService.filterReq(title, format, moduleList));
+    	ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		StringTokenizer st = new StringTokenizer(modules, ",");
+		while (st.hasMoreTokens()) {
+			moduleIdsList.add(Integer.parseInt(st.nextToken()));
+		}
+        return ResponseEntity.ok(searchService.filterReq(title, format, moduleIdsList));
     }
 
 	@PutMapping(value="{id}")

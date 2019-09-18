@@ -11,9 +11,9 @@ public interface ContentService {
     
     public Content getContentById(int id);
     
-    public Map<String, Integer> getContentByFormat(String[] format);   
+    public Map<String, Integer> getFormatCount(String[] format);   
     
-    public Map<String, Integer> getContentByFormat(Set<Content> contents);   
+    public Map<String, Integer> getFormatCount(Set<Content> contents);   
     
     public Content updateContent(Content newContent);
 

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +18,11 @@ public class ModuleHierarchy {
 	@Column(name = "j_id")
 	private int id;
 
+	@ManyToOne
 	@JoinColumn(name="fk_m_parent")
 	private Module parent;
 	
+	@ManyToOne
 	@JoinColumn(name = "fk_m_child") 
 	private Module child;
 
