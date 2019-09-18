@@ -79,7 +79,8 @@ public class Link {
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + contentId;
-		result = prime * result + id;
+		// commented out use of id in hashcode to deal with equals verifier failure
+		//result = prime * result + id;
 		result = prime * result + moduleId;
 		return result;
 	}
@@ -90,7 +91,8 @@ public class Link {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Link))
+			// used instanceof instead of getclass to deal with equals verifier failure
 			return false;
 		Link other = (Link) obj;
 		if (affiliation == null) {
@@ -100,8 +102,9 @@ public class Link {
 			return false;
 		if (contentId != other.contentId)
 			return false;
-		if (id != other.id)
-			return false;
+		// commented out use of id in equals to deal with equals verifier failure
+		//if (id != other.id)
+			//return false;
 		if (moduleId != other.moduleId)
 			return false;
 		return true;
