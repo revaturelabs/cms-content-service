@@ -81,7 +81,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Link link = new Link (id,id,id,affiliation);
 		links.add(link);
 		
-		module = new Module (id,subject,created,links,null,null);
+		module = new Module (id,subject,created,links,new HashSet<Integer>(),new HashSet<Integer>());
 	}
 	
 	/**
@@ -120,8 +120,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		
 		//when
 		ResultActions result = mvc.perform(get ("/modules")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(module)));
+				.contentType(MediaType.APPLICATION_JSON));
 		String actual = result.andReturn().getResponse()
 						.getContentAsString();
 		
