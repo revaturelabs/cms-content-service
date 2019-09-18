@@ -2,10 +2,7 @@ drop table if exists link;
 drop table if exists joins;
 drop table if exists module;
 drop table if exists content;
-
 drop table if exists req_link;
-drop table if exists ties;
-drop table if exists req_module;
 drop table if exists requests;
 
 
