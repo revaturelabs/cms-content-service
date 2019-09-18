@@ -34,7 +34,7 @@ public class Module {
 	private Set<Link> links;
 	
 	//the set of link objects associated with the module
-	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "reqModule", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
 
 	//parents of the module. A requirement of CMS force is that modules can have many parents

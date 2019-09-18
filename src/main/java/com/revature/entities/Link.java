@@ -23,7 +23,7 @@ public class Link {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name="fk_content")
+	@JoinColumn(name="fk_c")
 	private Content content;
 	
 	@ManyToOne

@@ -14,7 +14,7 @@ import com.revature.entities.Request;
 public interface ReqLinkRepository extends CrudRepository<ReqLink,Integer> {
 	
 	//Gets links for a content
-	Set<ReqLink> findByRequests(Request requests);
+	Set<ReqLink> findByRequest(Request request);
 	
 	//Gets links for a module
 	Set<ReqLink> findByReqModule(Module reqModule);
