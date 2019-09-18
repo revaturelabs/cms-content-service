@@ -2,26 +2,34 @@ drop table if exists link;
 drop table if exists joins;
 drop table if exists module;
 drop table if exists content;
+
 drop table if exists req_link;
+drop table if exists ties;
+drop table if exists req_module;
 drop table if exists requests;
+
+
 create table content(
    c_id serial PRIMARY KEY,
    title text NOT NULL,
    format text NOT NULL,
    description text NOT NULL,
    url text unique NOT NULL,
-   created numeric NOT NULL,
-   last_modified numeric NOT NULL
+   created numeric,
+   last_modified numeric
 );
 create table module(
    m_id serial PRIMARY KEY,
    subject text,
    created numeric
 );
+
+--the affiliation column is needed, but not implemented yet
 create table link(
    cm_id serial PRIMARY KEY,
    fk_c int,
    fk_m int,
+   affiliation text,
    FOREIGN KEY (fk_c) REFERENCES content(c_id) on DELETE CASCADE,
    FOREIGN KEY (fk_m) REFERENCES module(m_id) on DELETE CASCADE
 );
@@ -38,8 +46,8 @@ create table requests(
   format text NOT NULL,
   description text NOT NULL,
   url text unique,
-  created numeric NOT NULL,
-  last_modified numeric NOT NULL
+  created numeric,
+  last_modified numeric
 );
 create table req_link(
   z_id serial PRIMARY KEY,
@@ -48,6 +56,7 @@ create table req_link(
   FOREIGN KEY (fk_r) REFERENCES requests(r_id) on DELETE CASCADE,
   FOREIGN KEY (fk_rm) REFERENCES module(m_id) on DELETE CASCADE
 );
+
 insert into requests (r_id, title, format, description, url, created, last_modified) values (100, 'something', 'something2', 'something3', 'http://www.b.com', 2, 2);
 insert into requests (r_id, title, format, description, url, created, last_modified) values (101, 'something', 'something2', 'something3', 'http://www.a.com', 1, 1);
 select * from requests;
