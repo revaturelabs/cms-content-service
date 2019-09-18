@@ -157,7 +157,7 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when (cs.updateContent(content)).thenReturn(content);
 		
 		//when
-		ResultActions result = mvc.perform(put ("/content")
+		ResultActions result = mvc.perform(put ("/content/" + content.getId())
 								.contentType(MediaType.APPLICATION_JSON_VALUE)
 								.content(gson.toJson(content)));
 		Content actual = gson.fromJson(result.andReturn().getResponse()

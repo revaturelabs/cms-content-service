@@ -28,8 +28,10 @@ import org.testng.annotations.Test;
 import com.google.gson.Gson;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ModuleController;
+import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 import com.revature.services.ModuleService;
 
 @SpringBootTest(classes = CMSforceApplication.class)
@@ -79,10 +81,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	public void preTestSetup () {
 
 		Set<Link> links = new HashSet<Link> ();
-//		Link link = new Link (id,id,id,affiliation);
-//		links.add(link);
-		
-//		module = new Module (id,subject,created,links,null,null);
+		//caution: content and module not sprint beans here
+		Link link = new Link (id,new Content(),new Module(),affiliation);
+		links.add(link);
+		module = new Module (id,subject,created,links,new HashSet<ReqLink>(),new HashSet<Module>(),new HashSet<Module>());
 	}
 	
 	/**
@@ -95,7 +97,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.createModule(module)).thenReturn(module);
 		
 		//when
-		ResultActions result = mvc.perform(post ("/module")
+		ResultActions result = mvc.perform(post ("/modules")
 							.contentType (MediaType.APPLICATION_JSON)
 							.content (gson.toJson(module)));
 		Module actual = gson.fromJson(result.andReturn()
@@ -120,9 +122,8 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.getAllModules()).thenReturn(modules);
 		
 		//when
-		ResultActions result = mvc.perform(get ("/module")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(gson.toJson(module)));
+		ResultActions result = mvc.perform(get ("/modules")
+				.contentType(MediaType.APPLICATION_JSON));
 		String actual = result.andReturn().getResponse()
 						.getContentAsString();
 		
@@ -144,7 +145,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
 		
 		//then
-		ResultActions result = mvc.perform(get ("/module/" + id));
+		ResultActions result = mvc.perform(get ("/modules/" + id));
 		Module actual = gson.fromJson(result.andReturn()
 				.getResponse().getContentAsString() , Module.class); 
 		
@@ -168,7 +169,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
 		
 		//then
-		ResultActions result = mvc.perform(delete ("/module/" + id));
+		ResultActions result = mvc.perform(delete ("/modules/" + id));
 		
 		//then
 		//expect status of OK
