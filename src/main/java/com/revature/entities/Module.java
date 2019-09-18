@@ -30,7 +30,7 @@ public class Module {
 	private long created;
 	
 	//the set of link objects associated with the module
-	@OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 	
 	//the set of link objects associated with the module
