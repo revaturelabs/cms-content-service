@@ -33,7 +33,6 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module createModule(Module module) {
-		System.out.println("Attempting to create module: " + module);
 		module.setCreated(System.currentTimeMillis());
 		if(module.getChildren() == null){
 			module.setChildren(Collections.emptySet());

@@ -30,8 +30,8 @@ create table link(
    FOREIGN KEY (fk_c) REFERENCES content(c_id) on DELETE CASCADE,
    FOREIGN KEY (fk_m) REFERENCES module(m_id) on DELETE CASCADE
 );
+--this table is simply a join table to create the parent-child hierarchy
 create table joins(
-   j_id serial primary key,
    fk_m_parent int,
    fk_m_child int,
    FOREIGN KEY (fk_m_parent) REFERENCES module(m_id) on DELETE CASCADE,
