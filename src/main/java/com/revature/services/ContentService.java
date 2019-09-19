@@ -3,6 +3,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 public interface ContentService {
 	
 	public Content createContent(Content content);
@@ -18,4 +19,6 @@ public interface ContentService {
     public Content updateContent(Content newContent);
 
     public void deleteContent(Content content);
+
+	public Set<Link> getLinksByContentId(int id);
 }

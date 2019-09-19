@@ -9,6 +9,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 
 import java.util.Set;
@@ -29,12 +32,14 @@ public class Module {
 	@Column
 	private long created;
 	
+	@JsonIgnore
 	//the set of link objects associated with the module
-	@OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Link> links;
 	
+	@JsonIgnore
 	//the set of link objects associated with the module
-	@OneToMany(mappedBy = "reqModule", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "reqModule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ReqLink> reqLinks;
 
 	//parents of the module. A requirement of CMS force is that modules can have many parents
@@ -45,6 +50,7 @@ public class Module {
 	private Set<Module> parents;
 	
 	//children of the module.
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "joins", 
 		joinColumns = @JoinColumn(name = "fk_m_parent"), 
@@ -127,11 +133,9 @@ public class Module {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((children == null) ? 0 : children.hashCode());
 		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((links == null) ? 0 : links.hashCode());
-		result = prime * result + ((parents == null) ? 0 : parents.hashCode());
 		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
@@ -146,11 +150,6 @@ public class Module {
 		if (getClass() != obj.getClass())
 			return false;
 		Module other = (Module) obj;
-		if (children == null) {
-			if (other.children != null)
-				return false;
-		} else if (!children.equals(other.children))
-			return false;
 		if (created != other.created)
 			return false;
 		if (id == null) {
@@ -162,11 +161,6 @@ public class Module {
 			if (other.links != null)
 				return false;
 		} else if (!links.equals(other.links))
-			return false;
-		if (parents == null) {
-			if (other.parents != null)
-				return false;
-		} else if (!parents.equals(other.parents))
 			return false;
 		if (reqLinks == null) {
 			if (other.reqLinks != null)
@@ -184,7 +178,7 @@ public class Module {
 	@Override
 	public String toString() {
 		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", links=" + links + ", reqLinks="
-				+ reqLinks + ", parents=" + parents + ", children=" + children + "]";
+				+ reqLinks + "]";
 	}
 
 }

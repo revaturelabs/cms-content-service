@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.repositories.ReqLinkRepository;
 import com.revature.util.LogException;
 
 @Service
@@ -25,6 +27,8 @@ public class ModuleServiceImpl implements ModuleService {
 	ContentRepository cr;
 	@Autowired
 	LinkRepository lr;
+	@Autowired
+	ReqLinkRepository rlr;
 
 	/**
 	 * Take the module passed in and change the created value 
@@ -158,6 +162,16 @@ public class ModuleServiceImpl implements ModuleService {
 //		}
 		//delete module
 		mr.delete(module);
+	}
+
+	@Override
+	public Set<Link> getLinksByModuleId(int id) {
+		return lr.findByModuleId(id);
+	}
+
+	@Override
+	public Set<ReqLink> getRequestLinksByModuleId(int id) {
+		return rlr.findByReqModule(mr.findById(id));
 	}
 
 }

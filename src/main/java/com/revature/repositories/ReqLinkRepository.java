@@ -21,5 +21,7 @@ public interface ReqLinkRepository extends CrudRepository<ReqLink,Integer> {
 	
 	//sends back links for Modules given
 	Set<ReqLink> findByReqModuleIdIn(List<Module> reqModules);
+	
+	ReqLink findById(int id);
 
 }

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 import com.revature.util.LogException;
@@ -50,6 +51,9 @@ public class ContentController {
 	// Returns all Content
 	@GetMapping()
 	public ResponseEntity<Set<Content>> getAllContent() {
+		for (Content content : contentService.getAllContent()) {
+			System.out.println("Link: " + content.getLinks());
+		}
 		return ResponseEntity.ok(contentService.getAllContent());
 	}
 	
@@ -57,6 +61,12 @@ public class ContentController {
 	@GetMapping(value="{id}")
 	public ResponseEntity<Content> getContentById(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getContentById(id));
+	}
+	
+	//return all links attached to a given content
+	@GetMapping("/{id}/links")
+	public ResponseEntity<Set<Link>> getLinksByContentId(@PathVariable int id) {
+		return ResponseEntity.ok(contentService.getLinksByContentId(id));
 	}
 	
 	

@@ -2,7 +2,9 @@ package com.revature.services;
 
 import java.util.Set;
 
+import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 
 public interface ModuleService {
 	
@@ -27,5 +29,9 @@ public interface ModuleService {
 	public void deleteModuleWithAllContent(Module module);
 
 	public void deleteModuleWithSpecificContent(Module module);
+
+	public Set<Link> getLinksByModuleId(int id);
+
+	public Set<ReqLink> getRequestLinksByModuleId(int id);
 
 }

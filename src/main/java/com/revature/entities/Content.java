@@ -10,6 +10,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import javax.persistence.OrderColumn;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
@@ -48,8 +51,9 @@ public class Content {
 	@Column(name = "last_modified")
 	private long lastModified;
 
-	//Set of modules the content is related to
-	@OneToMany(mappedBy ="content", cascade = CascadeType.ALL, orphanRemoval = true)
+	//Set of linked modules the content is related to
+	@JsonIgnore
+	@OneToMany(mappedBy ="content", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Link> links;
 	
 	public Content() {
@@ -143,7 +147,6 @@ public class Content {
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
@@ -174,11 +177,6 @@ public class Content {
 			return false;
 		if (lastModified != other.lastModified)
 			return false;
-		if (links == null) {
-			if (other.links != null)
-				return false;
-		} else if (!links.equals(other.links))
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -195,8 +193,8 @@ public class Content {
 	@Override
 	public String toString() {
 		return "Content [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + ", modules="
-				+ links + "]";
+				+ ", url=" + url + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + "]";
 	}
+
 
 }

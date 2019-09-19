@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "req_link")
 public class ReqLink {
@@ -73,14 +75,6 @@ public class ReqLink {
 	}
 
 	@Override
-	public String toString() {
-
-		return "ReqLink [id=" + id + ", requests=" + request + ", reqModule=" + reqModule + ", affiliation="
-				+ affiliation + "]";
-
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -118,6 +112,12 @@ public class ReqLink {
 		} else if (!request.equals(other.request))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ReqLink [id=" + id + ", request=" + request + ", reqModule=" + reqModule + ", affiliation="
+				+ affiliation + "]";
 	}
 
 }

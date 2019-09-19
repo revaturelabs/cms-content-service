@@ -1,12 +1,15 @@
 package com.revature.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Set;
 
@@ -46,7 +49,8 @@ public class Request {
 	private Long lastModified;
 
 	// Set of links that connect the request to a module and the relationship between them
-	@OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	@OneToMany(mappedBy = "request", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ReqLink> reqLinks;
 
 	public Request() {
@@ -140,7 +144,6 @@ public class Request {
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
-		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -181,11 +184,6 @@ public class Request {
 				return false;
 		} else if (!lastModified.equals(other.lastModified))
 			return false;
-		if (reqLinks == null) {
-			if (other.reqLinks != null)
-				return false;
-		} else if (!reqLinks.equals(other.reqLinks))
-			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -197,8 +195,7 @@ public class Request {
 	@Override
 	public String toString() {
 		return "Request [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", content=" + content + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified
-				+ ", reqLinks=" + reqLinks + "]";
+				+ ", content=" + content + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + "]";
 	}
 
 }

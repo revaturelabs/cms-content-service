@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
 
@@ -24,6 +26,8 @@ public class ContentServiceImpl implements ContentService {
 	ContentRepository cr;
 	@Autowired
 	ModuleRepository mr;
+	@Autowired
+	LinkRepository lr;
 
 	/**
 	 * create new content and store in database
@@ -62,7 +66,7 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@LogException
 	public Content getContentById(int id) {	
-		return (Content) cr.findById(id);
+		return cr.findById(id);
 	}
 	
 	/**
@@ -125,6 +129,11 @@ public class ContentServiceImpl implements ContentService {
 		if(content != null) {
 			cr.delete(content);
 		}
+	}
+
+	@Override
+	public Set<Link> getLinksByContentId(int id) {
+		return lr.findByContentId(id);
 	}
 
 }
