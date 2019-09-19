@@ -124,14 +124,6 @@ public class ModuleServiceImpl implements ModuleService {
 		for (Link link : links) {
 			lr.delete(link);
 		}
-		
-//		//transfer children of module to parent of module
-//		Set<Module> childModules = module.getChildren();
-//		Set<Module> newParents = module.getParents();
-//		for (Module child : childModules) {
-//			child.setParents(newParents);
-//			mr.save(child);
-//		}
 		//delete module
 		mr.delete(module);
 	}
@@ -146,13 +138,6 @@ public class ModuleServiceImpl implements ModuleService {
 				lr.delete(link);
 			}
 		}
-		
-//		//transfer children of module to parent of module
-//		Set<Module> childModules = module.getChildModules();
-//		Module newParent = module.getParentModule();
-//		for (Module child : childModules) {
-//			child.setParentModule(newParent);
-//		}
 		//delete module
 		mr.delete(module);
 	}
