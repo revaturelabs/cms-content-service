@@ -23,5 +23,5 @@ public interface ModuleRepository extends CrudRepository<Module,Integer>{
 	 * @param id - the id to match.
 	 * @return The module with the matching ID.
 	 */
-	Module findById(int id);
+	public Module findById(int id);
 }

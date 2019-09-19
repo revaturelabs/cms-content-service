@@ -50,7 +50,7 @@ public class Request {
 
 	// Set of links that connect the request to a module and the relationship between them
 	@JsonIgnore
-	@OneToMany(mappedBy = "request", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "request", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ReqLink> reqLinks;
 
 	public Request() {

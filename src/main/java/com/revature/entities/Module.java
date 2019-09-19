@@ -43,7 +43,7 @@ public class Module {
 	private Set<ReqLink> reqLinks;
 
 	//parents of the module. A requirement of CMS force is that modules can have many parents
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "joins", 
 		joinColumns = @JoinColumn(name = "fk_m_child"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_m_parent"))
@@ -51,7 +51,7 @@ public class Module {
 	
 	//children of the module.
 	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "joins", 
 		joinColumns = @JoinColumn(name = "fk_m_parent"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_m_child"))

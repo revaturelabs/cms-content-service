@@ -2,13 +2,10 @@ package com.revature.services;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -38,11 +35,7 @@ public class ModuleServiceImpl implements ModuleService {
 	@LogException
 	public Module createModule(Module module) {
 		module.setCreated(System.currentTimeMillis());
-		if(module.getChildren() == null){
-			module.setChildren(Collections.emptySet());
-		}
-		module = mr.save(module);
-		return module;
+		return mr.save(module);
 	}
 	
 	/**
