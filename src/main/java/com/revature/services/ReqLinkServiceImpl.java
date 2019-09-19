@@ -12,6 +12,7 @@ import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
+import com.revature.repositories.ModuleRepository;
 import com.revature.repositories.ReqLinkRepository;
 import com.revature.repositories.RequestRepository;
 
@@ -23,6 +24,9 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 	
 	@Autowired
 	RequestRepository rr;
+	
+	@Autowired
+	ModuleRepository mr;
 
 	@Autowired
 	SearchService searchService;
@@ -30,6 +34,7 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 	@Override
 	public ReqLink createReqLink(ReqLink reqLink) {
 		reqLink.setRequest(rr.save(reqLink.getRequest()));
+		reqLink.setModule(mr.save(reqLink.getModule()));
 		return rlr.save(reqLink);
 	}
 

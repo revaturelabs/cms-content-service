@@ -46,7 +46,8 @@ public class LinkServiceImpl implements LinkService {
 
 	@Override
 	public Link updateLink(Link link) {
-		return lr.save(link);
+		Link savedLink = lr.findById(lr.save(link).getId());
+		return savedLink;
 	}
 
 	@Override

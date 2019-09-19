@@ -27,7 +27,7 @@ public class ReqLink {
 
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_rm")
-	private Module reqModule;
+	private Module module;
 
 	private String affiliation;
 
@@ -35,11 +35,12 @@ public class ReqLink {
 		super();
 	}
 
-	public ReqLink(int id, Request requests, Module reqModule) {
+	public ReqLink(int id, Request request, Module module, String affiliation) {
 		super();
 		this.id = id;
-		this.request = requests;
-		this.reqModule = reqModule;
+		this.request = request;
+		this.module = module;
+		this.affiliation = affiliation;
 	}
 
 	public int getId() {
@@ -54,16 +55,16 @@ public class ReqLink {
 		return request;
 	}
 
-	public void setRequest(Request requests) {
-		this.request = requests;
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 
-	public Module getReqModule() {
-		return reqModule;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setReqModule(Module reqModule) {
-		this.reqModule = reqModule;
+	public void setModule(Module module) {
+		this.module = module;
 	}
 
 	public String getAffiliation() {
@@ -80,7 +81,7 @@ public class ReqLink {
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((reqModule == null) ? 0 : reqModule.hashCode());
+		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		result = prime * result + ((request == null) ? 0 : request.hashCode());
 		return result;
 	}
@@ -101,10 +102,10 @@ public class ReqLink {
 			return false;
 		if (id != other.id)
 			return false;
-		if (reqModule == null) {
-			if (other.reqModule != null)
+		if (module == null) {
+			if (other.module != null)
 				return false;
-		} else if (!reqModule.equals(other.reqModule))
+		} else if (!module.equals(other.module))
 			return false;
 		if (request == null) {
 			if (other.request != null)
@@ -116,8 +117,7 @@ public class ReqLink {
 
 	@Override
 	public String toString() {
-		return "ReqLink [id=" + id + ", request=" + request + ", reqModule=" + reqModule + ", affiliation="
-				+ affiliation + "]";
+		return "ReqLink [id=" + id + ", request=" + request + ", module=" + module + ", affiliation=" + affiliation
+				+ "]";
 	}
-
 }

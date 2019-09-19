@@ -17,7 +17,7 @@ create table content(
 );
 create table module(
    m_id serial PRIMARY KEY,
-   subject text,
+   subject text unique,
    created numeric
 );
 
