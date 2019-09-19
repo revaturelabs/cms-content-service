@@ -21,7 +21,7 @@ public interface RequestService {
     
     public void deleteRequests(Request requests);
 
-	public List<ReqLink> createReqLinks(List<ReqLink> reqLinks);
+	public List<ReqLink> createReqLinks(int id, List<ReqLink> reqLinks);
 
 	public List<ReqLink> updateReqLinks(int id, List<ReqLink> reqLinks);
 }

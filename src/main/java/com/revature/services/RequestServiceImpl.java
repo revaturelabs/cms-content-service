@@ -133,7 +133,7 @@ public class RequestServiceImpl implements RequestService {
 
 
 	@Override
-	public List<ReqLink> createReqLinks(List<ReqLink> reqLinks) {
+	public List<ReqLink> createReqLinks(int id, List<ReqLink> reqLinks) {
 		Request request = rr.save(reqLinks.get(0).getRequest());
 		List<ReqLink> savedReqLinks = new ArrayList<ReqLink>();
 		for (ReqLink reqLink : reqLinks) {

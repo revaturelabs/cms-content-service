@@ -49,9 +49,9 @@ public class RequestController {
 		return ResponseEntity.ok(requestService.createRequests(request));
 	}
 	
-	@PostMapping(value="/links", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ReqLink>> createReqLinks(@RequestBody List<ReqLink> reqLinks) {
-		return ResponseEntity.ok(requestService.createReqLinks(reqLinks));
+	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReqLink>> createReqLinks(@RequestBody List<ReqLink> reqLinks, @PathVariable int id) {
+		return ResponseEntity.ok(requestService.createReqLinks(id, reqLinks));
 	}
 	
 	@GetMapping()
