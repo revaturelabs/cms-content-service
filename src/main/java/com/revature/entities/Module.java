@@ -43,7 +43,7 @@ public class Module {
 	private Set<ReqLink> reqLinks;
 
 	//parents of the module. A requirement of CMS force is that modules can have many parents
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "joins", 
 		joinColumns = @JoinColumn(name = "fk_m_child"), 
 		inverseJoinColumns = @JoinColumn(name = "fk_m_parent"))
@@ -135,8 +135,7 @@ public class Module {
 		int result = 1;
 		result = prime * result + (int) (created ^ (created >>> 32));
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((links == null) ? 0 : links.hashCode());
-		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
+		result = prime * result + ((parents == null) ? 0 : parents.hashCode());
 		result = prime * result + ((subject == null) ? 0 : subject.hashCode());
 		return result;
 	}
@@ -157,15 +156,10 @@ public class Module {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (links == null) {
-			if (other.links != null)
+		if (parents == null) {
+			if (other.parents != null)
 				return false;
-		} else if (!links.equals(other.links))
-			return false;
-		if (reqLinks == null) {
-			if (other.reqLinks != null)
-				return false;
-		} else if (!reqLinks.equals(other.reqLinks))
+		} else if (!parents.equals(other.parents))
 			return false;
 		if (subject == null) {
 			if (other.subject != null)
@@ -177,8 +171,7 @@ public class Module {
 
 	@Override
 	public String toString() {
-		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", links=" + links + ", reqLinks="
-				+ reqLinks + "]";
+		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", parents=" + parents + "]";
 	}
-
+	
 }
