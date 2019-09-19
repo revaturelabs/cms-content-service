@@ -17,10 +17,10 @@ public interface ReqLinkRepository extends CrudRepository<ReqLink,Integer> {
 	Set<ReqLink> findByRequest(Request request);
 	
 	//Gets links for a module
-	Set<ReqLink> findByReqModule(Module reqModule);
+	Set<ReqLink> findByModule(Module module);
 	
 	//sends back links for Modules given
-	Set<ReqLink> findByReqModuleIdIn(List<Module> reqModules);
+	Set<ReqLink> findByModuleIdIn(List<Module> modules);
 	
 	ReqLink findById(int id);
 

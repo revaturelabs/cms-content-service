@@ -53,7 +53,7 @@ public class Content {
 
 	//Set of linked modules the content is related to
 	@JsonIgnore
-	@OneToMany(mappedBy ="content", fetch=FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy ="content", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Link> links;
 	
 	public Content() {

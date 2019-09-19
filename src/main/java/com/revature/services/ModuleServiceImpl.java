@@ -171,7 +171,7 @@ public class ModuleServiceImpl implements ModuleService {
 
 	@Override
 	public Set<ReqLink> getRequestLinksByModuleId(int id) {
-		return rlr.findByReqModule(mr.findById(id));
+		return rlr.findByModule(mr.findById(id));
 	}
 
 }
