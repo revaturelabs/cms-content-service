@@ -49,9 +49,9 @@ public class ContentController {
 		return ResponseEntity.ok(contentService.createContent(content));
 	}
 	
-	@PostMapping(value="/links", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Link>> createLinks(@RequestBody List<Link> links) {
-		return ResponseEntity.ok(contentService.createLinks(links));
+	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Link>> createLinks(@RequestBody List<Link> links, @PathVariable int id) {
+		return ResponseEntity.ok(contentService.createLinks(id, links));
 	}
 	
 	// Returns all Content

@@ -149,11 +149,9 @@ public class ContentServiceImpl implements ContentService {
 
 
 	@Override
-	public List<Link> createLinks(List<Link> links) {
-		Content content = cr.save(links.get(0).getContent());
+	public List<Link> createLinks(int id, List<Link> links) {
 		List<Link> savedLinks = new ArrayList<Link>();
 		for (Link link : links) {
-			link.setContent(content);
 			savedLinks.add(lr.save(link));
 		}
 		return savedLinks;

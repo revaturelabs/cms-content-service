@@ -25,5 +25,5 @@ public interface ContentService {
 
 	public List<Link> updateLinks(int id, List<Link> links);
 
-	public List<Link> createLinks(List<Link> links);
+	public List<Link> createLinks(int id, List<Link> links);
 }
