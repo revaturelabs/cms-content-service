@@ -1,4 +1,5 @@
 package com.revature.services;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,4 +22,8 @@ public interface ContentService {
     public void deleteContent(Content content);
 
 	public Set<Link> getLinksByContentId(int id);
+
+	public List<Link> updateLinks(int id, List<Link> links);
+
+	public List<Link> createLinks(List<Link> links);
 }

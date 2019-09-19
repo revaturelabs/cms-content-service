@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.services.LinkService;
 import com.revature.util.LogException;
@@ -72,7 +72,7 @@ public class LinkController {
 
 	// update a link
 	@PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Link> updateContent(@RequestBody Link link) {
+	public ResponseEntity<Link> updateLink(@RequestBody Link link) {
 		return ResponseEntity.ok(linkService.updateLink(link));
 	}
 

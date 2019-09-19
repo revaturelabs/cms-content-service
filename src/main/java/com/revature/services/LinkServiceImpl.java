@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Sets;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
+import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 
 @Service
@@ -17,12 +19,16 @@ public class LinkServiceImpl implements LinkService {
 
 	@Autowired
 	LinkRepository lr;
+	
+	@Autowired
+	ContentRepository cr;
 
 	@Autowired
 	SearchService searchService;
 
 	@Override
 	public Link createLink(Link link) {
+		link.setContent(cr.save(link.getContent()));
 		return lr.save(link);
 	}
 
@@ -67,4 +73,5 @@ public class LinkServiceImpl implements LinkService {
 		}
 		return setOfSetOfLinks;
 	}
+
 }

@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
@@ -46,6 +47,11 @@ public class ContentController {
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Content> createContent(@RequestBody Content content ) throws Exception{
 		return ResponseEntity.ok(contentService.createContent(content));
+	}
+	
+	@PostMapping(value="/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Link>> createLinks(@RequestBody List<Link> links) {
+		return ResponseEntity.ok(contentService.createLinks(links));
 	}
 	
 	// Returns all Content
@@ -97,6 +103,11 @@ public class ContentController {
 	@PutMapping(value="{id}", produces  = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Content> updateContent(@RequestBody Content newContent) {
 		return ResponseEntity.ok(contentService.updateContent(newContent));
+	}
+	
+	@PutMapping(value="{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Link>> updateLinks(@RequestBody List<Link> links, @PathVariable int id) {
+		return ResponseEntity.ok(contentService.updateLinks(id, links));
 	}
 	
 	//deletes a single Content

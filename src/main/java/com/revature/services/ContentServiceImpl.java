@@ -1,7 +1,9 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -134,6 +136,27 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	public Set<Link> getLinksByContentId(int id) {
 		return lr.findByContentId(id);
+	}
+
+
+	@Override
+	public List<Link> updateLinks(int id, List<Link> links) {
+		for (Link link : links) {
+			lr.save(link);
+		}
+		return links;
+	}
+
+
+	@Override
+	public List<Link> createLinks(List<Link> links) {
+		Content content = cr.save(links.get(0).getContent());
+		List<Link> savedLinks = new ArrayList<Link>();
+		for (Link link : links) {
+			link.setContent(content);
+			savedLinks.add(lr.save(link));
+		}
+		return savedLinks;
 	}
 
 }

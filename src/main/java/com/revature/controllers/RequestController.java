@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 import com.revature.services.RequestService;
 import com.revature.services.SearchService;
@@ -45,6 +47,11 @@ public class RequestController {
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public ResponseEntity<Request> createRequest(@RequestBody Request request ) throws Exception{
 		return ResponseEntity.ok(requestService.createRequests(request));
+	}
+	
+	@PostMapping(value="/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReqLink>> createReqLinks(@RequestBody List<ReqLink> reqLinks) {
+		return ResponseEntity.ok(requestService.createReqLinks(reqLinks));
 	}
 	
 	@GetMapping()
@@ -81,6 +88,11 @@ public class RequestController {
 			return ResponseEntity.status(405).body(null);
 		}
 		return ResponseEntity.ok(requestService.updateRequests(r));
+	}
+	
+	@PutMapping(value="{id}/links")
+	public ResponseEntity<List<ReqLink>> updateReqLinks(@PathVariable int id, @RequestBody List<ReqLink> reqLinks){
+		return ResponseEntity.ok(requestService.updateReqLinks(id, reqLinks));
 	}
 	
 	@DeleteMapping(value="{id}")

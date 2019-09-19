@@ -2,6 +2,7 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +13,23 @@ import com.revature.entities.Link;
 import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 import com.revature.repositories.ReqLinkRepository;
+import com.revature.repositories.RequestRepository;
 
 @Service
 public class ReqLinkServiceImpl implements ReqLinkService {
 
 	@Autowired
 	ReqLinkRepository rlr;
+	
+	@Autowired
+	RequestRepository rr;
 
 	@Autowired
 	SearchService searchService;
 
 	@Override
 	public ReqLink createReqLink(ReqLink reqLink) {
+		reqLink.setRequest(rr.save(reqLink.getRequest()));
 		return rlr.save(reqLink);
 	}
 
@@ -66,4 +72,5 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 		}
 		return setOfSetOfReqLinks;
 	}
+	
 }

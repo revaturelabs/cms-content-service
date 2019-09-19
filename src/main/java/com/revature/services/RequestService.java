@@ -1,7 +1,9 @@
 package com.revature.services;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 public interface RequestService {
 	
@@ -18,4 +20,8 @@ public interface RequestService {
     public Request updateRequests(Request newRequests);
     
     public void deleteRequests(Request requests);
+
+	public List<ReqLink> createReqLinks(List<ReqLink> reqLinks);
+
+	public List<ReqLink> updateReqLinks(int id, List<ReqLink> reqLinks);
 }

@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -73,7 +74,7 @@ public class ReqLinkController {
 
 	// update a reqLink
 	@PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ReqLink> updateContent(@RequestBody ReqLink reqLink) {
+	public ResponseEntity<ReqLink> updatReqLink(@RequestBody ReqLink reqLink) {
 		return ResponseEntity.ok(reqLinkService.updateReqLink(reqLink));
 	}
 

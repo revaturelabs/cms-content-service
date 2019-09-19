@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,10 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.entities.Content;
+import com.revature.entities.Link;
+import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 import com.revature.exceptions.InvalidRequestException;
 import com.revature.exceptions.InvalidRequestIdException;
 import com.revature.repositories.ModuleRepository;
+import com.revature.repositories.ReqLinkRepository;
 import com.revature.repositories.RequestRepository;
 import com.revature.util.LogException;
 
@@ -25,6 +30,8 @@ public class RequestServiceImpl implements RequestService {
 	RequestRepository rr;
 	@Autowired
 	ModuleRepository rmr;
+	@Autowired
+	ReqLinkRepository rlr;
 
 	@LogException
 	@Override
@@ -114,5 +121,25 @@ public class RequestServiceImpl implements RequestService {
 		if (requests != null) {
 			rr.delete(requests);
 		}
+	}
+	
+	@Override
+	public List<ReqLink> updateReqLinks(int id, List<ReqLink> reqLinks) {
+		for (ReqLink reqLink : reqLinks) {
+			rlr.save(reqLink);
+		}
+		return reqLinks;
+	}
+
+
+	@Override
+	public List<ReqLink> createReqLinks(List<ReqLink> reqLinks) {
+		Request request = rr.save(reqLinks.get(0).getRequest());
+		List<ReqLink> savedReqLinks = new ArrayList<ReqLink>();
+		for (ReqLink reqLink : reqLinks) {
+			reqLink.setRequest(request);
+			savedReqLinks.add(rlr.save(reqLink));
+		}
+		return savedReqLinks;
 	}
 }
