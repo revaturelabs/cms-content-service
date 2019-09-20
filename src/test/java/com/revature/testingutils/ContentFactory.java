@@ -31,16 +31,6 @@ public class ContentFactory {
 	 */
 	/*
 	public static Content getContent () {
-<<<<<<< HEAD
-//		//generate link set
-//		Set<Link> links = new HashSet<Link> ();
-//		Link link = new Link (linkId, id, moduleId,"link-affiliation");
-//		links.add(link);
-//		
-//		//generate content object
-//		return new Content (id, title, format, description, url, links, 1L, 1L);
-		return null;
-=======
 		//generate link set
 		Set<Link> links = new HashSet<Link> ();
 		Link link = new Link (linkId, id, moduleId,"link-affiliation");
@@ -48,7 +38,6 @@ public class ContentFactory {
 		
 		//generate content object
 		return new Content (id, title, format, description, url, links, 1L, 1L);
->>>>>>> a98e74d42e3346aa3ad9d535465a61e396077418
 	}
 	*/
 	

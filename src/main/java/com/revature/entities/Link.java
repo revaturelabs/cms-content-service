@@ -13,8 +13,10 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
- * DO NOT DELETE THIS FILE. According to the product owner.
- * 
+ * The point of the link entity is to give additional context
+ * to the relationship between a content object and a module object.
+ * This is specifically requested by the project owner and will be for 
+ * a future feature that will be implemented by a future batch.
  */
 
 @Entity
