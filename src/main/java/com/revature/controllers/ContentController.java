@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 import com.revature.util.LogException;
@@ -47,6 +49,11 @@ public class ContentController {
 		return ResponseEntity.ok(contentService.createContent(content));
 	}
 	
+	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Link>> createLinks(@RequestBody List<Link> links, @PathVariable int id) {
+		return ResponseEntity.ok(contentService.createLinksByContentId(id, links));
+	}
+	
 	// Returns all Content
 	@GetMapping()
 	public ResponseEntity<Set<Content>> getAllContent() {
@@ -57,6 +64,12 @@ public class ContentController {
 	@GetMapping(value="{id}")
 	public ResponseEntity<Content> getContentById(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getContentById(id));
+	}
+	
+	//return all links attached to a given content
+	@GetMapping("/{id}/links")
+	public ResponseEntity<Set<Link>> getLinksByContentId(@PathVariable int id) {
+		return ResponseEntity.ok(contentService.getLinksByContentId(id));
 	}
 	
 	
@@ -87,6 +100,11 @@ public class ContentController {
 	@PutMapping(value="{id}", produces  = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Content> updateContent(@RequestBody Content newContent) {
 		return ResponseEntity.ok(contentService.updateContent(newContent));
+	}
+	
+	@PutMapping(value="{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Link>> updateLinks(@RequestBody List<Link> links, @PathVariable int id) {
+		return ResponseEntity.ok(contentService.updateLinksByContentId(id, links));
 	}
 	
 	//deletes a single Content

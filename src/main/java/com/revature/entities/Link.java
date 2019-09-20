@@ -2,10 +2,22 @@ package com.revature.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+/*
+ * The point of the link entity is to give additional context
+ * to the relationship between a content object and a module object.
+ * This is specifically requested by the project owner and will be for 
+ * a future feature that will be implemented by a future batch.
+ */
 
 @Entity
 @Table(name = "link")
@@ -15,24 +27,28 @@ public class Link {
 	@Column(name = "cm_id")
 	private int id;
 
-	@Column(name = "fk_c")
-	private int contentId;
-
-	@Column(name = "fk_m")
-	private int moduleId;
-
-	//unimplemented right now
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="fk_c")
+	private Content content;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="fk_m")
+	private Module module;
+	
+	//The affiliation property is for a feature that will be asked for 
+		//by some future batch. For now, product owner has simply ask that we include it.
+	@Column
 	private String affiliation;
 	
 	public Link() {
 		super();
 	}
 
-	public Link(int id, int contentId, int moduleId, String affiliation) {
+	public Link(int id, Content content, Module module, String affiliation) {
 		super();
 		this.id = id;
-		this.contentId = contentId;
-		this.moduleId = moduleId;
+		this.content = content;
+		this.module = module;
 		this.affiliation = affiliation;
 	}
 
@@ -44,21 +60,22 @@ public class Link {
 		this.id = id;
 	}
 
-	public int getContentId() {
-		return contentId;
+	public Content getContent() {
+		return content;
 	}
 
-	public void setContentId(int contentId) {
-		this.contentId = contentId;
+	public void setContent(Content content) {
+		this.content = content;
 	}
 
-	public int getModuleId() {
-		return moduleId;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setModuleId(int moduleId) {
-		this.moduleId = moduleId;
+	public void setModule(Module module) {
+		this.module = module;
 	}
+
 	public String getAffiliation() {
 		return affiliation;
 	}
@@ -68,19 +85,13 @@ public class Link {
 	}
 
 	@Override
-	public String toString() {
-		return "Link [id=" + id + ", contentId=" + contentId + ", moduleId=" + moduleId + ", affiliation=" + affiliation
-				+ "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
-		result = prime * result + contentId;
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
-		result = prime * result + moduleId;
+		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		return result;
 	}
 
@@ -98,13 +109,24 @@ public class Link {
 				return false;
 		} else if (!affiliation.equals(other.affiliation))
 			return false;
-		if (contentId != other.contentId)
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
 			return false;
 		if (id != other.id)
 			return false;
-		if (moduleId != other.moduleId)
+		if (module == null) {
+			if (other.module != null)
+				return false;
+		} else if (!module.equals(other.module))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation + "]";
 	}
 
 }

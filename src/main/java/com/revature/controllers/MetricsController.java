@@ -5,6 +5,7 @@ package com.revature.controllers;
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
  */
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,27 +42,33 @@ public class MetricsController {
 	
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
-								  @RequestBody Map<String, Object> filters) {
+								  @RequestBody Map<String, Object> filter) {
 		Set<Content> contents;
 		Set<Content> filtContents;
 		@SuppressWarnings("unchecked")
-		ArrayList<Integer> idsIn = (ArrayList<Integer>) filters.get("modules");
+		ArrayList<Integer> idsIn = (ArrayList<Integer>) filter.get("modules");
+		
+		Set<Module> modulesIdsIn = new HashSet<Module>();
+		for (Integer id : idsIn) {
+			modulesIdsIn.add(moduleService.getModuleById(id));
+		}
 
 		if(idsIn.isEmpty()) {
 			contents = contentService.getAllContent();
-			filtContents = searchService.filterContent(contents, filters);
+			filtContents = searchService.filterContent(contents, filter);
+
 		} else {
 			contents = contentService.getAllContent();
-			filtContents = searchService.filterContent(contents, filters); }
+			filtContents = searchService.filterContent(contents, filter); }
 		
-		Map<String, Integer> contentFormats = contentService.getContentByFormat(filtContents);
+		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
 		
 		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
 		int modSize = modules.size();
 		
 		double avgMods = 0;
 		if(idsIn != null && !idsIn.isEmpty()) {
-			avgMods = moduleService.getAverageByModuleIds(idsIn);
+			avgMods = moduleService.getAverageByModules(modulesIdsIn);
 		} else {
 			avgMods = moduleService.getAverageByAllModules();
 		}

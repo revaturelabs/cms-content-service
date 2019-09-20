@@ -83,6 +83,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+test-output/
 # External tool builders
 .externalToolBuilders/
 # Locally stored "Eclipse launch configurations"

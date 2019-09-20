@@ -1,20 +1,18 @@
 package com.revature.services;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
-import com.revature.repositories.ModuleHierarchyRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.repositories.ReqLinkRepository;
 import com.revature.util.LogException;
 
 @Service
@@ -23,12 +21,23 @@ public class ModuleServiceImpl implements ModuleService {
 	@Autowired
 	ModuleRepository mr;
 	@Autowired
+	ContentRepository cr;
+	@Autowired
 	LinkRepository lr;
 	@Autowired
-	ModuleHierarchyRepository mhr;
-	@Autowired
-	ContentRepository cr;
+	ReqLinkRepository rlr;
 
+	/**
+	 * Take the module passed in and change the created value 
+	 * to the current time then add it to the database.
+	 */
+	@Override
+	@LogException
+	public Module createModule(Module module) {
+		module.setCreated(System.currentTimeMillis());
+		return mr.save(module);
+	}
+	
 	/**
 	 * Get all the modules in the database and returns a set
 	 * of module objects.
@@ -48,37 +57,21 @@ public class ModuleServiceImpl implements ModuleService {
 	@Override
 	@LogException
 	public Module getModuleById(int id) {
-		return mr.findById(id);
-	}
-
-	/**
-	 * Take the module passed in and change the created value 
-	 * to the current time then add it to the database.
-	 */
-	@Override
-	@LogException
-	public Module createModule(Module module) {
-		module.setCreated(System.currentTimeMillis());
-		if(module.getChildrenModules() == null){
-			module.setChildrenModules(Collections.emptySet());
-		}
-		if(module.getParentModules() == null){
-			module.setParentModules(Collections.emptySet());
-		}
-		module = mr.save(module);
+		Module module = mr.findById(id);
 		return module;
 	}
-
 	
 	/**
 	 * Calculate the average for all of the module's resources based on the specific inputed modules
 	 * */
 	@Override
 	@LogException
-	public double getAverageByModuleIds(ArrayList<Integer> ids) {
-		int size = lr.findByModuleIdIn(ids).size();
-		
-		return (double) size / (double) ids.size();
+	public double getAverageByModules(Set<Module> modules) {
+		Integer numContent = 0;
+		for (Module module : modules) {
+			numContent += module.getLinks().size();
+		}
+		return (double) numContent / (double) modules.size();
 	}
 
 	/**
@@ -86,15 +79,33 @@ public class ModuleServiceImpl implements ModuleService {
 	 */
 	@Override
 	public double getAverageByAllModules() {
-		Set<Module> allMods = this.getAllModules();
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-		
-		for(Module m : allMods) {
-			ids.add(m.getId());
-		}
-		return this.getAverageByModuleIds(ids);
+		Set<Module> allMods = this.getAllModules();		
+		return this.getAverageByModules(allMods);
 	}
-
+	
+	@Override
+	public Set<Module> getChildrenByParentId(int id){
+		Module parent = mr.findById(id);
+		return parent.getChildren();
+	}
+	
+	@Override
+	public Set<Module> getAllRootModules() {
+		Set<Module> modules = this.getAllModules();
+		Set<Module> roots = new HashSet<Module>();
+		for (Module module : modules) {
+			if (module.getParents().size() <= 0) {
+				roots.add(module);
+			}
+		}
+		return roots;
+	}	
+	
+	@Override
+	public Module updateModule(Module module) {
+		return mr.save(module);
+	}
+	
 	/**
 	 * Remove a specified module from the database
 	 */
@@ -105,71 +116,41 @@ public class ModuleServiceImpl implements ModuleService {
 		}
 	}
 	
-	public Set<Module> getAllModulesByRoot(){
-		Set<Module> modules = new HashSet<>();
-		findModuleByNoParent().forEach(modules :: add);
-		return modules;
-	}
-	
-	Set<Module> findModuleByNoParent(){
-		Set<Module> modules = getAllModules();
-		Set<Module> finModules = new HashSet<>();
-		for(Module specModule: modules) {
-			if(specModule.getParentModules().size() == 0) {
-				finModules.add(specModule);
-			}
-		}
-		return finModules;
-	}	
-	@Override
-	public Set<Module> getChildrenByModuleId(int id){
-		Module parent = mr.findById(id);
-		Set<Module> childrenModules = new HashSet<>();
-		getChildren(parent).forEach(childrenModules :: add);
-		return childrenModules;
-	}
-	
-	Set<Module> getChildren(Module parent){
-		Set<Module> childrenModule = new HashSet<>();
-		Set<Integer> children = parent.getChildrenModules();
-		for(Integer moduleID: children) {
-			Module child = mr.findById(moduleID.intValue());
-			childrenModule.add(child);
-		}
-		return childrenModule;
-	}
-	
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
-		Set<Link> moduleList = module.getLinks();
-		for(Link specLink:moduleList) {
-			int contentId = specLink.getContentId();
-			cr.deleteById(contentId);
+		//delete all content associated with given module
+		
+		Set<Link> links = module.getLinks();
+		for (Link link : links) {
+			lr.delete(link);
 		}
+		//delete module
 		mr.delete(module);
 	}
 	
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
-		Set<Link> moduleList = module.getLinks();
-		for(Link specLink:moduleList) {
-			int contentId = specLink.getContentId();
-			Set<Content> contentList = cr.findById(contentId);
-			for(Content specCon:contentList) {
-				if(specCon.getLinks().size() == 1) {
-					cr.deleteById(specCon.getId());
-				}
-				specCon.getLinks().remove(specLink);
+		//delete all content associated ONLY with given module
+		
+		Set<Link> links = module.getLinks();
+		for (Link link : links) {
+			if (link.getContent().getLinks().size() <= 1) {
+				lr.delete(link);
 			}
 		}
+		//delete module
 		mr.delete(module);
 	}
 
 	@Override
-	public Module updateModule(Module module) {
-		mr.save(module);
-		return module;
-		
+	public Set<Link> getLinksByModuleId(int id) {
+		return lr.findByModuleId(id);
 	}
+
+	@Override
+	public Set<ReqLink> getRequestLinksByModuleId(int id) {
+		return rlr.findByModule(mr.findById(id));
+	}
+
 }
 

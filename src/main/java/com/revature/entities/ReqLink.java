@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "req_link")
@@ -19,13 +21,13 @@ public class ReqLink {
 	@Column(name = "z_id")
 	private int id;
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_r")
-	private Requests requests;
+	private Request request;
 
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "fk_rm")
-	private Module reqModule;
+	private Module module;
 
 	private String affiliation;
 
@@ -33,11 +35,12 @@ public class ReqLink {
 		super();
 	}
 
-	public ReqLink(int id, Requests requests, Module reqModule) {
+	public ReqLink(int id, Request request, Module module, String affiliation) {
 		super();
 		this.id = id;
-		this.requests = requests;
-		this.reqModule = reqModule;
+		this.request = request;
+		this.module = module;
+		this.affiliation = affiliation;
 	}
 
 	public int getId() {
@@ -48,20 +51,20 @@ public class ReqLink {
 		this.id = id;
 	}
 
-	public Requests getRequests() {
-		return requests;
+	public Request getRequest() {
+		return request;
 	}
 
-	public void setRequests(Requests requests) {
-		this.requests = requests;
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 
-	public Module getReqModule() {
-		return reqModule;
+	public Module getModule() {
+		return module;
 	}
 
-	public void setReqModule(Module reqModule) {
-		this.reqModule = reqModule;
+	public void setModule(Module module) {
+		this.module = module;
 	}
 
 	public String getAffiliation() {
@@ -73,21 +76,13 @@ public class ReqLink {
 	}
 
 	@Override
-	public String toString() {
-
-		return "ReqLink [id=" + id + ", requests=" + requests + ", reqModule=" + reqModule + ", affiliation="
-				+ affiliation + "]";
-
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((reqModule == null) ? 0 : reqModule.hashCode());
-		result = prime * result + ((requests == null) ? 0 : requests.hashCode());
+		result = prime * result + ((module == null) ? 0 : module.hashCode());
+		result = prime * result + ((request == null) ? 0 : request.hashCode());
 		return result;
 	}
 
@@ -107,17 +102,22 @@ public class ReqLink {
 			return false;
 		if (id != other.id)
 			return false;
-		if (reqModule == null) {
-			if (other.reqModule != null)
+		if (module == null) {
+			if (other.module != null)
 				return false;
-		} else if (!reqModule.equals(other.reqModule))
+		} else if (!module.equals(other.module))
 			return false;
-		if (requests == null) {
-			if (other.requests != null)
+		if (request == null) {
+			if (other.request != null)
 				return false;
-		} else if (!requests.equals(other.requests))
+		} else if (!request.equals(other.request))
 			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "ReqLink [id=" + id + ", request=" + request + ", module=" + module + ", affiliation=" + affiliation
+				+ "]";
+	}
 }

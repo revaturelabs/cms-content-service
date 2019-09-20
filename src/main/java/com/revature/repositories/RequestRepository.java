@@ -5,23 +5,23 @@ import java.util.Set;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.revature.entities.Requests;
+import com.revature.entities.Request;
 
 @Repository
-public interface RequestRepository extends CrudRepository<Requests,Integer>{
+public interface RequestRepository extends CrudRepository<Request,Integer>{
 	
 	//Gets content by title
-	Set<Requests> findByTitle(String title);
+	Set<Request> findByTitle(String title);
 	
 	//Gets content by format
-	Set<Requests> findByFormat(String format);
+	Set<Request> findByFormat(String format);
 	
-	Set<Requests> findById(int id);
+	Set<Request> findById(int id);
 	
 	// return set of contents here; we will iterate through that set in timegraph service impl. 
-	Set<Requests> findByDateCreatedBetween(long startTime, long currentTime);
+	Set<Request> findByDateCreatedBetween(long startTime, long currentTime);
 	
 	//Gets content by title
-	Set<Requests> findByTitleContaining(String title);
+	Set<Request> findByTitleContaining(String title);
 	
 }

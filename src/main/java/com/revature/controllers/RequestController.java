@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
@@ -25,7 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Module;
-import com.revature.entities.Requests;
+import com.revature.entities.ReqLink;
+import com.revature.entities.Request;
 import com.revature.services.RequestService;
 import com.revature.services.SearchService;
 import com.revature.util.LogException;
@@ -33,7 +35,7 @@ import com.revature.util.LogException;
 @CrossOrigin(origins = "*", allowCredentials="true")
 @Transactional
 @RestController
-@RequestMapping(value="/request")
+@RequestMapping(value="/requests")
 public class RequestController {
 
 	@Autowired
@@ -43,17 +45,22 @@ public class RequestController {
 	SearchService searchService;
 	
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity<Requests> createRequest(@RequestBody Requests request ) throws Exception{
+	public ResponseEntity<Request> createRequest(@RequestBody Request request ) throws Exception{
 		return ResponseEntity.ok(requestService.createRequests(request));
 	}
 	
+	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReqLink>> createReqLinks(@RequestBody List<ReqLink> reqLinks, @PathVariable int id) {
+		return ResponseEntity.ok(requestService.createReqLinks(id, reqLinks));
+	}
+	
 	@GetMapping()
-	public ResponseEntity<Set<Requests>> getAllRequest() {
+	public ResponseEntity<Set<Request>> getAllRequest() {
 		return ResponseEntity.ok(requestService.getAllRequests());
 	}
 	
 	@GetMapping(value="{id}")
-	public ResponseEntity<Requests> getRequestById(@PathVariable int id) {
+	public ResponseEntity<Request> getRequestById(@PathVariable int id) {
 		return ResponseEntity.ok(requestService.getRequestsById(id));
 	}
 	
@@ -62,30 +69,35 @@ public class RequestController {
     //modules is a string in comma separated format of integers ex. "1,2,3,4"
     @LogException
     @GetMapping (params= {"title", "format", "modules"})
-    public ResponseEntity<Set<Requests>> getSearchResults(
+    public ResponseEntity<Set<Request>> getSearchResults(
             @RequestParam(value="title", required=false) String title,
             @RequestParam(value="format", required=false) String format,
             @RequestParam(value="modules", required=false) String modules
         ) {
-        ArrayList<Module> moduleList = new ArrayList<Module>();
-        StringTokenizer st = new StringTokenizer(modules, ",");
-        while (st.hasMoreTokens()) {
-            moduleList.add((Module) st.nextElement());
-        }
-        return ResponseEntity.ok(searchService.filterReq(title, format, moduleList));
+    	ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		StringTokenizer st = new StringTokenizer(modules, ",");
+		while (st.hasMoreTokens()) {
+			moduleIdsList.add(Integer.parseInt(st.nextToken()));
+		}
+        return ResponseEntity.ok(searchService.filterReq(title, format, moduleIdsList));
     }
 
 	@PutMapping(value="{id}")
-	public ResponseEntity<Requests> updateRequest(@PathVariable Integer Id, @RequestBody Requests r){
+	public ResponseEntity<Request> updateRequest(@PathVariable Integer Id, @RequestBody Request r){
 		if(requestService.getRequestsById(Id) == null) {
 			return ResponseEntity.status(405).body(null);
 		}
-		return ResponseEntity.ok(requestService.updateRequests(r));
+		return ResponseEntity.ok(requestService.updateRequest(r));
+	}
+	
+	@PutMapping(value="{id}/links")
+	public ResponseEntity<List<ReqLink>> updateReqLinks(@PathVariable int id, @RequestBody List<ReqLink> reqLinks){
+		return ResponseEntity.ok(requestService.updateReqLinks(id, reqLinks));
 	}
 	
 	@DeleteMapping(value="{id}")
 	public ResponseEntity<String> deleteRequest(@PathVariable int id) {
-		Requests request = requestService.getRequestsById(id);
+		Request request = requestService.getRequestsById(id);
 		requestService.deleteRequests(request);
 		return ResponseEntity.status(HttpStatus.OK).body("Request Deleted");
 	}
