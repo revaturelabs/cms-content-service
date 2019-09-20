@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 import com.revature.services.ModuleService;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
@@ -53,24 +55,35 @@ public class ModuleController {
 	
 	//get all modules without a parent
 	@GetMapping("/roots")
-	public ResponseEntity<Set<Module>> getAllModulesByRoot(){
-		return ResponseEntity.ok(moduleService.getAllModulesByRoot());
+	public ResponseEntity<Set<Module>> getAllRootModules(){
+		return ResponseEntity.ok(moduleService.getAllRootModules());
 	}
 	
 	//get all the children of a specific module
 	@GetMapping("/{id}/children")
     public ResponseEntity<Set<Module>> getChildrenByModuleId(@PathVariable int id) {
-        return ResponseEntity.ok(moduleService.getChildrenByModuleId(id));
+        return ResponseEntity.ok(moduleService.getChildrenByParentId(id));
     }
 	
+	//get all links by given module
+	@GetMapping("/{id}/links")
+	public ResponseEntity<Set<Link>> getLinksByModuleId(@PathVariable int id) {
+		return ResponseEntity.ok(moduleService.getLinksByModuleId(id));
+	}
+	
+	//get all reqLinks by given module
+	@GetMapping("/{id}/req-links")
+	public ResponseEntity<Set<ReqLink>> getReqLinksByModuleId(@PathVariable int id) {
+		return ResponseEntity.ok(moduleService.getRequestLinksByModuleId(id));
+	}
+
 	//update a specific module
 	@PutMapping("/{id}")
 	public ResponseEntity<Module> updateModule(@PathVariable("id") int id, @RequestBody Module module) {
 		return ResponseEntity.ok(moduleService.updateModule(module));
 	}
 	
-	//delete a specific module and only that module
-		//no cascade
+	//delete a specific module, retaining all content
 	@DeleteMapping(value="{id}")
 	public ResponseEntity<String> deleteModule(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);

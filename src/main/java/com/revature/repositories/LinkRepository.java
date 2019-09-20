@@ -1,6 +1,5 @@
 package com.revature.repositories;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -20,5 +19,7 @@ public interface LinkRepository extends CrudRepository<Link,Integer> {
 	
 	//sends back links for Modules given
 	Set<Link> findByModuleIdIn(List<Integer> modules);
+	
+	Link findById(int linkId);
 
 }
