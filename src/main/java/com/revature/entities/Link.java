@@ -101,7 +101,7 @@ public class Link {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Link))
 			return false;
 		Link other = (Link) obj;
 		if (affiliation == null) {
