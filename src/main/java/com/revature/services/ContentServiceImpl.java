@@ -123,6 +123,12 @@ public class ContentServiceImpl implements ContentService {
 	@Override
 	@LogException
 	public Content updateContent(Content newContent) {
+		if(newContent == null) {
+			throw new InvalidContentException("updateContent, newContent is null");
+		}
+		if (Character.isDigit(newContent.getId())) {
+			throw new InvalidContentId("updateContent, newContent does not have a valid id");
+		}
 		return cr.save(newContent);
 	}
 
@@ -140,7 +146,7 @@ public class ContentServiceImpl implements ContentService {
 
 
 	@Override
-	public List<Link> updateLinks(int id, List<Link> links) {
+	public List<Link> updateLinksByContentId(int id, List<Link> links) {
 		for (Link link : links) {
 			lr.save(link);
 		}
@@ -149,7 +155,7 @@ public class ContentServiceImpl implements ContentService {
 
 
 	@Override
-	public List<Link> createLinks(int id, List<Link> links) {
+	public List<Link> createLinksByContentId(int id, List<Link> links) {
 		List<Link> savedLinks = new ArrayList<Link>();
 		for (Link link : links) {
 			savedLinks.add(lr.save(link));

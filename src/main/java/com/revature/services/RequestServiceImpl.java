@@ -79,7 +79,13 @@ public class RequestServiceImpl implements RequestService {
 	 */
 	@Override
 	@LogException
-	public Request updateRequests(Request newRequest) {
+	public Request updateRequest(Request newRequest) {
+		if (newRequest == null) {
+			throw new InvalidRequestException("updateRequest, new request is null");
+		}
+		if (Character.isDigit(newRequest.getId())) {
+			throw new InvalidRequestIdException("updateRequest, newRequest does not have a valid id");
+		}
 		return rr.save(newRequest);
 	}
 

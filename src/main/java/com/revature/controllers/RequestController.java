@@ -87,7 +87,7 @@ public class RequestController {
 		if(requestService.getRequestsById(Id) == null) {
 			return ResponseEntity.status(405).body(null);
 		}
-		return ResponseEntity.ok(requestService.updateRequests(r));
+		return ResponseEntity.ok(requestService.updateRequest(r));
 	}
 	
 	@PutMapping(value="{id}/links")

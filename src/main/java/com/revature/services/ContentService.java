@@ -23,7 +23,7 @@ public interface ContentService {
 
 	public Set<Link> getLinksByContentId(int id);
 
-	public List<Link> updateLinks(int id, List<Link> links);
+	public List<Link> updateLinksByContentId(int id, List<Link> links);
 
-	public List<Link> createLinks(int id, List<Link> links);
+	public List<Link> createLinksByContentId(int id, List<Link> links);
 }

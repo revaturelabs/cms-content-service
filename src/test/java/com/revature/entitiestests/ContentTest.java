@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+//import org.testing.annotations.Test;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
@@ -57,7 +58,7 @@ public class ContentTest {
 	}
 
 	@Test
-	public void testContentIntStringStringStringLongLongSetOfModules() {
+	public void testContentIntStringStringStringLongLongSetOfLinks() {
 		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", 
 				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		assertTrue(one instanceof Content);

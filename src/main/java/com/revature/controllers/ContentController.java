@@ -51,15 +51,12 @@ public class ContentController {
 	
 	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Link>> createLinks(@RequestBody List<Link> links, @PathVariable int id) {
-		return ResponseEntity.ok(contentService.createLinks(id, links));
+		return ResponseEntity.ok(contentService.createLinksByContentId(id, links));
 	}
 	
 	// Returns all Content
 	@GetMapping()
 	public ResponseEntity<Set<Content>> getAllContent() {
-		for (Content content : contentService.getAllContent()) {
-			System.out.println("Link: " + content.getLinks());
-		}
 		return ResponseEntity.ok(contentService.getAllContent());
 	}
 	
@@ -107,7 +104,7 @@ public class ContentController {
 	
 	@PutMapping(value="{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Link>> updateLinks(@RequestBody List<Link> links, @PathVariable int id) {
-		return ResponseEntity.ok(contentService.updateLinks(id, links));
+		return ResponseEntity.ok(contentService.updateLinksByContentId(id, links));
 	}
 	
 	//deletes a single Content
