@@ -44,7 +44,8 @@ create table requests(
   description text NOT NULL,
   url text unique,
   created numeric NOT NULL,
-  last_modified numeric NOT NULL
+  last_modified numeric NOT NULL,
+  FOREIGN KEY (url) REFERENCES content(url)
 );
 create table req_link(
   z_id serial PRIMARY KEY,

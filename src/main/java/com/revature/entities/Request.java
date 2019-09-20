@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,6 +18,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
+@Table(name="requests")
 public class Request {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
