@@ -35,7 +35,7 @@ public class RequestServiceImpl implements RequestService {
 
 	@LogException
 	@Override
-	public Request createRequests(Request request) {
+	public Request createRequest(Request request) {
 		// set date created and date modified
 		if (request.getDateCreated() == 0L && request.getLastModified() == 0L) {
 			request.setDateCreated(System.currentTimeMillis());

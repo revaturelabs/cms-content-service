@@ -46,7 +46,7 @@ public class RequestController {
 	
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE) 
 	public ResponseEntity<Request> createRequest(@RequestBody Request request ) throws Exception{
-		return ResponseEntity.ok(requestService.createRequests(request));
+		return ResponseEntity.ok(requestService.createRequest(request));
 	}
 	
 	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
