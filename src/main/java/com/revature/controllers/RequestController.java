@@ -104,7 +104,7 @@ public class RequestController {
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteRequest(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
-		requestService.deleteRequests(request);
+		requestService.deleteRequest(request);
 		return ResponseEntity.status(HttpStatus.OK).body("Request Deleted");
 	}
 }
