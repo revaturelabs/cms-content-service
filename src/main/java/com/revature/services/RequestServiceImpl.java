@@ -123,9 +123,9 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public void deleteRequests(Request requests) {
-		if (requests != null) {
-			rr.delete(requests);
+	public void deleteRequest(Request request) {
+		if (request != null) {
+			rr.delete(request);
 		}
 	}
 	

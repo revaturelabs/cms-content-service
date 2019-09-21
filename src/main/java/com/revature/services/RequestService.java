@@ -7,7 +7,7 @@ import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 public interface RequestService {
 	
-    public Request createRequest(Request requests);
+    public Request createRequest(Request request);
     
     public Set<Request> getAllRequests();
     
@@ -17,9 +17,9 @@ public interface RequestService {
     
     public Map<String, Integer> getRequestsByFormat(Set<Request> contents);   
     
-    public Request updateRequest(Request newRequests);
+    public Request updateRequest(Request newRequest);
     
-    public void deleteRequests(Request requests);
+    public void deleteRequest(Request request);
 
 	public List<ReqLink> createReqLinksByRequestId(int id, List<ReqLink> reqLinks);
 
