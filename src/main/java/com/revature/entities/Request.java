@@ -35,6 +35,9 @@ public class Request {
 	@Column(nullable = false)
 	private String description;
 
+	//this holds the content that resolves this request
+	//It is possible that one piece of content could resolve 
+	//multiple requests.
 	@ManyToOne
 	@JoinColumn(name="fk_rc", nullable = true)
 	private Content content;
