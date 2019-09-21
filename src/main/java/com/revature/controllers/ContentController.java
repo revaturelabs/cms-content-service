@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.JSONEntities.JSONContent;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.services.ContentService;
@@ -56,14 +58,38 @@ public class ContentController {
 	
 	// Returns all Content
 	@GetMapping()
-	public ResponseEntity<Set<Content>> getAllContent() {
-		return ResponseEntity.ok(contentService.getAllContent());
+	public ResponseEntity<Set<JSONContent>> getAllContent() {
+		Set<Content> contentSet = contentService.getAllContent();
+		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
+		for (Content content : contentSet) {
+			JSONContent jc = new JSONContent();
+			jc.setId(content.getId());
+			jc.setTitle(content.getTitle());
+			jc.setFormat(content.getFormat());
+			jc.setDescription(content.getDescription());
+			jc.setUrl(content.getUrl());
+			jc.setDateCreated(content.getDateCreated());
+			jc.setLastModified(content.getLastModified());
+			jc.setLinks(content.getLinks());
+			jsonContent.add(jc);
+		}
+		return ResponseEntity.ok(jsonContent);
 	}
 	
 	// Returns specific content
 	@GetMapping(value="{id}")
-	public ResponseEntity<Content> getContentById(@PathVariable int id) {
-		return ResponseEntity.ok(contentService.getContentById(id));
+	public ResponseEntity<JSONContent> getContentById(@PathVariable int id) {
+		Content content = contentService.getContentById(id);
+		JSONContent jc = new JSONContent();
+		jc.setId(content.getId());
+		jc.setTitle(content.getTitle());
+		jc.setFormat(content.getFormat());
+		jc.setDescription(content.getDescription());
+		jc.setUrl(content.getUrl());
+		jc.setDateCreated(content.getDateCreated());
+		jc.setLastModified(content.getLastModified());
+		jc.setLinks(content.getLinks());
+		return ResponseEntity.ok(jc);
 	}
 	
 	//return all links attached to a given content
@@ -78,7 +104,7 @@ public class ContentController {
 	//modules is a string in comma separated format of integers ex. "1,2,3,4"
 	@LogException
 	@GetMapping (params= {"title", "format", "modules"})
-	public ResponseEntity<Set<Content>> getSearchResults(
+	public ResponseEntity<Set<JSONContent>> getSearchResults(
 			@RequestParam(value="title", required=false) String title,
 			@RequestParam(value="format", required=false) String format, 
 			@RequestParam(value="modules", required=false) String modules
@@ -88,7 +114,22 @@ public class ContentController {
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-		return ResponseEntity.ok(searchService.filter(title, format, moduleIdsList));
+		
+		Set<Content> contentSet = searchService.filter(title, format, moduleIdsList);
+		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
+		for (Content content : contentSet) {
+			JSONContent jc = new JSONContent();
+			jc.setId(content.getId());
+			jc.setTitle(content.getTitle());
+			jc.setFormat(content.getFormat());
+			jc.setDescription(content.getDescription());
+			jc.setUrl(content.getUrl());
+			jc.setDateCreated(content.getDateCreated());
+			jc.setLastModified(content.getLastModified());
+			jc.setLinks(content.getLinks());
+			jsonContent.add(jc);
+		}
+		return ResponseEntity.ok(jsonContent);
 	}
 	
 	/**

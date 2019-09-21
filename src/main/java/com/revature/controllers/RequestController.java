@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
@@ -25,6 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.JSONEntities.JSONContent;
+import com.revature.JSONEntities.JSONRequest;
+import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -56,13 +60,37 @@ public class RequestController {
 	}
 
 	@GetMapping()
-	public ResponseEntity<Set<Request>> getAllRequest() {
-		return ResponseEntity.ok(requestService.getAllRequests());
+	public ResponseEntity<Set<JSONRequest>> getAllRequest() {
+		Set<Request> requests = requestService.getAllRequests();
+		Set<JSONRequest> jsonRequests = new HashSet<JSONRequest>();
+		for (Request request : requests) {
+			JSONRequest jr = new JSONRequest();
+			jr.setId(request.getId());
+			jr.setTitle(request.getTitle());
+			jr.setFormat(request.getFormat());
+			jr.setDescription(request.getDescription());
+			jr.setContent(request.getContent());
+			jr.setDateCreated(request.getDateCreated());
+			jr.setLastModified(request.getLastModified());
+			jr.setReqLinks(request.getReqLinks());
+			jsonRequests.add(jr);
+		}
+		return ResponseEntity.ok(jsonRequests);
 	}
 
 	@GetMapping(value = "{id}")
-	public ResponseEntity<Request> getRequestById(@PathVariable int id) {
-		return ResponseEntity.ok(requestService.getRequestsById(id));
+	public ResponseEntity<JSONRequest> getRequestById(@PathVariable int id) {
+		Request request = requestService.getRequestsById(id);
+		JSONRequest jr = new JSONRequest();
+		jr.setId(request.getId());
+		jr.setTitle(request.getTitle());
+		jr.setFormat(request.getFormat());
+		jr.setDescription(request.getDescription());
+		jr.setContent(request.getContent());
+		jr.setDateCreated(request.getDateCreated());
+		jr.setLastModified(request.getLastModified());
+		jr.setReqLinks(request.getReqLinks());
+		return ResponseEntity.ok(jr);
 	}
 
 	// return all links attached to a given content
@@ -77,7 +105,7 @@ public class RequestController {
 	// modules is a string in comma separated format of integers ex. "1,2,3,4"
 	@LogException
 	@GetMapping(params = { "title", "format", "modules" })
-	public ResponseEntity<Set<Request>> getSearchResults(@RequestParam(value = "title", required = false) String title,
+	public ResponseEntity<Set<JSONRequest>> getSearchResults(@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "format", required = false) String format,
 			@RequestParam(value = "modules", required = false) String modules) {
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
@@ -85,7 +113,22 @@ public class RequestController {
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-		return ResponseEntity.ok(searchService.filterReq(title, format, moduleIdsList));
+		
+		Set<Request> requests = searchService.filterReq(title, format, moduleIdsList);
+		Set<JSONRequest> jsonRequests = new HashSet<JSONRequest>();
+		for (Request request : requests) {
+			JSONRequest jr = new JSONRequest();
+			jr.setId(request.getId());
+			jr.setTitle(request.getTitle());
+			jr.setFormat(request.getFormat());
+			jr.setDescription(request.getDescription());
+			jr.setContent(request.getContent());
+			jr.setDateCreated(request.getDateCreated());
+			jr.setLastModified(request.getLastModified());
+			jr.setReqLinks(request.getReqLinks());
+			jsonRequests.add(jr);
+		}
+		return ResponseEntity.ok(jsonRequests);
 	}
 
 	@PutMapping(value = "{id}")
