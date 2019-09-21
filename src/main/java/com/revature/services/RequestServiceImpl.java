@@ -137,15 +137,17 @@ public class RequestServiceImpl implements RequestService {
 		return reqLinks;
 	}
 
-
 	@Override
-	public List<ReqLink> createReqLinks(int id, List<ReqLink> reqLinks) {
-		Request request = rr.save(reqLinks.get(0).getRequest());
+	public List<ReqLink> createReqLinksByRequestId(int id, List<ReqLink> reqLinks) {
 		List<ReqLink> savedReqLinks = new ArrayList<ReqLink>();
 		for (ReqLink reqLink : reqLinks) {
-			reqLink.setRequest(request);
 			savedReqLinks.add(rlr.save(reqLink));
 		}
 		return savedReqLinks;
+	}
+
+	@Override
+	public List<ReqLink> getReqLinksByRequestId(int id) {
+		return rlr.findByRequestId(id);
 	}
 }

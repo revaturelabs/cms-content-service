@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -34,8 +35,8 @@ public class Request {
 	@Column(nullable = false)
 	private String description;
 
-	@OneToOne
-	@JoinColumn(name="url", nullable = true)
+	@ManyToOne
+	@JoinColumn(name="fk_rc", nullable = true)
 	private Content content;
 
 	/**

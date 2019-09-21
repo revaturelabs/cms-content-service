@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
@@ -32,70 +33,75 @@ import com.revature.services.RequestService;
 import com.revature.services.SearchService;
 import com.revature.util.LogException;
 
-@CrossOrigin(origins = "*", allowCredentials="true")
+@CrossOrigin(origins = "*", allowCredentials = "true")
 @Transactional
 @RestController
-@RequestMapping(value="/requests")
+@RequestMapping(value = "/requests")
 public class RequestController {
 
 	@Autowired
 	RequestService requestService;
-	
+
 	@Autowired
 	SearchService searchService;
-	
-	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity<Request> createRequest(@RequestBody Request request ) throws Exception{
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Request> createRequest(@RequestBody Request request) throws Exception {
 		return ResponseEntity.ok(requestService.createRequest(request));
 	}
-	
-	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+
+	@PostMapping(value = "/{id}/req-links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReqLink>> createReqLinks(@RequestBody List<ReqLink> reqLinks, @PathVariable int id) {
-		return ResponseEntity.ok(requestService.createReqLinks(id, reqLinks));
+		return ResponseEntity.ok(requestService.createReqLinksByRequestId(id, reqLinks));
 	}
-	
+
 	@GetMapping()
 	public ResponseEntity<Set<Request>> getAllRequest() {
 		return ResponseEntity.ok(requestService.getAllRequests());
 	}
-	
-	@GetMapping(value="{id}")
+
+	@GetMapping(value = "{id}")
 	public ResponseEntity<Request> getRequestById(@PathVariable int id) {
 		return ResponseEntity.ok(requestService.getRequestsById(id));
 	}
-	
-	//This query returns a subset of Content based on the values of the query parameters passed in
-    //If a parameter is empty, it is not used in the filtering process.
-    //modules is a string in comma separated format of integers ex. "1,2,3,4"
-    @LogException
-    @GetMapping (params= {"title", "format", "modules"})
-    public ResponseEntity<Set<Request>> getSearchResults(
-            @RequestParam(value="title", required=false) String title,
-            @RequestParam(value="format", required=false) String format,
-            @RequestParam(value="modules", required=false) String modules
-        ) {
-    	ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+
+	// return all links attached to a given content
+	@GetMapping("/{id}/req-links")
+	public ResponseEntity<List<ReqLink>> getReqLinksByContentId(@PathVariable int id) {
+		return ResponseEntity.ok(requestService.getReqLinksByRequestId(id));
+	}
+
+	// This query returns a subset of Content based on the values of the query
+	// parameters passed in
+	// If a parameter is empty, it is not used in the filtering process.
+	// modules is a string in comma separated format of integers ex. "1,2,3,4"
+	@LogException
+	@GetMapping(params = { "title", "format", "modules" })
+	public ResponseEntity<Set<Request>> getSearchResults(@RequestParam(value = "title", required = false) String title,
+			@RequestParam(value = "format", required = false) String format,
+			@RequestParam(value = "modules", required = false) String modules) {
+		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
 		StringTokenizer st = new StringTokenizer(modules, ",");
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-        return ResponseEntity.ok(searchService.filterReq(title, format, moduleIdsList));
-    }
+		return ResponseEntity.ok(searchService.filterReq(title, format, moduleIdsList));
+	}
 
-	@PutMapping(value="{id}")
-	public ResponseEntity<Request> updateRequest(@PathVariable Integer Id, @RequestBody Request r){
-		if(requestService.getRequestsById(Id) == null) {
+	@PutMapping(value = "{id}")
+	public ResponseEntity<Request> updateRequest(@PathVariable Integer Id, @RequestBody Request r) {
+		if (requestService.getRequestsById(Id) == null) {
 			return ResponseEntity.status(405).body(null);
 		}
 		return ResponseEntity.ok(requestService.updateRequest(r));
 	}
-	
-	@PutMapping(value="{id}/links")
-	public ResponseEntity<List<ReqLink>> updateReqLinks(@PathVariable int id, @RequestBody List<ReqLink> reqLinks){
+
+	@PutMapping(value = "{id}/links")
+	public ResponseEntity<List<ReqLink>> updateReqLinks(@PathVariable int id, @RequestBody List<ReqLink> reqLinks) {
 		return ResponseEntity.ok(requestService.updateReqLinks(id, reqLinks));
 	}
-	
-	@DeleteMapping(value="{id}")
+
+	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteRequest(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
 		requestService.deleteRequests(request);
