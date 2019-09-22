@@ -47,8 +47,17 @@ public class ContentController {
 	
 	//creates one content object
 	@PostMapping(produces  = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Content> createContent(@RequestBody Content content ) throws Exception{
-		return ResponseEntity.ok(contentService.createContent(content));
+	public ResponseEntity<JSONContent> createContent(@RequestBody JSONContent jsonContent ) throws Exception{
+		List<Link> links = new ArrayList<Link>();
+		Content content = jsonContentToContent(jsonContent);
+		content = contentService.createContent(content);
+		for (Link link : jsonContent.getLinks()) {
+			link.setContent(content);
+			links.add(link);
+		}
+		System.out.println(links);
+		contentService.createLinksByContentId(content.getId(), links);
+		return ResponseEntity.ok(jsonContent);
 	}
 	
 	@PostMapping(value="/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,15 +71,7 @@ public class ContentController {
 		Set<Content> contentSet = contentService.getAllContent();
 		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
 		for (Content content : contentSet) {
-			JSONContent jc = new JSONContent();
-			jc.setId(content.getId());
-			jc.setTitle(content.getTitle());
-			jc.setFormat(content.getFormat());
-			jc.setDescription(content.getDescription());
-			jc.setUrl(content.getUrl());
-			jc.setDateCreated(content.getDateCreated());
-			jc.setLastModified(content.getLastModified());
-			jc.setLinks(content.getLinks());
+			JSONContent jc = contentToJSONContent(content);
 			jsonContent.add(jc);
 		}
 		return ResponseEntity.ok(jsonContent);
@@ -80,15 +81,7 @@ public class ContentController {
 	@GetMapping(value="{id}")
 	public ResponseEntity<JSONContent> getContentById(@PathVariable int id) {
 		Content content = contentService.getContentById(id);
-		JSONContent jc = new JSONContent();
-		jc.setId(content.getId());
-		jc.setTitle(content.getTitle());
-		jc.setFormat(content.getFormat());
-		jc.setDescription(content.getDescription());
-		jc.setUrl(content.getUrl());
-		jc.setDateCreated(content.getDateCreated());
-		jc.setLastModified(content.getLastModified());
-		jc.setLinks(content.getLinks());
+		JSONContent jc = contentToJSONContent(content);
 		return ResponseEntity.ok(jc);
 	}
 	
@@ -118,15 +111,7 @@ public class ContentController {
 		Set<Content> contentSet = searchService.filter(title, format, moduleIdsList);
 		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
 		for (Content content : contentSet) {
-			JSONContent jc = new JSONContent();
-			jc.setId(content.getId());
-			jc.setTitle(content.getTitle());
-			jc.setFormat(content.getFormat());
-			jc.setDescription(content.getDescription());
-			jc.setUrl(content.getUrl());
-			jc.setDateCreated(content.getDateCreated());
-			jc.setLastModified(content.getLastModified());
-			jc.setLinks(content.getLinks());
+			JSONContent jc = contentToJSONContent(content);
 			jsonContent.add(jc);
 		}
 		return ResponseEntity.ok(jsonContent);
@@ -154,5 +139,31 @@ public class ContentController {
 		Content content = contentService.getContentById(id);
 		contentService.deleteContent(content);
 		return ResponseEntity.status(HttpStatus.OK).body("Content Deleted");
+	}
+	
+	private JSONContent contentToJSONContent(Content content) {
+		JSONContent jsonContent = new JSONContent();
+		jsonContent.setId(content.getId());
+		jsonContent.setTitle(content.getTitle());
+		jsonContent.setFormat(content.getFormat());
+		jsonContent.setDescription(content.getDescription());
+		jsonContent.setUrl(content.getUrl());
+		jsonContent.setDateCreated(content.getDateCreated());
+		jsonContent.setLastModified(content.getLastModified());
+		jsonContent.setLinks(content.getLinks());
+		return jsonContent;
+	}
+	
+	private Content jsonContentToContent(JSONContent jsonContent) {
+		Content content = new Content();
+		content.setId(jsonContent.getId());
+		content.setTitle(jsonContent.getTitle());
+		content.setFormat(jsonContent.getFormat());
+		content.setDescription(jsonContent.getDescription());
+		content.setUrl(jsonContent.getUrl());
+		content.setDateCreated(jsonContent.getDateCreated());
+		content.setLastModified(jsonContent.getLastModified());
+		content.setLinks(jsonContent.getLinks());
+		return content;
 	}
 }
