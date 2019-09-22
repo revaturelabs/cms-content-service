@@ -49,14 +49,7 @@ public class ModuleController {
 		Set<Module> modules = moduleService.getAllModules();
 		Set<JSONModule> jsonModules = new HashSet<JSONModule>();
 		for (Module module : modules) {
-			JSONModule jm = new JSONModule();
-			jm.setId(module.getId());
-			jm.setSubject(module.getSubject());
-			jm.setCreated(module.getCreated());
-			jm.setLinks(module.getLinks());
-			jm.setReqLinks(module.getReqLinks());
-			jm.setParents(module.getParents());
-			jm.setChildren(module.getChildren());
+			JSONModule jm = moduleToJSONModule(module);
 			jsonModules.add(jm);
 		}
 		return ResponseEntity.ok(jsonModules);
@@ -66,14 +59,7 @@ public class ModuleController {
 	@GetMapping(value="{id}")
 	public ResponseEntity<JSONModule> getModuleById(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);
-		JSONModule jm = new JSONModule();
-		jm.setId(module.getId());
-		jm.setSubject(module.getSubject());
-		jm.setCreated(module.getCreated());
-		jm.setLinks(module.getLinks());
-		jm.setReqLinks(module.getReqLinks());
-		jm.setParents(module.getParents());
-		jm.setChildren(module.getChildren());
+		JSONModule jm = moduleToJSONModule(module);
 		return ResponseEntity.ok(jm);
 	}
 	
@@ -83,14 +69,7 @@ public class ModuleController {
 		Set<Module> modules = moduleService.getAllRootModules();
 		Set<JSONModule> jsonModules = new HashSet<JSONModule>();
 		for (Module module : modules) {
-			JSONModule jm = new JSONModule();
-			jm.setId(module.getId());
-			jm.setSubject(module.getSubject());
-			jm.setCreated(module.getCreated());
-			jm.setLinks(module.getLinks());
-			jm.setReqLinks(module.getReqLinks());
-			jm.setParents(module.getParents());
-			jm.setChildren(module.getChildren());
+			JSONModule jm = moduleToJSONModule(module);
 			jsonModules.add(jm);
 		}
 		return ResponseEntity.ok(jsonModules);
@@ -102,14 +81,7 @@ public class ModuleController {
 		Set<Module> modules = moduleService.getChildrenByParentId(id);
 		Set<JSONModule> jsonModules = new HashSet<JSONModule>();
 		for (Module module : modules) {
-			JSONModule jm = new JSONModule();
-			jm.setId(module.getId());
-			jm.setSubject(module.getSubject());
-			jm.setCreated(module.getCreated());
-			jm.setLinks(module.getLinks());
-			jm.setReqLinks(module.getReqLinks());
-			jm.setParents(module.getParents());
-			jm.setChildren(module.getChildren());
+			JSONModule jm = moduleToJSONModule(module);
 			jsonModules.add(jm);
 		}
         return ResponseEntity.ok(jsonModules);
@@ -160,4 +132,15 @@ public class ModuleController {
 		return ResponseEntity.ok("Delete Success");
 	}
 
+	private JSONModule moduleToJSONModule(Module module) {
+		JSONModule jsonModule = new JSONModule();
+		jsonModule.setId(module.getId());
+		jsonModule.setSubject(module.getSubject());
+		jsonModule.setCreated(module.getCreated());
+		jsonModule.setLinks(module.getLinks());
+		jsonModule.setReqLinks(module.getReqLinks());
+		jsonModule.setParents(module.getParents());
+		jsonModule.setChildren(module.getChildren());
+		return jsonModule;
+	}
 }

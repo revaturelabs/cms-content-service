@@ -50,8 +50,17 @@ public class RequestController {
 	SearchService searchService;
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Request> createRequest(@RequestBody Request request) throws Exception {
-		return ResponseEntity.ok(requestService.createRequest(request));
+	public ResponseEntity<JSONRequest> createRequest(@RequestBody JSONRequest jsonRequest) throws Exception {
+		//return ResponseEntity.ok(requestService.createRequest(request));
+		List<ReqLink> reqLinks = new ArrayList<ReqLink>();
+		Request request = jsonRequestToRequest(jsonRequest);
+		request = requestService.createRequest(request);
+		for (ReqLink reqLink : jsonRequest.getReqLinks()) {
+			reqLink.setRequest(request);
+			reqLinks.add(reqLink);
+		}
+		requestService.createReqLinksByRequestId(request.getId(), reqLinks);
+		return ResponseEntity.ok(jsonRequest);
 	}
 
 	@PostMapping(value = "/{id}/req-links", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -64,15 +73,7 @@ public class RequestController {
 		Set<Request> requests = requestService.getAllRequests();
 		Set<JSONRequest> jsonRequests = new HashSet<JSONRequest>();
 		for (Request request : requests) {
-			JSONRequest jr = new JSONRequest();
-			jr.setId(request.getId());
-			jr.setTitle(request.getTitle());
-			jr.setFormat(request.getFormat());
-			jr.setDescription(request.getDescription());
-			jr.setContent(request.getContent());
-			jr.setDateCreated(request.getDateCreated());
-			jr.setLastModified(request.getLastModified());
-			jr.setReqLinks(request.getReqLinks());
+			JSONRequest jr = requestToJSONRequest(request);
 			jsonRequests.add(jr);
 		}
 		return ResponseEntity.ok(jsonRequests);
@@ -81,15 +82,7 @@ public class RequestController {
 	@GetMapping(value = "{id}")
 	public ResponseEntity<JSONRequest> getRequestById(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
-		JSONRequest jr = new JSONRequest();
-		jr.setId(request.getId());
-		jr.setTitle(request.getTitle());
-		jr.setFormat(request.getFormat());
-		jr.setDescription(request.getDescription());
-		jr.setContent(request.getContent());
-		jr.setDateCreated(request.getDateCreated());
-		jr.setLastModified(request.getLastModified());
-		jr.setReqLinks(request.getReqLinks());
+		JSONRequest jr = requestToJSONRequest(request);
 		return ResponseEntity.ok(jr);
 	}
 
@@ -117,15 +110,7 @@ public class RequestController {
 		Set<Request> requests = searchService.filterReq(title, format, moduleIdsList);
 		Set<JSONRequest> jsonRequests = new HashSet<JSONRequest>();
 		for (Request request : requests) {
-			JSONRequest jr = new JSONRequest();
-			jr.setId(request.getId());
-			jr.setTitle(request.getTitle());
-			jr.setFormat(request.getFormat());
-			jr.setDescription(request.getDescription());
-			jr.setContent(request.getContent());
-			jr.setDateCreated(request.getDateCreated());
-			jr.setLastModified(request.getLastModified());
-			jr.setReqLinks(request.getReqLinks());
+			JSONRequest jr = requestToJSONRequest(request);
 			jsonRequests.add(jr);
 		}
 		return ResponseEntity.ok(jsonRequests);
@@ -149,5 +134,31 @@ public class RequestController {
 		Request request = requestService.getRequestsById(id);
 		requestService.deleteRequest(request);
 		return ResponseEntity.status(HttpStatus.OK).body("Request Deleted");
+	}
+	
+	private JSONRequest requestToJSONRequest(Request request) {
+		JSONRequest jsonRequest = new JSONRequest();
+		jsonRequest.setId(request.getId());
+		jsonRequest.setTitle(request.getTitle());
+		jsonRequest.setFormat(request.getFormat());
+		jsonRequest.setDescription(request.getDescription());
+		jsonRequest.setContent(request.getContent());
+		jsonRequest.setDateCreated(request.getDateCreated());
+		jsonRequest.setLastModified(request.getLastModified());
+		jsonRequest.setReqLinks(request.getReqLinks());
+		return jsonRequest;
+	}
+	
+	private Request jsonRequestToRequest(JSONRequest jsonRequest) {
+		Request request = new Request();
+		request.setId(jsonRequest.getId());
+		request.setTitle(jsonRequest.getTitle());
+		request.setFormat(jsonRequest.getFormat());
+		request.setDescription(jsonRequest.getDescription());
+		request.setContent(jsonRequest.getContent());
+		request.setDateCreated(jsonRequest.getDateCreated());
+		request.setLastModified(jsonRequest.getLastModified());
+		request.setReqLinks(jsonRequest.getReqLinks());
+		return request;
 	}
 }
