@@ -5,7 +5,6 @@ import static org.testng.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -29,7 +28,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.google.gson.Gson;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ContentController;
 import com.revature.entities.Content;
@@ -49,9 +47,8 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	private MockMvc mvc;
 
 	//allows json<->object conversion
-	@Autowired
-	private Gson gson;
-	
+    private ObjectMapper objMapper = new ObjectMapper();
+
 	//entities being used in requests
 	private Content content;
 	private List<Integer> modules;
@@ -85,7 +82,6 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	@BeforeTest 
 	public void preTestSetup () {
 		//generate the basic content
-		/*
 		content = ContentFactory.getContent();
 		
 		//add id value for module for this content
@@ -100,7 +96,6 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		reqBody.put (filterModules, modules);
 		reqBody.put (filterTitle, ContentFactory.title);
 		reqBody.put (filterFormat, ContentFactory.format);
-		*/
 	}
 	
 	
@@ -114,7 +109,6 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		//add expected result from service search 
 		retValue.add(content);
 		//mock service return
-		/*
 		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
 						.thenReturn(retValue);
 		//when
@@ -125,16 +119,14 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 				.param(filterFormat, (String) reqBody.get(filterFormat))
 				.param(filterModules, modules.get(0).toString()));
 		//grab the resulting json response, into Set<Content> object
-		Type setType = new TypeToken<Set<Content>>(){}.getType();
-		Set<Content> resultContent = gson.fromJson(result.andReturn().getResponse()
-								.getContentAsString(), setType);
+		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<Content>>() { });
 
 		//then
 		//expect to get a non-null return
 		assertNotNull (resultContent, "No content was not found");
 		//expect one result from the query
 		assertEquals (resultContent.size(), 1, "Invalid number of resulting content");
-		*/
 	}
 	
 	/**
@@ -145,10 +137,8 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	public void givenInvalidSearchGetNoContent () throws Exception {
 		//given
 		//mock service return, expect empty search result
-		/*
 		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
 						.thenReturn(retValue);
-		 */
 		//when
 		//perform mock search
 		ResultActions result = mvc.perform(get ("/content")
@@ -157,9 +147,8 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 				.param(filterFormat, (String) reqBody.get(filterFormat))
 				.param(filterModules, modules.get(0).toString()));
 		//grab the resulting json response, into Set<Content> object
-		Type setType = new TypeToken<Set<Content>>(){}.getType();
-		Set<Content> resultContent = gson.fromJson(result.andReturn().getResponse()
-				.getContentAsString(), setType);
+		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<Content>>() { });
 
 		//then
 		//expect to get a non-null return
