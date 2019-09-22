@@ -1,17 +1,15 @@
 package com.revature.entitiestests;
 
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
-//import org.testng.annotations.AfterTest;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-//import org.testing.annotations.Test;
+import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
