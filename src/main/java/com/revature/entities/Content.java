@@ -5,11 +5,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.ManyToMany;
-import javax.persistence.OrderColumn;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,9 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 
 @Entity
 public class Content {
@@ -145,7 +138,6 @@ public class Content {
 		result = prime * result + (int) (dateCreated ^ (dateCreated >>> 32));
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
-		result = prime * result + id;
 		result = prime * result + (int) (lastModified ^ (lastModified >>> 32));
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
@@ -158,7 +150,7 @@ public class Content {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Content))
 			return false;
 		Content other = (Content) obj;
 		if (dateCreated != other.dateCreated)
@@ -172,8 +164,6 @@ public class Content {
 			if (other.format != null)
 				return false;
 		} else if (!format.equals(other.format))
-			return false;
-		if (id != other.id)
 			return false;
 		if (lastModified != other.lastModified)
 			return false;

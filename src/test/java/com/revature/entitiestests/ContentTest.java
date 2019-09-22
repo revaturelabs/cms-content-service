@@ -173,8 +173,12 @@ public class ContentTest {
 		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
 		//because it is necessary for spring boot
 		EqualsVerifier.forClass(Content.class)
-		.suppress(Warning.NONFINAL_FIELDS)
-		.verify();
+                .withPrefabValues(Link.class,
+						new Link(1, null, null, "different"),
+						new Link(2, null, null, "affiliations"))
+				.withIgnoredFields("links")
+				.suppress(Warning.NONFINAL_FIELDS)
+				.verify();
 	}
 	
 }

@@ -90,7 +90,6 @@ public class Link {
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		return result;
 	}
@@ -113,8 +112,6 @@ public class Link {
 			if (other.content != null)
 				return false;
 		} else if (!content.equals(other.content))
-			return false;
-		if (id != other.id)
 			return false;
 		if (module == null) {
 			if (other.module != null)
