@@ -65,7 +65,7 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	@LogException
 	public Request getRequestsById(int id) {
-		return (Request) rr.findById(id);
+		return rr.findById(id);
 	}
 
 	/**

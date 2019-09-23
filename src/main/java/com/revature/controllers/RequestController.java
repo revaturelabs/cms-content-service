@@ -133,7 +133,7 @@ public class RequestController {
 	public ResponseEntity<String> deleteRequest(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
 		requestService.deleteRequest(request);
-		return ResponseEntity.status(HttpStatus.OK).body("Request Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 	
 	public JSONRequest requestToJSONRequest(Request request) {
