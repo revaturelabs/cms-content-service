@@ -21,11 +21,11 @@ public class ReqLink {
 	@Column(name = "z_id")
 	private int id;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "fk_r")
 	private Request request;
 
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "fk_rm")
 	private Module module;
 

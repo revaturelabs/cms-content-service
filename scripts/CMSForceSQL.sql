@@ -1,9 +1,11 @@
+--the ordering in which these are dropped is important
+--because of constraints between tables
 drop table if exists link;
 drop table if exists joins;
-drop table if exists module;
-drop table if exists content;
 drop table if exists req_link;
 drop table if exists requests;
+drop table if exists module;
+drop table if exists content;
 
 
 create table content(
@@ -22,6 +24,7 @@ create table module(
 );
 
 --the affiliation column is needed, but not implemented yet
+--it is for future features and currently is asked to be made available
 create table link(
    cm_id serial PRIMARY KEY,
    fk_c int,
@@ -42,14 +45,16 @@ create table requests(
   title text NOT NULL,
   format text NOT NULL,
   description text NOT NULL,
-  url text unique,
+  fk_rc int unique,
   created numeric NOT NULL,
-  last_modified numeric NOT NULL
+  last_modified numeric NOT NULL,
+  FOREIGN KEY (fk_rc) REFERENCES content(c_id)
 );
 create table req_link(
   z_id serial PRIMARY KEY,
   fk_r int,
   fk_rm int,
+  affiliation text,
   FOREIGN KEY (fk_r) REFERENCES requests(r_id) on DELETE CASCADE,
   FOREIGN KEY (fk_rm) REFERENCES module(m_id) on DELETE CASCADE
 );

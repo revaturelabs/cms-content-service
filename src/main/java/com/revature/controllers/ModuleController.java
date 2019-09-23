@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.HashSet;
 /**
  * For documentation on the controllers check out some documentation on swaggerhub:
  * https://app.swaggerhub.com/apis-docs/pacquito/CMS-Controllers/0.1
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.JSONEntities.JSONModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -43,26 +45,46 @@ public class ModuleController {
 	
 	//get all the modules
 	@GetMapping
-	public ResponseEntity<Set<Module>> getAllModules() {
-		return ResponseEntity.ok(moduleService.getAllModules());
+	public ResponseEntity<Set<JSONModule>> getAllModules() {
+		Set<Module> modules = moduleService.getAllModules();
+		Set<JSONModule> jsonModules = new HashSet<JSONModule>();
+		for (Module module : modules) {
+			JSONModule jm = moduleToJSONModule(module);
+			jsonModules.add(jm);
+		}
+		return ResponseEntity.ok(jsonModules);
 	}
 	
 	//get a specific module
 	@GetMapping(value="{id}")
-	public ResponseEntity<Module> getModuleById(@PathVariable int id) {
-		return ResponseEntity.ok(moduleService.getModuleById(id));
+	public ResponseEntity<JSONModule> getModuleById(@PathVariable int id) {
+		Module module = moduleService.getModuleById(id);
+		JSONModule jm = moduleToJSONModule(module);
+		return ResponseEntity.ok(jm);
 	}
 	
 	//get all modules without a parent
 	@GetMapping("/roots")
-	public ResponseEntity<Set<Module>> getAllRootModules(){
-		return ResponseEntity.ok(moduleService.getAllRootModules());
+	public ResponseEntity<Set<JSONModule>> getAllRootModules(){
+		Set<Module> modules = moduleService.getAllRootModules();
+		Set<JSONModule> jsonModules = new HashSet<JSONModule>();
+		for (Module module : modules) {
+			JSONModule jm = moduleToJSONModule(module);
+			jsonModules.add(jm);
+		}
+		return ResponseEntity.ok(jsonModules);
 	}
 	
 	//get all the children of a specific module
 	@GetMapping("/{id}/children")
-    public ResponseEntity<Set<Module>> getChildrenByModuleId(@PathVariable int id) {
-        return ResponseEntity.ok(moduleService.getChildrenByParentId(id));
+    public ResponseEntity<Set<JSONModule>> getChildrenByModuleId(@PathVariable int id) {
+		Set<Module> modules = moduleService.getChildrenByParentId(id);
+		Set<JSONModule> jsonModules = new HashSet<JSONModule>();
+		for (Module module : modules) {
+			JSONModule jm = moduleToJSONModule(module);
+			jsonModules.add(jm);
+		}
+        return ResponseEntity.ok(jsonModules);
     }
 	
 	//get all links by given module
@@ -110,4 +132,15 @@ public class ModuleController {
 		return ResponseEntity.ok("Delete Success");
 	}
 
+	private JSONModule moduleToJSONModule(Module module) {
+		JSONModule jsonModule = new JSONModule();
+		jsonModule.setId(module.getId());
+		jsonModule.setSubject(module.getSubject());
+		jsonModule.setCreated(module.getCreated());
+		jsonModule.setLinks(module.getLinks());
+		jsonModule.setReqLinks(module.getReqLinks());
+		jsonModule.setParents(module.getParents());
+		jsonModule.setChildren(module.getChildren());
+		return jsonModule;
+	}
 }
