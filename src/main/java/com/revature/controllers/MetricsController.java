@@ -44,10 +44,7 @@ public class MetricsController {
 	
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
-								  @RequestBody Map<String, Object> filter) {
-		
-		System.out.println("Filter: " + filter);
-		
+								  @RequestBody Map<String, Object> filter) {		
 		Set<Content> contents;
 		Set<Content> filtContents;
 		@SuppressWarnings("unchecked")
