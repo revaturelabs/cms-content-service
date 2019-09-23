@@ -54,7 +54,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 		
 		@Test
 		public void givenValidDataCreateRequest() throws Exception {
-			Mockito.when(rs.createRequests(request)).thenReturn(request);
+			Mockito.when(rs.createRequest(request)).thenReturn(request);
 			
 			ResultActions result = mvc.perform(post ("/requests")
 					.contentType(MediaType.APPLICATION_JSON_VALUE)
