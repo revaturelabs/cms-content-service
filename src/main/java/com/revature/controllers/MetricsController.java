@@ -6,8 +6,10 @@ package com.revature.controllers;
  */
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,10 +45,19 @@ public class MetricsController {
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
 								  @RequestBody Map<String, Object> filter) {
+		
+		System.out.println("Filter: " + filter);
+		
 		Set<Content> contents;
 		Set<Content> filtContents;
 		@SuppressWarnings("unchecked")
-		ArrayList<Integer> idsIn = (ArrayList<Integer>) filter.get("modules");
+		List<Integer> idsIn = new ArrayList<Integer>();
+
+		// turn the string of integers we recieved into an ArrayList of integers
+		StringTokenizer st = new StringTokenizer(filter.get("modules").toString(), ",");
+		while (st.hasMoreTokens()) {
+			idsIn.add(Integer.parseInt(st.nextToken()));
+		}
 		
 		Set<Module> modulesIdsIn = new HashSet<Module>();
 		for (Integer id : idsIn) {

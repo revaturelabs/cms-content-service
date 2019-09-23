@@ -150,6 +150,8 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
+		
+		System.out.println("Filter: " + filters);
 
 		Set<Content> filteredContent = new HashSet<Content>();
 		String title = filters.get("title").toString();
