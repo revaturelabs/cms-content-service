@@ -1,69 +1,33 @@
-package com.revature.entities;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.revature.JSONEntities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import com.revature.entities.Content;
+import com.revature.entities.ReqLink;
 
-@Entity
-@Table(name="requests")
-public class Request {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "r_id")
+public class JSONRequest {
+
 	private int id;
 
-	@Column(nullable = false)
 	private String title;
 
-	@Column(nullable = false)
 	private String format;
 
-	@Column(nullable = false)
 	private String description;
 
-	//this holds the content that resolves this request
-	//It is possible that one piece of content could resolve 
-	//multiple requests.
-	@ManyToOne
-	@JoinColumn(name="fk_rc", nullable = true)
 	private Content content;
 
-	/**
-	 * The following fields, dateCreated and lastModified, were added in order to
-	 * facilitate functionality for displaying a graphical representation of content
-	 * created over a period of time.
-	 */
-
-	@Column(name = "created", nullable = true)
 	private Long dateCreated;
 
-	@Column(name = "last_modified", nullable = true)
 	private Long lastModified;
 
-	// Set of links that connect the request to a module and the relationship between them
-	@JsonIgnore
-	@OneToMany(mappedBy = "request", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ReqLink> reqLinks;
 
-	public Request() {
+	public JSONRequest() {
 		super();
 	}
 
-	public Request(int id, String title, String format, String description, Content content, Long dateCreated,
+	public JSONRequest(int id, String title, String format, String description, Content content, Long dateCreated,
 			Long lastModified, Set<ReqLink> reqLinks) {
 		super();
 		this.id = id;
@@ -150,6 +114,7 @@ public class Request {
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
+		result = prime * result + ((reqLinks == null) ? 0 : reqLinks.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -162,7 +127,7 @@ public class Request {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Request other = (Request) obj;
+		JSONRequest other = (JSONRequest) obj;
 		if (content == null) {
 			if (other.content != null)
 				return false;
@@ -190,6 +155,11 @@ public class Request {
 				return false;
 		} else if (!lastModified.equals(other.lastModified))
 			return false;
+		if (reqLinks == null) {
+			if (other.reqLinks != null)
+				return false;
+		} else if (!reqLinks.equals(other.reqLinks))
+			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
@@ -200,8 +170,9 @@ public class Request {
 
 	@Override
 	public String toString() {
-		return "Request [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
-				+ ", content=" + content + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified + "]";
+		return "JSONRequest [id=" + id + ", title=" + title + ", format=" + format + ", description=" + description
+				+ ", content=" + content + ", dateCreated=" + dateCreated + ", lastModified=" + lastModified
+				+ ", reqLinks=" + reqLinks + "]";
 	}
 
 }
