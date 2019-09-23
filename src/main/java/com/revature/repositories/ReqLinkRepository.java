@@ -24,4 +24,6 @@ public interface ReqLinkRepository extends CrudRepository<ReqLink,Integer> {
 	
 	ReqLink findById(int id);
 
+	List<ReqLink> findByRequestId(int id);
+
 }

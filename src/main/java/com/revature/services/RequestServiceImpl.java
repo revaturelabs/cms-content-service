@@ -35,7 +35,7 @@ public class RequestServiceImpl implements RequestService {
 
 	@LogException
 	@Override
-	public Request createRequests(Request request) {
+	public Request createRequest(Request request) {
 		// set date created and date modified
 		if (request.getDateCreated() == 0L && request.getLastModified() == 0L) {
 			request.setDateCreated(System.currentTimeMillis());
@@ -123,9 +123,9 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public void deleteRequests(Request requests) {
-		if (requests != null) {
-			rr.delete(requests);
+	public void deleteRequest(Request request) {
+		if (request != null) {
+			rr.delete(request);
 		}
 	}
 	
@@ -137,15 +137,17 @@ public class RequestServiceImpl implements RequestService {
 		return reqLinks;
 	}
 
-
 	@Override
-	public List<ReqLink> createReqLinks(int id, List<ReqLink> reqLinks) {
-		Request request = rr.save(reqLinks.get(0).getRequest());
+	public List<ReqLink> createReqLinksByRequestId(int id, List<ReqLink> reqLinks) {
 		List<ReqLink> savedReqLinks = new ArrayList<ReqLink>();
 		for (ReqLink reqLink : reqLinks) {
-			reqLink.setRequest(request);
 			savedReqLinks.add(rlr.save(reqLink));
 		}
 		return savedReqLinks;
+	}
+
+	@Override
+	public List<ReqLink> getReqLinksByRequestId(int id) {
+		return rlr.findByRequestId(id);
 	}
 }
