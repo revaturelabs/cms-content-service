@@ -132,7 +132,7 @@ public class ModuleController {
 		return ResponseEntity.ok("Delete Success");
 	}
 
-	private JSONModule moduleToJSONModule(Module module) {
+	public JSONModule moduleToJSONModule(Module module) {
 		JSONModule jsonModule = new JSONModule();
 		jsonModule.setId(module.getId());
 		jsonModule.setSubject(module.getSubject());

@@ -4,11 +4,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.JSONEntities.JSONRequest;
+import com.revature.entities.ReqLink;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -24,6 +25,8 @@ import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.RequestController;
 import com.revature.entities.Request;
 import com.revature.services.RequestService;
+
+import java.util.HashSet;
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class RequestControllerTest extends AbstractTestNGSpringContextTests{
@@ -62,16 +65,16 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 		@Test
 		public void givenValidDataCreateRequest() throws Exception {
 
-			request = new Request(0, "test title", "code", "test description", null, 1L, 1L, null);
+			request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 			Mockito.when(rs.createRequest(request)).thenReturn(request);
 
 			
 			ResultActions result = mvc.perform(post ("/requests")
 					.contentType(MediaType.APPLICATION_JSON_VALUE)
-					.content(objMapper.writeValueAsString(request)));
+					.content(objMapper.writeValueAsString(rc.requestToJSONRequest(request))));
 
-			Request ret = objMapper.readValue(result.andReturn().getResponse()
-					.getContentAsString(),  Request.class);
+			JSONRequest ret = objMapper.readValue(result.andReturn().getResponse()
+					.getContentAsString(),  JSONRequest.class);
 
 			result.andExpect(status().isOk());
 		}
