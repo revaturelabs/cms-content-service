@@ -22,7 +22,7 @@ import javax.persistence.Column;
 @Entity
 public class Module {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "m_id", updatable = false, nullable = false)
 	private Integer id;
 

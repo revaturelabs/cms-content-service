@@ -1,9 +1,9 @@
-drop table if exists link;
-drop table if exists joins;
-drop table if exists module;
-drop table if exists content;
-drop table if exists req_link;
-drop table if exists requests;
+drop table if exists link cascade;
+drop table if exists joins cascade;
+drop table if exists module cascade;
+drop table if exists content cascade;
+drop table if exists req_link cascade;
+drop table if exists requests cascade;
 
 
 create table content(
