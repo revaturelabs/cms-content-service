@@ -80,7 +80,6 @@ public class ReqLink {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		result = prime * result + ((request == null) ? 0 : request.hashCode());
 		return result;
@@ -92,15 +91,13 @@ public class ReqLink {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof ReqLink))
 			return false;
 		ReqLink other = (ReqLink) obj;
 		if (affiliation == null) {
 			if (other.affiliation != null)
 				return false;
 		} else if (!affiliation.equals(other.affiliation))
-			return false;
-		if (id != other.id)
 			return false;
 		if (module == null) {
 			if (other.module != null)

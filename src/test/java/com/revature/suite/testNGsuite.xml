@@ -7,6 +7,8 @@
 			<class name = "com.revature.entitiestests.ContentTest"/>
 			<class name = "com.revature.entitiestests.LinkTest"/>
 			<class name = "com.revature.entitiestests.ModuleTest"/>
+			<class name = "com.revature.entitiestests.ReqLinkTest"/>
+			<class name = "com.revature.entitiestests.RequestTest"/>
 			<!-- These are the controller tests -->
 			<class name = "com.revature.controllertests.ContentControllerTest"/>
 			<class name = "com.revature.controllertests.ModuleControllerTest"/>
