@@ -104,19 +104,34 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	public void getAllContents () throws Exception {
 		//given
 		Set<Content> expected = new HashSet<Content> ();
-		String actual = null;
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
 		
 		//when
 		ResultActions result = mvc.perform(get ("/content"));
-		actual = result.andReturn().getResponse().getContentAsString();
+		String actual = result.andReturn().getResponse().getContentAsString();
 		
 		//then
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//compare as json to avoid warnings from conversion
-		assertEquals (actual, objMapper.writeValueAsString(expected), "Failed to find content");
+		assertEquals (actual, convertToJSONContentSetString(expected), "Failed to find content");
+	}
+
+	private String convertToJSONContentSetString(Set<Content> allContent) throws Exception
+	{
+		StringBuilder result = new StringBuilder("[");
+		for (Content con : allContent)
+		{
+			result.append(objMapper.writeValueAsString(cc.contentToJSONContent(con)));
+			result.append(",");
+		}
+		if (allContent.size() > 0)
+			result.deleteCharAt(result.length() - 1);
+
+		result.append("]");
+
+		return result.toString();
 	}
 	
 	/**

@@ -129,10 +129,27 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//check in json format to get around compare warnings
-		assertEquals (actual, objMapper.writeValueAsString(modules),
+		assertEquals (actual, convertToJSONModuleSetString(modules),
 						"Failed to get back modules");
 	}
-	
+
+	// Helps with discrepency between
+	private String convertToJSONModuleSetString(Set<Module> allModules) throws Exception
+	{
+		StringBuilder result = new StringBuilder("[");
+		for (Module mod : allModules)
+		{
+			result.append(objMapper.writeValueAsString(mc.moduleToJSONModule(mod)));
+			result.append(",");
+		}
+		if (allModules.size() > 0)
+			result.deleteCharAt(result.length() - 1);
+
+		result.append("]");
+
+		return result.toString();
+	}
+
 	/**
 	 * Tests retrieving a module from the back-end by id
 	 * @throws Exception - if the http request fails
