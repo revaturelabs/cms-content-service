@@ -136,7 +136,7 @@ public class RequestController {
 		return ResponseEntity.status(HttpStatus.OK).body("Request Deleted");
 	}
 	
-	private JSONRequest requestToJSONRequest(Request request) {
+	public JSONRequest requestToJSONRequest(Request request) {
 		JSONRequest jsonRequest = new JSONRequest();
 		jsonRequest.setId(request.getId());
 		jsonRequest.setTitle(request.getTitle());
@@ -149,7 +149,7 @@ public class RequestController {
 		return jsonRequest;
 	}
 	
-	private Request jsonRequestToRequest(JSONRequest jsonRequest) {
+	public Request jsonRequestToRequest(JSONRequest jsonRequest) {
 		Request request = new Request();
 		request.setId(jsonRequest.getId());
 		request.setTitle(jsonRequest.getTitle());

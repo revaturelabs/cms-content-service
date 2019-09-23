@@ -1,7 +1,7 @@
 package com.revature.controllertests;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.Test;
 
-import com.google.gson.Gson;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ContentController;
 import com.revature.entities.Content;
@@ -22,7 +22,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -40,8 +39,7 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	private MockMvc mvc;
 
 	//allows json<->object conversion
-	@Autowired
-	private Gson gson;
+    private ObjectMapper objMapper = new ObjectMapper();
 
 	//controller being tested
 	@InjectMocks
@@ -72,7 +70,7 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeTest
 	public void preTestSetup () {
-		//content = ContentFactory.getContent();
+		content = ContentFactory.getContent();
 	}
 	
 	/**
@@ -87,8 +85,8 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		//when
 		ResultActions result = mvc.perform(post ("/content")
 								.contentType(MediaType.APPLICATION_JSON_VALUE)
-								.content(gson.toJson(content)));
-		Content ret = gson.fromJson(result.andReturn().getResponse()
+								.content(objMapper.writeValueAsString(content)));
+		Content ret = objMapper.readValue(result.andReturn().getResponse()
 						  .getContentAsString(), Content.class);
 		
 		//then
@@ -106,19 +104,34 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	public void getAllContents () throws Exception {
 		//given
 		Set<Content> expected = new HashSet<Content> ();
-		String actual = null;
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
 		
 		//when
 		ResultActions result = mvc.perform(get ("/content"));
-		actual = result.andReturn().getResponse().getContentAsString();
+		String actual = result.andReturn().getResponse().getContentAsString();
 		
 		//then
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//compare as json to avoid warnings from conversion
-		assertEquals (actual, gson.toJson(expected), "Failed to find content");
+		assertEquals (actual, convertToJSONContentSetString(expected), "Failed to find content");
+	}
+
+	private String convertToJSONContentSetString(Set<Content> allContent) throws Exception
+	{
+		StringBuilder result = new StringBuilder("[");
+		for (Content con : allContent)
+		{
+			result.append(objMapper.writeValueAsString(cc.contentToJSONContent(con)));
+			result.append(",");
+		}
+		if (allContent.size() > 0)
+			result.deleteCharAt(result.length() - 1);
+
+		result.append("]");
+
+		return result.toString();
 	}
 	
 	/**
@@ -127,16 +140,12 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test 
 	public void getContentById() throws Exception {
-		Content actual = null;
-		/*
-		int id = ContentFactory.id;
-		
 		//given
-		Mockito.when(cs.getContentById(id)).thenReturn(content);
+		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		
 		//when
-		ResultActions result = mvc.perform(get ("/content/" + id));
-		actual = gson.fromJson(result.andReturn().getResponse()
+		ResultActions result = mvc.perform(get ("/content/" + content.getId()));
+		Content actual = objMapper.readValue(result.andReturn().getResponse()
 				.getContentAsString(), Content.class);
 		
 		//then
@@ -144,7 +153,6 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 		//should retrieve same content back
 		assertEquals (actual, content, "Failed to retrieve content");
-		*/
 	}
 
 	/**
@@ -159,8 +167,8 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		//when
 		ResultActions result = mvc.perform(put ("/content/" + content.getId())
 								.contentType(MediaType.APPLICATION_JSON_VALUE)
-								.content(gson.toJson(content)));
-		Content actual = gson.fromJson(result.andReturn().getResponse()
+								.content(objMapper.writeValueAsString(content)));
+		Content actual = objMapper.readValue(result.andReturn().getResponse()
 				.getContentAsString(), Content.class);
 
 		//then
@@ -177,22 +185,18 @@ class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	public void deleteContent () throws Exception {
-		//given 
+		//mock content service
 		Mockito.doNothing().when(cs).deleteContent(content);
-		//mock content service finding content by id
-		// Mockito.when(cs.getContentById(ContentFactory.id)).thenReturn(content);
-		
+		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
+
 		//when
-		/*
-		ResultActions result = mvc.perform(delete ("/content/" + ContentFactory.id)
-								.contentType(MediaType.APPLICATION_JSON_VALUE)
-								.content(gson.toJson(content)));
+		ResultActions result = mvc.perform(delete ("/content/" + content.getId())
+								.contentType(MediaType.APPLICATION_JSON_VALUE));
 
 		//then
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//expect controller to request deletion of content to service
 		Mockito.verify(cs).deleteContent(content);
-		*/
 	}
 }

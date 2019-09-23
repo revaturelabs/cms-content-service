@@ -145,7 +145,7 @@ public class ContentController {
 		return ResponseEntity.status(HttpStatus.OK).body("Content Deleted");
 	}
 
-	private JSONContent contentToJSONContent(Content content) {
+	public JSONContent contentToJSONContent(Content content) {
 		JSONContent jsonContent = new JSONContent();
 		jsonContent.setId(content.getId());
 		jsonContent.setTitle(content.getTitle());
@@ -158,7 +158,7 @@ public class ContentController {
 		return jsonContent;
 	}
 
-	private Content jsonContentToContent(JSONContent jsonContent) {
+	public Content jsonContentToContent(JSONContent jsonContent) {
 		Content content = new Content();
 		content.setId(jsonContent.getId());
 		content.setTitle(jsonContent.getTitle());
