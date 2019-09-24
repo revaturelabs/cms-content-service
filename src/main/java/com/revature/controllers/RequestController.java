@@ -26,11 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.JSONEntities.JSONContent;
 import com.revature.JSONEntities.JSONRequest;
-import com.revature.entities.Content;
-import com.revature.entities.Link;
-import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 import com.revature.services.RequestService;
@@ -92,7 +88,7 @@ public class RequestController {
 		return ResponseEntity.ok(requestService.getReqLinksByRequestId(id));
 	}
 
-	// This query returns a subset of Content based on the values of the query
+	// This query returns a subset of Request based on the values of the query
 	// parameters passed in
 	// If a parameter is empty, it is not used in the filtering process.
 	// modules is a string in comma separated format of integers ex. "1,2,3,4"

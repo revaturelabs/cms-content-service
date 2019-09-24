@@ -80,7 +80,7 @@ public class LinkController {
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteLink(@PathVariable int id) {
 		linkService.deleteLinkById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("Link Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 
 }

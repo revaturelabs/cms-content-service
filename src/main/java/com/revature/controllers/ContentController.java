@@ -142,7 +142,7 @@ public class ContentController {
 	public ResponseEntity<String> deleteContent(@PathVariable int id) {
 		Content content = contentService.getContentById(id);
 		contentService.deleteContent(content);
-		return ResponseEntity.status(HttpStatus.OK).body("Content Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 
 	public JSONContent contentToJSONContent(Content content) {
