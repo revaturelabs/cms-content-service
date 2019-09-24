@@ -113,8 +113,8 @@ public class RequestController {
 	}
 
 	@PutMapping(value = "{id}")
-	public ResponseEntity<Request> updateRequest(@PathVariable Integer Id, @RequestBody Request r) {
-		if (requestService.getRequestsById(Id) == null) {
+	public ResponseEntity<Request> updateRequest(@PathVariable Integer id, @RequestBody Request r) {
+		if (requestService.getRequestsById(id) == null) {
 			return ResponseEntity.status(405).body(null);
 		}
 		return ResponseEntity.ok(requestService.updateRequest(r));
