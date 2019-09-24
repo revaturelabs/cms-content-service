@@ -19,7 +19,9 @@ import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.services.ContentServiceImpl;
 
@@ -42,17 +44,17 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	@Mock
 	ContentRepository contRep;
 	//The mocked implementation of the LinkRepository interface
-//	@Mock
-//	LinkRepository linkRep;
+	@Mock
+	LinkRepository linkRep;
 	//The mocked implementation of the ModuleRepository interface
 	@Mock
 	ModuleRepository modRep;
 	//A Set of Link objects to store the links within the content
-//	Set<Link> links;
+	Set<Link> links;
 	//A variable to store the Link value for the content
-//	Link mockLink;
+	Link mockLink;
 	//A variable for storing the value of the Link returned
-//	Link retLink;
+	Link retLink;
 
 	//A variable for storing the value for the Content returned
 	Content ret;
@@ -69,7 +71,7 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	//An array of Strings to be used to test retrieval of Content by format
 	String[] contentFormats = {"Blooh", "Blah"};
 	//An ArrayList of Content items to mock a method within the getContentWithStrings method
-	ArrayList<Content> contentList = new ArrayList<Content>();
+	Set<Content> contentList = new HashSet<Content>();
 
 	
 	/*
@@ -91,23 +93,23 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		mockContent.setDescription("Bloohbitty");
 		mockContent.setUrl("www.blahbitty.com");
 //		//Create a new Link object
-//		mockLink = new Link(3,mockContent.getId(),7, "stuff");
+		mockLink = new Link(3,mockContent, null, "stuff");
 //		//create a new HashSet of Link objects
-//		links = new HashSet<Link>();
+		links = new HashSet<Link>();
 //		//Add the mock link to the list of links
-//		links.add(mockLink);
+		links.add(mockLink);
 //		//
-//		for (Link link : links) {
-//			link.setContentId(mockContent.getId());
-//		}
+		for (Link link : links) {
+			link.setContent(mockContent);
+		}
 //		
 //		//Set the value of content links to null and mock the save function within the ContentRepository
-//		mockContent.setLinks(null);
-//		when(contRep.save(mockContent)).thenReturn(mockContent);
+		mockContent.setLinks(null);
+		when(contRep.save(mockContent)).thenReturn(mockContent);
 //		
 //		//Set the value of content links to their previous values and mock the saveAll method of the LinkRepository
-//		mockContent.setLinks(links);
-//		when(linkRep.saveAll(mockContent.getLinks())).thenReturn(mockContent.getLinks());
+		mockContent.setLinks(links);
+		when(linkRep.saveAll(mockContent.getLinks())).thenReturn(mockContent.getLinks());
 		
 		testContent = contServe.createContent(mockContent);
 	}
@@ -131,7 +133,8 @@ class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	@Test
 	public void testGetContentById()
 	{
-		assertTrue(contRep.findById(testContent.getId()).equals(contRep.findById(mockContent.getId())));
+		when(contRep.findById(testContent.getId())).thenReturn(testContent);
+		assertTrue(contServe.getContentById(testContent.getId()).equals(testContent));
 	}
 	
 	/*

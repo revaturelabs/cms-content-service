@@ -11,11 +11,11 @@ import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,7 +25,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.google.gson.Gson;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ModuleController;
 import com.revature.entities.Content;
@@ -47,8 +46,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private MockMvc mvc;
 
 	//allows json<->object conversion
-	@Autowired
-	private Gson gson;
+    private ObjectMapper objMapper = new ObjectMapper();
 
 	//the controller being tested
 	@InjectMocks
@@ -99,8 +97,8 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//when
 		ResultActions result = mvc.perform(post ("/modules")
 							.contentType (MediaType.APPLICATION_JSON)
-							.content (gson.toJson(module)));
-		Module actual = gson.fromJson(result.andReturn()
+							.content (objMapper.writeValueAsString(module)));
+		Module actual = objMapper.readValue(result.andReturn()
 							.getResponse().getContentAsString() , Module.class);
 		
 		//then
@@ -131,10 +129,27 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//check in json format to get around compare warnings
-		assertEquals (actual, gson.toJson(modules), 
+		assertEquals (actual, convertToJSONModuleSetString(modules),
 						"Failed to get back modules");
 	}
-	
+
+	// Helps with discrepency between
+	private String convertToJSONModuleSetString(Set<Module> allModules) throws Exception
+	{
+		StringBuilder result = new StringBuilder("[");
+		for (Module mod : allModules)
+		{
+			result.append(objMapper.writeValueAsString(mc.moduleToJSONModule(mod)));
+			result.append(",");
+		}
+		if (allModules.size() > 0)
+			result.deleteCharAt(result.length() - 1);
+
+		result.append("]");
+
+		return result.toString();
+	}
+
 	/**
 	 * Tests retrieving a module from the back-end by id
 	 * @throws Exception - if the http request fails
@@ -146,7 +161,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		
 		//then
 		ResultActions result = mvc.perform(get ("/modules/" + id));
-		Module actual = gson.fromJson(result.andReturn()
+		Module actual = objMapper.readValue(result.andReturn()
 				.getResponse().getContentAsString() , Module.class); 
 		
 		//then
