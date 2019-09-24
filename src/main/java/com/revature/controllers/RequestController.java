@@ -26,11 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.JSONEntities.JSONContent;
 import com.revature.JSONEntities.JSONRequest;
-import com.revature.entities.Content;
-import com.revature.entities.Link;
-import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 import com.revature.services.RequestService;
@@ -86,13 +82,13 @@ public class RequestController {
 		return ResponseEntity.ok(jr);
 	}
 
-	// return all links attached to a given content
+	// return all links attached to a given request
 	@GetMapping("/{id}/req-links")
-	public ResponseEntity<List<ReqLink>> getReqLinksByContentId(@PathVariable int id) {
+	public ResponseEntity<List<ReqLink>> getReqLinksByRequestId(@PathVariable int id) {
 		return ResponseEntity.ok(requestService.getReqLinksByRequestId(id));
 	}
 
-	// This query returns a subset of Content based on the values of the query
+	// This query returns a subset of Request based on the values of the query
 	// parameters passed in
 	// If a parameter is empty, it is not used in the filtering process.
 	// modules is a string in comma separated format of integers ex. "1,2,3,4"
@@ -102,9 +98,13 @@ public class RequestController {
 			@RequestParam(value = "format", required = false) String format,
 			@RequestParam(value = "modules", required = false) String modules) {
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
-		StringTokenizer st = new StringTokenizer(modules, ",");
-		while (st.hasMoreTokens()) {
-			moduleIdsList.add(Integer.parseInt(st.nextToken()));
+		if (modules != null)
+		{
+			StringTokenizer st = new StringTokenizer(modules, ",");
+			while (st.hasMoreTokens())
+			{
+				moduleIdsList.add(Integer.parseInt(st.nextToken()));
+			}
 		}
 		
 		Set<Request> requests = searchService.filterReq(title, format, moduleIdsList);
@@ -117,8 +117,8 @@ public class RequestController {
 	}
 
 	@PutMapping(value = "{id}")
-	public ResponseEntity<Request> updateRequest(@PathVariable Integer Id, @RequestBody Request r) {
-		if (requestService.getRequestsById(Id) == null) {
+	public ResponseEntity<Request> updateRequest(@PathVariable Integer id, @RequestBody Request r) {
+		if (requestService.getRequestsById(id) == null) {
 			return ResponseEntity.status(405).body(null);
 		}
 		return ResponseEntity.ok(requestService.updateRequest(r));
@@ -133,7 +133,7 @@ public class RequestController {
 	public ResponseEntity<String> deleteRequest(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
 		requestService.deleteRequest(request);
-		return ResponseEntity.status(HttpStatus.OK).body("Request Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 	
 	public JSONRequest requestToJSONRequest(Request request) {

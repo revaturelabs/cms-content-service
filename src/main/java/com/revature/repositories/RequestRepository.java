@@ -16,7 +16,7 @@ public interface RequestRepository extends CrudRepository<Request,Integer>{
 	//Gets content by format
 	Set<Request> findByFormat(String format);
 	
-	Set<Request> findById(int id);
+	Request findById(int id);
 	
 	// return set of contents here; we will iterate through that set in timegraph service impl. 
 	Set<Request> findByDateCreatedBetween(long startTime, long currentTime);
