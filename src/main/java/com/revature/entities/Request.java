@@ -148,7 +148,6 @@ public class Request {
 		result = prime * result + ((dateCreated == null) ? 0 : dateCreated.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((format == null) ? 0 : format.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((lastModified == null) ? 0 : lastModified.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
@@ -160,7 +159,7 @@ public class Request {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Request))
 			return false;
 		Request other = (Request) obj;
 		if (content == null) {
@@ -182,8 +181,6 @@ public class Request {
 			if (other.format != null)
 				return false;
 		} else if (!format.equals(other.format))
-			return false;
-		if (id != other.id)
 			return false;
 		if (lastModified == null) {
 			if (other.lastModified != null)

@@ -98,9 +98,13 @@ public class RequestController {
 			@RequestParam(value = "format", required = false) String format,
 			@RequestParam(value = "modules", required = false) String modules) {
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
-		StringTokenizer st = new StringTokenizer(modules, ",");
-		while (st.hasMoreTokens()) {
-			moduleIdsList.add(Integer.parseInt(st.nextToken()));
+		if (modules != null)
+		{
+			StringTokenizer st = new StringTokenizer(modules, ",");
+			while (st.hasMoreTokens())
+			{
+				moduleIdsList.add(Integer.parseInt(st.nextToken()));
+			}
 		}
 		
 		Set<Request> requests = searchService.filterReq(title, format, moduleIdsList);
