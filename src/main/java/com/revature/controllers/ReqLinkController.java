@@ -80,7 +80,7 @@ public class ReqLinkController {
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteReqLink(@PathVariable int id) {
 		reqLinkService.deleteReqLinkById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("ReqLink Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 
 }

@@ -110,7 +110,7 @@ public class ModuleController {
 	public ResponseEntity<String> deleteModule(@PathVariable int id) {
 		Module module = moduleService.getModuleById(id);
 		moduleService.deleteModule(module);
-		return ResponseEntity.status(HttpStatus.OK).body("Module Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 	
 	//delete some or all associated content along with deleting the module
@@ -129,7 +129,7 @@ public class ModuleController {
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bad Value For 'type' Parameter");
 		}
-		return ResponseEntity.ok("Delete Success");
+		return ResponseEntity.ok("");
 	}
 
 	public JSONModule moduleToJSONModule(Module module) {
