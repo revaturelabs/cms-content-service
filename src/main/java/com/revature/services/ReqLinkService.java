@@ -1,6 +1,5 @@
 package com.revature.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,6 +17,6 @@ public interface ReqLinkService {
 
 	public void deleteReqLinkById(int id);
 
-	public Set<Set<ReqLink>> filter(String title, String format, ArrayList<Integer> moduleIdsList);
+	public Set<Set<ReqLink>> filter(String title, String format, List<Integer> moduleIdsList);
 
 }

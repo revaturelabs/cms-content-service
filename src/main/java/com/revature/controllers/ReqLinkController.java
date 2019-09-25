@@ -21,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.Link;
 import com.revature.entities.ReqLink;
-import com.revature.services.LinkService;
 import com.revature.services.ReqLinkService;
 import com.revature.util.LogException;
 
@@ -44,13 +42,13 @@ public class ReqLinkController {
 
 	// Returns all reqLink
 	@GetMapping()
-	public ResponseEntity<Set<ReqLink>> getAllLinks() {
+	public ResponseEntity<Set<ReqLink>> getAllReqLinks() {
 		return ResponseEntity.ok(reqLinkService.getAllReqLinks());
 	}
 
 	// Returns specific reqLink
 	@GetMapping(value = "{id}")
-	public ResponseEntity<ReqLink> getLinkById(@PathVariable int id) {
+	public ResponseEntity<ReqLink> getReqLinkById(@PathVariable int id) {
 		return ResponseEntity.ok(reqLinkService.getReqLinkById(id));
 	}
 
@@ -64,7 +62,7 @@ public class ReqLinkController {
 			@RequestParam(value = "title", required = false) String title,
 			@RequestParam(value = "format", required = false) String format,
 			@RequestParam(value = "modules", required = false) String modules) {
-		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		List<Integer> moduleIdsList = new ArrayList<Integer>();
 		StringTokenizer st = new StringTokenizer(modules, ",");
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
@@ -80,9 +78,9 @@ public class ReqLinkController {
 
 	// deletes a single reqLink
 	@DeleteMapping(value = "{id}")
-	public ResponseEntity<String> deleteLink(@PathVariable int id) {
+	public ResponseEntity<String> deleteReqLink(@PathVariable int id) {
 		reqLinkService.deleteReqLinkById(id);
-		return ResponseEntity.status(HttpStatus.OK).body("ReqLink Deleted");
+		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 
 }

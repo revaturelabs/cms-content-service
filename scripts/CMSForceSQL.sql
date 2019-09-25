@@ -45,7 +45,7 @@ create table requests(
   title text NOT NULL,
   format text NOT NULL,
   description text NOT NULL,
-  fk_rc int unique,
+  fk_rc int,
   created numeric NOT NULL,
   last_modified numeric NOT NULL,
   FOREIGN KEY (fk_rc) REFERENCES content(c_id)
@@ -59,7 +59,4 @@ create table req_link(
   FOREIGN KEY (fk_rm) REFERENCES module(m_id) on DELETE CASCADE
 );
 
-insert into requests (r_id, title, format, description, url, created, last_modified) values (100, 'something', 'something2', 'something3', 'http://www.b.com', 2, 2);
-insert into requests (r_id, title, format, description, url, created, last_modified) values (101, 'something', 'something2', 'something3', 'http://www.a.com', 1, 1);
-select * from requests;
 commit work;
