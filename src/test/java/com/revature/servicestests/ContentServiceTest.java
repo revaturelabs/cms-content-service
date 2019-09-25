@@ -32,7 +32,7 @@ import com.revature.services.ContentServiceImpl;
  * @version 2.0
  */
 @SpringBootTest(classes = CMSforceApplication.class)
-class ContentServiceTest// extends AbstractTestNGSpringContextTests 
+public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 {	
 
 	//Variable to store the Content object

@@ -33,7 +33,7 @@ import org.testng.annotations.BeforeTest;
 
 
 @SpringBootTest(classes = CMSforceApplication.class)
-class ContentControllerTest extends AbstractTestNGSpringContextTests {
+public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
 	//allows us to send mocked http requests
 	private MockMvc mvc;
