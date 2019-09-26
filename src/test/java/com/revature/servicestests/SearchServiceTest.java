@@ -1,21 +1,20 @@
 package com.revature.servicestests;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.revature.entities.Link;
+import com.revature.entities.ReqLink;
+import com.revature.repositories.LinkRepository;
+import com.revature.services.ModuleService;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.annotations.*;
 
 import com.revature.entities.Content;
 import com.revature.entities.Module;
@@ -25,12 +24,12 @@ import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 import com.revature.services.SearchServiceImpl;
 
+import static org.mockito.Mockito.*;
+
 public class SearchServiceTest {
-	
-	/*
 	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
 	
-//	===Mock Injections===
+    //	===Mock Injections===
 	@Mock
 	private ContentRepository crMock;
 	@Mock
@@ -40,108 +39,109 @@ public class SearchServiceTest {
 	private LinkRepository lrMock;
 	@Mock
 	private ContentService csMock;
+	@Mock
+	private ModuleService msMock;
 	
 	@InjectMocks
 	private SearchService ss = new SearchServiceImpl();
 
-//	===Fields===
-	Link linkMock;
-	Set<Link> linkSetMock = new HashSet<Link>();
+    //	===Fields===
+	// Link linkMock;
+	// Set<Link> linkSetMock = new HashSet<Link>();
 
-	Content contentMock;
-	Set<Content> contentSetMock = new HashSet<Content>();
+	// Content contentMock;
+	// Set<Content> contentSetMock = new HashSet<Content>();
+
+	// Module moduleMock;
 	
-	Module moduleMock;
-	
-//	===Tests===
-	@BeforeClass
-	public void setup() {
+    //	===Tests===
+	@BeforeMethod
+	public void reinitMocks() {
 		//Enable mocks for TestNG
 		MockitoAnnotations.initMocks(this);
 		
 	}
 	@BeforeTest
 	public void testSetup() {
-		//Link Objects and Set
-		//Constructor (ID, ContentID, ModuleID, "Affiliation")
-		Link link;
-		link = new Link(1,50,100,"link-affiliation");
-		linkSetMock.add(link);
-		link = new Link(2,51,100,"lonk-affiliation");
-		linkSetMock.add(link);
-		link = new Link(3,52,101,"lank-affiliation");
-		linkSetMock.add(link);
-		this.linkMock = link;
-		
-		//Content Objects and Set
-		//Constructor (ID, "Title", "Format", "Desc", "URL", Set<Link>, DateCreated, DateModified)
-		Content content;
-		
-		content = new Content(50, "Test 1", "format", "Test Content #1", 
-				"www.example.com", this.linkSetMock, 1L, 1L );
-		this.contentSetMock.add(content);
-		content = new Content(51, "Test 2", "format", "Test Content #3", 
-				"www.example.com", this.linkSetMock, 1L, 1L );
-		this.contentSetMock.add(content);
-		content = new Content(52, "Test 3", "format", "Test Content #3", 
-				"www.example.com", this.linkSetMock, 1L, 1L );
-		this.contentSetMock.add(content);
-		this.contentMock = content;
-		
-		//Module
-		//Constructor (Id, "Subject", DateCreated, Set<Link>)
-		this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
+		// Link link;
+		// Content content;
+
+		// content = new Content(50, "Test 1", "format", "Test Content #1",
+		// 		"www.example.com", linkSetMock, 1L, 1L, );
+		// link = new Link(1,content,100,"link-affiliation");
+		// linkSetMock.add(link);
+		// contentSetMock.add(content);
+
+		// content = new Content(51, "Test 2", "format", "Test Content #3",
+		// 		"www.example.com", linkSetMock, 1L, 1L );
+		// link = new Link(2,content,100,"lonk-affiliation");
+		// linkSetMock.add(link);
+		// contentSetMock.add(content);
+
+		// content = new Content(52, "Test 3", "format", "Test Content #3",
+		// 		"www.example.com", linkSetMock, 1L, 1L );
+		// link = new Link(3,content,101,"lank-affiliation");
+		// linkSetMock.add(link);
+		// contentSetMock.add(content);
+
+		// linkMock = link;
+		// contentMock = content;
+
+		// //Module
+		// //Constructor (Id, "Subject", DateCreated, Set<Link>)
+		// this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
 
 	}
-	
-	@AfterTest
-	public void tearDown() {
-		this.contentSetMock = null;
-		this.contentMock = null;
-		this.linkSetMock = null;
-		this.linkMock = null;
-		this.moduleMock = null;
-	}
-	
+
 	/**
 	 * Tests filterContentById()
 	 * Content Repository - findByTitle(String title)
-	 *//*
+	 */
 	@Test
 	public void filterContentByTitleTest() {
-		
-		//Local Variables
 		String title = "Test Subject 3";
+
+		//Local Variables
 		Set<Content> contentSetExpected  = new HashSet<Content>();
-		contentSetExpected.add(this.contentMock);
-		
+		contentSetExpected.add(new Content(1, title, "code", "something", "http://blah.com",
+			1L, 1L, new HashSet<Link>()));
+		contentSetExpected.add(new Content(2, title, "code", "something else", "http://blah2.com",
+				1L, 1L, new HashSet<Link>()));
+
 		//Given
 		Mockito.when(crMock.findByTitle(title)).thenReturn(contentSetExpected);
 		
 		//When
-		ss.filterContentByTitle(title);
+		Set<Content> actual = ss.filterContentByTitle(title);
 		
 		//then
 		verify(crMock, times(1)).findByTitle(title);
+		Assert.assertEquals(actual, contentSetExpected);
 	}
 	
 	/**
 	 * Tests filterContentByFormat()
 	 * Content Repository - findByFormat(String format)
-	 *//*
+	 */
 	@Test
 	public void filterContentByFormatTest() {
 		//Local Variables
 		String format = "format";
-		
+		Set<Content> contentSetExpected  = new HashSet<Content>();
+		contentSetExpected.add(new Content(1, "title 1", format, "something", "http://blah.com",
+				1L, 1L, new HashSet<Link>()));
+		contentSetExpected.add(new Content(2, "title 2", format, "something else", "http://blah2.com",
+				1L, 1L, new HashSet<Link>()));
+
 		//Given
-		Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
+		Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetExpected);
 		
 		//When
-		ss.filterContentByFormat(format);
+		Set<Content> actual = ss.filterContentByFormat(format);
 		
 		//then
 		verify(crMock, times(1)).findByFormat(format);
+		Assert.assertEquals(actual, contentSetExpected);
 	}
 	
 	/**
@@ -150,43 +150,83 @@ public class SearchServiceTest {
 	 * Content Repository - findAllById()
 	 * Currently throws an IndexOutOfBounds Exception when you put in a ModuleId list with
 	 * more than one number.
-	 *//*
+	 */
 	@Test
 	public void filterContentBySubjectsTest() {
+		Content contentJavaSoup = new Content(1, "title 1", "format", "something", "http://blah.com",
+				1L, 1L, new HashSet<Link>());
+		Content contentJava = new Content(2, "title 2", "format", "something else", "http://blah2.com",
+				1L, 1L, new HashSet<Link>());
 
-		//Local Variables
+		Set<Content> expected = new HashSet<Content>();
+		expected.add(contentJavaSoup);
+
+		Link soupLink = new Link(1, contentJavaSoup, new Module(), "affiliation 1");
+		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2");
+		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3");
+
+		Set<Link> soupLinks = new HashSet<Link>();
+		soupLinks.add(soupLink);
+
+		Module module1 = new Module(1, "Soup", 1L, soupLinks, new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+
+		Set<Link> javaLinks = new HashSet<Link>();
+		javaLinks.add(javaLink1);
+		javaLinks.add(javaLink2);
+
+		Module module2 = new Module(2, "Java", 1L, javaLinks, new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+
 		List<Integer> moduleIds = new ArrayList<Integer>();
-		
-		moduleIds.add(100);
+		moduleIds.add(module1.getId());
+		moduleIds.add(module2.getId());
+
 		//Given
-		Mockito.when(lrMock.findByModuleId(Mockito.anyInt())).thenReturn(this.linkSetMock);
-		Mockito.when(crMock.findAllById(Mockito.any())).thenReturn(this.contentSetMock);
-		
+		Mockito.when(msMock.getModuleById(module1.getId())).thenReturn(module1);
+		Mockito.when(msMock.getModuleById(module2.getId())).thenReturn(module2);
+
 		//When 
-		ss.filterContentBySubjects(moduleIds);
-		verify(lrMock).findByModuleId(Mockito.anyInt());
-		verify(crMock).findAllById(Mockito.any());
+		Set<Content> actual = ss.filterContentBySubjectIds(moduleIds);
+
+		verify(msMock, times(moduleIds.size())).getModuleById(anyInt());
+		Assert.assertEquals(actual, expected);
 	}
 	
 	/**
 	 * Tests getContentByModuleId()
 	 * Link Repository - findByModuleId()
 	 * Content Repository - findById()
-	 *//*
+	 */
 	@Test
 	public void getContentByModuleIdTest() {
-		//Local Variables
-		int moduleId = 100;
+		Content contentJavaSoup = new Content(1, "title 1", "format", "something", "http://blah.com",
+				1L, 1L, new HashSet<Link>());
+		Content contentJava = new Content(2, "title 2", "format", "something else", "http://blah2.com",
+				1L, 1L, new HashSet<Link>());
+
+		Set<Content> expected = new HashSet<Content>();
+		expected.add(contentJavaSoup);
+		expected.add(contentJava);
+
+		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2");
+		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3");
+
+		Set<Link> javaLinks = new HashSet<Link>();
+		javaLinks.add(javaLink1);
+		javaLinks.add(javaLink2);
+
+		Module module1 = new Module(2, "Java", 1L, javaLinks, new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+
 		//Given
-		Mockito.when(lrMock.findByModuleId(moduleId)).thenReturn(linkSetMock);
-		Mockito.when(crMock.findById(Mockito.anyInt())).thenReturn(this.contentSetMock);
-		
+		Mockito.when(mrMock.findById(module1.getId().intValue())).thenReturn(module1);
+
 		//When
-		ss.getContentByModuleId(moduleId);
-		
-		//Then
-		verify(lrMock, times(2)).findByModuleId(moduleId);
-		verify(crMock, times(1)).findById(Mockito.anyInt());
+		Set<Content> actual = ss.getContentByModuleId(module1.getId());
+
+		verify(mrMock).findById(module1.getId().intValue());
+		Assert.assertEquals(actual, expected);
 	}
 	
 	/**
@@ -198,36 +238,35 @@ public class SearchServiceTest {
 	 * Content Repository - findByFormat(), findByTitleContaining()
 	 * Content Service - getAllContent()
 	 * Link Repository - findByModuleIdIn() 
-	 *//*
-	@Test
-	public void filterTest() {
-//		//Local Variables
-//		String format = "format";
-//		String titleContaining = "Test";
-//		List<Integer> moduleIds = new ArrayList<Integer>();
-//		moduleIds.add(100);
-//		
-//		
-//		//When
-//		Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
-//		Mockito.when(crMock.findByTitleContaining(titleContaining)).thenReturn(contentSetMock);
-//		Mockito.when(csMock.getAllContent()).thenReturn(contentSetMock);
-//		Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
-//		
-//		//Given/Then Test 1 - fields are not null
-//		ss.filter(titleContaining, format, moduleIds);
-//		
-//		verify(crMock, times(2)).findByFormat(format);
-//		verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
-//		
-//		//Given/Then Test 2 - format is null.
-//		ss.filter(titleContaining, null, moduleIds);
-//		verify(crMock, times(1)).findByTitleContaining(titleContaining);
-//		
-//		//Given/Then Test 3 - title and format is null
-//		ss.filter(null, null, moduleIds);
-//		verify(csMock, times(1)).getAllContent();
+	 */
+	// @Test
+	// public void filterTest() {
+	// 	//Local Variables
+	// 	String format = "format";
+	// 	String titleContaining = "Test";
+	// 	List<Integer> moduleIds = new ArrayList<Integer>();
+	// 	moduleIds.add(100);
 
-	}
-	*/
+
+	// 	//When
+	// 	Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
+	// 	Mockito.when(crMock.findByTitleContaining(titleContaining)).thenReturn(contentSetMock);
+	// 	Mockito.when(csMock.getAllContent()).thenReturn(contentSetMock);
+	// 	Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
+
+	// 	//Given/Then Test 1 - fields are not null
+	// 	ss.filter(titleContaining, format, moduleIds);
+
+	// 	verify(crMock, times(2)).findByFormat(format);
+	// 	verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
+
+	// 	//Given/Then Test 2 - format is null.
+	// 	ss.filter(titleContaining, null, moduleIds);
+	// 	verify(crMock, times(1)).findByTitleContaining(titleContaining);
+
+	// 	//Given/Then Test 3 - title and format is null
+	// 	ss.filter(null, null, moduleIds);
+	// 	verify(csMock, times(1)).getAllContent();
+
+	// }
 }
