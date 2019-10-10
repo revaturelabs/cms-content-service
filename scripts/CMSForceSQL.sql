@@ -6,6 +6,8 @@ drop table if exists req_link;
 drop table if exists requests;
 drop table if exists module;
 drop table if exists content;
+drop table if exists curriculum;
+drop table if exists currmodule;
 
 
 create table content(
@@ -21,6 +23,19 @@ create table module(
    m_id serial PRIMARY KEY,
    subject text unique,
    created numeric
+);
+
+create table curriculum(
+	name text PRIMARY KEY
+);
+
+create table currmodule(
+	c_name text,
+	m_id int,
+	order int,
+	FOREIGN KEY (c_name) REFERENCES curriculum(name) on DELETE CASCADE,
+	FOREIGN KEY (m_id) REFERENCES module(m_id) on DELETE CASCADE,
+	PRIMARY KEY (c_name, m_id)
 );
 
 --the affiliation column is needed, but not implemented yet
