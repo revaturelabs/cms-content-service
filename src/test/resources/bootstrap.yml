@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: test
+  cloud:
+    config:
+      label: dev
+      name: content-service
+      discovery:
+        service-id: config
+        enabled: true
