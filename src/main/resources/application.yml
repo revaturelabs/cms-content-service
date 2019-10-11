@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: config
+       
+server:
+  port: 8888
+  
+---
+spring:
+  profiles: local
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/revaturelabs/cms-config.git
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+  
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/revaturelabs/cms-config.git
+          
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+  instance:
+    prefer-ip-address: true  
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/revaturelabs/cms-config.git
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL}
+  instance:
+    prefer-ip-address: true
+
