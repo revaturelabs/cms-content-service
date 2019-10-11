@@ -153,7 +153,8 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public  Set<Link> updateLinksByModuleId(int id, Set<Link> links ) {
+	public Set<Link> updateLinksByModuleId(int id, Set<Link> links ) {
+
 		for (Link link : links) 
 		{
 			lr.save(link);
