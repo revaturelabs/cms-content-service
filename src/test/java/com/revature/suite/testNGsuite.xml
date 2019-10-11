@@ -25,6 +25,9 @@
 			<!-- These are the Util tests -->
 			<class name = "com.revature.utiltests.MetricsDataTest"/>
 			<class name = "com.revature.utiltests.TimeGraphTest"/>
+			<class name = "com.revature.utiltests.ValidationUtilTest"/>
+			
+			
 		</classes>
 	</test>
 </suite>
