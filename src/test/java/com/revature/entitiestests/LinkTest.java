@@ -30,8 +30,8 @@ public class LinkTest {
 		m2 = new Module(2, "c", 2, null, null, null, null);
 		c1 = new Content(1, "a", "b", "c", "d", 1, 2, null);
 		c2 = new Content(2, "e", "f", "g", "h", 3, 4, null);
-		l1 = new Link(1, c1, m1, "string here");
-		l2 = new Link(5, c2, m2, "a");
+		l1 = new Link(1, c1, m1, "string here",0);
+		l2 = new Link(5, c2, m2, "a",0);
 	}
 	
 	//null out the Links
@@ -56,9 +56,15 @@ public class LinkTest {
 
 	@Test
 	public void testLinkIntContentModuleString() {
+<<<<<<< HEAD
 		Link one = new Link(1, c1, m1, "test1");
 		assertTrue(one instanceof Link);
 		Link two = new Link(5, c2, m2, "test2");
+=======
+		Link one = new Link(1, c1, m1, "test1",0);
+		assertTrue(one instanceof Link);
+		Link two = new Link(5, c2, m2, "test2",0);
+>>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 		assertTrue(one != two);
 	}
 

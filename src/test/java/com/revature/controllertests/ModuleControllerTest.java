@@ -41,6 +41,8 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private static final String subject = "subject";
 	private static final long created = 1;
 	private static final String affiliation = "affiliation";
+	private static final int priority = 0;
+
 	
 	//allows us to send mocked http requests
 	private MockMvc mvc;
@@ -80,7 +82,9 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 
 		Set<Link> links = new HashSet<Link> ();
 		//caution: content and module not sprint beans here
-		Link link = new Link (id,new Content(),new Module(),affiliation);
+
+		Link link = new Link (id,new Content(),new Module(),affiliation,priority);
+
 		links.add(link);
 		module = new Module (id,subject,created,links,new HashSet<ReqLink>(),new HashSet<Module>(),new HashSet<Module>());
 	}

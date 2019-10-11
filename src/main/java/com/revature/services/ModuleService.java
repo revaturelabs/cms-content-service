@@ -24,6 +24,10 @@ public interface ModuleService {
 	
 	public Module updateModule(Module module);
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 	public void deleteModule(Module module);
 	
 	public void deleteModuleWithAllContent(Module module);
@@ -33,5 +37,11 @@ public interface ModuleService {
 	public Set<Link> getLinksByModuleId(int id);
 
 	public Set<ReqLink> getRequestLinksByModuleId(int id);
+<<<<<<< HEAD
+=======
+	
+	public Set<Link> updateLinksByModuleId(int id, Set<Link> links );
+
+>>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 
 }

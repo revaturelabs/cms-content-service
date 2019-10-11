@@ -152,5 +152,14 @@ public class ModuleServiceImpl implements ModuleService {
 		return rlr.findByModule(mr.findById(id));
 	}
 
+	@Override
+	public  Set<Link> updateLinksByModuleId(int id, Set<Link> links ) {
+		for (Link link : links) 
+		{
+			lr.save(link);
+		}
+		return links;
+		
+	}
 }
 
