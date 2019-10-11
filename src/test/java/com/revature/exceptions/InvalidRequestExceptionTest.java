@@ -17,7 +17,7 @@ public class InvalidRequestExceptionTest {
 	}
 
 	@Test
-	public void InvalidModuleException_MessageInjectedBySuper_TestTrue() {
+	public void InvalidRequestException_MessageInjectedBySuper_TestTrue() {
 		RuntimeException invalidRequestException = new InvalidRequestException("InvalidRequestException message");
 		assertEquals("InvalidRequestException message", invalidRequestException.getMessage());
 	}

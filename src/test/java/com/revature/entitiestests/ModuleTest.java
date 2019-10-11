@@ -1,27 +1,11 @@
 package com.revature.entitiestests;
 
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertFalse;
+
 import java.util.HashSet;
 import java.util.Set;
 
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
-//import static org.testng.Assert.assertTrue;
-//
-//import java.util.HashSet;
-//import java.util.Set;
-//
-//import org.testng.annotations.AfterTest;
-//import org.testng.annotations.BeforeTest;
-//import org.testng.annotations.Test;
-//
-//import com.revature.entities.Link;
-//import com.revature.entities.Module;
-//import com.revature.entities.ReqLink;
-//
-//import nl.jqno.equalsverifier.EqualsVerifier;
-//import nl.jqno.equalsverifier.Warning;
-
-import static org.junit.Assert.*;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;

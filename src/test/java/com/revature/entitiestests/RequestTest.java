@@ -3,7 +3,7 @@ package com.revature.entitiestests;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeTest;
 
-import static org.junit.Assert.assertTrue;
+import static org.testng.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -47,7 +47,6 @@ public class MetricsController {
 								  @RequestBody Map<String, Object> filter) {		
 		Set<Content> contents;
 		Set<Content> filtContents;
-		@SuppressWarnings("unchecked")
 		List<Integer> idsIn = new ArrayList<Integer>();
 
 		// turn the string of integers we recieved into an ArrayList of integers
