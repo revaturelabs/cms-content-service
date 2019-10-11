@@ -12,9 +12,9 @@ public interface CurrModuleService {
 	
 	public CurrModule getCurrModuleById(int id);
 	
-	public Set<CurrModule> getCurrModulesByName(String name);
+	public CurrModule getCurrModuleByName(String name);
 	
-	public CurrModule updateCurrModule(CurrModule currM, int importance);
+	public Iterable<CurrModule> updateCurrModule(Set<CurrModule> currM);
 	
 	public void deleteCurriculumModule(CurrModule currM);
 }
