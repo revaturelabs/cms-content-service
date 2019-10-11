@@ -16,8 +16,7 @@
 			<class name = "com.revature.controllertests.RequestControllerTest"/>
 			<class name = "com.revature.controllertests.MetricsControllerTest"/>
 			<class name = "com.revature.controllertests.LinkControllerTest"/>
-			<!-- This is a test that was already there not sure if it necessary -->
-			<class name = "com.revature.loggingtest.LoggingTest"/>
+			
 			<!-- These are the Service tests -->
 			<class name = "com.revature.servicestests.TimeGraphServiceTest"/>
 			<class name = "com.revature.servicestests.ContentServiceTest"/>
