@@ -209,13 +209,9 @@ public class SearchServiceTest {
 		expected.add(contentJavaSoup);
 		expected.add(contentJava);
 
-<<<<<<< HEAD
-		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2");
-		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3");
-=======
+
 		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2",0);
 		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3",1);
->>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 
 		Set<Link> javaLinks = new HashSet<Link>();
 		javaLinks.add(javaLink1);

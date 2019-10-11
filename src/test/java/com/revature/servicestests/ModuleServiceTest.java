@@ -153,15 +153,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByAllModules() {
-<<<<<<< HEAD
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
-=======
+
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
->>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 
 		Set<Link> links1 = new HashSet<Link>();
 		links1.add(link1);
@@ -266,15 +261,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Test
 	void testDeleteModuleWithAllContent() {
-<<<<<<< HEAD
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
-=======
+
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
->>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 
 		Set<Link> links1 = new HashSet<Link>();
 		links1.add(link1);
@@ -296,15 +286,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Test
 	void testDeleteModuleWithSpecificContent() {
 		// Given
-<<<<<<< HEAD
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-		Link linkToDelete = new Link(3, new Content(), new Module(), "affiliation3");
-=======
+		
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link linkToDelete = new Link(3, new Content(), new Module(), "affiliation3",0);
->>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
+
 
 		Set<Link> multiLinks = new HashSet<Link>();
 		multiLinks.add(link1);
@@ -344,13 +330,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Test
 	void testGetLinksByModuleId() {
 		final int id = 1;
-<<<<<<< HEAD
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-=======
+
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
->>>>>>> b36202c5487cc2497d9edf324889484cc1096f04
 
 		Set<Link> links = new HashSet<Link>();
 		links.add(link1);
