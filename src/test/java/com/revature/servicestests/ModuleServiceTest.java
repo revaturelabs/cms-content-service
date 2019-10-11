@@ -2,7 +2,6 @@ package com.revature.servicestests;
 
 import static org.testng.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -342,7 +341,6 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Test
 	void testGetRequestLinksByModuleId() {
-		final int id = 1;
 		ReqLink reqLink1 = new ReqLink(1, new Request(), new Module(), "affiliation1");
 		ReqLink reqLink2 = new ReqLink(2, new Request(), new Module(), "affiliation2");
 

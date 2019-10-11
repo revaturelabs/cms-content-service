@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.revature.entities.Content;
-import com.revature.entities.Module;
 import com.revature.entities.Request;
 
 public interface SearchService {
