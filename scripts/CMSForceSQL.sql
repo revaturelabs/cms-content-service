@@ -26,7 +26,8 @@ create table module(
 );
 
 create table curriculum(
-	name text PRIMARY KEY
+	curr_id serial PRIMARY KEY,
+	name text NOT NULL
 );
 
 create table currmodule(

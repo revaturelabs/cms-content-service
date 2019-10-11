@@ -11,6 +11,8 @@ public interface CurriculumService {
 	public Set<Curriculum> getAllCurriculums();
 	
 	public Curriculum getCurriculumByName(String name);
+	 
+	public Curriculum getCurriculumById(int id);
 	
 	public Curriculum updateCurriculum(Curriculum curr);
 	

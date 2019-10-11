@@ -11,5 +11,6 @@ public interface CurriculumRepository extends CrudRepository<Curriculum,Integer>
 
 	Curriculum findByName(String name);
 	
+	Curriculum findById(int id);
 	
 }

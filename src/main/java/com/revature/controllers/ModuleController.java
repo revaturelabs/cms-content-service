@@ -30,7 +30,6 @@ import com.revature.services.ModuleService;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
-@Transactional
 @RequestMapping("/modules")
 public class ModuleController {
 

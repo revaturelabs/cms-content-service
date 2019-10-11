@@ -47,4 +47,10 @@ public class CurriculumServiceImpl implements CurriculumService{
 		}
 	}
 
+	@Override
+	public Curriculum getCurriculumById(int id) {
+		Curriculum curr = cr.findById(id);
+		return curr;
+	}
+
 }
