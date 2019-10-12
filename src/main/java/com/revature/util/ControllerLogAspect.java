@@ -13,40 +13,42 @@ import org.springframework.stereotype.Component;
 public class ControllerLogAspect { //Logging for the controllers
 	
 	
-	Logger log = LoggerFactory.getLogger(this.getClass());
+
+	@Autowired
+	Logging log;
 	
 	@AfterReturning("execution(public * com.revature.controllers.ContentController.createContent(..))")
 	public void logContentCreation(JoinPoint jp) {
-		log.info("A piece of content has been created " + jp.toString());
+		log.logger.info("A piece of content has been created " + jp.toString());
 	}
 	
 	@AfterReturning("execution(public * com.revature.controllers.ContentController.getAllContent(..))")
 	public void logContentGetAll(JoinPoint jp) {
-		log.info("Returning all Content " + jp.toString());
+		log.logger.info("Returning all Content " + jp.toString());
 	}
 	
 	@AfterReturning("execution(public * com.revature.controllers.ContentController.getContentById(..))")
 	public void logContentGetId(JoinPoint jp) {
-		log.info("Returning Content by id " + jp.toString());
+		log.logger.info("Returning Content by id " + jp.toString());
 	}
 
 	@AfterReturning("execution(public * com.revature.controllers.ModuleController.createModule(..))")
 	public void logModuleCreation(JoinPoint jp) {
-		log.info("A Module has been created " + jp.toString());
+		log.logger.info("A Module has been created " + jp.toString());
 	}
 	
 	@AfterReturning("execution(public * com.revature.controllers.ModuleController.getAllModules(..))")
 	public void logModuleGetAll(JoinPoint jp) {
-		log.info("Returning all Modules " + jp.toString());
+		log.logger.info("Returning all Modules " + jp.toString());
 	}
 	
 	@AfterReturning("execution(public * com.revature.controllers.ModuleController.getModuleById(..))")
 	public void logModuleGetId(JoinPoint jp) {
-		log.info("Returning Module by id " + jp.toString());
+		log.logger.info("Returning Module by id " + jp.toString());
 	}
 	
 	@AfterReturning("execution(public * com.revature.controllers.ContentController.getSearchResults(..))")
 	public void logSearch(JoinPoint jp) {
-		log.info("Reterned search results "+ jp.toString());
+		log.logger.info("Reterned search results "+ jp.toString());
 	}
 }

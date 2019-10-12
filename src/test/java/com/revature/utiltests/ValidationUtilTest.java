@@ -1,12 +1,9 @@
 package com.revature.utiltests;
 
-import static org.testng.Assert.assertNull;
-import static org.testng.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.testng.annotations.BeforeTest;
@@ -18,7 +15,6 @@ import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidModuleException;
 import com.revature.exceptions.InvalidSearchException;
 import com.revature.testingutils.ContentFactory;
-import com.revature.util.MetricsData;
 import com.revature.util.ValidationUtil;
 
 public class ValidationUtilTest {
