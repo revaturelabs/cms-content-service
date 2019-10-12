@@ -11,36 +11,39 @@ import org.testng.annotations.Test;
 
 import com.revature.util.TimeGraphData;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TimeGraphTest {
-	
-	//The data being Tested
+
+	// The data being Tested
 	TimeGraphData t1;
 	TimeGraphData t2;
-	
+
 	List<Long> al = new ArrayList<Long>();
-	
-	//initialize the data
+
+	// initialize the data
 	@BeforeTest
 	void setup() {
 		t1 = new TimeGraphData(al, 0);
 		t2 = new TimeGraphData(al, 2);
 	}
-	
-	//tear down the data
+
+	// tear down the data
 	@AfterTest
 	void teardown() {
 		t1 = null;
 		t2 = null;
-	}	
-	
-	//test the constructors
+	}
+
+	// test the constructors
 	@Test
 	void testTimeGraphData() {
 		TimeGraphData one = new TimeGraphData();
 		assertTrue(one instanceof TimeGraphData);
 		TimeGraphData two = new TimeGraphData();
 		assertTrue(one != two);
-		
+
 	}
 
 	@Test
@@ -51,7 +54,7 @@ public class TimeGraphTest {
 		assertTrue(one != two);
 	}
 
-	//test the getters and setters
+	// test the getters and setters
 	@Test
 	void testGetReturnedLongs() {
 		assertTrue(t1.getReturnedLongs().equals(al));
@@ -76,10 +79,24 @@ public class TimeGraphTest {
 		assertTrue(t2.getNumContents() == 5);
 	}
 
-	//test the toString
+	// test the toString
 	@Test
 	void testToString() {
 		assertTrue(t1.toString() instanceof String);
 		assertTrue(t2.toString() instanceof String);
+	}
+
+	// Hash and Equals test with EqualsVerifier
+	@Test
+	public void equalsTest() {
+		// EqualsVerifier will throw an AssertionError if there are any issues with its
+		// utilization.
+
+		// The suppression for non final fields is for the error "Mutability: equals
+		// depends on mutable field".
+		EqualsVerifier.forClass(TimeGraphData.class)
+				.usingGetClass()
+				.suppress(Warning.NONFINAL_FIELDS)
+				.verify();
 	}
 }
