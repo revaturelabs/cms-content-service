@@ -1,47 +1,55 @@
 package com.revature.services;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.revature.entities.CurrModule;
+import com.revature.repositories.CurrModuleRepository;
+import com.revature.util.LogException;
 
 public class CurrModuleServiceImpl implements CurrModuleService  {
 
-
+	@Autowired
+	CurrModuleRepository cmR;
 	
 	@Override
+	@LogException
 	public CurrModule createCurrModule(CurrModule currM) {
-		
-		return null;
+		return cmR.save(currM);
 	}
 
 	@Override
+	@LogException
 	public Set<CurrModule> getAllCurrModules() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<CurrModule> currMods = new HashSet<>();
+		cmR.findAll().forEach(currMods::add);
+		return currMods;
 	}
 
 	@Override
 	public CurrModule getCurrModuleById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		CurrModule cMod = cmR.findById(id);
+		return cMod;
 	}
 
 	@Override
-	public Set<CurrModule> getCurrModulesByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public CurrModule getCurrModuleByName(String name) {
+		CurrModule cMod = cmR.findByCurriculumName(name);
+		return cMod;
 	}
 
 	@Override
-	public CurrModule updateCurrModule(CurrModule currM, int importance) {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterable<CurrModule> updateCurrModule(Set<CurrModule> currM) {
+		return cmR.saveAll(currM);
 	}
 
 	@Override
 	public void deleteCurriculumModule(CurrModule currM) {
-		// TODO Auto-generated method stub
-		
+		if(currM != null) {
+			cmR.delete(currM);
+		}
 	}
 
 }
