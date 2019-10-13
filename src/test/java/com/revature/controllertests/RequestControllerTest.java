@@ -88,7 +88,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(rc.requestToJSONRequest(request))));
 
-		JSONRequest ret = objMapper.readValue(result.andReturn().getResponse()
+		objMapper.readValue(result.andReturn().getResponse()
 				.getContentAsString(),  JSONRequest.class);
 
 		result.andExpect(status().isOk());

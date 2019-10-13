@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
 import com.revature.entities.Link;
-import com.revature.entities.Module;
 import com.revature.repositories.ContentRepository;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -131,7 +130,7 @@ public class ContentTest {
 
 	@Test
 	public void testSetLinks() {
-		Set<Link> link = new HashSet<Link>();
+//		Set<Link> link = new HashSet<Link>();
 //		link.add(new Link(55, 484, 555, "test"));
 //		c2.setLinks(link);
 //		assertTrue(c2.getLinks().equals(link));
