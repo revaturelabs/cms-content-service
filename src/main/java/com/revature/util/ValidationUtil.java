@@ -19,10 +19,10 @@ public class ValidationUtil {
 	
 	private static final int MAX_CHAR_LENGTH = 254;
 	
-	/*@Pointcut("within(com.revature.services..*) ")//Pointcut location
+	@Pointcut("within(com.revature.services..*) ")//Pointcut location
 	public void servicesPC() {
 		
-	}*/
+	}
 	
 	@LogException
 	@Before("servicesPC() && args(content,..)")

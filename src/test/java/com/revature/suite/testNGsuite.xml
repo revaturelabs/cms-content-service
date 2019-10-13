@@ -29,8 +29,6 @@
 			<class name="com.revature.exceptions.InvalidRequestExceptionTest" />
 			<class name="com.revature.exceptions.InvalidRequestIdExceptionTest" />
 			<class name="com.revature.exceptions.InvalidSearchExceptionTest" />
-			<!-- This is a test that was already there not sure if it necessary -->
-			<class name="com.revature.loggingtest.LoggingTest" />
 			<!-- These are the Service tests -->
 			<class name="com.revature.servicestests.TimeGraphServiceTest" />
 			<class name="com.revature.servicestests.ContentServiceTest" />
@@ -40,9 +38,9 @@
 			<class name = "com.revature.utiltests.MetricsDataTest"/>
 			<class name = "com.revature.utiltests.TimeGraphTest"/>
 			<class name = "com.revature.utiltests.ValidationUtilTest"/>
-			<class name = "com.ravature.utiltests.ControllerLogAspectTest"/>
-			<class name = "com.ravature.utiltests.SeviceLogAspectTest"/>
-			<class name = "com.ravature.utiltests.ExceptionAspectTest"/>	
+			<class name = "com.revature.utiltests.ControllerLogAspectTest"/>
+			<class name = "com.revature.utiltests.SeviceLogAspectTest"/>
+			<class name = "com.revature.utiltests.ExceptionAspectTest"/>	
 		</classes>
 	</test>
 </suite>
