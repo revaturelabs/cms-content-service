@@ -27,6 +27,8 @@
 			<class name = "com.revature.utiltests.TimeGraphTest"/>
 			<class name = "com.revature.utiltests.ValidationUtilTest"/>
 			<class name = "com.ravature.utiltests.ControllerLogAspectTest"/>
+			<class name = "com.ravature.utiltests.SeviceLogAspectTest"/>
+			<class name = "com.ravature.utiltests.ExceptionAspectTest"/>
 			
 		</classes>
 	</test>

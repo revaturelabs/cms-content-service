@@ -17,50 +17,30 @@ import com.revature.exceptions.InvalidSearchException;
 import com.revature.testingutils.ContentFactory;
 import com.revature.util.ValidationUtil;
 
-public class ValidationUtilTest {
-	
-	String badString =null;
-	private static final int MAX_CHAR_LENGTH = 254;
+public class ValidationUtilTest {	
+	String badString = ContentFactory.badS;
 	ValidationUtil vu;
-	
 	@Spy ValidationUtil vuMock;
-	
-	
-	
 	@BeforeTest
 	void setup() {
 		MockitoAnnotations.initMocks(this);
-		for(int i=0;i<MAX_CHAR_LENGTH;i++) {
-			badString =badString+"BAD";
-		}
 		vu= new  ValidationUtil();
-		
 	}
-	
-	
-	
 	@Test(expectedExceptions = InvalidContentException.class)
 	public void verifyContent_TestContentEqualsNullThrowException() {
 		Content content=null;
 		vu.verifyContent(content);
 	}
-	
-	
-	
-	
 	@Test(expectedExceptions = InvalidContentException.class)
 	public void verifyContent_TestSecondConditionThrowException() {
 		Content content = ContentFactory.contentForExceptions(0);
 		vu.verifyContent(content);
 	}
-	
 	@Test(expectedExceptions = InvalidContentException.class)
 	public void verifyContent_TestThirdConditionThrowException() {
 		Content content = ContentFactory.contentForExceptions(1);
 		vu.verifyContent(content);
 	}
-	
-	
 	@Test(expectedExceptions = InvalidContentException.class)
 	public void verifyContent_TestFourthConditionThrowException() {
 		Content content = ContentFactory.contentForExceptions(2);
@@ -94,7 +74,6 @@ public class ValidationUtilTest {
 	public void verifyModuleId_TestThrowException() {
 		vu.verifyModuleId(-20);
 	}
-	
 	@Test(expectedExceptions =  InvalidSearchException.class)
 	public void verifyId_TestThrowException() {
 		vu.verifyId(-30);
@@ -104,8 +83,6 @@ public class ValidationUtilTest {
 		vuMock.verifyId(5);
 		verify(vuMock).verifyId(5);
 	}
-	
-	
 	@Test
 	public void verifyListModuleId_TestRuns() {
 		List<Integer> modulesIds = new ArrayList<Integer>();
@@ -114,19 +91,12 @@ public class ValidationUtilTest {
 	}
 	@Test
 	public void verifyFilter_Test() {
-		
 		String title = "1";
 		String format = "sf" ;
 		List<Integer> moduleIds = new ArrayList<Integer>();  
 		moduleIds.add(1);
 		vuMock.verifyFilter(title, format, moduleIds);
-		
 		verify(vuMock).verifyStringTitle(title);
 	}
 	
-	
-	
-	
-	
-
 }
