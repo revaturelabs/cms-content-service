@@ -4,7 +4,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component; 
 
 @Component
 @Aspect
@@ -40,7 +40,7 @@ public class ServiceLogAspect {// Logging aspect that has a list of logs for var
 	
 	@AfterReturning("execution(public * com.revature.services.SearchServiceImpl.filterContentBySubjects(..))")
 	public void logSearchService_filterContentBySubjects(JoinPoint jp) {
-		log.logger.info(jp.getSignature().getName() + " has successfully filtered a content by subsject");
+		log.logger.info(jp.getSignature().getName() + " has successfully filtered a content by subject");
 	}
 	
 	@AfterReturning("execution(public * com.revature.services.SearchServiceImpl.getContentByModuleId(..))")
