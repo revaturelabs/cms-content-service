@@ -32,7 +32,9 @@ public class Curriculum {
 	}
 
 	
-	
+	public Curriculum(String name) {
+		this.name = name;
+	}
 	public Curriculum(int id, String name) {
 		super();
 		this.id = id;
