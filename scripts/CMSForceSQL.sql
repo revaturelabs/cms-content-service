@@ -29,7 +29,6 @@ create table link(
    cm_id serial PRIMARY KEY,
    fk_c int,
    fk_m int,
-   priority int,
    affiliation text,
    priority int NOT NULL DEFAULT -1,
    FOREIGN KEY (fk_c) REFERENCES content(c_id) on DELETE CASCADE,
