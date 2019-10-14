@@ -37,7 +37,7 @@ public class CurriculumController {
 	}
 	
 	@GetMapping(value="{id}")
-	public ResponseEntity<Curriculum> getModuleById(@PathVariable int id) {
+	public ResponseEntity<Curriculum> getCurriculumById(@PathVariable int id) {
 		
 		Curriculum curriculum = curriculumService.getCurriculumById(id);
 		
