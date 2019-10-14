@@ -1,237 +1,182 @@
 package com.revature.controllertests;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.testng.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.MetricsController;
+import com.revature.entities.Link;
+import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
+import com.revature.services.ContentService;
+import com.revature.services.ModuleService;
+import com.revature.services.SearchService;
+import com.revature.services.TimegraphService;
 import com.revature.util.MetricsData;
+import com.revature.util.TimeGraphData;
 
+@SpringBootTest(classes = CMSforceApplication.class)
+public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
+	@InjectMocks
+	private MetricsController metricsController;
+	@Mock
+	private ModuleService moduleService;
+	@Mock
+	private ContentService contentService;
+	@Mock
+	private SearchService searchService;
+	@Mock
+	private TimegraphService timegraphService;
 
-/**
- * 
- * This test class fails to test the functionality of the controller,
- * not to mention the controller is nearly untestable at this point.
- * These tests should be deprecated and replaced when the controller
- * is fixed.
- *
- */
-
-
-@ContextConfiguration(classes = com.revature.cmsforce.CMSforceApplication.class)
-@SpringBootTest
-@AutoConfigureMockMvc
-public class MetricsControllerTest {
+	private long timeRange;
+	private Map<String, Object> filter;
+	private MockMvc mvc;
+	private ObjectMapper objMapper = new ObjectMapper();
+	private ResultActions result;
+	private MetricsData actual;
+	private Module module;
 	
-	public MetricsControllerTest()
-	{
-		super();
-	}
+	private Set<Module> modules = new HashSet<>();
+	private TimeGraphData timeGraphData = new TimeGraphData();
+	private Integer numCode = 0;
+	private Integer numDoc = 0;
+	private Integer numPpt = 0;
+	private int modSize;
+	private double avgMods = 0;
+	private Map<String, Integer> contentFormats;
 
-	@MockBean
-	MetricsController mc;
-	
-	MetricsData md;
-	
-	/*
-	 * Testing null values for each method in getMetrics 
-	 */
-	
-	/**
-	 * Testing null values for code count
-	 */
-	@Test
-	public void nullIdsCodeCount() {
-		Map<String, Object> nullVals = new HashMap<String, Object>();
-		nullVals.put(null, null);		
-	}
-	/**
-	 * Testing null values for avgResources
-	 */
-	@Test
-	public void nullIdsAvgResources() {
-		Map<String, Object> nullVals = new HashMap<String, Object>();
-		nullVals.put(null, null);
+	@BeforeClass
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+		mvc = MockMvcBuilders.standaloneSetup(metricsController).build();
+
+		timeRange = 1000;
+		filter = new HashMap<String, Object>();
+		module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(), new HashSet<Module>(),
+				new HashSet<Module>());
+		filter.put("modules", module.getId());
 		
+		modules.add(module);
+		modSize = modules.size();
 	}
-	
-	/**
-	 * Testing null values for document count
-	 */
+
+	@BeforeMethod
+	public void beforeEachTest() throws JsonProcessingException, Exception {
+		contentFormats = new HashMap<>();
+	}
+
 	@Test
-	public void nullIdsDocumentCount() {
-		Map<String, Object> nullVals = new HashMap<String, Object>();
-		nullVals.put(null, null);
+	public void test_idsInNotEmpty() throws JsonProcessingException, Exception {
+		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
+		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
+		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
 		
-	}
-	
-	/**
-	 * Testing null values for mods count
-	 */
-	@Test
-	public void nullIdsModsCount() {
-		Map<String, Object> nullVals = new HashMap<String, Object>();
-		nullVals.put(null, null);
-	}
-	
-	/**
-	 * Testing null values for pptCount
-	 */
-	@Test
-	public void nullIdsPptCount() {
-		Map<String, Object> nullVals = new HashMap<String, Object>();
-		nullVals.put(null, null);
-	}
-	
-	/**
-	 * Testing null values for time graph
-	 */
-	@Test
-	public void nullIdsTimeGraph() {
-		Map<String, Object> nullVals = new HashMap<String, Object>();
-		nullVals.put(null, null);
-	}
-	
-	/**
-	 * Testing zeros for returning data
-	 */
-	@Test
-	public void testingReturnData() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("modules", new ArrayList<Integer>(0));
-		md = mc.getMetrics(0, test);
-		System.out.println(md);
-
-	}
-	
-	/**
-	 * Testing zeros avgResources
-	 */
-	@Test
-	public void TestAvgResourcesWithZero() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("modules", new ArrayList<Integer>(0));
-
-	}
-	
-	/**
-	 * Testing zeros DocumentCount
-	 */
-	@Test
-	public void TestDocumentCountWithZero() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("modules", new ArrayList<Integer>(0));
-
-	}
-	
-	/**
-	 * Testing zeros diffNums
-	 */
-	@Test
-	public void TestModsCountWithZero() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("modules", new ArrayList<Integer>(0));
-
-	}
-	
-	/**
-	 * Testing zeros PptCount
-	 */
-	@Test
-	public void TestPptCountWithZero() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("modules", new ArrayList<Integer>(0));
-
-	}
-	
-	/**
-	 * Testing zeros Time Graph
-	 */
-	@Test
-	public void TestTimeGraphWithZero() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("modules", new ArrayList<Integer>(0));
-
-	}
-
-	/**
-	 * Testing zeros return data for formatting
-	 */
-	@Test
-		public void testingReturnDataFormat() {
-			Map<String, Object> test = new HashMap<>();
-			test.put("format", "All");
-			md = mc.getMetrics(0, test);
-			System.out.println(md);
+		MetricsData gatheredMetrics = new MetricsData(
+				numCode, numDoc, numPpt, 
+				modSize, avgMods, timeGraphData);
 		
-		}
-	
-	/**
-	 * Testing zeros Time Graph for formatting
-	 */
-	@Test
-	public void TestTimeGraphWithZeroFormat() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("format", "All");
+		result = mvc.perform(post("/metrics/" + timeRange).contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objMapper.writeValueAsString(filter)));
+		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
+//		// MetricsData should be created
+		assertEquals(actual, gatheredMetrics);
 	}
 	
-	/**
-	 * Testing zeros avgResource for formatting
-	 */
 	@Test
-	public void TestAvgResourceWithZeroFormat() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("format", "All");
+	public void test_idsInNotEmpty_CodeExists() throws JsonProcessingException, Exception {
+		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
+		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
+		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
+		contentFormats.put("Code", 5);
+		Mockito.when(contentService.getFormatCount(Mockito.anySet())).thenReturn(contentFormats);
+		MetricsData gatheredMetrics = new MetricsData(
+				contentFormats.get("Code"), numDoc, numPpt, 
+				modSize, avgMods, timeGraphData);
+		
+		result = mvc.perform(post("/metrics/" + timeRange).contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objMapper.writeValueAsString(filter)));
+		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
+//		// MetricsData should be created
+		assertEquals(actual, gatheredMetrics);
 	}
 	
-	/**
-	 * Testing zeros Code Count for formatting
-	 */
 	@Test
-	public void TestCodeCountWithZeroFormat() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("format", "All");
+	public void test_idsInNotEmpty_PowerpointExists() throws JsonProcessingException, Exception {
+		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
+		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
+		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
+		contentFormats.put("Powerpoint", 3);
+		Mockito.when(contentService.getFormatCount(Mockito.anySet())).thenReturn(contentFormats);
+		MetricsData gatheredMetrics = new MetricsData(
+				numCode, numDoc, contentFormats.get("Powerpoint"), 
+				modSize, avgMods, timeGraphData);
+		
+		result = mvc.perform(post("/metrics/" + timeRange).contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objMapper.writeValueAsString(filter)));
+		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
+//		// MetricsData should be created
+		assertEquals(actual, gatheredMetrics);
 	}
 	
-	/**
-	 * Testing zeros Document Count for formatting
-	 */
 	@Test
-	public void TestDocumentCountZeroFormat() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("format", "All");
-	
-	}
-	
-	/**
-	 * Testing zeros number of mod for formatting
-	 */
-	@Test
-	public void TestNumModsWithZeroFormat() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("format", "All");
-	
-	}
-	
-	/**
-	 * Testing zeros pptCount for formatting
-	 */
-	@Test
-	public void TestPptCountWithZeroFormat() {
-		Map<String, Object> test = new HashMap<>();
-		test.put("format", "All");
+	public void test_idsInNotEmpty_DocumentExists() throws JsonProcessingException, Exception {
+		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
+		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
+		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
+		contentFormats.put("Document", 8);
+		Mockito.when(contentService.getFormatCount(Mockito.anySet())).thenReturn(contentFormats);
+		MetricsData gatheredMetrics = new MetricsData(
+				numCode, contentFormats.get("Document"), numPpt, 
+				modSize, avgMods, timeGraphData);
+		
+		result = mvc.perform(post("/metrics/" + timeRange).contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objMapper.writeValueAsString(filter)));
+		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
+//		// MetricsData should be created
+		assertEquals(actual, gatheredMetrics);
 	}
+	
+	@Test
+	public void test_idsInEmpty() throws JsonProcessingException, Exception {
+		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
+		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
+		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
+		
+		MetricsData gatheredMetrics = new MetricsData(
+				numCode, numDoc, numPpt, 
+				modSize, avgMods, timeGraphData);
+		
+		result = mvc.perform(post("/metrics/" + timeRange).contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objMapper.writeValueAsString(new HashMap<String, Object>())));
+		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
+//		// MetricsData should be created
+		assertEquals(actual, gatheredMetrics);
+	}
 
 }
