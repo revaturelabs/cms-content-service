@@ -27,7 +27,7 @@ public class CurrModule {
 	@JoinColumn(name="m_id")
 	private Module module;
 	
-	@Column
+	@Column(name = "importance")
 	private int importance;
 	
 	public CurrModule() {

@@ -4,11 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.entities.Curriculum;
 import com.revature.repositories.CurriculumRepository;
 import com.revature.util.LogException;
 
+@Service
 public class CurriculumServiceImpl implements CurriculumService{
 
 	@Autowired
