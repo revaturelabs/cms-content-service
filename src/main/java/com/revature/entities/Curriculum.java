@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
 
 @Entity
 public class Curriculum {
@@ -19,6 +21,7 @@ public class Curriculum {
 	@Column(name = "name", updatable = true, nullable = false)
 	private String name;
 
+	@Transient
 	private Set<CurrModule> currModules;
 	
 	public Curriculum() {
