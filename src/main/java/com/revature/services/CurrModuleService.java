@@ -11,9 +11,7 @@ public interface CurrModuleService {
 	public Set<CurrModule> getAllCurrModules();
 	
 	public CurrModule getCurrModuleById(int id);
-	
-	public CurrModule getCurrModuleByName(String name);
-	
+		
 	public Iterable<CurrModule> updateCurrModule(Set<CurrModule> currM);
 	
 	public void deleteCurriculumModule(CurrModule currM);

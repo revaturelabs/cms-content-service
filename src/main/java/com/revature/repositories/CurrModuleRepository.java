@@ -11,8 +11,6 @@ import com.revature.entities.CurrModule;
 @Repository
 public interface CurrModuleRepository extends CrudRepository<CurrModule,Integer> {
 	
-	CurrModule findByCurriculumName(String name);
-	
 	Set<CurrModule> findByModuleIdIn(List<Integer> modules);
 	
 	CurrModule findById(int cModuleId);

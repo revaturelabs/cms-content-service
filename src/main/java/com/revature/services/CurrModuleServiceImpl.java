@@ -36,11 +36,6 @@ public class CurrModuleServiceImpl implements CurrModuleService  {
 		return cMod;
 	}
 
-	@Override
-	public CurrModule getCurrModuleByName(String name) {
-		CurrModule cMod = cmR.findByCurriculumName(name);
-		return cMod;
-	}
 
 	@Override
 	public Iterable<CurrModule> updateCurrModule(Set<CurrModule> currM) {
