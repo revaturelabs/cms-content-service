@@ -367,4 +367,15 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(rlrMock).findByModule(mod1);
 		Assert.assertEquals(actual, reqLinks);
 	}
+	
+	@Test
+	void testUpdateLinksByModuleId () {
+		Link link = new Link(1, new Content(), new Module(), "affiliation1",0);
+		Set<Link> links = new HashSet<Link>();
+		links.add(link);
+		Set<Link> actual = msMock.updateLinksByModuleId(1, links);
+		
+		Assert.assertEquals(actual, links);
+			
+	}
 }
