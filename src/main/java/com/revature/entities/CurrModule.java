@@ -16,11 +16,11 @@ public class CurrModule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cmodule_id")
+	@Column(name = "curr_mod_id")
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="c_name")
+	@JoinColumn(name="curr_id")
 	private Curriculum curriculum;
 	
 	@ManyToOne(fetch=FetchType.EAGER)

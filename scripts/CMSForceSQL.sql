@@ -32,12 +32,13 @@ create table curriculum(
 );
 
 create table currmodule(
+	curr_mod_id serial,
 	curr_id int,
 	m_id int,
-	priority int,
+	importance int,
 	FOREIGN KEY (curr_id) REFERENCES curriculum(curr_id) on DELETE CASCADE,
 	FOREIGN KEY (m_id) REFERENCES module(m_id) on DELETE CASCADE,
-	PRIMARY KEY (curr_id, m_id)
+	PRIMARY KEY (curr_mod_id)
 );
 
 --the affiliation column is needed, but not implemented yet
