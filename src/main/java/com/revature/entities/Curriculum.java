@@ -1,5 +1,7 @@
 package com.revature.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,8 @@ public class Curriculum {
 	@Column(name = "name", updatable = true, nullable = false)
 	private String name;
 
+	private Set<CurrModule> currModules;
+	
 	public Curriculum() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -52,7 +56,12 @@ public class Curriculum {
 		this.name = name;
 	}
 
-
+	public Set<CurrModule> getCurrModules(){
+		return this.currModules;
+	}
+	public void setCurrModules(Set<CurrModule> currModules) {
+		this.currModules = currModules;
+	}
 
 	@Override
 	public int hashCode() {
