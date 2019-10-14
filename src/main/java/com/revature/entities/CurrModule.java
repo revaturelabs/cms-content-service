@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="currmodule")
 public class CurrModule {
@@ -21,6 +23,7 @@ public class CurrModule {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="curr_id")
+	@JsonIgnore
 	private Curriculum curriculum;
 	
 	@ManyToOne(fetch=FetchType.EAGER)

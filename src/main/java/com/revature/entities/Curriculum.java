@@ -9,9 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,8 +23,7 @@ public class Curriculum {
 	@Column(name = "name", updatable = true, nullable = false)
 	private String name;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "curriculum", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Transient
 	private Set<CurrModule> currModules;
 	
 	public Curriculum() {
