@@ -27,19 +27,26 @@ public class CurrModule {
 	@JoinColumn(name="m_id")
 	private Module module;
 	
-	@Column(name = "importance")
-	private int importance;
+	@Column(name = "priority")
+	private int priority;
 	
 	public CurrModule() {
 		super();
 	}
+	
+	public CurrModule(Curriculum curriculum, Module module, int priority) {
+		super();
+		this.curriculum = curriculum;
+		this.module = module;
+		this.priority = priority;
+	}
 
-	public CurrModule(int id, Curriculum curriculum, Module module, int importance) {
+	public CurrModule(int id, Curriculum curriculum, Module module, int priority) {
 		super();
 		this.id = id;
 		this.curriculum = curriculum;
 		this.module = module;
-		this.importance = importance;
+		this.priority = priority;
 	}
 
 	public int getId() {
@@ -66,12 +73,12 @@ public class CurrModule {
 		this.module = module;
 	}
 
-	public int getImportance() {
-		return importance;
+	public int getPriority() {
+		return priority;
 	}
 
-	public void setImportance(int importance) {
-		this.importance = importance;
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 
 	@Override
@@ -80,7 +87,7 @@ public class CurrModule {
 		int result = 1;
 		result = prime * result + ((curriculum == null) ? 0 : curriculum.hashCode());
 		result = prime * result + id;
-		result = prime * result + importance;
+		result = prime * result + priority;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		return result;
 	}
@@ -101,7 +108,7 @@ public class CurrModule {
 			return false;
 		if (id != other.id)
 			return false;
-		if (importance != other.importance)
+		if (priority != other.priority)
 			return false;
 		if (module == null) {
 			if (other.module != null)
@@ -113,8 +120,8 @@ public class CurrModule {
 
 	@Override
 	public String toString() {
-		return "CurrModule [id=" + id + ", curriculum=" + curriculum + ", module=" + module + ", importance="
-				+ importance + "]";
+		return "CurrModule [id=" + id + ", curriculum=" + curriculum + ", module=" + module + ", priority="
+				+ priority + "]";
 	}
 	
 	
