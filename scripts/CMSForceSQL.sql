@@ -35,7 +35,7 @@ create table currmodule(
 	curr_mod_id serial,
 	curr_id int,
 	m_id int,
-	importance int,
+	priority int,
 	FOREIGN KEY (curr_id) REFERENCES curriculum(curr_id) on DELETE CASCADE,
 	FOREIGN KEY (m_id) REFERENCES module(m_id) on DELETE CASCADE,
 	PRIMARY KEY (curr_mod_id)
