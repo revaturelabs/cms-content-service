@@ -43,12 +43,6 @@ public class CurrModuleController {
 		return ResponseEntity.ok(currMod);
 	}
 	
-	@GetMapping(value="/{name}")
-	public ResponseEntity<CurrModule> getCurrModuleByName(@PathVariable String name){
-		CurrModule currMod = currModuleService.getCurrModuleByName(name);
-		return ResponseEntity.ok(currMod);
-	}
-	
 	@PutMapping("/update")
 	public ResponseEntity<Set<CurrModule>> updateCurrModules(@RequestBody Set<CurrModule> modules){
 		return ResponseEntity.ok(modules);
