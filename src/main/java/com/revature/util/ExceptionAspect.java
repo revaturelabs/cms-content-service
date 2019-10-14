@@ -18,8 +18,8 @@ public class ExceptionAspect { //Aspect handling exceptions
 		log.logger.error("There was an issue in " + "\n"); //Logger for identifying issues
 		log.logger.error(e.getMessage());
 	}
-		@Pointcut("@annotation(com.revature.util.LogException)")
-		private void LogException() {
-			
+
+	@Pointcut("@annotation(com.revature.util.LogException)")
+	void LogException() {
 	}
 }
