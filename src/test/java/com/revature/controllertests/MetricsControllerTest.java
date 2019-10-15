@@ -100,7 +100,6 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 				.content(objMapper.writeValueAsString(filter)));
 		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
-//		// MetricsData should be created
 		assertEquals(actual, gatheredMetrics);
 	}
 	
@@ -119,7 +118,6 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 				.content(objMapper.writeValueAsString(filter)));
 		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
-//		// MetricsData should be created
 		assertEquals(actual, gatheredMetrics);
 	}
 	
@@ -138,7 +136,6 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 				.content(objMapper.writeValueAsString(filter)));
 		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
-//		// MetricsData should be created
 		assertEquals(actual, gatheredMetrics);
 	}
 	
@@ -157,7 +154,6 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 				.content(objMapper.writeValueAsString(filter)));
 		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
-//		// MetricsData should be created
 		assertEquals(actual, gatheredMetrics);
 	}
 	
@@ -175,7 +171,6 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 				.content(objMapper.writeValueAsString(new HashMap<String, Object>())));
 		actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), MetricsData.class);
 
-//		// MetricsData should be created
 		assertEquals(actual, gatheredMetrics);
 	}
 

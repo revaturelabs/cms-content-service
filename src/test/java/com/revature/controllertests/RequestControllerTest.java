@@ -37,45 +37,34 @@ import java.util.List;
 import java.util.Set;
 
 @SpringBootTest(classes = CMSforceApplication.class)
-public class RequestControllerTest extends AbstractTestNGSpringContextTests{
-	//allows us to send mocked http requests
-		private MockMvc mvc;
+public class RequestControllerTest extends AbstractTestNGSpringContextTests {
+	private MockMvc mvc;
+	private ObjectMapper objMapper = new ObjectMapper();
 
-		//allows json<->object conversion
-    	private ObjectMapper objMapper = new ObjectMapper();
+	@InjectMocks
+	private RequestController rc;
 
-		//controller being tested
-		@InjectMocks
-		private RequestController rc;
-		
-		//services used by controller
-		@Mock
-		private RequestService rs;
-		@Mock
-		private SearchService ss;
-		
-		//content being passed to controller requests
-		private Request request;
-		
-		@BeforeClass
-		public void setup() {
-			//build mock MVC so can build mock requests
-			rc = new RequestController();
-			mvc = MockMvcBuilders.standaloneSetup(rc).build();
-		}
+	@Mock
+	private RequestService rs;
+	@Mock
+	private SearchService ss;
+	private Request request;
 
-		// TestNG does not create a new instance of the test class for each test like JUnit does.
-		// So,  initMocks must be called before each test to reset mocks.
-		@BeforeMethod
-		public void reinitMocks() {
-			// enables Mockito annotations (???)
-			MockitoAnnotations.initMocks(this);
-		}
+	@BeforeClass
+	public void setup() {
+		rc = new RequestController();
+		mvc = MockMvcBuilders.standaloneSetup(rc).build();
+	}
 
-		@BeforeTest
-		public void preTestSetup() {
-		    request = null;
-		}
+	@BeforeMethod
+	public void reinitMocks() {
+		MockitoAnnotations.initMocks(this);
+	}
+
+	@BeforeTest
+	public void preTestSetup() {
+		request = null;
+	}
 
 	@Test
 	public void givenValidDataCreateRequest() throws Exception {
@@ -83,16 +72,14 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Mockito.when(rs.createRequest(request)).thenReturn(request);
 
-
-		ResultActions result = mvc.perform(post ("/requests")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
+		ResultActions result = mvc.perform(post("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(rc.requestToJSONRequest(request))));
 
 		result.andExpect(status().isOk());
 	}
 
 	@Test
-	public void givenValidDataCreateReqLinks() throws Exception {
+	public void givenValidDataCreateReqLinksStatusOK() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -102,57 +89,87 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 
 		Mockito.when(rs.createReqLinksByRequestId(request.getId(), reqLinks)).thenReturn(reqLinks);
 
-		ResultActions result = mvc.perform( post("/requests/" + request.getId() + "/req-links")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(objMapper.writeValueAsString(reqLinks)));
-
-		List<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse()
-				.getContentAsString(), new TypeReference<List<ReqLink>>() { });
+		ResultActions result = mvc.perform(post("/requests/" + request.getId() + "/req-links")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(reqLinks)));
 
 		result.andExpect(status().isOk());
-		Mockito.verify(rs).createReqLinksByRequestId(request.getId(), reqLinks);
+	}
+
+	@Test
+	public void givenValidDataCreateReqLinksTestReturn() throws Exception {
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+		ReqLink reqLink = new ReqLink(0, request, module, "reqLink_affiliation");
+		List<ReqLink> reqLinks = new ArrayList<ReqLink>();
+		reqLinks.add(reqLink);
+
+		Mockito.when(rs.createReqLinksByRequestId(request.getId(), reqLinks)).thenReturn(reqLinks);
+
+		ResultActions result = mvc.perform(post("/requests/" + request.getId() + "/req-links")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(reqLinks)));
+
+		List<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<List<ReqLink>>() {
+				});
 		Assert.assertEquals(actual, reqLinks, "Failed to retrieve expected request links");
 	}
 
 	@Test
-	public void getAllRequests() throws Exception {
+	public void getAllRequestsStatusOK() throws Exception {
+		Set<Request> reqs = new HashSet<Request>();
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		reqs.add(request);
+		Mockito.when(rs.getAllRequests()).thenReturn(reqs);
+		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE));
+		Set<JSONRequest> jsonReqs = new HashSet<JSONRequest>();
+		jsonReqs.add(rc.requestToJSONRequest(request));
+		result.andExpect(status().isOk());
+	}
+
+	@Test
+	public void getAllRequestsTestReturn() throws Exception {
 		Set<Request> reqs = new HashSet<Request>();
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		reqs.add(request);
 
 		Mockito.when(rs.getAllRequests()).thenReturn(reqs);
 
-		ResultActions result = mvc.perform( get("/requests")
-				.contentType(MediaType.APPLICATION_JSON_VALUE));
+		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE));
 
-		Set<JSONRequest> ret = objMapper.readValue(result.andReturn().getResponse()
-				.getContentAsString(), new TypeReference<Set<JSONRequest>>() { });
+		Set<JSONRequest> ret = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<JSONRequest>>() {
+				});
 
 		Set<JSONRequest> jsonReqs = new HashSet<JSONRequest>();
 		jsonReqs.add(rc.requestToJSONRequest(request));
-		result.andExpect(status().isOk());
 		Assert.assertEquals(ret, jsonReqs, "Failed to retrieve expected requests");
 	}
 
 	@Test
-	public void getRequestById() throws Exception {
-        request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
-        Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
-
-        ResultActions result = mvc.perform( get("/requests/" + request.getId())
-                .contentType(MediaType.APPLICATION_JSON_VALUE));
-
-        JSONRequest actual = objMapper.readValue(result.andReturn().getResponse()
-                .getContentAsString(), JSONRequest.class);
-
-        result.andExpect(status().isOk());
-        Mockito.verify(rs).getRequestsById(request.getId());
-        Assert.assertEquals(actual, rc.requestToJSONRequest(request),
-                "Failed to retrieve expected request");
+	public void getRequestByIdStatusOk() throws Exception {
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
+		ResultActions result = mvc
+				.perform(get("/requests/" + request.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
+		result.andExpect(status().isOk());
 	}
 
 	@Test
-	public void getReqLinksByRequestId() throws Exception {
+	public void getRequestByIdTestReturn() throws Exception {
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
+
+		ResultActions result = mvc
+				.perform(get("/requests/" + request.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
+
+		JSONRequest actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				JSONRequest.class);
+		Assert.assertEquals(actual, rc.requestToJSONRequest(request), "Failed to retrieve expected request");
+	}
+
+	@Test
+	public void getReqLinksByRequestIdStatusOk() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -162,21 +179,35 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 
 		Mockito.when(rs.getReqLinksByRequestId(request.getId())).thenReturn(reqLinks);
 
-		ResultActions result = mvc.perform( get("/requests/" + request.getId() + "/req-links")
-				.contentType(MediaType.APPLICATION_JSON_VALUE));
-
-		List<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse()
-				.getContentAsString(), new TypeReference<List<ReqLink>>() { });
-
+		ResultActions result = mvc.perform(
+				get("/requests/" + request.getId() + "/req-links").contentType(MediaType.APPLICATION_JSON_VALUE));
 		result.andExpect(status().isOk());
-		Mockito.verify(rs).getReqLinksByRequestId(request.getId());
+	}
+
+	@Test
+	public void getReqLinksByRequestIdTestReturn() throws Exception {
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+		ReqLink reqLink = new ReqLink(0, request, module, "reqLink_affiliation");
+		List<ReqLink> reqLinks = new ArrayList<ReqLink>();
+		reqLinks.add(reqLink);
+
+		Mockito.when(rs.getReqLinksByRequestId(request.getId())).thenReturn(reqLinks);
+
+		ResultActions result = mvc.perform(
+				get("/requests/" + request.getId() + "/req-links").contentType(MediaType.APPLICATION_JSON_VALUE));
+
+		List<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<List<ReqLink>>() {
+				});
+
 		Assert.assertEquals(actual, reqLinks, "Failed to retrieve expected request links");
 	}
 
 	private Set<JSONRequest> convertToJSONRequests(Set<Request> requests) {
 		Set<JSONRequest> results = new HashSet<JSONRequest>();
-		for (Request req : requests)
-		{
+		for (Request req : requests) {
 			results.add(rc.requestToJSONRequest(req));
 		}
 
@@ -184,12 +215,13 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 	}
 
 	@Test
-	public void getSearchResultsByTitle() throws Exception {
+	public void getSearchResultsByTitleStatusOk() throws Exception {
 		String title = "test title";
 		String format = "";
 		String modules = "";
 		request = new Request(1, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
-		Request request2 = new Request(2, "test title", "document", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Request request2 = new Request(2, "test title", "document", "test description", null, 1L, 1L,
+				new HashSet<ReqLink>());
 		Set<Request> matches = new HashSet<Request>();
 		matches.add(request);
 		matches.add(request2);
@@ -198,28 +230,47 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 
 		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
 
-		ResultActions result = mvc.perform( get("/requests")
-						.contentType(MediaType.APPLICATION_JSON_VALUE)
-						.param("title", title)
-						.param("format", format)
-						.param("modules", modules));
-
-		Set<JSONRequest> actual = objMapper.readValue(result.andReturn().getResponse()
-						.getContentAsString(), new TypeReference<Set<JSONRequest>>() { });
+		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param("title", title).param("format", format).param("modules", modules));
 
 		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getSearchResultsByTitle() throws Exception {
+		String title = "test title";
+		String format = "";
+		String modules = "";
+		request = new Request(1, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Request request2 = new Request(2, "test title", "document", "test description", null, 1L, 1L,
+				new HashSet<ReqLink>());
+		Set<Request> matches = new HashSet<Request>();
+		matches.add(request);
+		matches.add(request2);
+
+		ArrayList<Integer> modList = new ArrayList<Integer>();
+
+		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
+
+		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param("title", title).param("format", format).param("modules", modules));
+
+		Set<JSONRequest> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<JSONRequest>>() {
+				});
+
 		Mockito.verify(ss).filterReq(title, format, modList);
-		Assert.assertEquals(actual, convertToJSONRequests(matches),
-				"Failed to retrieve expected search");
+		Assert.assertEquals(actual, convertToJSONRequests(matches), "Failed to retrieve expected search");
 	}
 
 	@Test
-	public void getSearchResultsByModules() throws Exception {
+	public void getSearchResultsByModulesStatusO() throws Exception {
 		String title = "";
 		String format = "";
 		String modules = "1,2";
 		request = new Request(1, "test title 1", "code", "a description", null, 1L, 1L, new HashSet<ReqLink>());
-		Request request2 = new Request(2, "test title 2", "document", "another description", null, 1L, 1L, new HashSet<ReqLink>());
+		Request request2 = new Request(2, "test title 2", "document", "another description", null, 1L, 1L,
+				new HashSet<ReqLink>());
 		Set<Request> matches = new HashSet<Request>();
 		matches.add(request);
 		matches.add(request2);
@@ -230,37 +281,51 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 
 		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
 
-		ResultActions result = mvc.perform( get("/requests")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.param("title", title)
-                .param("format", format)
-				.param("modules", modules));
-
-		Set<JSONRequest> actual = objMapper.readValue(result.andReturn().getResponse()
-				.getContentAsString(), new TypeReference<Set<JSONRequest>>() { });
-
+		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param("title", title).param("format", format).param("modules", modules));
 		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getSearchResultsByModulesTestReturn() throws Exception {
+		String title = "";
+		String format = "";
+		String modules = "1,2";
+		request = new Request(1, "test title 1", "code", "a description", null, 1L, 1L, new HashSet<ReqLink>());
+		Request request2 = new Request(2, "test title 2", "document", "another description", null, 1L, 1L,
+				new HashSet<ReqLink>());
+		Set<Request> matches = new HashSet<Request>();
+		matches.add(request);
+		matches.add(request2);
+
+		ArrayList<Integer> modList = new ArrayList<Integer>();
+		modList.add(1);
+		modList.add(2);
+
+		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
+
+		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param("title", title).param("format", format).param("modules", modules));
+
+		Set<JSONRequest> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<JSONRequest>>() {
+				});
+
 		Mockito.verify(ss).filterReq(title, format, modList);
-		Assert.assertEquals(actual, convertToJSONRequests(matches),
-				"Failed to retrieve expected search");
+		Assert.assertEquals(actual, convertToJSONRequests(matches), "Failed to retrieve expected search");
 	}
 
 	@Test
 	public void updateRequest() throws Exception {
-	    request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
-	    Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
-	    Mockito.when(rs.updateRequest(request)).thenReturn(request);
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
+		Mockito.when(rs.updateRequest(request)).thenReturn(request);
 
-	    ResultActions result = mvc.perform( put("/requests/" + request.getId())
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(objMapper.writeValueAsString(request)));
+		ResultActions result = mvc.perform(put("/requests/" + request.getId())
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(request)));
 
-	    Request actual = objMapper.readValue(result.andReturn().getResponse()
-						.getContentAsString(), Request.class);
-
-		Mockito.verify(rs).getRequestsById(request.getId());
-		Mockito.verify(rs).updateRequest(request);
-	    Assert.assertEquals(actual, request, "Failed to update request");
+		Request actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Request.class);
+		Assert.assertEquals(actual, request, "Failed to update request");
 	}
 
 	@Test
@@ -268,17 +333,14 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(null);
 
-		ResultActions result = mvc.perform( put("/requests/" + request.getId())
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(objMapper.writeValueAsString(request)));
+		ResultActions result = mvc.perform(put("/requests/" + request.getId())
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(request)));
 
 		result.andExpect(status().is(405));
-		Mockito.verify(rs).getRequestsById(request.getId());
-		Mockito.verify(rs, Mockito.times(0)).updateRequest(request);
 	}
 
 	@Test
-	public void updateReqLinks() throws Exception {
+	public void updateReqLinksStatusOk() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -288,14 +350,29 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 
 		Mockito.when(rs.updateReqLinks(request.getId(), reqLinks)).thenReturn(reqLinks);
 
-		ResultActions result = mvc.perform( put("/requests/" + request.getId() + "/links")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.content(objMapper.writeValueAsString(reqLinks)));
-
-		List<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse()
-				.getContentAsString(), new TypeReference<List<ReqLink>>() { });
-
+		ResultActions result = mvc.perform(put("/requests/" + request.getId() + "/links")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(reqLinks)));
 		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void updateReqLinksTestReturn() throws Exception {
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+		ReqLink reqLink = new ReqLink(0, request, module, "reqLink_affiliation");
+		List<ReqLink> reqLinks = new ArrayList<ReqLink>();
+		reqLinks.add(reqLink);
+
+		Mockito.when(rs.updateReqLinks(request.getId(), reqLinks)).thenReturn(reqLinks);
+
+		ResultActions result = mvc.perform(put("/requests/" + request.getId() + "/links")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(reqLinks)));
+
+		List<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<List<ReqLink>>() {
+				});
+
 		Mockito.verify(rs).updateReqLinks(request.getId(), reqLinks);
 		Assert.assertEquals(actual, reqLinks, "Failed to retrieve expected request links");
 	}
@@ -306,10 +383,9 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests{
 		Mockito.doNothing().when(rs).deleteRequest(request);
 		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
 
-		ResultActions result = mvc.perform( delete("/requests/" + request.getId())
-				.contentType(MediaType.APPLICATION_JSON_VALUE));
+		ResultActions result = mvc
+				.perform(delete("/requests/" + request.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
 
 		result.andExpect(status().isOk());
-		Mockito.verify(rs).deleteRequest(request);
 	}
 }
