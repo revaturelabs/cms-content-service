@@ -108,7 +108,7 @@ public class ModuleController {
 	// update link s based on module Id
 	@PutMapping(value = "{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<Link>> updateLinksById(@RequestBody Set<Link> links, @PathVariable int id) {
-		System.out.println(links.toString());
+
 		return ResponseEntity.ok(moduleService.updateLinksByModuleId(id, links));
 	}
 	//delete a specific module, retaining all content

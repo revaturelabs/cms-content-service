@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,8 @@ public class CurrModuleController {
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Set<CurrModule>> updateCurrModules(@RequestBody Set<CurrModule> modules){
-		return ResponseEntity.ok(modules);
+	public ResponseEntity<ArrayList<CurrModule>> updateCurrModules(@RequestBody Set<CurrModule> modules){
+		return ResponseEntity.ok((ArrayList<CurrModule>)currModuleService.updateCurrModule(modules));
 	}
 	
 	@DeleteMapping(value="/{id}")

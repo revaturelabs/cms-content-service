@@ -21,10 +21,8 @@ public class CurrModule {
 	@Column(name = "curr_mod_id")
 	private int id;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="curr_id")
-	@JsonIgnore
-	private Curriculum curriculum;
+	@Column(name="curr_id")
+	private int curriculum;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="m_id")
@@ -37,14 +35,14 @@ public class CurrModule {
 		super();
 	}
 	
-	public CurrModule(Curriculum curriculum, Module module, int priority) {
+	public CurrModule(int curriculum, Module module, int priority) {
 		super();
 		this.curriculum = curriculum;
 		this.module = module;
 		this.priority = priority;
 	}
 
-	public CurrModule(int id, Curriculum curriculum, Module module, int priority) {
+	public CurrModule(int id, int curriculum, Module module, int priority) {
 		super();
 		this.id = id;
 		this.curriculum = curriculum;
@@ -60,11 +58,11 @@ public class CurrModule {
 		this.id = id;
 	}
 
-	public Curriculum getCurriculum() {
+	public int getCurriculum() {
 		return curriculum;
 	}
 
-	public void setCurriculum(Curriculum curriculum) {
+	public void setCurriculum(int curriculum) {
 		this.curriculum = curriculum;
 	}
 
@@ -88,10 +86,10 @@ public class CurrModule {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((curriculum == null) ? 0 : curriculum.hashCode());
+		result = prime * result + curriculum;
 		result = prime * result + id;
-		result = prime * result + priority;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
+		result = prime * result + priority;
 		return result;
 	}
 
@@ -104,31 +102,25 @@ public class CurrModule {
 		if (getClass() != obj.getClass())
 			return false;
 		CurrModule other = (CurrModule) obj;
-		if (curriculum == null) {
-			if (other.curriculum != null)
-				return false;
-		} else if (!curriculum.equals(other.curriculum))
+		if (curriculum != other.curriculum)
 			return false;
 		if (id != other.id)
-			return false;
-		if (priority != other.priority)
 			return false;
 		if (module == null) {
 			if (other.module != null)
 				return false;
 		} else if (!module.equals(other.module))
 			return false;
+		if (priority != other.priority)
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "CurrModule [id=" + id + ", curriculum=" + curriculum + ", module=" + module + ", priority="
-				+ priority + "]";
+		return "CurrModule [id=" + id + ", curriculum=" + curriculum + ", module=" + module + ", priority=" + priority
+				+ "]";
 	}
-	
-	
-
 
 	
 	
