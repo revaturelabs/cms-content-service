@@ -41,24 +41,17 @@ import com.revature.testingutils.ContentFactory;
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
-	// allows us to send mocked http requests
 	private MockMvc mvc;
-
-	// allows json<->object conversion
 	private ObjectMapper objMapper = new ObjectMapper();
 
-	// controller being tested
 	@InjectMocks
 	private ContentController cc;
 
-	// service used by controller
 	@Mock
 	private ContentService cs;
 
 	@Mock
 	private SearchService ss;
-	
-	// content being passed to controller requests
 	private Content content;
 
 	/**
@@ -69,8 +62,6 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		// build mock MVC so can build mock requests
 		cc = new ContentController();
 		mvc = MockMvcBuilders.standaloneSetup(cc).build();
-
-		// enables mockito annotations
 		MockitoAnnotations.initMocks(this);
 	}
 
@@ -88,57 +79,62 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if mocked http request fails
 	 */
 	@Test
-	public void givenValidDataCreateContent() throws Exception {
-		// given
+	public void givenValidDataCreateContentStatusOk() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
-
-		// when
+		ResultActions result = mvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(objMapper.writeValueAsString(content)));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void givenValidDataCreateContentTestReturn() throws Exception {
+		Mockito.when(cs.createContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(content)));
 		Content ret = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
-
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// content should be created
 		assertEquals(ret, content, "Failed to create content");
 	}
 
 	@Test
-	public void givenValidDataCreateContentGetLinksNotNull() throws Exception {
-		// given
-//		Mockito.when(cs.createContent(content)).thenReturn(content);
+	public void givenValidDataCreateContentGetLinksNotNullStatsuOk() throws Exception {
+		Mockito.when(cs.createContent(content)).thenReturn(content);
 		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));
 		contentBuilder.insert(contentBuilder.length() - 1,
 				",\"links\":" + objMapper.writeValueAsString(content.getLinks()));
-
-		// when
 		ResultActions result = mvc.perform(
 				post("/content").contentType(MediaType.APPLICATION_JSON_VALUE).content(contentBuilder.toString()));
-
-		Content ret = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
-		// then
-		// expect status of OK
 		result.andExpect(status().isOk());
-		// content should be created
-		assertEquals(ret, content, "Failed to create content");
 	}
 
 	@Test
-	public void createLinks() throws Exception {
-		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
-		// given
-		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
+	public void givenValidDataCreateContentGetLinksNotNullTestReturn() throws Exception {
+		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));
+		contentBuilder.insert(contentBuilder.length() - 1,
+				",\"links\":" + objMapper.writeValueAsString(content.getLinks()));
+		ResultActions result = mvc.perform(
+				post("/content").contentType(MediaType.APPLICATION_JSON_VALUE).content(contentBuilder.toString()));
+		Content ret = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
+		assertEquals(ret, content, "Failed to create content");
+	}
 
-		// when
+	
+	@Test
+	public void createLinksStatusOk() throws Exception {
+		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
+		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
+		ResultActions result = mvc.perform(post("/content/{id}/links", content.getId())
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(links)));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void createLinksTestReturn() throws Exception {
+		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
+		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(post("/content/{id}/links", content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(links)));
 		List<Link> ret = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				objMapper.getTypeFactory().constructCollectionType(List.class, Link.class));
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// Link List should be created
 		assertEquals(ret, links, "Failed to create Link List");
 	}
 
@@ -148,20 +144,21 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if http request fails
 	 */
 	@Test
-	public void getAllContents() throws Exception {
-		// given
+	public void getAllContentsStatusOk() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
-
-		// when
+		ResultActions result = mvc.perform(get("/content"));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getAllContentsStatusTestReturn() throws Exception {
+		Set<Content> expected = new HashSet<Content>();
+		expected.add(content);
+		Mockito.when(cs.getAllContent()).thenReturn(expected);
 		ResultActions result = mvc.perform(get("/content"));
 		String actual = result.andReturn().getResponse().getContentAsString();
-
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// compare as json to avoid warnings from conversion
 		assertEquals(actual, convertToJSONContentSetString(expected), "Failed to find content");
 	}
 
@@ -173,9 +170,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		}
 		if (allContent.size() > 0)
 			result.deleteCharAt(result.length() - 1);
-
 		result.append("]");
-
 		return result.toString();
 	}
 
@@ -185,35 +180,35 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if http request fails
 	 */
 	@Test
-	public void getContentById() throws Exception {
+	public void getContentByIdstatusOk() throws Exception {
 		// given
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
-
-		// when
+		ResultActions result = mvc.perform(get("/content/" + content.getId()));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getContentByIdTestReturn() throws Exception {
+		// given
+		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc.perform(get("/content/" + content.getId()));
 		Content actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
-
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// should retrieve same content back
 		assertEquals(actual, content, "Failed to retrieve content");
 	}
 
 	@Test
-	public void getLinksByContentId() throws Exception {
-		// given
+	public void getLinksByContentIdStatusOk() throws Exception {
 		Mockito.when(cs.getLinksByContentId(content.getId())).thenReturn(content.getLinks());
-
-		// when
+		ResultActions result = mvc.perform(get("/content/" + content.getId() + "/links"));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getLinksByContentIdTestReturn() throws Exception {
+		Mockito.when(cs.getLinksByContentId(content.getId())).thenReturn(content.getLinks());
 		ResultActions result = mvc.perform(get("/content/" + content.getId() + "/links"));
 		Set<Link> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				objMapper.getTypeFactory().constructCollectionType(Set.class, Link.class));
-
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// should retrieve same content back
 		assertEquals(actual, content.getLinks(), "Failed to retrieve Link Set");
 	}
 
@@ -223,41 +218,40 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void updateContent() throws Exception {
-		// given
+	public void updateContentStatusOk() throws Exception {
 		Mockito.when(cs.updateContent(content)).thenReturn(content);
-
-		// when
+		ResultActions result = mvc.perform(put("/content/" + content.getId())
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(content)));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void updateContentTestReturn() throws Exception {
+		Mockito.when(cs.updateContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(put("/content/" + content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(content)));
 		Content actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
-
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// should retrieve same content back
 		assertEquals(actual, content, "Failed to update content");
-
 	}
 
 	@Test
-	public void updateLinks() throws Exception {
+	public void updateLinksStatusOk() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
-		// given
 		Mockito.when(cs.updateLinksByContentId(content.getId(), links)).thenReturn(links);
-
-		// when
+		ResultActions result = mvc.perform(put("/content/" + content.getId() + "/links")
+				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(links)));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void updateLinksTestReturn() throws Exception {
+		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
+		Mockito.when(cs.updateLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(put("/content/" + content.getId() + "/links")
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(links)));
 		List<Link> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				objMapper.getTypeFactory().constructCollectionType(List.class, Link.class));
-
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// should retrieve same content back
 		assertEquals(actual, links, "Failed to update Links");
-
 	}
 
 	/**
@@ -266,39 +260,36 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteContent() throws Exception {
-		// mock content service
+	public void deleteContentStatusOk() throws Exception {
 		Mockito.doNothing().when(cs).deleteContent(content);
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
-
-		// when
 		ResultActions result = mvc
 				.perform(delete("/content/" + content.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
-
-		// then
-		// expect status of OK
 		result.andExpect(status().isOk());
-		// expect controller to request deletion of content to service
-		Mockito.verify(cs).deleteContent(content);
 	}
-
+	
 	@Test
-	public void getSearchResults() throws Exception {
-		// given
+	public void getSearchResultsStatusOk() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
         String [] params = { "title", "format", "modules" };
 		List<Integer> integers = new ArrayList<>();
 		integers.add(1);
 		Mockito.when(ss.filter(anyString(), anyString(), anyList())).thenReturn(expected);
-		
-		// when
+		ResultActions result = mvc.perform(get("/content").param(params[0], content.getTitle()).param(params[1], content.getFormat()).param(params[2], "1"));
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void getSearchResultsTestReturn() throws Exception {
+		Set<Content> expected = new HashSet<Content>();
+		expected.add(content);
+        String [] params = { "title", "format", "modules" };
+		List<Integer> integers = new ArrayList<>();
+		integers.add(1);
+		Mockito.when(ss.filter(anyString(), anyString(), anyList())).thenReturn(expected);
 		ResultActions result = mvc.perform(get("/content").param(params[0], content.getTitle()).param(params[1], content.getFormat()).param(params[2], "1"));
 		String actual = result.andReturn().getResponse().getContentAsString();
-		// then
-		// expect status of OK
-		result.andExpect(status().isOk());
-		// compare as json to avoid warnings from conversion
 		assertEquals(actual, convertToJSONContentSetString(expected), "Failed to find content");
 	}
 }
