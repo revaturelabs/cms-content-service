@@ -1,4 +1,4 @@
-package com.revature.utiltests;
+package com.revature.util;
 
 import static org.testng.Assert.assertTrue;
 

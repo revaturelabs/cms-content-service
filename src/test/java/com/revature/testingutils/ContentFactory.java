@@ -75,7 +75,9 @@ public class ContentFactory {
 				Content content = new Content (id, parameters[0], parameters[1], parameters[2], parameters[3], 1L, 1L, links);
 				link.setContent(content);
 				link.setModule(module);
+				System.out.println(content.toString());
 				return content;
+				
 	}
 	public static Module moduleForException() {
 		Module badModule = new Module();
