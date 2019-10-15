@@ -1,4 +1,4 @@
-package com.revature.JSONEntitiestests;
+package com.revature.JSONEntities;
 
 import static org.testng.Assert.assertTrue;
 
@@ -55,3 +55,4 @@ public class JSONRequestTest {
 				.usingGetClass().suppress(Warning.NONFINAL_FIELDS).verify();
 	}
 }
+

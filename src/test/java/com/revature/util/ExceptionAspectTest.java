@@ -1,12 +1,10 @@
 package com.revature.util;
 
+import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
-import org.aspectj.lang.JoinPoint;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -15,9 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.mockito.Mockito.*;
-import com.revature.util.ExceptionAspect;
-import com.revature.util.Logging;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

@@ -1,4 +1,4 @@
-package com.revature.cmsforcetests;
+package com.revature.cmsforce;
 
 import org.testng.annotations.Test;
 

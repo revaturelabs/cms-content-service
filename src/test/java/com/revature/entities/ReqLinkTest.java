@@ -1,4 +1,4 @@
-package com.revature.entitiestests;
+package com.revature.entities;
 
 import static org.testng.Assert.assertTrue;
 import org.testng.annotations.Test;

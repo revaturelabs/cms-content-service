@@ -1,32 +1,31 @@
-package com.revature.JSONEntitiestests;
+package com.revature.JSONEntities;
 
 import static org.testng.Assert.assertTrue;
 
-import java.util.HashSet;
-
 import org.testng.annotations.Test;
 
-import com.revature.JSONEntities.JSONContent;
+import com.revature.JSONEntities.JSONModule;
 import com.revature.entities.Link;
+import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
-public class JSONContentTest {
+public class JSONModuleTest {
 
 	// toString Test
 	@Test
 	public void testToString() {
-		assertTrue(new JSONContent().toString() instanceof String);
+		assertTrue(new JSONModule().toString() instanceof String);
 	}
 
 	// Constructor Tests
 	@Test
 	public void testContent() {
-		JSONContent one = new JSONContent(99, "Java a New Begining", "String", "The Java the brought hope back",
-				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
-		assertTrue(one instanceof JSONContent);
-		JSONContent two = new JSONContent();
+		JSONModule one = new JSONModule(1, "b", 1, null, null, null, null);
+		assertTrue(one instanceof JSONModule);
+		JSONModule two = new JSONModule();
 		assertTrue(one != two);
 	}
 
@@ -38,12 +37,16 @@ public class JSONContentTest {
 
 		// The suppression for non final fields is for the error "Mutability: equals
 		// depends on mutable field". It is generally not recommended to use this
-		// approach but the JSONContent class itself or its fields would have to be
+		// approach but the JSONModule class itself or its fields would have to be
 		// modified with final to properly address this.
-		EqualsVerifier.forClass(JSONContent.class)
+		EqualsVerifier.forClass(JSONModule.class)
 				.withPrefabValues(Link.class, new Link(1, null, null, "different"),
 						new Link(2, null, null, "affiliations"))
+				.withPrefabValues(ReqLink.class, new ReqLink(1, null, null, "different"),
+						new ReqLink(2, null, null, "affiliations"))
+				.withPrefabValues(Module.class, new Module(1, "Java", 56890, null, null, null, null),
+						new Module(2, "C#", 67953, null, null, null, null))
 				.usingGetClass().suppress(Warning.NONFINAL_FIELDS).verify();
 	}
-
 }
+
