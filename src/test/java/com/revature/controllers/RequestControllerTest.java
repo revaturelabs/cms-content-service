@@ -1,4 +1,4 @@
-package com.revature.controllertests;
+package com.revature.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

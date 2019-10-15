@@ -1,4 +1,4 @@
-package com.revature.controllertests;
+package com.revature.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

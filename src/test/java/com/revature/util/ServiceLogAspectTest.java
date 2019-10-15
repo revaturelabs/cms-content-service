@@ -43,19 +43,19 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
     }    
     @Test
     public void logContentService_createContent_Test() {
-    	mockSerLogAspect.logContentService_createContent(joinPoint);
+    	mockSerLogAspect.logContentServiceCreateContent(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully created a content", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logContentService_getAllContent_Test() {
-        mockSerLogAspect.logContentService_getAllContent(joinPoint);
+        mockSerLogAspect.logContentServiceGetAllContent(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved all contents", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logContentService_getContentById_Test() {
-        mockSerLogAspect.logContentService_getContentById(joinPoint);
+        mockSerLogAspect.logContentServiceGetContentById(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved a content", classLoggerLogs.get(0).getMessage());
     }
@@ -69,43 +69,43 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void logSearchService_filterContentByFormat_Test() {
-        mockSerLogAspect.logSearchService_filterContentByFormat(joinPoint);
+        mockSerLogAspect.logSearchServiceFilterContentByFormat(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully filtered a content by format", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logSearchService_filterContentBySubjects_Test() {
-        mockSerLogAspect.logSearchService_filterContentBySubjects(joinPoint);
+        mockSerLogAspect.logSearchServiceFilterContentBySubjects(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully filtered a content by subject", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logSearchService_getContentByModuleId_Test() {
-        mockSerLogAspect.logSearchService_getContentByModuleId(joinPoint);
+        mockSerLogAspect.logSearchServiceGetContentByModuleId(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved a content by module ID", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logSearchService_filter_Test() {
-        mockSerLogAspect.logSearchService_filter(joinPoint);
+        mockSerLogAspect.logSearchServiceFilter(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully filtered a content", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logModuleService_getAllModules_Test() {
-        mockSerLogAspect.logModuleService_getAllModules(joinPoint);
+        mockSerLogAspect.logModuleServiceGetAllModules(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved all the modules", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logModuleService_getModuleById_Test() {
-        mockSerLogAspect.logModuleService_getModuleById(joinPoint);
+        mockSerLogAspect.logModuleServiceGetModuleById(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved a module by ID", classLoggerLogs.get(0).getMessage());
     }
     @Test
     public void logModuleService_createModule() {
-        mockSerLogAspect.logModuleService_createModule(joinPoint);
+        mockSerLogAspect.logModuleServiceCreateModule(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully created a module", classLoggerLogs.get(0).getMessage());
     }

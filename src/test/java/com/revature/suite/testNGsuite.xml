@@ -4,12 +4,12 @@
 	<test name="AllTests">
 		<classes>
 			<!-- These are the controller tests -->
-			<class name = "com.revature.controllertests.ContentControllerTest"/>
-			<class name = "com.revature.controllertests.ModuleControllerTest"/>
-			<class name = "com.revature.controllertests.SearchControllerTest"/>
-			<class name = "com.revature.controllertests.RequestControllerTest"/>
-			<class name = "com.revature.controllertests.MetricsControllerTest"/>
-			<class name = "com.revature.controllertests.LinkControllerTest"/>
+			<class name = "com.revature.controllers.ContentControllerTest"/>
+			<class name = "com.revature.controllers.ModuleControllerTest"/>
+			<class name = "com.revature.controllers.SearchControllerTest"/>
+			<class name = "com.revature.controllers.RequestControllerTest"/>
+			<class name = "com.revature.controllers.MetricsControllerTest"/>
+			<class name = "com.revature.controllers.LinkControllerTest"/>
 			<!-- These are the entities tests -->
 			<class name="com.revature.entities.ContentTest" />
 			<class name="com.revature.entities.LinkTest" />
@@ -28,10 +28,10 @@
 			<class name="com.revature.exceptions.InvalidRequestIdExceptionTest" />
 			<class name="com.revature.exceptions.InvalidSearchExceptionTest" />
 			<!-- These are the Service tests -->
-			<class name="com.revature.servicestests.TimeGraphServiceTest" />
-			<class name="com.revature.servicestests.ContentServiceTest" />
-			<class name="com.revature.servicestests.ModuleServiceTest" />
-			<class name="com.revature.servicestests.SearchServiceTest" />
+			<class name="com.revature.services.TimeGraphServiceTest" />
+			<class name="com.revature.services.ContentServiceTest" />
+			<class name="com.revature.services.ModuleServiceTest" />
+			<class name="com.revature.services.SearchServiceTest" />
 			<!-- These are the Util tests -->
 			<class name = "com.revature.util.MetricsDataTest"/>
 			<class name = "com.revature.util.TimeGraphTest"/>

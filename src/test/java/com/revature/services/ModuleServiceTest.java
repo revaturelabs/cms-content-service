@@ -1,4 +1,4 @@
-package com.revature.servicestests;
+package com.revature.services;
 
 import static org.testng.Assert.assertTrue;
 

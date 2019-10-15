@@ -1,4 +1,4 @@
-package com.revature.servicestests;
+package com.revature.services;
 
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;

@@ -1,4 +1,4 @@
-package com.revature.controllertests;
+package com.revature.controllers;
 
 
 import static org.testng.Assert.*;
