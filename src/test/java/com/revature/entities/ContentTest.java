@@ -129,14 +129,6 @@ public class ContentTest {
 	}
 
 	@Test
-	public void testSetLinks() {
-//		Set<Link> link = new HashSet<Link>();
-//		link.add(new Link(55, 484, 555, "test"));
-//		c2.setLinks(link);
-//		assertTrue(c2.getLinks().equals(link));
-	}
-
-	@Test
 	public void testGetDateCreated() {
 		assertTrue(c2.getDateCreated() == 1555444l);
 	}

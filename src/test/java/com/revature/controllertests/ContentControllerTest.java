@@ -105,7 +105,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void givenValidDataCreateContent_GetLinksNotNull() throws Exception {
+	public void givenValidDataCreateContentGetLinksNotNull() throws Exception {
 		// given
 //		Mockito.when(cs.createContent(content)).thenReturn(content);
 		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));

@@ -20,8 +20,6 @@
 			<class name="com.revature.JSONEntities.JSONContentTest" />
 			<class name="com.revature.JSONEntities.JSONModuleTest" />
 			<class name="com.revature.JSONEntities.JSONRequestTest" />
-			<!-- These are the cmsforce tests -->
-			<class name="com.revature.cmsforce.CMSforceApplicationTest" />
 			<!-- These are the Exception tests -->
 			<class name="com.revature.exceptions.InvalidContentExceptionTest" />
 			<class name="com.revature.exceptions.InvalidContentIdTest" />

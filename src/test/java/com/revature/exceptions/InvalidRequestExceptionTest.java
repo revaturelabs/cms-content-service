@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class InvalidRequestExceptionTest {
 
 	@Test
-	public void InvalidRequestException_MessageInjectedByThrow_TestTrue() {
+	public void InvalidRequestExceptionMessageInjectedByThrowTestTrue() {
 		try {
 			throw new InvalidRequestException("InvalidRequestException message");
 		} catch (InvalidRequestException e) {
@@ -17,13 +17,13 @@ public class InvalidRequestExceptionTest {
 	}
 
 	@Test
-	public void InvalidRequestException_MessageInjectedBySuper_TestTrue() {
+	public void InvalidRequestExceptionMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidRequestException = new InvalidRequestException("InvalidRequestException message");
 		assertEquals("InvalidRequestException message", invalidRequestException.getMessage());
 	}
 
 	@Test
-	public void InvalidRequestException_MessageInjectedByThrow_TestFalse() {
+	public void InvalidRequestExceptionMessageInjectedByThrowTestFalse() {
 		try {
 			throw new InvalidRequestException("InvalidRequestException message");
 		} catch (InvalidRequestException e) {
@@ -32,7 +32,7 @@ public class InvalidRequestExceptionTest {
 	}
 
 	@Test
-	public void InvalidRequestException_MessageInjectedBySuper_TestFalse() {
+	public void InvalidRequestExceptionMessageInjectedBySuperTestFalse() {
 		RuntimeException invalidRequestException = new InvalidRequestException("InvalidRequestException message");
 		assertNotEquals("Testing failure", invalidRequestException.getMessage());
 	}
