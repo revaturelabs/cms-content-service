@@ -48,6 +48,7 @@ create table link(
    fk_c int,
    fk_m int,
    affiliation text,
+   priority int NOT NULL DEFAULT -1,
    FOREIGN KEY (fk_c) REFERENCES content(c_id) on DELETE CASCADE,
    FOREIGN KEY (fk_m) REFERENCES module(m_id) on DELETE CASCADE
 );

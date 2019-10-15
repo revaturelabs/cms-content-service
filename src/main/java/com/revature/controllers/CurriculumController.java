@@ -47,7 +47,7 @@ public class CurriculumController {
 		if (null != curriculum) {
 			Set<CurrModule> allCurrModules = currModuleService.getAllCurrModules();
 			for (CurrModule c : allCurrModules) {
-				if (c.getCurriculum().getId() == id) {
+				if (c.getCurriculum() == id) {
 					currModules.add(c);
 				}
 			}
