@@ -38,28 +38,22 @@ import com.revature.testingutils.ContentFactory;
 @SpringBootTest(classes = CMSforceApplication.class)
 public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	
-	//SearchController filter for request's body data
 	private static final String filterTitle = "title",
 								filterFormat = "format",
 								filterModules = "modules";	
 
-	//allows us to send mocked http requests
 	private MockMvc mvc;
 
-	//allows json<->object conversion
     private ObjectMapper objMapper = new ObjectMapper();
 
-	//entities being used in requests
 	private Content content;
 	private List<Integer> modules;
 	private Set<Content> retValue;
 	private Map<String, Object> reqBody;
 
-	//controller being tested
 	@InjectMocks
 	private ContentController cc;
 	
-	//service the controller depends on
 	@Mock
 	private SearchService ss;
 	
@@ -68,11 +62,9 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeClass
 	public void setup() {
-		//build mock MVC so can build mock requests
 		cc = new ContentController ();
 		mvc = MockMvcBuilders.standaloneSetup(cc).build();
 		
-		//enables mockito annotations
 		MockitoAnnotations.initMocks(this);
 	}
 	
@@ -81,17 +73,13 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@BeforeTest 
 	public void preTestSetup () {
-		//generate the basic content
 		content = ContentFactory.getContent();
 		
-		//add id value for module for this content
 		modules = new ArrayList<Integer> ();
 		modules.add(1);
 		
-		//create container for expected return values
 		retValue = new HashSet<Content> ();
 
-		//generate the request body
 		reqBody = new HashMap<String,Object> ();
 		reqBody.put (filterModules, modules);
 		reqBody.put (filterTitle, ContentFactory.title);
@@ -104,29 +92,33 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http method fails
 	 */
 	@Test
-	public void givenValidSearchGetContent() throws Exception {
-		//given
-		//add expected result from service search 
+	public void givenValidSearchGetContentNotNull() throws Exception {
 		retValue.add(content);
-		//mock service return
 		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
 						.thenReturn(retValue);
-		//when
-		//perform mock search
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param(filterTitle, (String) reqBody.get(filterTitle))
 				.param(filterFormat, (String) reqBody.get(filterFormat))
 				.param(filterModules, modules.get(0).toString()));
-		//grab the resulting json response, into Set<Content> object
 		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				new TypeReference<Set<Content>>() { });
-
-		//then
-		//expect to get a non-null return
-		assertNotNull (resultContent, "No content was not found");
-		//expect one result from the query
 		assertEquals (resultContent.size(), 1, "Invalid number of resulting content");
+	}
+	
+	@Test
+	public void givenValidSearchGetContentNotEqual() throws Exception {
+		retValue.add(content);
+		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+						.thenReturn(retValue);
+		ResultActions result = mvc.perform(get ("/content")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param(filterTitle, (String) reqBody.get(filterTitle))
+				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterModules, modules.get(0).toString()));
+		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<Content>>() { });
+		assertNotNull (resultContent, "No content was not found");
 	}
 	
 	/**
@@ -134,29 +126,43 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void givenInvalidSearchGetNoContent () throws Exception {
-		//given
-		//mock service return, expect empty search result
+	public void givenInvalidSearchGetNoContentStatusOk () throws Exception {
 		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
 						.thenReturn(retValue);
-		//when
-		//perform mock search
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param(filterTitle, (String) reqBody.get(filterTitle))
 				.param(filterFormat, (String) reqBody.get(filterFormat))
 				.param(filterModules, modules.get(0).toString()));
-		//grab the resulting json response, into Set<Content> object
+		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void givenInvalidSearchGetNoContentEquals () throws Exception {
+		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+						.thenReturn(retValue);
+		ResultActions result = mvc.perform(get ("/content")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param(filterTitle, (String) reqBody.get(filterTitle))
+				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterModules, modules.get(0).toString()));
 		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				new TypeReference<Set<Content>>() { });
-
-		//then
-		//expect to get a non-null return
-		assertNotNull (resultContent, "Invalid content response");
-		//expect status of OK
-		result.andExpect(status().isOk());
-		//expect no results from the query
 		assertEquals (resultContent.size(), 0, "Invalid number of resulting content");
+	}
+	
+	@Test
+	public void givenInvalidSearchGetNoContentNotNull () throws Exception {
+		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+						.thenReturn(retValue);
+		ResultActions result = mvc.perform(get ("/content")
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.param(filterTitle, (String) reqBody.get(filterTitle))
+				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterModules, modules.get(0).toString()));
+		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<Content>>() { });
+		assertNotNull (resultContent, "Invalid content response");
 	}
 }
 
