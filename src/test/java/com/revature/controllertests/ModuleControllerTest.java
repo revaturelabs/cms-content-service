@@ -3,6 +3,7 @@ package com.revature.controllertests;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.testng.Assert.assertEquals;
 
@@ -42,6 +43,8 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private static final long created = 1;
 	private static final String affiliation = "affiliation";
 	private static final int priority = 0;
+	private static Set<Link> links = new HashSet<>();
+	private static Link link = new Link (id,new Content(),new Module(),affiliation,priority);
 
 	
 	//allows us to send mocked http requests
@@ -80,10 +83,10 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	@BeforeTest 
 	public void preTestSetup () {
 
-		Set<Link> links = new HashSet<Link> ();
+		 links = new HashSet<Link> ();
 		//caution: content and module not sprint beans here
 
-		Link link = new Link (id,new Content(),new Module(),affiliation,priority);
+		 link = new Link (id,new Content(),new Module(),affiliation,priority);
 
 		links.add(link);
 		module = new Module (id,subject,created,links,new HashSet<ReqLink>(),new HashSet<Module>(),new HashSet<Module>());
@@ -193,5 +196,29 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//then
 		//expect status of OK
 		result.andExpect (status().isOk ());
+	}
+	
+	/**
+	 * Tests that updating a module based on its id, when successful, will return a status code of 200
+	 * @throws Exception 
+	 */
+	@Test
+	public void updateModuleBasedOnId () throws Exception {
+		//given
+		links.add(link);
+		Mockito.when(ms.updateLinksByModuleId(id, links)).thenReturn(links);
+		//then
+		ResultActions result = mvc.perform(put ("/modules/"+id+"/links").contentType(MediaType.APPLICATION_JSON)
+				.content (objMapper.writeValueAsString(links)));
+		
+		//expect status of OK
+		result.andExpect (status().isOk ());
+		//expect controller to return set of links
+		String actual = result.andReturn().getResponse()
+				.getContentAsString();
+		String linksJson = objMapper.writeValueAsString(links);
+		
+		assertEquals (linksJson, actual);
+		
 	}
 }
