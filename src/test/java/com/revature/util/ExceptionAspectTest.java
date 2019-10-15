@@ -8,7 +8,6 @@ import java.util.List;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +19,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 
 public class ExceptionAspectTest {
-	private Logger classLogger =  (Logger) LoggerFactory.getLogger(Logging.class);
+	private Logger classLogger =  (Logger) LoggerFactory.getLogger(ExceptionAspect.class);
 	private ListAppender<ILoggingEvent> listAppender = new ListAppender<>();	
 	ExceptionAspect eAspectReflex = new ExceptionAspect();
 	@Mock
@@ -30,8 +29,7 @@ public class ExceptionAspectTest {
 	@InjectMocks
 	ExceptionAspect easpect;
 	
-	@Spy
-	Logging logging;
+
 	
     @BeforeClass
     public void setup() {

@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Configuration
-public class Logging {
+public class Logging1 {
 		
-		public final Logger logger = LoggerFactory.getLogger(this.getClass());
+		//public final Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		
 

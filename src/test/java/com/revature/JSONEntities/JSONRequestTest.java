@@ -33,15 +33,15 @@ public class JSONRequestTest {
 	}
 
 	// Hash and Equals test with EqualsVerifier
+	/**
+	 * EqualsVerifier will throw an AssertionError if there are any issues with its
+	 * utilization. The suppression for non final fields is for the error
+	 * "Mutability: equals depends on mutable field". It is generally not
+	 * recommended to use this approach but the JSONRequest class itself or its
+	 * fields would have to be modified with final to properly address this.
+	 */
 	@Test
 	public void equalsTest() {
-		// EqualsVerifier will throw an AssertionError if there are any issues with its
-		// utilization.
-
-		// The suppression for non final fields is for the error "Mutability: equals
-		// depends on mutable field". It is generally not recommended to use this
-		// approach but the JSONRequest class itself or its fields would have to be
-		// modified with final to properly address this.
 		EqualsVerifier.forClass(JSONRequest.class)
 				.withPrefabValues(ReqLink.class, new ReqLink(1, null, null, "different"),
 						new ReqLink(2, null, null, "affiliations"))
@@ -55,4 +55,3 @@ public class JSONRequestTest {
 				.usingGetClass().suppress(Warning.NONFINAL_FIELDS).verify();
 	}
 }
-

@@ -6,7 +6,6 @@ import org.aspectj.lang.JoinPoint;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -15,7 +14,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.revature.util.ControllerLogAspect;
-import com.revature.util.Logging;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -25,15 +23,12 @@ import ch.qos.logback.core.read.ListAppender;
 @Component
 public class ControllerLogAspectTest extends AbstractTestNGSpringContextTests{
 	
-	private Logger classLogger = (Logger) LoggerFactory.getLogger(Logging.class);
+	private Logger classLogger = (Logger) LoggerFactory.getLogger(ControllerLogAspect.class);
 	private ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
 	@Mock
 	JoinPoint joinPoint;
 	@InjectMocks
 	ControllerLogAspect controllerLogAspect;
-    @Spy
-    @InjectMocks
-    Logging logging;
     @BeforeClass
     public void setup() {
         MockitoAnnotations.initMocks(this);
