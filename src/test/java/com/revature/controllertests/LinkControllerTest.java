@@ -69,17 +69,6 @@ public class LinkControllerTest {
 	}
 	
 	@Test
-	public void testCreateLinkVerifyCreateLink() throws Exception {
-		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
-				new HashSet<Link>());
-		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
-				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
-		Mockito.when(ls.createLink(link)).thenReturn(link);
-		Mockito.verify(ls).createLink(link);
-	}
-	
-	@Test
 	public void testCreateLinkTestReturn() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
@@ -111,18 +100,7 @@ public class LinkControllerTest {
 		Mockito.verify(ls).getAllLinks();
 		Assert.assertEquals(actual, allLinks, "Failed to retrieve expected links");
 	}
-	@Test
-	public void testGetAllLinksStatusVerifygetAllLinks() throws Exception {
-		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
-				new HashSet<Link>());
-		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
-				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
-		Set<Link> allLinks = new HashSet<Link>();
-		allLinks.add(link);
-		Mockito.when(ls.getAllLinks()).thenReturn(allLinks);
-		Mockito.verify(ls).getAllLinks();
-	}
+
 	@Test
 	public void testGetAllLinksStatusTestReturn() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
@@ -150,17 +128,6 @@ public class LinkControllerTest {
 		Mockito.when(ls.getLinkById(link.getId())).thenReturn(link);
 		ResultActions result = mvc.perform(get("/links/" + link.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
 		result.andExpect(status().isOk());
-	}
-	
-	@Test
-	public void testGetLinkByIdVerifyGetLinkById() throws Exception {
-		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
-				new HashSet<Link>());
-		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
-				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(1, content, module, "affiliation");
-		Mockito.when(ls.getLinkById(link.getId())).thenReturn(link);
-		Mockito.verify(ls).getLinkById(link.getId());
 	}
 	
 	@Test
@@ -198,21 +165,6 @@ public class LinkControllerTest {
 	
 	@SuppressWarnings("unchecked")
 	@Test()
-	public void testGetSearchResultsVerifyFilter() throws Exception {
-		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
-				new HashSet<Link>());
-		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
-				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
-		Set<Link> allLinks = new HashSet<Link>();
-		allLinks.add(link);
-		Set<Set<Link>> setOfSets = new HashSet<>();
-		setOfSets.add(allLinks);		
-		Mockito.when(ls.filter(anyString(), anyString(), any(ArrayList.class))).thenReturn(setOfSets);
-		Mockito.verify(ls).filter(anyString(), anyString(), any(ArrayList.class));
-	}
-	@SuppressWarnings("unchecked")
-	@Test()
 	public void testGetSearchResultsTestReturn() throws Exception {
 		String[] params = { "title", "format", "modules" };
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
@@ -248,17 +200,6 @@ public class LinkControllerTest {
 	}
 	
 	@Test
-	public void testUpdateLinkVerifyUpdateLink() throws Exception {
-		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
-				new HashSet<Link>());
-		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
-				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(1, content, module, "affiliation");
-		Mockito.when(ls.updateLink(link)).thenReturn(link);
-		Mockito.verify(ls).updateLink(link);
-	}
-	
-	@Test
 	public void testUpdateLinkTestReturn() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
@@ -279,12 +220,5 @@ public class LinkControllerTest {
 		ResultActions result = mvc.perform(delete("/links/" + linkId).contentType(MediaType.APPLICATION_JSON_VALUE));
 		result.andExpect(status().isOk());
 	}
-	
-	@Test
-	public void testDeleteLinkVerifyDeleteLinkById() throws Exception {
-		int linkId = 1;
-		Mockito.doNothing().when(ls).deleteLinkById(linkId);
-		Mockito.verify(ls).deleteLinkById(linkId);
-	}
-	
+
 }
