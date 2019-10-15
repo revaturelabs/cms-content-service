@@ -18,8 +18,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 public class RequestTest {
-	
-	//Variables needed to fully test requests
+
 	Request r1 = null;
 	Request r2 = null;
 	Content c1 = null;
@@ -28,7 +27,7 @@ public class RequestTest {
 	ReqLink rl2 = null;
 	Set<ReqLink> set1 = null;
 	Set<ReqLink> set2 = null;
-	
+
 	@BeforeTest
 	public void setUp() {
 		c1 = new Content(1, "a", "b", "c", "d", 1, 2, null);
@@ -54,36 +53,32 @@ public class RequestTest {
 		c1 = null;
 		c2 = null;
 	}
-//testing the constructors
+	
 	@Test
-	public void TestRequest() {
-		Request one = new Request();
-		assertTrue(one instanceof Request);
-		Request two = new Request();
-		assertTrue(one != two);
-	}
-
-	@Test
-	public void RequestTestintStringStringStringContentLongLongSetReqLink() {
+	public void RequestInstanceof() {
 		Request one = new Request(1, "This", "is", "a test", c1, 1l, 2l, set1);
 		assertTrue(one instanceof Request);
+	}
+	
+	@Test
+	public void RequestNotEqual() {
+		Request one = new Request(1, "This", "is", "a test", c1, 1l, 2l, set1);
 		Request two = new Request(2, "Here", "is another", "test", c2, 3l, 4l, set2);
 		assertTrue(one != two);
 	}
-// test the equals and hash
+
+	/**
+	 * equalsVerifier will test both equals and hash. It will fail and throw an
+	 * error if it finds something that it doesn't like. I am suppressing the
+	 * nonfinal_fields warning because it is necessary for spring boot
+	 */
 	@Test
 	public void equalsTest() {
-		//equalsVerifier will test both equals and hash. It will fail and throw an error if it
-		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
-		//because it is necessary for spring boot
-		EqualsVerifier.forClass(Request.class)
-		.withPrefabValues(Content.class, c1, c2)
-		.withIgnoredFields("reqLinks")
-		.withPrefabValues(ReqLink.class, rl1, rl2)
-		.suppress(Warning.NONFINAL_FIELDS)
-		.verify();
+
+		EqualsVerifier.forClass(Request.class).withPrefabValues(Content.class, c1, c2).withIgnoredFields("reqLinks")
+				.withPrefabValues(ReqLink.class, rl1, rl2).suppress(Warning.NONFINAL_FIELDS).verify();
 	}
-// tests getters and setters
+
 	@Test
 	public void getContentTest() {
 		assertTrue(r1.getContent().getId() == 1);
@@ -179,10 +174,9 @@ public class RequestTest {
 		one.setTitle("test test test");
 		assertTrue(one.getTitle().equals("test test test"));
 	}
-// tests the toString method
+
 	@Test
 	public void toStringTest() {
 		assertTrue(r1.toString() instanceof String);
-		assertTrue(r2.toString() instanceof String);
 	}
 }

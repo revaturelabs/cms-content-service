@@ -16,7 +16,6 @@ import com.revature.entities.ReqLink;
  * Link object instance.
  */
 public class ContentFactory {
-	//content field values
 	private static final int MAX_CHAR_LENGTH = 254;
 	public static final String title = "TestTitle",
 							    format = "TestFormat",

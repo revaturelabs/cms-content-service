@@ -16,13 +16,11 @@ import nl.jqno.equalsverifier.Warning;
 
 public class JSONRequestTest {
 
-	// toString Test
 	@Test
 	public void testToString() {
 		assertTrue(new JSONRequest().toString() instanceof String);
 	}
 
-	// Constructor Tests
 	@Test
 	public void testContent() {
 		JSONRequest one = new JSONRequest(1, "GET Test", "JSON", "This tests a get request", null, 92846L, 93847L,
@@ -32,7 +30,6 @@ public class JSONRequestTest {
 		assertTrue(one != two);
 	}
 
-	// Hash and Equals test with EqualsVerifier
 	/**
 	 * EqualsVerifier will throw an AssertionError if there are any issues with its
 	 * utilization. The suppression for non final fields is for the error

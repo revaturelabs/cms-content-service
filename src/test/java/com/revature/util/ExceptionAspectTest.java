@@ -51,11 +51,23 @@ public class ExceptionAspectTest {
     
     
     @Test
-    public void LogException_Test() {
+    public void LogExceptionTestLogMessage() {
     	List<ILoggingEvent> classLoggerLogs = listAppender.list;
         easpect.LogException(e);
-        assertEquals("There was an issue in " + "\n", classLoggerLogs.get(0).getMessage());
+        assertEquals("There was an issue in " + "\n", classLoggerLogs.get(0).getMessage());        
+    }
+    
+    @Test
+    public void LogExceptionTestExceptionMessage() {
+    	List<ILoggingEvent> classLoggerLogs = listAppender.list;
+        easpect.LogException(e);
         assertEquals(e.getMessage(), classLoggerLogs.get(1).getMessage());
+        
+    }
+    @Test
+    public void LogExceptionTestLogLevel() {
+    	List<ILoggingEvent> classLoggerLogs = listAppender.list;
+        easpect.LogException(e);
         assertEquals(Level.ERROR,classLoggerLogs.get(1).getLevel());
         
     }

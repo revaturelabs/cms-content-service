@@ -14,13 +14,11 @@ import nl.jqno.equalsverifier.Warning;
 
 public class JSONModuleTest {
 
-	// toString Test
 	@Test
 	public void testToString() {
 		assertTrue(new JSONModule().toString() instanceof String);
 	}
 
-	// Constructor Tests
 	@Test
 	public void testContent() {
 		JSONModule one = new JSONModule(1, "b", 1, null, null, null, null);
@@ -29,7 +27,6 @@ public class JSONModuleTest {
 		assertTrue(one != two);
 	}
 
-	// Hash and Equals test with EqualsVerifier
 	/**
 	 * EqualsVerifier will throw an AssertionError if there are any issues with its
 	 * utilization. The suppression for non final fields is for the error

@@ -13,14 +13,13 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 public class ReqLinkTest {
-	//variables needed to test reqlink
 	ReqLink rl1 = null;
 	ReqLink rl2 = null;
 	Request r1 = null;
 	Request r2 = null;
 	Module m1 = null;
 	Module m2 = null;
-	
+
 	@BeforeTest
 	public void setUp() {
 		r1 = new Request(1, "This", "is", "a test", null, 1l, 2l, null);
@@ -40,35 +39,31 @@ public class ReqLinkTest {
 		r1 = null;
 		r2 = null;
 	}
-// constructors
-	@Test
-	public void TestReqLink() {
-		ReqLink one = new ReqLink();
-		assertTrue(one instanceof ReqLink);
-		ReqLink two = new ReqLink();
-		assertTrue(one != two);
-	}
 
 	@Test
-	public void ReqLinkTestintRequestModuleString() {
+	public void ReqLinkInstanceOf() {
 		ReqLink one = new ReqLink(1, r1, m1, "test");
 		assertTrue(one instanceof ReqLink);
+	}
+	
+	@Test
+	public void ReqLinkNotEqual() {
+		ReqLink one = new ReqLink(1, r1, m1, "test");
 		ReqLink two = new ReqLink(2, r2, m2, "test squared");
 		assertTrue(one != two);
 	}
-// tests the equals and hash
+
+	/**
+	 * equalsVerifier will test both equals and hash. It will fail and throw an
+	 * error if it finds something that it doesn't like. I am suppressing the
+	 * nonfinal_fields warning because it is necessary for spring boot
+	 */
 	@Test
 	public void equalsTest() {
-		//equalsVerifier will test both equals and hash. It will fail and throw an error if it
-		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
-		//because it is necessary for spring boot
-		EqualsVerifier.forClass(ReqLink.class)
-		.suppress(Warning.NONFINAL_FIELDS)
-		.withPrefabValues(Request.class, r1, r2)
-		.withPrefabValues(Module.class, m1, m2)
-		.verify();
+		EqualsVerifier.forClass(ReqLink.class).suppress(Warning.NONFINAL_FIELDS).withPrefabValues(Request.class, r1, r2)
+				.withPrefabValues(Module.class, m1, m2).verify();
 	}
-// tests getters and setters
+
 	@Test
 	public void getAffiliationTest() {
 		assertTrue(rl1.getAffiliation().equals("test"));
@@ -107,7 +102,7 @@ public class ReqLinkTest {
 	public void setModuleTest() {
 		ReqLink one = new ReqLink();
 		one.setModule(m1);
-		assertTrue(one.getModule().getId()== 1);
+		assertTrue(one.getModule().getId() == 1);
 	}
 
 	@Test
@@ -116,10 +111,9 @@ public class ReqLinkTest {
 		one.setRequest(r1);
 		assertTrue(one.getRequest().getId() == 1);
 	}
-// tests the toString method
+
 	@Test
 	public void toStringTest() {
 		assertTrue(r1.toString() instanceof String);
-		assertTrue(r2.toString() instanceof String);
 	}
 }

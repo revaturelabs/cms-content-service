@@ -20,15 +20,13 @@ import nl.jqno.equalsverifier.Warning;
 
 @Component
 public class ContentTest {
-	
+
 	@Autowired
 	ContentRepository cr;
-	
-	//The content that will be tested
+
 	Content c1 = null;
 	Content c2 = null;
-	
-	//initialize the testing content
+
 	@BeforeTest
 	public void setup() {
 		c1 = new Content(99, "Java a New Begining", "String", "The Java the brought hope back",
@@ -36,40 +34,32 @@ public class ContentTest {
 		c2 = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
 				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Link>());
 	}
-	
-	//null out the testing content
+
 	@AfterTest
 	public void teardown() {
 		c1 = null;
 		c2 = null;
 	}
-	
-	//run tests
-	//Constructor Tests
-	@Test
-	public void testContent() {
-		Content one = new Content();
-		assertTrue(one instanceof Content);
-		Content two = new Content();
-		assertTrue(one != two);
-	}
 
 	@Test
-	public void testContentIntStringStringStringLongLongSetOfLinks() {
-		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back", 
+	public void testContentInstanceOf() {
+		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back",
 				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		assertTrue(one instanceof Content);
+	}
+
+	@Test
+	public void testContentNotEqual() {
+		Content one = new Content(99, "Java a New Begining", "String", "The Java the brought hope back",
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		Content two = new Content(114, "Java the phantom menance", "String", "The one with the cool darth",
 				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 1555444l, 1555444l, new HashSet<Link>());
-
 		assertTrue(one != two);
 	}
 
-	//Getters and Setters tests
 	@Test
 	public void testGetId() {
 		assertTrue(c1.getId() == 99);
-		assertTrue(c2.getId() == 114);
 	}
 
 	@Test
@@ -88,7 +78,7 @@ public class ContentTest {
 		c1.setTitle("Java The last of the Jars");
 		assertTrue(c1.getTitle().equals("Java The last of the Jars"));
 	}
-	
+
 	@Test
 	public void testGetFormat() {
 		assertTrue(c2.getFormat().equals("String"));
@@ -150,26 +140,22 @@ public class ContentTest {
 		assertTrue(c2.getLastModified() == 5542441l);
 	}
 
-	//toString Test
 	@Test
 	public void testToString() {
 		assertTrue(c1.toString() instanceof String);
-		assertTrue(c2.toString() instanceof String);
 	}
 
-	//Equals and Hash test
+	/**
+	 * equalsVerifier will test both equals and hash. It will fail and throw an
+	 * error if it finds something that it doesn't like. I am suppressing the
+	 * nonfinal_fields warning because it is necessary for spring boot
+	 */
 	@Test
 	public void testEqualsObject() {
-		//equalsVerifier will test both equals and hash. It will fail and throw an error if it
-		//finds something that it doesn't like. I am suppressing the nonfinal_fields warning
-		//because it is necessary for spring boot
 		EqualsVerifier.forClass(Content.class)
-                .withPrefabValues(Link.class,
-						new Link(1, null, null, "different"),
+				.withPrefabValues(Link.class, new Link(1, null, null, "different"),
 						new Link(2, null, null, "affiliations"))
-				.withIgnoredFields("links")
-				.suppress(Warning.NONFINAL_FIELDS)
-				.verify();
+				.withIgnoredFields("links").suppress(Warning.NONFINAL_FIELDS).verify();
 	}
-	
+
 }
