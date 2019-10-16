@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Main thread for content-service found here. 
@@ -19,6 +20,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("com.revature")
 @EnableEurekaClient
 @EnableAutoConfiguration
+/**
+ * Swagger enabled 10-16-19
+ * @author batch643UTA
+ *
+ */
+@EnableSwagger2
 public class CMSforceApplication {
 	
 	
