@@ -1,0 +1,3 @@
+**Update Spring Boot Version to newest Version**
+    -Change pom.xml for CMSForce,Eureka,and Zuul spring versions to 2.1.9
+    -We had to change the spring cloud depenedencies finchley.sr3 to greenwhich.sr2 in order to avoid errors, build succeeds, and all tests pass.
