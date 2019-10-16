@@ -5,3 +5,4 @@
 **Include Swagger dependency for API documentation** 10/16/2019
 	-added @EnableSwagger2
 	-added swagger ui dependency to have a visual representation of our api documentation
+	-created swaggerConfig bean in the util package.
