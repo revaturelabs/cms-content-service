@@ -4,6 +4,9 @@ package com.revature.util;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.testng.annotations.BeforeMethod;
@@ -76,11 +79,11 @@ public class ValidationUtilTest {
 	@Test(expectedExceptions = InvalidContentException.class)
 	public void verifyContent_TestFifthConditionThrowException() {
 		content.setDescription(badString);
-		vu.verifyContent(content);
+		vuMock.verifyContent(content);
 	}
 	@Test
 	public void verifyContent_Test() {
-		vu.verifyContent(content);
+		assertTrue(vuMock.verifyContent(content));
 	}
 	
 	
@@ -104,15 +107,7 @@ public class ValidationUtilTest {
 		module.setSubject("asdads");
 		vu.verifyModule(module);
 	}
-	
-	@Test
-	public void servicesPC() {
-		vu.servicesPC();
-	}
-	
-	
-	
-	
+		
 	@Test(expectedExceptions = InvalidSearchException.class)
 	public void verifyStringTitle_TestThrowException() {
 		vu.verifyStringTitle(badString);		

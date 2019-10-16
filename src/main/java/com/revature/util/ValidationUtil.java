@@ -26,7 +26,7 @@ public class ValidationUtil {
 	
 	@LogException
 	@Before("servicesPC() && args(content,..)")
-	public void verifyContent(Content content) { //Method for throwing exceptions for content issues
+	public boolean verifyContent(Content content) { //Method for throwing exceptions for content issues
 		if(content == null)
 			throw new InvalidContentException("content is of null value");
 		
@@ -41,6 +41,8 @@ public class ValidationUtil {
 		
 		if(content.getDescription().length() > MAX_CHAR_LENGTH)
 			throw new InvalidContentException("Description is longer than 254 characters.");
+		
+		return true;
 	}
 	
 	@LogException
