@@ -109,7 +109,11 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		//add expected result from service search 
 		retValue.add(content);
 		//mock service return
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		
+		ArrayList<String> forList = new ArrayList<String>();
+		forList.add(ContentFactory.format);
+		
+		Mockito.when(ss.filter(ContentFactory.title, forList, modules))
 						.thenReturn(retValue);
 		//when
 		//perform mock search
@@ -137,7 +141,11 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	public void givenInvalidSearchGetNoContent () throws Exception {
 		//given
 		//mock service return, expect empty search result
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		
+		ArrayList<String> forList = new ArrayList<String>();
+		forList.add(ContentFactory.format);
+		
+		Mockito.when(ss.filter(ContentFactory.title, forList, modules))
 						.thenReturn(retValue);
 		//when
 		//perform mock search
