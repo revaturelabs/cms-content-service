@@ -127,17 +127,27 @@ public class SearchServiceImpl implements SearchService {
 	 * content that matches all 3 inputs using AND logic. If an input is empty it is
 	 * ignored and is not part of the logic.
 	 */
+	//Change this to take a string array for format
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> moduleIds) {
+	public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds) {
 
 		Set<Content> content = cs.getAllContent();
 
 		if (!("".equals(title))) {
 			content = Sets.intersection(content, this.filterContentByTitle(title));
 		}
-		if (!("".equals(format))) {
-			content = Sets.intersection(content, this.filterContentByFormat(format));
+		if (!(formatList.isEmpty())) {
+			//Change this to a for loop that generates formatFiltered content and then merge
+			//with content
+			
+			Set<Content> formatContent = new HashSet<>();
+			
+			for(String format : formatList) {
+				formatContent.addAll(this.filterContentByFormat(format));
+			}
+			
+			content = Sets.intersection(content, formatContent);
 		}
 		if (!(moduleIds.isEmpty())) {
 			content = Sets.intersection(content, this.filterContentBySubjectIds(moduleIds));

@@ -60,7 +60,10 @@ public class LinkServiceImpl implements LinkService {
 
 	@Override
 	public Set<Set<Link>> filter(String title, String format, ArrayList<Integer> moduleIdsList) {
-		Set<Content> filteredContent = searchService.filter(title, format, moduleIdsList);
+		
+		ArrayList<String> formatList = new ArrayList<>();
+		formatList.add(format);
+		Set<Content> filteredContent = searchService.filter(title, formatList, moduleIdsList);
 		// links will hold the final search result, each set within the set containing
 		// links to a content
 		Set<Set<Link>> setOfSetOfLinks = new HashSet<>();
