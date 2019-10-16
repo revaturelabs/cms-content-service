@@ -28,5 +28,5 @@ public interface SearchService {
 	
 	public Set<Request> filterRequestBySubjectIds(List<Integer> moduleIds);
 	
-	public Set<Request> filterReq(String title, String format, List<Integer> modules);
+	public Set<Request> filterReq(String title, List<String> format, List<Integer> modules);
 }

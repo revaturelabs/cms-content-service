@@ -98,6 +98,7 @@ public class RequestController {
 			@RequestParam(value = "format", required = false) String format,
 			@RequestParam(value = "modules", required = false) String modules) {
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
+		ArrayList<String> formatList = new ArrayList<String>();
 		if (modules != null)
 		{
 			StringTokenizer st = new StringTokenizer(modules, ",");
@@ -107,7 +108,12 @@ public class RequestController {
 			}
 		}
 		
-		Set<Request> requests = searchService.filterReq(title, format, moduleIdsList);
+		StringTokenizer ft = new StringTokenizer(format, ",");
+		while (ft.hasMoreTokens()) {
+			formatList.add(ft.nextToken());
+		}
+		
+		Set<Request> requests = searchService.filterReq(title, formatList, moduleIdsList);
 		Set<JSONRequest> jsonRequests = new HashSet<JSONRequest>();
 		for (Request request : requests) {
 			JSONRequest jr = requestToJSONRequest(request);

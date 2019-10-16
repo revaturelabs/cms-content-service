@@ -53,7 +53,30 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {
-		return cr.findByFormat(format);
+		
+		
+		if(format.equals("Flagged")) {
+			
+			
+			Set<Content> allContent = cs.getAllContent();
+			Set<Content> response = new HashSet<Content>();
+			
+			
+			
+			for(Content content: allContent) {
+				
+				
+				if(content.getFormat().isEmpty()) {
+					
+					response.add(content);
+				}
+			}
+			
+			return response;
+		}
+		else {
+			return cr.findByFormat(format);
+		}
 	}
 
 	/**
@@ -138,8 +161,7 @@ public class SearchServiceImpl implements SearchService {
 			content = Sets.intersection(content, this.filterContentByTitle(title));
 		}
 		if (!(formatList.isEmpty())) {
-			//Change this to a for loop that generates formatFiltered content and then merge
-			//with content
+			
 			
 			Set<Content> formatContent = new HashSet<>();
 			
@@ -265,14 +287,23 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Request> filterReq(String title, String format, List<Integer> moduleIds) {
+	public Set<Request> filterReq(String title, List<String> formatList, List<Integer> moduleIds) {
 		Set<Request> requests = rs.getAllRequests();
 
 		if (!("".equals(title))) {
 			requests = Sets.intersection(requests, this.filterRequestByTitle(title));
 		}
-		if (!("".equals(format))) {
-			requests = Sets.intersection(requests, this.filterRequestByFormat(format));
+		if (!(formatList.isEmpty())) {
+			
+			Set<Request> formatRequest = new HashSet<>();
+			
+			for(String format : formatList) {
+				formatRequest.addAll(this.filterRequestByFormat(format));
+			}
+			
+			requests = Sets.intersection(requests, formatRequest);
+			
+			
 		}
 		if (!(moduleIds.isEmpty())) {
 			requests = Sets.intersection(requests, this.filterRequestBySubjectIds(moduleIds));
