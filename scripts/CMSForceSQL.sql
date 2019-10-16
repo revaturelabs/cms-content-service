@@ -4,7 +4,7 @@ drop table if exists link;
 drop table if exists joins;
 drop table if exists req_link;
 drop table if exists requests;
-drop table if exists currmodule;
+drop table if exists curriculum_module;
 drop table if exists module;
 drop table if exists content;
 drop table if exists curriculum;
@@ -31,7 +31,7 @@ create table curriculum(
 	name text NOT NULL
 );
 
-create table currmodule(
+create table curriculum_module(
 	curr_mod_id serial,
 	curr_id int,
 	m_id int,

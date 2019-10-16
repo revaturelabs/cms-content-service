@@ -16,42 +16,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.CurrModule;
-import com.revature.services.CurrModuleService;
+import com.revature.entities.CurriculumModule;
+import com.revature.services.CurriculumModuleService;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
-@RequestMapping("/currmodules")
-public class CurrModuleController {
+@RequestMapping("/curriculummodules")
+public class CurriculumModuleController {
 
 	@Autowired
-	CurrModuleService currModuleService;
+	CurriculumModuleService currModuleService;
 	
 	@PostMapping
-	public ResponseEntity<CurrModule> createCurrModule(@RequestBody CurrModule cMod){
+	public ResponseEntity<CurriculumModule> createCurrModule(@RequestBody CurriculumModule cMod){
 		return ResponseEntity.ok(currModuleService.createCurrModule(cMod));
 	}
 	
 	@GetMapping
-	public ResponseEntity <Set<CurrModule>> getAllCurrModules(){
-		Set<CurrModule> currMods = currModuleService.getAllCurrModules();
+	public ResponseEntity <Set<CurriculumModule>> getAllCurrModules(){
+		Set<CurriculumModule> currMods = currModuleService.getAllCurrModules();
 		return ResponseEntity.ok(currMods);
 	}
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<CurrModule> getCurrModuleById(@PathVariable int id){
-		CurrModule currMod = currModuleService.getCurrModuleById(id);
+	public ResponseEntity<CurriculumModule> getCurrModuleById(@PathVariable int id){
+		CurriculumModule currMod = currModuleService.getCurrModuleById(id);
 		return ResponseEntity.ok(currMod);
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<ArrayList<CurrModule>> updateCurrModules(@RequestBody Set<CurrModule> modules){
-		return ResponseEntity.ok((ArrayList<CurrModule>)currModuleService.updateCurrModule(modules));
+	public ResponseEntity<ArrayList<CurriculumModule>> updateCurrModules(@RequestBody Set<CurriculumModule> modules){
+		return ResponseEntity.ok((ArrayList<CurriculumModule>)currModuleService.updateCurrModule(modules));
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<String> deleteCurrModule(@PathVariable int id){
-		CurrModule cMod = currModuleService.getCurrModuleById(id);
+		CurriculumModule cMod = currModuleService.getCurrModuleById(id);
 		currModuleService.deleteCurriculumModule(cMod);
 		return ResponseEntity.status(HttpStatus.OK).body("");
 	}

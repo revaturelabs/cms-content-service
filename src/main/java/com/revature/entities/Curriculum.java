@@ -24,7 +24,7 @@ public class Curriculum {
 	private String name;
 
 	@Transient
-	private Set<CurrModule> currModules;
+	private Set<CurriculumModule> currModules;
 	
 	public Curriculum() {
 		super();
@@ -63,10 +63,10 @@ public class Curriculum {
 		this.name = name;
 	}
 
-	public Set<CurrModule> getCurrModules(){
+	public Set<CurriculumModule> getCurrModules(){
 		return this.currModules;
 	}
-	public void setCurrModules(Set<CurrModule> currModules) {
+	public void setCurrModules(Set<CurriculumModule> currModules) {
 		this.currModules = currModules;
 	}
 

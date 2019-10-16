@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="currmodule")
-public class CurrModule {
+public class CurriculumModule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,18 +31,18 @@ public class CurrModule {
 	@Column(name = "priority")
 	private int priority;
 	
-	public CurrModule() {
+	public CurriculumModule() {
 		super();
 	}
 	
-	public CurrModule(int curriculum, Module module, int priority) {
+	public CurriculumModule(int curriculum, Module module, int priority) {
 		super();
 		this.curriculum = curriculum;
 		this.module = module;
 		this.priority = priority;
 	}
 
-	public CurrModule(int id, int curriculum, Module module, int priority) {
+	public CurriculumModule(int id, int curriculum, Module module, int priority) {
 		super();
 		this.id = id;
 		this.curriculum = curriculum;
@@ -101,7 +101,7 @@ public class CurrModule {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		CurrModule other = (CurrModule) obj;
+		CurriculumModule other = (CurriculumModule) obj;
 		if (curriculum != other.curriculum)
 			return false;
 		if (id != other.id)

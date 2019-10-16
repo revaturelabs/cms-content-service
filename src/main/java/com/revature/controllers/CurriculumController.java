@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.entities.CurrModule;
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Curriculum;
-import com.revature.services.CurrModuleService;
+import com.revature.services.CurriculumModuleService;
 import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
@@ -31,7 +31,7 @@ public class CurriculumController {
 	CurriculumService curriculumService;
 
 	@Autowired
-	CurrModuleService currModuleService;
+	CurriculumModuleService currModuleService;
 
 	@GetMapping()
 	public Set<Curriculum> getAllCurriculums() {
@@ -43,10 +43,10 @@ public class CurriculumController {
 	public ResponseEntity<Curriculum> getCurriculumById(@PathVariable int id) {
 
 		Curriculum curriculum = curriculumService.getCurriculumById(id);
-		Set<CurrModule> currModules = new HashSet<>();
+		Set<CurriculumModule> currModules = new HashSet<>();
 		if (null != curriculum) {
-			Set<CurrModule> allCurrModules = currModuleService.getAllCurrModules();
-			for (CurrModule c : allCurrModules) {
+			Set<CurriculumModule> allCurrModules = currModuleService.getAllCurrModules();
+			for (CurriculumModule c : allCurrModules) {
 				if (c.getCurriculum() == id) {
 					currModules.add(c);
 				}
