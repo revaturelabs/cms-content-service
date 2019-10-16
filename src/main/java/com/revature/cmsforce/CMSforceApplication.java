@@ -20,7 +20,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan("com.revature")
 @EnableEurekaClient
 @EnableAutoConfiguration
-
 public class CMSforceApplication {
 	
 	
