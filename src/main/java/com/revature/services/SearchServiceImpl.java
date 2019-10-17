@@ -113,10 +113,13 @@ public class SearchServiceImpl implements SearchService {
 			// if it is the first iteration, we just want to put tempContent into content
 			if (content.isEmpty()) {
 				content = tempContent;
+				System.out.println("Loading first content.");
 			}
 			// in order to only get content associated to ALL provided modules, we perform
 			// an intersection on content and tempContent
 			else {
+				
+				System.out.println("We got to the intersection.");
 				content = Sets.intersection(content, tempContent);
 
 				// if content is empty after the intersection, then there is no content
