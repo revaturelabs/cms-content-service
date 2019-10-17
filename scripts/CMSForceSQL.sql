@@ -27,18 +27,18 @@ create table module(
 );
 
 create table curriculum(
-	curr_id serial PRIMARY KEY,
+	curriculum_id serial PRIMARY KEY,
 	name text NOT NULL
 );
 
 create table curriculum_module(
-	curr_mod_id serial,
-	curr_id int,
-	m_id int,
+	curriculum_module_id serial,
+	curriculum_id int,
+	module_id int,
 	priority int,
-	FOREIGN KEY (curr_id) REFERENCES curriculum(curr_id) on DELETE CASCADE,
-	FOREIGN KEY (m_id) REFERENCES module(m_id) on DELETE CASCADE,
-	PRIMARY KEY (curr_mod_id)
+	FOREIGN KEY (curriculum_id) REFERENCES curriculum(curriculum_id) on DELETE CASCADE,
+	FOREIGN KEY (module_id) REFERENCES module(m_id) on DELETE CASCADE,
+	PRIMARY KEY (curriculum_module_id)
 );
 
 --the affiliation column is needed, but not implemented yet

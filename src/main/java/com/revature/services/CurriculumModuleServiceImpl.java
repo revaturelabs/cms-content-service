@@ -14,38 +14,38 @@ import com.revature.util.LogException;
 public class CurriculumModuleServiceImpl implements CurriculumModuleService  {
 
 	@Autowired
-	CurriculumModuleRepository cmR;
+	CurriculumModuleRepository curriculumModuleRepository;
 	
 	@Override
 	@LogException
-	public CurriculumModule createCurrModule(CurriculumModule currM) {
-		return cmR.save(currM);
+	public CurriculumModule createCurrModule(CurriculumModule curriculumModule) {
+		return curriculumModuleRepository.save(curriculumModule);
 	}
 
 	@Override
 	@LogException
 	public Set<CurriculumModule> getAllCurrModules() {
-		Set<CurriculumModule> currMods = new HashSet<>();
-		cmR.findAll().forEach(currMods::add);
-		return currMods;
+		Set<CurriculumModule> curriculumModules = new HashSet<>();
+		curriculumModuleRepository.findAll().forEach(curriculumModules::add);
+		return curriculumModules;
 	}
 
 	@Override
 	public CurriculumModule getCurrModuleById(int id) {
-		CurriculumModule cMod = cmR.findById(id);
-		return cMod;
+		CurriculumModule curriculumModule = curriculumModuleRepository.findById(id);
+		return curriculumModule;
 	}
 
 
 	@Override
-	public Iterable<CurriculumModule> updateCurrModule(Set<CurriculumModule> currM) {
-		return cmR.saveAll(currM);
+	public Iterable<CurriculumModule> updateCurrModule(Set<CurriculumModule> curriculumModule) {
+		return curriculumModuleRepository.saveAll(curriculumModule);
 	}
 
 	@Override
-	public void deleteCurriculumModule(CurriculumModule currM) {
-		if(currM != null) {
-			cmR.delete(currM);
+	public void deleteCurriculumModule(CurriculumModule curriculumModule) {
+		if(curriculumModule != null) {
+			curriculumModuleRepository.delete(curriculumModule);
 		}
 	}
 

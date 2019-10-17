@@ -14,45 +14,45 @@ import com.revature.util.LogException;
 public class CurriculumServiceImpl implements CurriculumService{
 
 	@Autowired
-	CurriculumRepository cr;
+	CurriculumRepository curriculumRepository;
 	
 	@Override
 	@LogException
-	public Curriculum createCurriculum(Curriculum curr) {
-		return cr.save(curr);
+	public Curriculum createCurriculum(Curriculum curriculum) {
+		return curriculumRepository.save(curriculum);
 	}
 
 	@Override
 	@LogException
 	public Set<Curriculum> getAllCurriculums() {
-		Set<Curriculum> currs = new HashSet<>();
-		cr.findAll().forEach(currs::add);
-		return currs;
+		Set<Curriculum> curriculums = new HashSet<>();
+		curriculumRepository.findAll().forEach(curriculums::add);
+		return curriculums;
 	}
 
 	@Override
 	@LogException
 	public Curriculum getCurriculumByName(String name) {
-		Curriculum curr = cr.findByName(name);
-		return curr;
+		Curriculum curriculum = curriculumRepository.findByName(name);
+		return curriculum;
 	}
 
 	@Override
-	public Curriculum updateCurriculum(Curriculum curr) {
-		return cr.save(curr);
+	public Curriculum updateCurriculum(Curriculum curriculum) {
+		return curriculumRepository.save(curriculum);
 	}
 
 	@Override
-	public void deleteCurriculum(Curriculum curr) {
-		if(curr != null) {
-			cr.delete(curr);
+	public void deleteCurriculum(Curriculum curriculum) {
+		if(curriculum != null) {
+			curriculumRepository.delete(curriculum);
 		}
 	}
 
 	@Override
 	public Curriculum getCurriculumById(int id) {
-		Curriculum curr = cr.findById(id);
-		return curr;
+		Curriculum curriculum = curriculumRepository.findById(id);
+		return curriculum;
 	}
 
 }
