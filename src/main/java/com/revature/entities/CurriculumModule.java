@@ -12,48 +12,41 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-/*
- * The point of the link entity is to give additional context
- * to the relationship between a content object and a module object.
- * This is specifically requested by the project owner and will be for 
- * a future feature that will be implemented by a future batch.
- */
-
 @Entity
-@Table(name = "link")
-public class Link {
+@Table(name="curriculum_module")
+public class CurriculumModule {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cm_id")
+	@Column(name = "curriculum_module_id")
 	private int id;
-
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="fk_c")
-	private Content content;
+	
+	@Column(name="curriculum_id")
+	private int curriculum;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="fk_m")
+	@JoinColumn(name="module_id")
 	private Module module;
 	
-	//The affiliation property is for a feature that will be asked for 
-		//by some future batch. For now, product owner has simply ask that we include it.
-	@Column
-	private String affiliation;
-	
-	@Column
+	@Column(name = "priority")
 	private int priority;
-
-	public Link() {
+	
+	public CurriculumModule() {
 		super();
 	}
+	
+	public CurriculumModule(int curriculum, Module module, int priority) {
+		super();
+		this.curriculum = curriculum;
+		this.module = module;
+		this.priority = priority;
+	}
 
-
-	public Link(int id, Content content, Module module, String affiliation, int priority) {
+	public CurriculumModule(int id, int curriculum, Module module, int priority) {
 		super();
 		this.id = id;
-		this.content = content;
+		this.curriculum = curriculum;
 		this.module = module;
-		this.affiliation = affiliation;
 		this.priority = priority;
 	}
 
@@ -65,12 +58,12 @@ public class Link {
 		this.id = id;
 	}
 
-	public Content getContent() {
-		return content;
+	public int getCurriculum() {
+		return curriculum;
 	}
 
-	public void setContent(Content content) {
-		this.content = content;
+	public void setCurriculum(int curriculum) {
+		this.curriculum = curriculum;
 	}
 
 	public Module getModule() {
@@ -81,18 +74,9 @@ public class Link {
 		this.module = module;
 	}
 
-	public String getAffiliation() {
-		return affiliation;
-	}
-
-	public void setAffiliation(String affiliation) {
-		this.affiliation = affiliation;
-	}
-
 	public int getPriority() {
 		return priority;
 	}
-
 
 	public void setPriority(int priority) {
 		this.priority = priority;
@@ -102,8 +86,7 @@ public class Link {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + curriculum;
 		result = prime * result + id;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
 		result = prime * result + priority;
@@ -118,16 +101,8 @@ public class Link {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Link other = (Link) obj;
-		if (affiliation == null) {
-			if (other.affiliation != null)
-				return false;
-		} else if (!affiliation.equals(other.affiliation))
-			return false;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
+		CurriculumModule other = (CurriculumModule) obj;
+		if (curriculum != other.curriculum)
 			return false;
 		if (id != other.id)
 			return false;
@@ -143,7 +118,10 @@ public class Link {
 
 	@Override
 	public String toString() {
-		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation
-				+ ", priority=" + priority + "]";
+		return "CurrModule [id=" + id + ", curriculum=" + curriculum + ", module=" + module + ", priority=" + priority
+				+ "]";
 	}
+
+	
+	
 }
