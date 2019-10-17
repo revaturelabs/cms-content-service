@@ -23,7 +23,7 @@ import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
-@RequestMapping(value = "/curriculums")
+@RequestMapping(value = "/curricula")
 
 public class CurriculumController {
 
@@ -62,7 +62,8 @@ public class CurriculumController {
 	}
 
 	@PutMapping(value = "{id}")
-	public ResponseEntity<Curriculum> updateCurriculum(@RequestBody Curriculum curriculum) {
+	public ResponseEntity<Curriculum> updateCurriculum(@PathVariable int id, @RequestBody Curriculum curriculum) {
+		curriculum.setId(id);
 		return ResponseEntity.ok(curriculumService.updateCurriculum(curriculum));
 	}
 
