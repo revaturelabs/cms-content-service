@@ -103,21 +103,11 @@ public class ContentController {
 	@GetMapping(params = { "title", "format", "modules" })
 	public ResponseEntity<Set<JSONContent>> getSearchResults(
 			@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "format", required = false) String format,
-			@RequestParam(value = "modules", required = false) String modules) {
-		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
-		ArrayList<String> formatList = new ArrayList<String>();
-		StringTokenizer st = new StringTokenizer(modules, ",");
-		while(st.hasMoreTokens()) {
-			moduleIdsList.add(Integer.parseInt(st.nextToken()));
-		}
+			@RequestParam(value = "format", required = false) List<String> formats,
+			@RequestParam(value = "modules", required = false) List<Integer> modules) {
 		
-		StringTokenizer ft = new StringTokenizer(format, ",");
-		while (ft.hasMoreTokens()) {
-			formatList.add(ft.nextToken());
-		}
 
-		Set<Content> contentSet = searchService.filter(title, formatList, moduleIdsList);
+		Set<Content> contentSet = searchService.filter(title, formats, modules);
 		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
 		for (Content content : contentSet) {
 			JSONContent jc = contentToJSONContent(content);
