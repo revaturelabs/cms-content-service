@@ -18,27 +18,27 @@ public class CurriculumModuleServiceImpl implements CurriculumModuleService  {
 	
 	@Override
 	@LogException
-	public CurriculumModule createCurrModule(CurriculumModule curriculumModule) {
+	public CurriculumModule createCurriculumModule(CurriculumModule curriculumModule) {
 		return curriculumModuleRepository.save(curriculumModule);
 	}
 
 	@Override
 	@LogException
-	public Set<CurriculumModule> getAllCurrModules() {
+	public Set<CurriculumModule> getAllCurriculumModules() {
 		Set<CurriculumModule> curriculumModules = new HashSet<>();
 		curriculumModuleRepository.findAll().forEach(curriculumModules::add);
 		return curriculumModules;
 	}
 
 	@Override
-	public CurriculumModule getCurrModuleById(int id) {
+	public CurriculumModule getCurriculumModuleById(int id) {
 		CurriculumModule curriculumModule = curriculumModuleRepository.findById(id);
 		return curriculumModule;
 	}
 
 
 	@Override
-	public Iterable<CurriculumModule> updateCurrModule(Set<CurriculumModule> curriculumModule) {
+	public Iterable<CurriculumModule> updateCurriculumModule(Set<CurriculumModule> curriculumModule) {
 		return curriculumModuleRepository.saveAll(curriculumModule);
 	}
 

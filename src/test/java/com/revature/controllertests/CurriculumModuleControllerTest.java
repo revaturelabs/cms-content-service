@@ -78,9 +78,10 @@ public class CurriculumModuleControllerTest {
         CurriculumModule actual = objMapper.readValue(result.andReturn().getResponse()
                 .getContentAsString(), CurriculumModule.class);
 
-        result.andExpect(status().isOk());
+
         Mockito.verify(cms).createCurriculumModule(curriculumModule);
         Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum module");
+
     }
     
     @Test
@@ -99,7 +100,6 @@ public class CurriculumModuleControllerTest {
         CurriculumModule actual = objMapper.readValue(result.andReturn().getResponse()
                 .getContentAsString(), CurriculumModule.class);
 
-        result.andExpect(status().isOk());
         Mockito.verify(cms).getCurriculumModuleById(curriculumModule.getId());
         Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum Module");
     }
@@ -123,7 +123,6 @@ public class CurriculumModuleControllerTest {
         Set<CurriculumModule> actual = objMapper.readValue(result.andReturn().getResponse()
                 .getContentAsString(), new TypeReference<Set<CurriculumModule>>() { });
 
-        result.andExpect(status().isOk());
         Mockito.verify(cms).getAllCurriculumModules();
         Assert.assertEquals(actual, allCurriculumModules, "Failed to retrieve expected curriculum modules");
     }

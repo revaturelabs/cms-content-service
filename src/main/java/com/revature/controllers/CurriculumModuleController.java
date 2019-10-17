@@ -25,34 +25,34 @@ import com.revature.services.CurriculumModuleService;
 public class CurriculumModuleController {
 
 	@Autowired
-	CurriculumModuleService currModuleService;
+	CurriculumModuleService curriculumModuleService;
 	
 	@PostMapping
 	public ResponseEntity<CurriculumModule> createCurrModule(@RequestBody CurriculumModule cMod){
-		return ResponseEntity.ok(currModuleService.createCurrModule(cMod));
+		return ResponseEntity.ok(curriculumModuleService.createCurriculumModule(cMod));
 	}
 	
 	@GetMapping
 	public ResponseEntity <Set<CurriculumModule>> getAllCurrModules(){
-		Set<CurriculumModule> currMods = currModuleService.getAllCurrModules();
+		Set<CurriculumModule> currMods = curriculumModuleService.getAllCurriculumModules();
 		return ResponseEntity.ok(currMods);
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<CurriculumModule> getCurrModuleById(@PathVariable int id){
-		CurriculumModule currMod = currModuleService.getCurrModuleById(id);
+		CurriculumModule currMod = curriculumModuleService.getCurriculumModuleById(id);
 		return ResponseEntity.ok(currMod);
 	}
 	
-	@PutMapping("/update")
+	@PutMapping(value="/curriculum/{id}")
 	public ResponseEntity<ArrayList<CurriculumModule>> updateCurrModules(@RequestBody Set<CurriculumModule> modules){
-		return ResponseEntity.ok((ArrayList<CurriculumModule>)currModuleService.updateCurrModule(modules));
+		return ResponseEntity.ok((ArrayList<CurriculumModule>)curriculumModuleService.updateCurriculumModule(modules));
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<String> deleteCurrModule(@PathVariable int id){
-		CurriculumModule cMod = currModuleService.getCurrModuleById(id);
-		currModuleService.deleteCurriculumModule(cMod);
+		CurriculumModule cMod = curriculumModuleService.getCurriculumModuleById(id);
+		curriculumModuleService.deleteCurriculumModule(cMod);
 		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 }
