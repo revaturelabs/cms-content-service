@@ -69,7 +69,7 @@ public class CurriculumModuleControllerTest {
     	
     	CurriculumModule curriculumModule = new CurriculumModule(1,curriculum.getId(),module,1);
     	
-    	Mockito.when(cms.createCurrModule(curriculumModule)).thenReturn(curriculumModule);
+    	Mockito.when(cms.createCurriculumModule(curriculumModule)).thenReturn(curriculumModule);
 
         ResultActions result = mvc.perform( post("/curriculummodules")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -79,7 +79,7 @@ public class CurriculumModuleControllerTest {
                 .getContentAsString(), CurriculumModule.class);
 
         result.andExpect(status().isOk());
-        Mockito.verify(cms).createCurrModule(curriculumModule);
+        Mockito.verify(cms).createCurriculumModule(curriculumModule);
         Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum module");
     }
     
@@ -91,7 +91,7 @@ public class CurriculumModuleControllerTest {
     	
     	CurriculumModule curriculumModule = new CurriculumModule(1,curriculum.getId(),module,1);
 
-    	Mockito.when(cms.getCurrModuleById(curriculumModule.getId())).thenReturn(curriculumModule);
+    	Mockito.when(cms.getCurriculumModuleById(curriculumModule.getId())).thenReturn(curriculumModule);
 
         ResultActions result = mvc.perform( get("/curriculummodules/" + curriculumModule.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE));
@@ -100,7 +100,7 @@ public class CurriculumModuleControllerTest {
                 .getContentAsString(), CurriculumModule.class);
 
         result.andExpect(status().isOk());
-        Mockito.verify(cms).getCurrModuleById(curriculumModule.getId());
+        Mockito.verify(cms).getCurriculumModuleById(curriculumModule.getId());
         Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum Module");
     }
 	
@@ -115,7 +115,7 @@ public class CurriculumModuleControllerTest {
     	Set<CurriculumModule> allCurriculumModules = new HashSet<CurriculumModule>();
         allCurriculumModules.add(curriculumModule);
         
-        Mockito.when(cms.getAllCurrModules()).thenReturn(allCurriculumModules);
+        Mockito.when(cms.getAllCurriculumModules()).thenReturn(allCurriculumModules);
 
         ResultActions result = mvc.perform( get("/curriculummodules")
                 .contentType(MediaType.APPLICATION_JSON_VALUE));
@@ -124,7 +124,7 @@ public class CurriculumModuleControllerTest {
                 .getContentAsString(), new TypeReference<Set<CurriculumModule>>() { });
 
         result.andExpect(status().isOk());
-        Mockito.verify(cms).getAllCurrModules();
+        Mockito.verify(cms).getAllCurriculumModules();
         Assert.assertEquals(actual, allCurriculumModules, "Failed to retrieve expected curriculum modules");
     }
     
@@ -141,7 +141,7 @@ public class CurriculumModuleControllerTest {
     	thisCurriculumModule2.add(curriculumModule);
     	
     	
-    	Mockito.when(cms.updateCurrModule(thisCurriculumModule)).thenReturn(thisCurriculumModule2);
+    	Mockito.when(cms.updateCurriculumModule(thisCurriculumModule)).thenReturn(thisCurriculumModule2);
 
         ResultActions result = mvc.perform( put("/curriculummodules/update")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
