@@ -44,15 +44,15 @@ public class CurriculumModuleControllerTest {
     private ObjectMapper objMapper = new ObjectMapper();
     
     @InjectMocks
-    private CurriculumModuleController cmc;
+    private CurriculumModuleController curriculumModuleController;
     
     @Mock
-    private CurriculumModuleService cms;
+    private CurriculumModuleService curriculumModuleService;
     
     @BeforeClass 
     public void setup() {
-    	cmc = new CurriculumModuleController();
-    	mvc = MockMvcBuilders.standaloneSetup(cmc).build();
+    	curriculumModuleController = new CurriculumModuleController();
+    	mvc = MockMvcBuilders.standaloneSetup(curriculumModuleController).build();
     }
     
     @BeforeMethod
@@ -69,9 +69,9 @@ public class CurriculumModuleControllerTest {
     	
     	CurriculumModule curriculumModule = new CurriculumModule(1,curriculum.getId(),module,1);
     	
-    	Mockito.when(cms.createCurriculumModule(curriculumModule)).thenReturn(curriculumModule);
+    	Mockito.when(curriculumModuleService.createCurriculumModule(curriculumModule)).thenReturn(curriculumModule);
 
-        ResultActions result = mvc.perform( post("/curriculummodules")
+        ResultActions result = mvc.perform( post("/curriculum-modules")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objMapper.writeValueAsString(curriculumModule)));
 
@@ -79,7 +79,7 @@ public class CurriculumModuleControllerTest {
                 .getContentAsString(), CurriculumModule.class);
 
 
-        Mockito.verify(cms).createCurriculumModule(curriculumModule);
+        Mockito.verify(curriculumModuleService).createCurriculumModule(curriculumModule);
         Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum module");
 
     }
@@ -92,15 +92,15 @@ public class CurriculumModuleControllerTest {
     	
     	CurriculumModule curriculumModule = new CurriculumModule(1,curriculum.getId(),module,1);
 
-    	Mockito.when(cms.getCurriculumModuleById(curriculumModule.getId())).thenReturn(curriculumModule);
+    	Mockito.when(curriculumModuleService.getCurriculumModuleById(curriculumModule.getId())).thenReturn(curriculumModule);
 
-        ResultActions result = mvc.perform( get("/curriculummodules/" + curriculumModule.getId())
+        ResultActions result = mvc.perform( get("/curriculum-modules/" + curriculumModule.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE));
 
         CurriculumModule actual = objMapper.readValue(result.andReturn().getResponse()
                 .getContentAsString(), CurriculumModule.class);
 
-        Mockito.verify(cms).getCurriculumModuleById(curriculumModule.getId());
+        Mockito.verify(curriculumModuleService).getCurriculumModuleById(curriculumModule.getId());
         Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum Module");
     }
 	
@@ -115,15 +115,15 @@ public class CurriculumModuleControllerTest {
     	Set<CurriculumModule> allCurriculumModules = new HashSet<CurriculumModule>();
         allCurriculumModules.add(curriculumModule);
         
-        Mockito.when(cms.getAllCurriculumModules()).thenReturn(allCurriculumModules);
+        Mockito.when(curriculumModuleService.getAllCurriculumModules()).thenReturn(allCurriculumModules);
 
-        ResultActions result = mvc.perform( get("/curriculummodules")
+        ResultActions result = mvc.perform( get("/curriculum-modules")
                 .contentType(MediaType.APPLICATION_JSON_VALUE));
 
         Set<CurriculumModule> actual = objMapper.readValue(result.andReturn().getResponse()
                 .getContentAsString(), new TypeReference<Set<CurriculumModule>>() { });
 
-        Mockito.verify(cms).getAllCurriculumModules();
+        Mockito.verify(curriculumModuleService).getAllCurriculumModules();
         Assert.assertEquals(actual, allCurriculumModules, "Failed to retrieve expected curriculum modules");
     }
     
@@ -140,9 +140,9 @@ public class CurriculumModuleControllerTest {
     	thisCurriculumModule2.add(curriculumModule);
     	
     	
-    	Mockito.when(cms.updateCurriculumModule(thisCurriculumModule)).thenReturn(thisCurriculumModule2);
+    	Mockito.when(curriculumModuleService.updateCurriculumModule(thisCurriculumModule)).thenReturn(thisCurriculumModule2);
 
-        ResultActions result = mvc.perform( put("/curriculummodules/update")
+        ResultActions result = mvc.perform( put("/curriculum-modules/curriculum/1")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objMapper.writeValueAsString(thisCurriculumModule)));
 
@@ -158,9 +158,9 @@ public class CurriculumModuleControllerTest {
     	
     	CurriculumModule curriculumModule = new CurriculumModule(1,curriculum.getId(),module,1);
     	
-        Mockito.doNothing().when(cms).deleteCurriculumModule(curriculumModule);
+        Mockito.doNothing().when(curriculumModuleService).deleteCurriculumModule(curriculumModule);
 
-        ResultActions result = mvc.perform( delete("/curriculummodules/" + curriculumModule.getId())
+        ResultActions result = mvc.perform( delete("/curriculum-modules/" + curriculumModule.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE));
 
         result.andExpect(status().isOk());

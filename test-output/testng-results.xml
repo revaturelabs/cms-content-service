@@ -2,40 +2,56 @@
 <testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="7140" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:48Z">
+  <suite name="Default suite" duration-ms="5133" started-at="2019-10-17T18:34:24Z" finished-at="2019-10-17T18:34:29Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="7140" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:48Z">
-      <class name="com.revature.controllertests.CurriculumControllerTest">
-        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="preTestSetup" is-config="true" duration-ms="57" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- preTestSetup -->
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="setup" is-config="true" duration-ms="6055" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:47Z">
+    <test name="Default test" duration-ms="5133" started-at="2019-10-17T18:34:24Z" finished-at="2019-10-17T18:34:29Z">
+      <class name="com.revature.controllertests.CurriculumModuleControllerTest">
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="setup" is-config="true" duration-ms="3185" started-at="2019-10-17T18:34:24Z" finished-at="2019-10-17T18:34:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="deleteCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="deleteCurriculum" duration-ms="388" started-at="2019-10-16T20:38:47Z" finished-at="2019-10-16T20:38:48Z">
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="reinitMocks" is-config="true" duration-ms="1247" started-at="2019-10-17T18:34:27Z" finished-at="2019-10-17T18:34:28Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- deleteCurriculum -->
-        <test-method status="PASS" signature="getAllCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="getAllCurriculum" duration-ms="231" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="CreateCurriculumModule()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="CreateCurriculumModule" duration-ms="561" started-at="2019-10-17T18:34:28Z" finished-at="2019-10-17T18:34:29Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- getAllCurriculum -->
-        <test-method status="PASS" signature="getCurriculumById()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="getCurriculumById" duration-ms="193" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+        </test-method> <!-- CreateCurriculumModule -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="reinitMocks" is-config="true" duration-ms="1" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- getCurriculumById -->
-        <test-method status="PASS" signature="givenValidDataCreateCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="givenValidDataCreateCurriculum" duration-ms="103" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="DeleteCurriculumModule()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="DeleteCurriculumModule" duration-ms="34" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- givenValidDataCreateCurriculum -->
-        <test-method status="PASS" signature="updateCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="updateCurriculum" duration-ms="8" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+        </test-method> <!-- DeleteCurriculumModule -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="reinitMocks" is-config="true" duration-ms="1" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- updateCurriculum -->
-      </class> <!-- com.revature.controllertests.CurriculumControllerTest -->
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="GetAllCurriculumModules()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="GetAllCurriculumModules" duration-ms="13" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GetAllCurriculumModules -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="reinitMocks" is-config="true" duration-ms="3" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="GetCurriculumModuleById()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="GetCurriculumModuleById" duration-ms="9" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- GetCurriculumModuleById -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="reinitMocks" is-config="true" duration-ms="1" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="UpdateCurriculumModule()[pri:0, instance:com.revature.controllertests.CurriculumModuleControllerTest@47eaca72]" name="UpdateCurriculumModule" duration-ms="16" started-at="2019-10-17T18:34:29Z" finished-at="2019-10-17T18:34:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- UpdateCurriculumModule -->
+      </class> <!-- com.revature.controllertests.CurriculumModuleControllerTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
