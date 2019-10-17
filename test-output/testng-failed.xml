@@ -9,7 +9,9 @@
           <include name="updateCurriculum"/>
           <include name="setup"/>
           <include name="preTestSetup"/>
+          <include name="getAllCurriculum"/>
           <include name="deleteCurriculum"/>
+          <include name="givenValidDataCreateCurriculum"/>
         </methods>
       </class> <!-- com.revature.controllertests.CurriculumControllerTest -->
     </classes>

@@ -23,7 +23,7 @@ import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
-@RequestMapping(value = "/curriculums")
+@RequestMapping(value = "/curricula")
 
 public class CurriculumController {
 
