@@ -23,7 +23,7 @@ import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
-@RequestMapping(value = "/curriculum")
+@RequestMapping(value = "/curriculums")
 
 public class CurriculumController {
 
@@ -45,7 +45,7 @@ public class CurriculumController {
 		Curriculum curriculum = curriculumService.getCurriculumById(id);
 		Set<CurriculumModule> currModules = new HashSet<>();
 		if (null != curriculum) {
-			Set<CurriculumModule> allCurrModules = currModuleService.getAllCurrModules();
+			Set<CurriculumModule> allCurrModules = currModuleService.getAllCurriculumModules();
 			for (CurriculumModule c : allCurrModules) {
 				if (c.getCurriculum() == id) {
 					currModules.add(c);
