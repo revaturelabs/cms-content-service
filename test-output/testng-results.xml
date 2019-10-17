@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="7140" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:48Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="7140" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:48Z">
+      <class name="com.revature.controllertests.CurriculumControllerTest">
+        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="preTestSetup" is-config="true" duration-ms="57" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preTestSetup -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="setup" is-config="true" duration-ms="6055" started-at="2019-10-16T20:38:41Z" finished-at="2019-10-16T20:38:47Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method status="PASS" signature="deleteCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="deleteCurriculum" duration-ms="388" started-at="2019-10-16T20:38:47Z" finished-at="2019-10-16T20:38:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- deleteCurriculum -->
+        <test-method status="PASS" signature="getAllCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="getAllCurriculum" duration-ms="231" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getAllCurriculum -->
+        <test-method status="PASS" signature="getCurriculumById()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="getCurriculumById" duration-ms="193" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getCurriculumById -->
+        <test-method status="PASS" signature="givenValidDataCreateCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="givenValidDataCreateCurriculum" duration-ms="103" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- givenValidDataCreateCurriculum -->
+        <test-method status="PASS" signature="updateCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="updateCurriculum" duration-ms="8" started-at="2019-10-16T20:38:48Z" finished-at="2019-10-16T20:38:48Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- updateCurriculum -->
+      </class> <!-- com.revature.controllertests.CurriculumControllerTest -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

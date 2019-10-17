@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    config:
+      name: content-service
+      discovery:
+        service-id: config
+        enabled: true
+        
+server:
+  servlet: 
+    path: /cmsforce/*
+
+---
+spring:
+  profiles: dev
+
+eureka:   
+ client:
+   service-url:
+     defaultZone: ${EUREKA_URL}
+ instance:
+   prefer-ip-address: true
