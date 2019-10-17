@@ -45,7 +45,10 @@ public class CurriculumModuleController {
 	}
 	
 	@PutMapping(value="/curriculum/{id}")
-	public ResponseEntity<ArrayList<CurriculumModule>> updateCurrModules(@RequestBody Set<CurriculumModule> modules){
+	public ResponseEntity<ArrayList<CurriculumModule>> updateCurrModules(@PathVariable int id, @RequestBody Set<CurriculumModule> modules){
+		for(CurriculumModule c : modules) {
+			c.setCurriculum(id);
+		}
 		return ResponseEntity.ok((ArrayList<CurriculumModule>)curriculumModuleService.updateCurriculumModule(modules));
 	}
 	
