@@ -45,13 +45,13 @@ public class CurriculumControllerTest {
 	private ObjectMapper objMapper = new ObjectMapper();
 
 	@InjectMocks
-	private CurriculumController cc;
+	private CurriculumController curriculumController;
 
 	@Mock
-	private CurriculumService cs;
+	private CurriculumService curriculumService;
 
 	@Mock
-	private CurriculumModuleService cMs;
+	private CurriculumModuleService curriculumModuleService;
 
 	private Curriculum curriculum;
 
@@ -62,8 +62,8 @@ public class CurriculumControllerTest {
 	 */
 	@BeforeClass
 	public void setup() {
-		cc = new CurriculumController();
-		mvc = MockMvcBuilders.standaloneSetup(cc).build();
+		curriculumController = new CurriculumController();
+		mvc = MockMvcBuilders.standaloneSetup(curriculumController).build();
 
 		MockitoAnnotations.initMocks(this);
 	}
@@ -84,9 +84,9 @@ public class CurriculumControllerTest {
 	 */
 	@Test
 	public void givenValidDataCreateCurriculum() throws Exception {
-		Mockito.when(cs.createCurriculum(curriculum)).thenReturn(curriculum);
+		Mockito.when(curriculumService.createCurriculum(curriculum)).thenReturn(curriculum);
 
-		ResultActions result = mvc.perform(post("/curriculum").contentType(MediaType.APPLICATION_JSON)
+		ResultActions result = mvc.perform(post("/curriculums").contentType(MediaType.APPLICATION_JSON)
 				.content(objMapper.writeValueAsString(curriculum)));
 
 		Curriculum actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
@@ -105,9 +105,9 @@ public class CurriculumControllerTest {
 		Set<Curriculum> curriculums = new HashSet<Curriculum>();
 		curriculums.add(curriculum);
 		curriculums.add(curriculum2);
-		Mockito.when(cs.getAllCurriculums()).thenReturn(curriculums);
+		Mockito.when(curriculumService.getAllCurriculums()).thenReturn(curriculums);
 
-		ResultActions result = mvc.perform(get("/curriculum").contentType(MediaType.APPLICATION_JSON));
+		ResultActions result = mvc.perform(get("/curriculums").contentType(MediaType.APPLICATION_JSON));
 		String actual = result.andReturn().getResponse().getContentAsString();
 
 		assertEquals(actual, convertToJSONCurriculumSetString(curriculums), "Failed to get back Curriculums");
@@ -143,10 +143,10 @@ public class CurriculumControllerTest {
 	 */
 	@Test
 	public void getCurriculumById() throws Exception {
-		Mockito.when(cs.getCurriculumById(ID1)).thenReturn(curriculum);
+		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(curriculum);
 		Set<CurriculumModule> currModules = new HashSet<CurriculumModule>();
-		Mockito.when(cMs.getAllCurriculumModules()).thenReturn(currModules);
-		ResultActions result = mvc.perform(get("/curriculum/" + ID1));
+		Mockito.when(curriculumModuleService.getAllCurriculumModules()).thenReturn(currModules);
+		ResultActions result = mvc.perform(get("/curriculums/" + ID1));
 		Curriculum actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				Curriculum.class);
 
@@ -161,10 +161,10 @@ public class CurriculumControllerTest {
 	 */
 	@Test
 	public void deleteCurriculum() throws Exception {
-		Mockito.doNothing().when(cs).deleteCurriculum(curriculum);
-		Mockito.when(cs.getCurriculumById(ID1)).thenReturn(curriculum);
+		Mockito.doNothing().when(curriculumService).deleteCurriculum(curriculum);
+		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(curriculum);
 
-		ResultActions result = mvc.perform(delete("/curriculum/" + ID1));
+		ResultActions result = mvc.perform(delete("/curriculums/" + ID1));
 
 		result.andExpect(status().isOk());
 	}
@@ -172,9 +172,9 @@ public class CurriculumControllerTest {
 	@Test
 	public void updateCurriculum() throws Exception {
 		curriculum.setName("UpdatedTest");
-		Mockito.when(cs.updateCurriculum(curriculum)).thenReturn(curriculum);
+		Mockito.when(curriculumService.updateCurriculum(curriculum)).thenReturn(curriculum);
 
-		ResultActions result = mvc.perform(put("/curriculum").contentType(MediaType.APPLICATION_JSON)
+		ResultActions result = mvc.perform(put("/curriculums/1").contentType(MediaType.APPLICATION_JSON)
 				.content(objMapper.writeValueAsString(curriculum)));
 
 		String actual = result.andReturn().getResponse().getContentAsString();

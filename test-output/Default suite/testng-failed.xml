@@ -6,8 +6,10 @@
       <class name="com.revature.controllertests.CurriculumControllerTest">
         <methods>
           <include name="getCurriculumById"/>
+          <include name="updateCurriculum"/>
           <include name="setup"/>
           <include name="preTestSetup"/>
+          <include name="deleteCurriculum"/>
         </methods>
       </class> <!-- com.revature.controllertests.CurriculumControllerTest -->
     </classes>
