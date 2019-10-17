@@ -32,6 +32,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 
 
+/*
+ * This class of tests is testing the functionality of the servlet
+ * and controller:
+ * 
+ * Given a particular request is made to a servlet endpoint regarding
+ * contend objects,
+ * 
+ * Is the proper database method in our controller being triggered.
+ * 		If values are returned, are they making it back to the requester?
+ */
+
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
@@ -74,11 +85,14 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Test adding new content to the back-end
+	 * Test that our servlet and controller are triggering 
+	 * the appropriate DB methods when the '/content' is 
+	 * hit with a POST request, and that the returned value 
+	 * makes it back to the request source.
 	 * @throws Exception - if mocked http request fails
 	 */
 	@Test
-	public void givenValidDataCreateContent () throws Exception {
+	public void testCreateContent() throws Exception {
 		//given
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		
@@ -88,20 +102,30 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 								.content(objMapper.writeValueAsString(content)));
 		Content ret = objMapper.readValue(result.andReturn().getResponse()
 						  .getContentAsString(), Content.class);
-		
 		//then
-		//expect status of OK
+		//expect Post request status of OK
 		result.andExpect(status().isOk());
 		//content should be created
 		assertEquals (ret, content, "Failed to create content");
 	}
 	
+	//Create Links based on content ID
+	@Test(enabled=false)
+	public void testCreateLinks() throws Exception
+	{
+		//Needs to be Implemented.
+	}
+	
 	/**
-	 * Test retrieving all content from the back-end
+	 * Test that our servlet and controller are 
+	 * triggering the appropriate DB methods when 
+	 * the '/content' is hit with a GET request, 
+	 * and that the returned value makes it back 
+	 * to the request source.
 	 * @throws Exception - if http request fails
 	 */
 	@Test 
-	public void getAllContents () throws Exception {
+	public void testGetAllContents() throws Exception {
 		//given
 		Set<Content> expected = new HashSet<Content> ();
 		expected.add(content);
@@ -115,10 +139,23 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		//expect status of OK
 		result.andExpect(status().isOk());
 		//compare as json to avoid warnings from conversion
-		assertEquals (actual, convertToJSONContentSetString(expected), "Failed to find content");
+		assertEquals (actual, convertContentSetToString(expected), "Failed to find content");
 	}
-
-	private String convertToJSONContentSetString(Set<Content> allContent) throws Exception
+	
+	/**
+	 * This helper function converts a Content Set
+	 * to a string that can be compared to another
+	 * string representation of a content object.
+	 * 
+	 * 
+	 * @param allContent
+	 * 		A set, containing several Content Objects.
+	 * @return
+	 * 		A string representing a set of Content Objects.
+	 * @throws Exception
+	 * 
+	 */
+	private String convertContentSetToString(Set<Content> allContent) throws Exception
 	{
 		StringBuilder result = new StringBuilder("[");
 		for (Content con : allContent)
@@ -135,11 +172,15 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Test retrieving content based upon an id 
+	 * Test that our servlet and controller are 
+	 * triggering the appropriate content Service methods 
+	 * when the /content/{content_ID} endpoint is 
+	 * hit with a GET request, and that the returned 
+	 * value makes it back to the request source.
 	 * @throws Exception - if http request fails
 	 */
 	@Test 
-	public void getContentById() throws Exception {
+	public void testGetContentById() throws Exception {
 		//given
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		
@@ -155,12 +196,30 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals (actual, content, "Failed to retrieve content");
 	}
 
+	//Grabs Links based on content ID
+	@Test(enabled=false)
+	public void testGetLinksByContentId() throws Exception
+	{
+		//Needs to be Implemented.
+	}
+	
+	//Check ContentController
+	@Test(enabled=false)
+	public void testGetSearchResults() throws Exception
+	{
+		//Needs to be Implemented.
+	}
+	
 	/**
-	 * Test updating existing content
+	 * Test that our servlet and controller are triggering
+	 * The appropriate DB methods in the content Service when
+	 * the /content/{id} endpoint is hit with a PUT request, 
+	 * and that the returned value makes it back to the 
+	 * request source.
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void updateContent () throws Exception {
+	public void testUpdateContent() throws Exception {
 		//given
 		Mockito.when (cs.updateContent(content)).thenReturn(content);
 		
@@ -172,19 +231,28 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 				.getContentAsString(), Content.class);
 
 		//then
-		//expect status of OK
+		//expect status of put operation is OK
 		result.andExpect(status().isOk());
 		//should retrieve same content back
 		assertEquals (actual, content, "Failed to update content");
 				
 	}
+	
+	//Check Content Controller
+	@Test(enabled=false)
+	public void testUpdateLinks() throws Exception
+	{
+		//Needs to be Implemented.
+	}
 
 	/**
-	 * Test deleting existing content
+	 * Test that our servlet and controller are triggering 
+	 * the appropriate DB method in the content Service when 
+	 * /content/{id} endpoint is hit with a DELETE request.
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteContent () throws Exception {
+	public void testDeleteContent() throws Exception {
 		//mock content service
 		Mockito.doNothing().when(cs).deleteContent(content);
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);

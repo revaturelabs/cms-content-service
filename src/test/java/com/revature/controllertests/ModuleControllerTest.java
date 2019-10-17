@@ -53,6 +53,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private ModuleController mc;
 	
 	//the service the controller depends on 
+	//to touch the database.
 	@Mock
 	private ModuleService ms;
 	
@@ -86,11 +87,14 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Test adding a new module to the back-end
+	 * Test that when we hit the "/modules" endpoint 
+	 * with a POST request, our servlet and controller 
+	 * trigger the method that persists the module to 
+	 * our DB.
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void givenValidDataCreateModule () throws Exception {
+	public void testCreateModule() throws Exception {
 		//given 
 		Mockito.when(ms.createModule(module)).thenReturn(module);
 		
@@ -102,18 +106,21 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 							.getResponse().getContentAsString() , Module.class);
 		
 		//then
-		//expect status of OK
+		//expect status of Post Request to be OK
 		result.andExpect (status().isOk ());
 		//expect should get back same module
 		assertEquals (actual, module, "Module was not created");
 	}
 	
 	/**
-	 * Tests retrieving all the modules from the back-end
+	 * Tests that when we hit the "/modules" endpoint, 
+	 * with a GET request, our servlet and controller 
+	 * triggers the the method that Retrieves all 
+	 * module objects from our db. 
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void getAllModules () throws Exception {
+	public void testGetAllModules() throws Exception {
 		//given 
 		Set<Module> modules = new HashSet<Module> ();
 		modules.add(module);
@@ -133,7 +140,11 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 						"Failed to get back modules");
 	}
 
-	// Helps with discrepency between
+	/*
+	 * This Helper function converts a Set containing modules
+	 * to a string that can be compared with other String 
+	 * representations of module Sets. (String follows a JSON format)
+	 */
 	private String convertToJSONModuleSetString(Set<Module> allModules) throws Exception
 	{
 		StringBuilder result = new StringBuilder("[");
@@ -151,11 +162,14 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Tests retrieving a module from the back-end by id
+	 * Tests that when we hit the "/modules/{id}" endpoint, 
+	 * with a GET request, our servlet and controller 
+	 * triggers the the method that retrieves a 
+	 * module object from our db based on an ID. 
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void getModuleById () throws Exception {
+	public void testGetModuleById() throws Exception {
 		//given
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
 		
@@ -173,8 +187,73 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//assertEquals (actual.getId(), id, "Module has the incorrect id");
 	}
 	
+	/*
+	 * Test that when hitting the "/modules/roots" 
+	 * endpoint with a GET request...
+	 * check ModuleController 
+	 * @throws Exception - if the http request fails
+	 */
+	@Test(enabled=false)
+	public void testGetAllRootModules() throws Exception
+	{
+		//Needs to be Implemented
+	}
+	
+	/*
+	 * Test that when hitting the "/modules/{id}" 
+	 * endpoint with a GET request...
+	 * check ModuleController 
+	 * @throws Exception - if the http request fails
+	 */
+	@Test(enabled=false)
+	public void testGetChildrenByModuleId() throws Exception
+	{
+		//Needs to be Implemented
+	}
+	
+	/*
+	 * Test that when hitting the "/modules/{id}/links" 
+	 * endpoint with a GET request...
+	 * check ModuleController 
+	 * @throws Exception - if the http request fails
+	 */
+	@Test(enabled=false)
+	public void testGetLinksByModuleId() throws Exception
+	{
+		//Needs to be Implemented
+	}
+	
+	/*
+	 * Test that when hitting the "/modules/{id}/req-links" 
+	 * endpoint with a GET request...
+	 * check ModuleController 
+	 * @throws Exception - if the http request fails
+	 */
+	@Test(enabled=false)
+	public void testGetReqLinksByModuleId() throws Exception
+	{
+		//Needs to be Implemented
+	}
+	
+	/*
+	 * Test that when hitting the "/modules/{id}" 
+	 * endpoint with a PUT request, our servlet 
+	 * and controller triggers the the method 
+	 * that retrieves a module object from our db 
+	 * based on an ID. 
+	 * @throws Exception - if the http request fails
+	 */
+	@Test(enabled=false)
+	public void testUpdateModule() throws Exception
+	{
+		//Needs to be Implemented
+	}
+	
 	/**
-	 * Tests removing a module from the back-end
+	 * Tests that when we hit the "/modules/{id}" endpoint, 
+	 * with a DELETE request, our servlet and controller 
+	 * triggers the the method that retrieves a 
+	 * module object from our db based on an ID. 
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
@@ -189,5 +268,22 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//then
 		//expect status of OK
 		result.andExpect (status().isOk ());
+	}
+	
+	
+	/*
+	 * Test that when hitting the 
+	 * "/modules/{id}?type={type}" endpoint 
+	 * with a DELETE request, our servlet 
+	 * and controller triggers the the method 
+	 * that deletes a module object, and some 
+	 * level of associated content from our 
+	 * db based on a Module ID. 
+	 * @throws Exception - if the http request fails
+	 */
+	@Test(enabled=false)
+	public void testDeleteModule() throws Exception
+	{
+		//Needs to be Implemented
 	}
 }
