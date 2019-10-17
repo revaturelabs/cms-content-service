@@ -61,8 +61,8 @@ public class CurriculumController {
 		return ResponseEntity.ok(curriculumService.createCurriculum(curriculum));
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Curriculum> updateCurriculum(@PathVariable("id") int id, @RequestBody Curriculum curriculum) {
+	@PutMapping
+	public ResponseEntity<Curriculum> updateCurriculum(@RequestBody Curriculum curriculum) {
 		return ResponseEntity.ok(curriculumService.updateCurriculum(curriculum));
 	}
 
