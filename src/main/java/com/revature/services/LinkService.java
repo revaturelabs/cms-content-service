@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.netflix.ribbon.proxy.annotation.Content;
 import com.revature.entities.Link;
 
 public interface LinkService {

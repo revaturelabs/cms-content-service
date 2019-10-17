@@ -81,6 +81,7 @@ public class LinkControllerTest
 
     @Test
     public void testGetAllLinks() throws Exception
+    
     {
         Content content = new Content(1, "title", "format", "description", "http://www.google.com",
                 1L, 1L, new HashSet<Link>());
@@ -151,7 +152,6 @@ public class LinkControllerTest
         Mockito.verify(ls).updateLink(link);
         Assert.assertEquals(actual, link, "Failed to retrieve expected link");
     }
-
     @Test
     public void testDeleteLink() throws Exception
     {

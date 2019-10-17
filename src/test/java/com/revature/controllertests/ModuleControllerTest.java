@@ -193,4 +193,5 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		//expect status of OK
 		result.andExpect (status().isOk ());
 	}
+	
 }

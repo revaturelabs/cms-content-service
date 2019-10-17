@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -88,6 +87,11 @@ public class ModuleController {
         return ResponseEntity.ok(jsonModules);
     }
 	
+//	// return list of  modules attached to a given curriculum
+//	@GetMapping("/{id}/curriculum")
+//    public ResponseEntity<Set<Module>> getModuleByCurriculumId(@PathVariable int id) {
+//		return ResponseEntity.ok(moduleService.getModulesByCurricumId(id));
+//	}	
 	//get all links by given module
 	@GetMapping("/{id}/links")
 	public ResponseEntity<Set<Link>> getLinksByModuleId(@PathVariable int id) {
@@ -105,11 +109,11 @@ public class ModuleController {
 	public ResponseEntity<Module> updateModule(@PathVariable("id") int id, @RequestBody Module module) {
 		return ResponseEntity.ok(moduleService.updateModule(module));
 	}
-	// update link s based on module Id
-	@PutMapping(value = "{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Set<Link>> updateLinksById(@RequestBody Set<Link> links, @PathVariable int id) {
-		return ResponseEntity.ok(moduleService.updateLinksByModuleId(id, links));
-	}
+//	// update link s based on module Id
+//	@PutMapping(value = "{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<Set<Link>> updateLinksById(@RequestBody Set<Link> links, @PathVariable int id) {
+//		return ResponseEntity.ok(moduleService.updateLinksByModuleId(id, links));
+//	}
 
 	//delete a specific module, retaining all content
 	@DeleteMapping(value="{id}")

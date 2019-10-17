@@ -6,10 +6,12 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.CurriculumModuleRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.repositories.ReqLinkRepository;
@@ -26,6 +28,8 @@ public class ModuleServiceImpl implements ModuleService {
 	LinkRepository lr;
 	@Autowired
 	ReqLinkRepository rlr;
+	@Autowired 
+	CurriculumModuleRepository cmR;
 
 	/**
 	 * Take the module passed in and change the created value 
@@ -153,7 +157,7 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	@Override
-	public  Set<Link> updateLinksByModuleId(int id, Set<Link> links ) {
+	public  Set<Link> updateLinksByModuleId( Set<Link> links ) {
 		for (Link link : links) 
 		{
 			lr.save(link);
@@ -161,6 +165,7 @@ public class ModuleServiceImpl implements ModuleService {
 		return links;
 		
 	}
+
 
 
 

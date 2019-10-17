@@ -26,4 +26,11 @@ public interface ContentService {
 	public List<Link> updateLinksByContentId(int id, List<Link> links);
 
 	public List<Link> createLinksByContentId(int id, List<Link> links);
+	
+	public Set<Link> getLinksByCurricumId(int id);
+
+	
+	
+
+	
 }
