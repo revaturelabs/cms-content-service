@@ -23,8 +23,15 @@ import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
+/**
+ * 
+ * @author Java Batch 1908
+ *
+ *         Curriculum Controller
+ *         Delegate different HTTP request for curriculum to corresponding CurriculumService method
+ *
+ */
 @RequestMapping(value = "/curricula")
-
 public class CurriculumController {
 
 	@Autowired
@@ -32,16 +39,25 @@ public class CurriculumController {
 
 	@Autowired
 	CurriculumModuleService currModuleService;
-
+    /**
+     * Mapping 'GET' request with '/curriculums' URL to CurriculumService getAllCurriculum method to get all Curriculum Object available in database
+     * @return curriculums - all Curriculum Objects available in database
+     */
 	@GetMapping()
 	public Set<Curriculum> getAllCurriculums() {
 		Set<Curriculum> curriculums = curriculumService.getAllCurriculums();
 		return curriculums;
 	}
-
+    
+	
 	@GetMapping(value = "{id}")
+	/**
+	 * Mapping 'GET' request with '/curriculums/{id}' URL to CurriculumService getCurriculumById method to get the Curriculum Object with given Id
+	 * @param id - Curriculum Id
+	 * @return ResponseEntity<Curriculum> - ResponseBody with JSON format of Curriculum Object 
+	 * 
+	 */
 	public ResponseEntity<Curriculum> getCurriculumById(@PathVariable int id) {
-
 		Curriculum curriculum = curriculumService.getCurriculumById(id);
 		Set<CurriculumModule> currModules = new HashSet<>();
 		if (null != curriculum) {
@@ -57,10 +73,22 @@ public class CurriculumController {
 	}
 
 	@PostMapping
+	/**
+	 *  Mapping 'POST' request with '/curriculums' URL to CurriculumService createCurriculum method to create a new Curriculum record in database
+	 *
+	 * @param curriculum - the Curriculum Object to create
+	 * @return ResponseEntity<Curriculum> - response body with JSON format of Curriculum Object
+	 */
 	public ResponseEntity<Curriculum> createCurriculum(@RequestBody Curriculum curriculum) {
 		return ResponseEntity.ok(curriculumService.createCurriculum(curriculum));
 	}
 
+	/**
+	 * Mapping 'PUT' request with '/curriculums' URL to CurriculumService updateCurriculum method to update Curriculum record in database with given id
+	 *
+	 * @param curriculum - the Curriculum Object to update provided in request body
+	 * @return ResponseEntity<Curriculum> - response body with JSON format of Curriculum Object
+	 */
 	@PutMapping(value = "{id}")
 	public ResponseEntity<Curriculum> updateCurriculum(@PathVariable int id, @RequestBody Curriculum curriculum) {
 		curriculum.setId(id);
@@ -68,6 +96,12 @@ public class CurriculumController {
 	}
 
 	@DeleteMapping(value = "{id}")
+	/**
+	 * Mapping 'DELETE' request with '/curriculums/{id}' URL to CurriculumService deleteCurriculum method to delete the Curriculum record in database with given id
+	 *
+	 * @param id - the Curriculum id to delete
+	 * @return ResponseEntity<String> - set status to be "HTTPStatus.ok" and empty string in response body if the Curriculum record with given Id is successfully deleted
+	 */	
 	public ResponseEntity<String> deleteCurriculum(@PathVariable int id) {
 		Curriculum curriculum = curriculumService.getCurriculumById(id);
 		curriculumService.deleteCurriculum(curriculum);
