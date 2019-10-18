@@ -4,6 +4,9 @@ package com.revature.util;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
+
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.testng.annotations.BeforeMethod;
@@ -38,110 +41,102 @@ public class ValidationUtilTest {
 		
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestContentEqualsNullThrowException() {
+	public void verifyContentTestContentEqualsNullThrowException() {
 		content=null;
 		vu.verifyContent(content);
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestSecondCondition_MoreThanMAX_CHAR_LENGTH() {
+	public void verifyContentTestSecondConditionMoreThanMAXCHARLENGTH() {
 		content.setFormat(badString);
 		vu.verifyContent(content);
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestSecondCondition_GetFormatIsEmpty() {
+	public void verifyContentTestSecondConditionGetFormatIsEmpty() {
 		content.setFormat("");
 		vu.verifyContent(content);
 	}
 	
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestThirdCondition_MoreThanMAX_CHAR_LENGTH() {
+	public void verifyContentTestThirdConditionMoreThanMAXCHARLENGTH() {
 		content.setTitle(badString);
 		vu.verifyContent(content);
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestThirdCondition_GetTitleIsEmpty() {
+	public void verifyContentTestThirdConditionGetTitleIsEmpty() {
 		content.setTitle("");
 		vu.verifyContent(content);
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestFourthCondition_MoreThanMAX_CHAR_LENGTH() {
+	public void verifyContentTestFourthConditionMoreThanMAXCHARLENGTH() {
 		content.setUrl(badString);
 		vu.verifyContent(content);
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestFourthCondition_GetUrlIsEmpty() {
+	public void verifyContentTestFourthConditionGetUrlIsEmpty() {
 		content.setUrl("");
 		vu.verifyContent(content);
 	}
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyContent_TestFifthConditionThrowException() {
+	public void verifyContentTestFifthConditionThrowException() {
 		content.setDescription(badString);
-		vu.verifyContent(content);
+		vuMock.verifyContent(content);
 	}
 	@Test
-	public void verifyContent_Test() {
-		vu.verifyContent(content);
+	public void verifyContentTest() {
+		assertTrue(vuMock.verifyContent(content));
 	}
 	
 	
 	@Test(expectedExceptions = InvalidContentException.class)
-	public void verifyModule_TestFirstconditionThrowException() {
+	public void verifyModuleTestFirstconditionThrowException() {
 		module = null;
-		vu.verifyModule(module);
+		vuMock.verifyModule(module);
 	}
 	@Test(expectedExceptions = InvalidModuleException.class)
-	public void verifyModule_SecondCondition_MoreThanMAX_CHAR_LENGTH() {
+	public void verifyModuleSecondConditionMoreThanMAXCHARLENGTH() {
 		module.setSubject(badString);
-		vu.verifyModule(module);		
+		vuMock.verifyModule(module);		
 	}
 	@Test(expectedExceptions = InvalidModuleException.class)
-	public void verifyModule_SecondCondition_getSubjectIsEmpty() {
+	public void verifyModuleSecondConditiongetSubjectIsEmpty() {
 		module.setSubject("");
-		vu.verifyModule(module);		
+		vuMock.verifyModule(module);		
 	}
 	@Test
-	public void verifyModule_Test() {
+	public void verifyModuleTest() {
 		module.setSubject("asdads");
-		vu.verifyModule(module);
+		assertTrue(vu.verifyModule(module));
 	}
-	
-	@Test
-	public void servicesPC() {
-		vu.servicesPC();
-	}
-	
-	
-	
-	
+		
 	@Test(expectedExceptions = InvalidSearchException.class)
-	public void verifyStringTitle_TestThrowException() {
-		vu.verifyStringTitle(badString);		
+	public void verifyStringTitleTestThrowException() {
+		vuMock.verifyStringTitle(badString);		
 	}
 	@Test(expectedExceptions = InvalidSearchException.class)
-	public void verifyStringFortmat_TestThrowException() {
-		vu.verifyStringFormat(badString);		
+	public void verifyStringFortmatTestThrowException() {
+		vuMock.verifyStringFormat(badString);		
 	}
 	@Test(expectedExceptions = InvalidSearchException.class)
-	public void verifyModuleId_TestThrowException() {
-		vu.verifyModuleId(-20);
+	public void verifyModuleIdTestThrowException() {
+		vuMock.verifyModuleId(-20);
 	}
 	@Test(expectedExceptions =  InvalidSearchException.class)
-	public void verifyId_TestThrowException() {
-		vu.verifyId(-30);
+	public void verifyIdTestThrowException() {
+		vuMock.verifyId(-30);
 	}
 	@Test
-	public void verifyId_NoThrowException() {
+	public void verifyIdNoThrowException() {
 		vuMock.verifyId(5);
 		verify(vuMock).verifyId(5);
 	}
 	@Test
-	public void verifyListModuleId_TestRuns() {
+	public void verifyListModuleIdTestRuns() {
 		List<Integer> modulesIds = new ArrayList<Integer>();
 		modulesIds.add(5);
-		vu.verifyListModuleId(modulesIds);
+		vuMock.verifyListModuleId(modulesIds);
 	}
 	@Test
-	public void verifyFilter_Test() {
+	public void verifyFilterTest() {
 		String title = "1";
 		String format = "sf" ;
 		List<Integer> moduleIds = new ArrayList<Integer>();  
