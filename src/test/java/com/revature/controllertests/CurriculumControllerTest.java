@@ -147,7 +147,7 @@ public class CurriculumControllerTest {
 	public void getCurriculumById() throws Exception {
 		Mockito.when(cs.getCurriculumById(ID1)).thenReturn(curriculum);
 		Set<CurriculumModule> currModules = new HashSet<CurriculumModule>();
-		Mockito.when(cMs.getAllCurrModules()).thenReturn(currModules);
+		Mockito.when(cMs.getAllCurriculumModules()).thenReturn(currModules);
 		ResultActions result = mvc.perform(get("/curriculum/" + ID1));
 		Curriculum actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				Curriculum.class);
