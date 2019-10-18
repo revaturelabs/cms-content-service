@@ -22,10 +22,16 @@ public class JSONRequestTest {
 	}
 
 	@Test
-	public void testContent() {
+	public void testContentInstanceOf() {
 		JSONRequest one = new JSONRequest(1, "GET Test", "JSON", "This tests a get request", null, 92846L, 93847L,
 				null);
 		assertTrue(one instanceof JSONRequest);
+	}
+	
+	@Test
+	public void testContentEquals() {
+		JSONRequest one = new JSONRequest(1, "GET Test", "JSON", "This tests a get request", null, 92846L, 93847L,
+				null);
 		JSONRequest two = new JSONRequest();
 		assertTrue(one != two);
 	}

@@ -20,9 +20,14 @@ public class JSONModuleTest {
 	}
 
 	@Test
-	public void testContent() {
+	public void testContentInstanceOf() {
 		JSONModule one = new JSONModule(1, "b", 1, null, null, null, null);
 		assertTrue(one instanceof JSONModule);
+	}
+	
+	@Test
+	public void testContentEquals() {
+		JSONModule one = new JSONModule(1, "b", 1, null, null, null, null);
 		JSONModule two = new JSONModule();
 		assertTrue(one != two);
 	}

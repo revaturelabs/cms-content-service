@@ -20,10 +20,16 @@ public class JSONContentTest {
 	}
 
 	@Test
-	public void testContent() {
+	public void testContentInstanceOf() {
 		JSONContent one = new JSONContent(99, "Java a New Begining", "String", "The Java the brought hope back",
 				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		assertTrue(one instanceof JSONContent);
+	}
+	
+	@Test
+	public void testContentEquals() {
+		JSONContent one = new JSONContent(99, "Java a New Begining", "String", "The Java the brought hope back",
+				"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>());
 		JSONContent two = new JSONContent();
 		assertTrue(one != two);
 	}
