@@ -23,7 +23,6 @@ import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
-@RequestMapping(value = "/curriculums")
 /**
  * 
  * @author Java Batch 1908
@@ -32,7 +31,7 @@ import com.revature.services.CurriculumService;
  *         Delegate different HTTP request for curriculum to corresponding CurriculumService method
  *
  */
-
+@RequestMapping(value = "/curricula")
 public class CurriculumController {
 
 	@Autowired
@@ -92,7 +91,8 @@ public class CurriculumController {
 	 * @return ResponseEntity<Curriculum> - response body with JSON format of Curriculum Object
 	 */
 	@PutMapping(value = "{id}")
-	public ResponseEntity<Curriculum> updateCurriculum(@RequestBody Curriculum curriculum) {
+	public ResponseEntity<Curriculum> updateCurriculum(@PathVariable int id, @RequestBody Curriculum curriculum) {
+		curriculum.setId(id);
 		return ResponseEntity.ok(curriculumService.updateCurriculum(curriculum));
 	}
 
