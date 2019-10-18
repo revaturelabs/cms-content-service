@@ -58,7 +58,6 @@ public class CurriculumController {
 	 * 
 	 */
 	public ResponseEntity<Curriculum> getCurriculumById(@PathVariable int id) {
-
 		Curriculum curriculum = curriculumService.getCurriculumById(id);
 		Set<CurriculumModule> currModules = new HashSet<>();
 		if (null != curriculum) {

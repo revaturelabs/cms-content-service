@@ -38,9 +38,9 @@ public class CurriculumModuleController {
 	
 	@PostMapping
 	/**
-	 *  Mapping 'POST' request with '/curriculum-modules' URL to CurriculumModuleService createCurriculumModule method to create a new CurriculumModule record in database
+	 *  Mapping 'POST' request with '/curriculum-modules' URL to CurriculumModuleService's createCurriculumModule method to create a new CurriculumModule record in database
 	 *
-	 * @param cMod - the CurriculumModule Object to create provided in request body
+	 * @param cMod - the CurriculumModule Object to create, it's provided in request body
 	 * @return ResponseEntity<CurriculumModule> - response body with JSON format of CurriculumModule Object
 	 */
 	public ResponseEntity<CurriculumModule> createCurrModule(@RequestBody CurriculumModule cMod){
@@ -49,7 +49,7 @@ public class CurriculumModuleController {
 	
 	@GetMapping
 	 /**
-     * Mapping 'GET' request with '/curriculum-modules' URL to CurriculumModuleService getAllCurriculumModules method to get all CurriculumModule Object available in database
+     * Mapping 'GET' request with '/curriculum-modules' URL to CurriculumModuleService's getAllCurriculumModules method to get all CurriculumModule Object available in database
      * @return ResponseEntity<set<CurriculumModule>> - response body with JSON format of a set of CurriculumModule Objects available in database
      */
 	public ResponseEntity <Set<CurriculumModule>> getAllCurrModules(){
@@ -71,10 +71,11 @@ public class CurriculumModuleController {
 	
 	@PutMapping(value="/curriculum/{id}")
 	/**
-	 * Mapping 'PUT' request with '/curriculum-modules/curriculum/{id}' URL to CurriculumService updateCurrModules method to update Curriculum record in database with given id
+	 * Mapping 'PUT' request with '/curriculum-modules/curriculum/{id}' URL to CurriculumService's updateCurrModules method to update Curriculum record in database with given id
 	 *
 	 * @param modules - a set of CurriculumModule Objects to update provided in request body
-	 * @return ResponseEntity<ArrayList<CurriculumModule>> - response body with JSON format of CurriculumModule Object
+	 * @param id - Curriculum Id associated with all CurriculumModules
+	 * @return ResponseEntity<ArrayList<CurriculumModule>> - response body with JSON format of a set of CurriculumModule Objects whose curriculum id has been updated 
 	 */
 	public ResponseEntity<ArrayList<CurriculumModule>> updateCurrModules(@PathVariable int id, @RequestBody Set<CurriculumModule> modules){
 		for(CurriculumModule c : modules) {
@@ -85,7 +86,7 @@ public class CurriculumModuleController {
 	
 	@DeleteMapping(value="/{id}")
 	/**
-	 * Mapping 'DELETE' request with '/curriculum-modules/{id}' URL to CurriculumService getCurriculumModuleById and deleteCurriculumModule method to delete the CurriculumModule record in database with given id
+	 * Mapping 'DELETE' request with '/curriculum-modules/{id}' URL to CurriculumModuleService getCurriculumModuleById and deleteCurriculumModule method to delete the CurriculumModule record in database with given id
 	 *
 	 * @param id - the CurriculumModule id to delete
 	 * @return ResponseEntity<String> - set status to be "HTTPStatus.ok" and empty string in response body if the CurriculumModule record with given Id is successfully deleted
