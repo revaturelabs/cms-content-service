@@ -1,41 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
+<testng-results skipped="0" failed="0" ignored="0" total="6" passed="6">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="6174" started-at="2019-10-17T18:53:28Z" finished-at="2019-10-17T18:53:34Z">
+  <suite name="Default suite" duration-ms="24191" started-at="2019-10-18T15:07:00Z" finished-at="2019-10-18T15:07:24Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="6174" started-at="2019-10-17T18:53:28Z" finished-at="2019-10-17T18:53:34Z">
-      <class name="com.revature.controllertests.CurriculumControllerTest">
-        <test-method status="PASS" signature="preTestSetup()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="preTestSetup" is-config="true" duration-ms="43" started-at="2019-10-17T18:53:28Z" finished-at="2019-10-17T18:53:28Z">
+    <test name="Default test" duration-ms="24191" started-at="2019-10-18T15:07:00Z" finished-at="2019-10-18T15:07:24Z">
+      <class name="com.revature.servicestests.CurriculumServiceTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="30" started-at="2019-10-18T15:07:00Z" finished-at="2019-10-18T15:07:00Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- preTestSetup -->
-        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="setup" is-config="true" duration-ms="4755" started-at="2019-10-17T18:53:28Z" finished-at="2019-10-17T18:53:33Z">
+        </test-method> <!-- springTestContextBeforeTestClass -->
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="22950" started-at="2019-10-18T15:07:00Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2019-10-18T15:07:23Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextPrepareTestInstance -->
+        <test-method status="PASS" signature="setup()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="setup" is-config="true" duration-ms="0" started-at="2019-10-18T15:07:23Z" finished-at="2019-10-18T15:07:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method status="PASS" signature="deleteCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="deleteCurriculum" duration-ms="492" started-at="2019-10-17T18:53:33Z" finished-at="2019-10-17T18:53:34Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="4" started-at="2019-10-18T15:07:23Z" finished-at="2019-10-18T15:07:23Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_create_curriculum()]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- deleteCurriculum -->
-        <test-method status="PASS" signature="getAllCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="getAllCurriculum" duration-ms="465" started-at="2019-10-17T18:53:34Z" finished-at="2019-10-17T18:53:34Z">
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="reinitMocks" is-config="true" duration-ms="1000" started-at="2019-10-18T15:07:23Z" finished-at="2019-10-18T15:07:24Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- getAllCurriculum -->
-        <test-method status="PASS" signature="getCurriculumById()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="getCurriculumById" duration-ms="181" started-at="2019-10-17T18:53:34Z" finished-at="2019-10-17T18:53:34Z">
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="test_create_curriculum()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="test_create_curriculum" duration-ms="45" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- getCurriculumById -->
-        <test-method status="PASS" signature="givenValidDataCreateCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="givenValidDataCreateCurriculum" duration-ms="80" started-at="2019-10-17T18:53:34Z" finished-at="2019-10-17T18:53:34Z">
+        </test-method> <!-- test_create_curriculum -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_create_curriculum()]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- givenValidDataCreateCurriculum -->
-        <test-method status="PASS" signature="updateCurriculum()[pri:0, instance:com.revature.controllertests.CurriculumControllerTest@a1153bc]" name="updateCurriculum" duration-ms="32" started-at="2019-10-17T18:53:34Z" finished-at="2019-10-17T18:53:34Z">
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_delete_curriculum()]]>
+              </value>
+            </param>
+          </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- updateCurriculum -->
-      </class> <!-- com.revature.controllertests.CurriculumControllerTest -->
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="reinitMocks" is-config="true" duration-ms="3" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="test_delete_curriculum()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="test_delete_curriculum" duration-ms="7" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_delete_curriculum -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_delete_curriculum()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="reinitMocks" is-config="true" duration-ms="2" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_get_all_Curriculums()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="test_get_all_Curriculums()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="test_get_all_Curriculums" duration-ms="7" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_get_all_Curriculums -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_get_all_Curriculums()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_get_curriculum_By_Id()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="reinitMocks" is-config="true" duration-ms="1" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="test_get_curriculum_By_Id()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="test_get_curriculum_By_Id" duration-ms="3" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_get_curriculum_By_Id -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_get_curriculum_By_Id()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="4" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_get_curriculum_By_name()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="reinitMocks" is-config="true" duration-ms="1" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="test_get_curriculum_By_name()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="test_get_curriculum_By_name" duration-ms="8" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_get_curriculum_By_name -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_get_curriculum_By_name()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_update_module()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="reinitMocks()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="reinitMocks" is-config="true" duration-ms="0" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- reinitMocks -->
+        <test-method status="PASS" signature="test_update_module()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="test_update_module" duration-ms="46" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test_update_module -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[void com.revature.servicestests.CurriculumServiceTest.test_update_module()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.revature.servicestests.CurriculumServiceTest@2ca26d77]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2019-10-18T15:07:24Z" finished-at="2019-10-18T15:07:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
+      </class> <!-- com.revature.servicestests.CurriculumServiceTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>
