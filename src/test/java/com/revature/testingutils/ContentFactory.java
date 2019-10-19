@@ -42,7 +42,9 @@ public class ContentFactory {
 	public static Content getContent () {
 		//generate link set
 		Set<Link> links = new HashSet<Link> ();
-		Link link = new Link (linkId, null, null,"link-affiliation");
+
+		Link link = new Link (linkId, null, null,"link-affiliation",0);
+		
 		links.add(link);
 		Module module = new Module(moduleId, "test_module", 1L, links, new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -56,7 +58,7 @@ public class ContentFactory {
 	public static Content contentForExceptions(int condition) {
 		//generate link set
 				Set<Link> links = new HashSet<Link> ();
-				Link link = new Link (linkId, null, null,"link-affiliation");
+				Link link = new Link (linkId, null, null,"link-affiliation", 1);
 				links.add(link);
 				Module module = new Module(moduleId, "test_module", 1L, links, new HashSet<ReqLink>(),
 						new HashSet<Module>(), new HashSet<Module>());

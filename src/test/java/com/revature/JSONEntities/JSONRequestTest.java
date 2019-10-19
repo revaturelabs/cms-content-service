@@ -53,8 +53,8 @@ public class JSONRequestTest {
 								"https://en.wikipedia.org/wiki/Star_Wars_(film)", 15554l, 15554l, new HashSet<Link>()),
 						new Content(47, "Java the savior", "String", "Java king of kings",
 								"https://en.wikipedia.org/wiki/Star_Wars_(film)", 87392, 84934, new HashSet<Link>()))
-				.withPrefabValues(Link.class, new Link(1, null, null, "different"),
-						new Link(2, null, null, "affiliations"))
+				.withPrefabValues(Link.class, new Link(1, null, null, "different", 1),
+						new Link(2, null, null, "affiliations", 1))
 				.usingGetClass().suppress(Warning.NONFINAL_FIELDS).verify();
 	}
 }

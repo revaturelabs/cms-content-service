@@ -4,7 +4,6 @@ package com.revature.util;
 import java.util.ArrayList;
 import java.util.List;
 import static org.mockito.Mockito.*;
-import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 
 import org.mockito.MockitoAnnotations;

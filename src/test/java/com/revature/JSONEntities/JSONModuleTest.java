@@ -42,8 +42,8 @@ public class JSONModuleTest {
 	@Test
 	public void equalsTest() {
 		EqualsVerifier.forClass(JSONModule.class)
-				.withPrefabValues(Link.class, new Link(1, null, null, "different"),
-						new Link(2, null, null, "affiliations"))
+				.withPrefabValues(Link.class, new Link(1, null, null, "different", 1),
+						new Link(2, null, null, "affiliations", 1))
 				.withPrefabValues(ReqLink.class, new ReqLink(1, null, null, "different"),
 						new ReqLink(2, null, null, "affiliations"))
 				.withPrefabValues(Module.class, new Module(1, "Java", 56890, null, null, null, null),

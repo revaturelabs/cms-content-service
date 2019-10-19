@@ -61,7 +61,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
+		Link link = new Link(0, content, module, "affiliation",1);
 		Mockito.when(ls.createLink(link)).thenReturn(link);
 		ResultActions result = mvc.perform(post("/links").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(link)));
@@ -74,7 +74,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
+		Link link = new Link(0, content, module, "affiliation", 1);
 		Mockito.when(ls.createLink(link)).thenReturn(link);
 		ResultActions result = mvc.perform(post("/links").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(link)));
@@ -88,7 +88,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
+		Link link = new Link(0, content, module, "affiliation", 1);
 		Set<Link> allLinks = new HashSet<Link>();
 		allLinks.add(link);
 		Mockito.when(ls.getAllLinks()).thenReturn(allLinks);
@@ -107,7 +107,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
+		Link link = new Link(0, content, module, "affiliation", 1);
 		Set<Link> allLinks = new HashSet<Link>();
 		allLinks.add(link);
 		Mockito.when(ls.getAllLinks()).thenReturn(allLinks);
@@ -124,7 +124,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(1, content, module, "affiliation");
+		Link link = new Link(1, content, module, "affiliation",1);
 		Mockito.when(ls.getLinkById(link.getId())).thenReturn(link);
 		ResultActions result = mvc.perform(get("/links/" + link.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
 		result.andExpect(status().isOk());
@@ -136,7 +136,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(1, content, module, "affiliation");
+		Link link = new Link(1, content, module, "affiliation",1);
 		Mockito.when(ls.getLinkById(link.getId())).thenReturn(link);
 		ResultActions result = mvc.perform(get("/links/" + link.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
 		Link actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Link.class);
@@ -151,7 +151,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
+		Link link = new Link(0, content, module, "affiliation",1);
 		Set<Link> allLinks = new HashSet<Link>();
 		allLinks.add(link);
 		Set<Set<Link>> setOfSets = new HashSet<>();
@@ -171,7 +171,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(0, content, module, "affiliation");
+		Link link = new Link(0, content, module, "affiliation",1);
 		Set<Link> allLinks = new HashSet<Link>();
 		allLinks.add(link);
 		Set<Set<Link>> setOfSets = new HashSet<>();
@@ -192,7 +192,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(1, content, module, "affiliation");
+		Link link = new Link(1, content, module, "affiliation",1);
 		Mockito.when(ls.updateLink(link)).thenReturn(link);
 		ResultActions result = mvc.perform(put("/links/" + link.getId()).contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(link)));
@@ -205,7 +205,7 @@ public class LinkControllerTest {
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
-		Link link = new Link(1, content, module, "affiliation");
+		Link link = new Link(1, content, module, "affiliation",1);
 		Mockito.when(ls.updateLink(link)).thenReturn(link);
 		ResultActions result = mvc.perform(put("/links/" + link.getId()).contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(link)));

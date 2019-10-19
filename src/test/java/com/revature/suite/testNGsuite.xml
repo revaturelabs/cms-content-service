@@ -13,6 +13,8 @@
 			<!-- These are the entities tests -->
 			<class name="com.revature.entities.ContentTest" />
 			<class name="com.revature.entities.LinkTest" />
+			<class name="com.revature.entities.CurriculumModuleTest" />
+			<class name="com.revature.entities.CurriculumTest" />
 			<class name="com.revature.entities.ModuleTest" />
 			<class name="com.revature.entities.ReqLinkTest" />
 			<class name="com.revature.entities.RequestTest" />

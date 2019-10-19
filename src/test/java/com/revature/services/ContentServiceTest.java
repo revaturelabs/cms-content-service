@@ -91,7 +91,8 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		mockContent.setDescription("Bloohbitty");
 		mockContent.setUrl("www.blahbitty.com");
 //		//Create a new Link object
-		mockLink = new Link(3,mockContent, null, "stuff");
+
+		mockLink = new Link(3,mockContent, null, "stuff",0);
 //		//create a new HashSet of Link objects
 		links = new HashSet<Link>();
 //		//Add the mock link to the list of links

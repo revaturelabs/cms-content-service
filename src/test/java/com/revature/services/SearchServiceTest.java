@@ -161,9 +161,9 @@ public class SearchServiceTest {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(contentJavaSoup);
 
-		Link soupLink = new Link(1, contentJavaSoup, new Module(), "affiliation 1");
-		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2");
-		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3");
+		Link soupLink = new Link(1, contentJavaSoup, new Module(), "affiliation 1",0);
+		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2",0);
+		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3",0);
 
 		Set<Link> soupLinks = new HashSet<Link>();
 		soupLinks.add(soupLink);
@@ -209,8 +209,9 @@ public class SearchServiceTest {
 		expected.add(contentJavaSoup);
 		expected.add(contentJava);
 
-		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2");
-		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3");
+
+		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2",0);
+		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3",1);
 
 		Set<Link> javaLinks = new HashSet<Link>();
 		javaLinks.add(javaLink1);

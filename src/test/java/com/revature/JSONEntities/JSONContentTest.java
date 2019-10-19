@@ -44,8 +44,8 @@ public class JSONContentTest {
 	@Test
 	public void equalsTest() {
 		EqualsVerifier.forClass(JSONContent.class)
-				.withPrefabValues(Link.class, new Link(1, null, null, "different"),
-						new Link(2, null, null, "affiliations"))
+				.withPrefabValues(Link.class, new Link(1, null, null, "different", 1),
+						new Link(2, null, null, "affiliations", 1))
 				.usingGetClass().suppress(Warning.NONFINAL_FIELDS).verify();
 	}
 
