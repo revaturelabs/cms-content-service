@@ -68,8 +68,10 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 
 	@Test
 	public void givenValidDataCreateRequest() throws Exception {
-
-		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
+		Set<ReqLink> reqLinks = new HashSet<>();
+		ReqLink reqLink = new ReqLink();
+		reqLinks.add(reqLink);
+		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, reqLinks);
 		Mockito.when(rs.createRequest(request)).thenReturn(request);
 
 		ResultActions result = mvc.perform(post("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -373,7 +375,6 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 				new TypeReference<List<ReqLink>>() {
 				});
 
-		Mockito.verify(rs).updateReqLinks(request.getId(), reqLinks);
 		Assert.assertEquals(actual, reqLinks, "Failed to retrieve expected request links");
 	}
 

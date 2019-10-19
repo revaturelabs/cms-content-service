@@ -10,6 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 
 @Entity
+/**
+ * 
+ * @author Java Batch 1908
+ * 
+ *         Define Curriculum model 
+ *
+ */
 public class Curriculum {
 
 	@Id
@@ -23,6 +30,9 @@ public class Curriculum {
 	@Transient
 	private Set<CurriculumModule> currModules;
 
+	/**
+	 * Default Constructor
+	 */
 	public Curriculum() {
 		super();
 	}
@@ -33,25 +43,51 @@ public class Curriculum {
 		this.name = name;
 	}
 
+	/**
+	 * Getter for Curriculum Id
+	 * @return id
+	 */
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * Setter for Curriculum Id
+	 * @param id
+	 */
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * getter for Curriculum name
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Setter for Curriculum name
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Getter for curriculum modules
+	 * @return Set<CurriculumModule> - set of CurriculumModule objects 
+	 */
 	public Set<CurriculumModule> getCurrModules() {
 		return this.currModules;
 	}
+	
+	/**
+	 * Setter for CurriculumModule
+	 * @param currModules - Set of CurriculumModule objects to set
+	 */
 
 	public void setCurrModules(Set<CurriculumModule> currModules) {
 		this.currModules = currModules;

@@ -5,6 +5,8 @@
 		<classes>
 			<!-- These are the controller tests -->
 			<class name = "com.revature.controllers.ContentControllerTest"/>
+			<class name = "com.revature.controllers.CurriculumControllerTest"/>
+			<class name = "com.revature.controllers.CurriculumModuleControllerTest"/>
 			<class name = "com.revature.controllers.ModuleControllerTest"/>
 			<class name = "com.revature.controllers.SearchControllerTest"/>
 			<class name = "com.revature.controllers.RequestControllerTest"/>
@@ -30,6 +32,8 @@
 			<class name="com.revature.exceptions.InvalidRequestIdExceptionTest" />
 			<class name="com.revature.exceptions.InvalidSearchExceptionTest" />
 			<!-- These are the Service tests -->
+			<class name="com.revature.services.CurriculumServiceTest" />
+			<class name="com.revature.services.CurriculumModuleServiceImplTest" />
 			<class name="com.revature.services.TimeGraphServiceTest" />
 			<class name="com.revature.services.ContentServiceTest" />
 			<class name="com.revature.services.ModuleServiceTest" />
