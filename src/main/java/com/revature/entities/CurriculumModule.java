@@ -13,19 +13,19 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="currmodule")
+@Table(name="curriculum_module")
 public class CurriculumModule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "curr_mod_id")
+	@Column(name = "curriculum_module_id")
 	private int id;
 	
-	@Column(name="curr_id")
+	@Column(name="curriculum_id")
 	private int curriculum;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="m_id")
+	@JoinColumn(name="module_id")
 	private Module module;
 	
 	@Column(name = "priority")
@@ -122,6 +122,4 @@ public class CurriculumModule {
 				+ "]";
 	}
 
-	
-	
 }

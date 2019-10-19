@@ -198,4 +198,27 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect (status().isOk ());
 	}
 	
+	/**
+	 * Tests that updating a module based on its id, when successful, will return a status code of 200
+	 * @throws Exception 
+	 */
+	@Test
+	public void updateModuleBasedOnId () throws Exception {
+		//given
+		links.add(link);
+		Mockito.when(ms.updateLinksByModuleId(id, links)).thenReturn(links);
+		//then
+		ResultActions result = mvc.perform(put ("/modules/"+id+"/links").contentType(MediaType.APPLICATION_JSON)
+				.content (objMapper.writeValueAsString(links)));
+		
+		//expect status of OK
+		result.andExpect (status().isOk ());
+		//expect controller to return set of links
+		String actual = result.andReturn().getResponse()
+				.getContentAsString();
+		String linksJson = objMapper.writeValueAsString(links);
+		
+		assertEquals (linksJson, actual);
+		
+	}
 }

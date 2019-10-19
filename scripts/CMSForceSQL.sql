@@ -4,7 +4,8 @@ drop table if exists link;
 drop table if exists joins;
 drop table if exists req_link;
 drop table if exists requests;
-drop table if exists currmodule;
+drop table if exists curriculum_module;
+
 drop table if exists module;
 drop table if exists content;
 drop table if exists curriculum;
@@ -27,18 +28,19 @@ create table module(
 );
 
 create table curriculum(
-	curr_id serial PRIMARY KEY,
+curriculum_id serial PRIMARY KEY,
 	name text NOT NULL
 );
 
-create table currmodule(
-	curr_mod_id serial,
-	curr_id int,
-	m_id int,
+create table curriculum_module(
+	curriculum_module_id serial,
+	curriculum_id int,
+	module_id int,
 	priority int,
-	FOREIGN KEY (curr_id) REFERENCES curriculum(curr_id) on DELETE CASCADE,
-	FOREIGN KEY (m_id) REFERENCES module(m_id) on DELETE CASCADE,
-	PRIMARY KEY (curr_mod_id)
+	FOREIGN KEY (curriculum_id) REFERENCES curriculum(curriculum_id) on DELETE CASCADE,
+	FOREIGN KEY (module_id) REFERENCES module(m_id) on DELETE CASCADE,
+	PRIMARY KEY (curriculum_module_id)
+
 );
 
 --the affiliation column is needed, but not implemented yet

@@ -33,10 +33,7 @@ public interface ModuleService {
 	public Set<Link> getLinksByModuleId(int id);
 
 	public Set<ReqLink> getRequestLinksByModuleId(int id);
-	
-	public Set<Link> updateLinksByModuleId( Set<Link> links );
-	
 
-
+	public Set<Link> updateLinksByModuleId(int id, Set<Link> links );
 
 }

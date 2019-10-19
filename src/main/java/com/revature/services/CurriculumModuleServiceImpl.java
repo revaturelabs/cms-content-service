@@ -87,6 +87,6 @@ public class CurriculumModuleServiceImpl implements CurriculumModuleService  {
 			curriculumModuleRepository.delete(curriculumModule);
 		}
 	}
-
 	
 }
+

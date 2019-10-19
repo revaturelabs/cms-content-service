@@ -373,7 +373,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Link link = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Set<Link> links = new HashSet<Link>();
 		links.add(link);
-		Set<Link> actual = msMock.updateLinksByModuleId(links);
+		Set<Link> actual = msMock.updateLinksByModuleId(1, links);
 		
 		Assert.assertEquals(actual, links);
 			
