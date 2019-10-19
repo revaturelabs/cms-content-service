@@ -1,14 +1,13 @@
 spring:
+  mvc:
+    servlet:
+      path: /cmsforce/
   cloud:
     config:
       name: content-service
       discovery:
         service-id: config
         enabled: true
-        
-server:
-  servlet: 
-    path: /cmsforce/*
 
 ---
 spring:

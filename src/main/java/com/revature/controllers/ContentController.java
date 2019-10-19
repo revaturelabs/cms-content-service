@@ -79,7 +79,6 @@ public class ContentController {
 		}
 		return ResponseEntity.ok(jsonContent);
 	}
-
 	// Returns specific content
 	@GetMapping(value = "{id}")
 	public ResponseEntity<JSONContent> getContentById(@PathVariable int id) {

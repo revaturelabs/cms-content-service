@@ -23,7 +23,6 @@ public interface ModuleService {
 	public Set<Module> getChildrenByParentId(int id);
 	
 	public Module updateModule(Module module);
-	
 
 	public void deleteModule(Module module);
 	

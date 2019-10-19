@@ -40,7 +40,7 @@ public class LinkController {
 	// creates one Link object
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Link> createLink(@RequestBody Link link) throws Exception {
-		System.out.println("LinkController.createLink()");
+
 		return ResponseEntity.ok(linkService.createLink(link));
 	}
 	/*

@@ -6,7 +6,6 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;

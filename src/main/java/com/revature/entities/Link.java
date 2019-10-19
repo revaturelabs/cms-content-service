@@ -40,7 +40,7 @@ public class Link {
 	
 	@Column
 	private int priority;
-	
+
 	public Link() {
 		super();
 	}
@@ -54,8 +54,6 @@ public class Link {
 		this.affiliation = affiliation;
 		this.priority = priority;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -89,7 +87,6 @@ public class Link {
 		this.affiliation = affiliation;
 	}
 
-
 	public int getPriority() {
 		return priority;
 	}
@@ -98,7 +95,6 @@ public class Link {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -111,7 +107,6 @@ public class Link {
 		result = prime * result + priority;
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -149,6 +144,4 @@ public class Link {
 		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation
 				+ ", priority=" + priority + "]";
 	}
-
-	
 }

@@ -24,7 +24,6 @@ public class Curriculum {
 	private Set<CurriculumModule> curriculumModules;
 	public Curriculum() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Curriculum(int id, String name) {

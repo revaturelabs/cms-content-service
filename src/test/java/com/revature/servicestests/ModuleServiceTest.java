@@ -119,6 +119,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByModules() {
+
 	 	Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
@@ -152,6 +153,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByAllModules() {
+
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
@@ -259,6 +261,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Test
 	void testDeleteModuleWithAllContent() {
+
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
@@ -283,9 +286,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Test
 	void testDeleteModuleWithSpecificContent() {
 		// Given
+		
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 		Link linkToDelete = new Link(3, new Content(), new Module(), "affiliation3",0);
+
 
 		Set<Link> multiLinks = new HashSet<Link>();
 		multiLinks.add(link1);
@@ -325,6 +330,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Test
 	void testGetLinksByModuleId() {
 		final int id = 1;
+
 		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
 		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
 
@@ -360,5 +366,16 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 
 		Mockito.verify(rlrMock).findByModule(mod1);
 		Assert.assertEquals(actual, reqLinks);
+	}
+	
+	@Test
+	void testUpdateLinksByModuleId () {
+		Link link = new Link(1, new Content(), new Module(), "affiliation1",0);
+		Set<Link> links = new HashSet<Link>();
+		links.add(link);
+		Set<Link> actual = msMock.updateLinksByModuleId(links);
+		
+		Assert.assertEquals(actual, links);
+			
 	}
 }

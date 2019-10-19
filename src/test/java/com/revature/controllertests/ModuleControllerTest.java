@@ -3,6 +3,7 @@ package com.revature.controllertests;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.testng.Assert.assertEquals;
 
@@ -42,7 +43,8 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	private static final long created = 1;
 	private static final String affiliation = "affiliation";
 	private static final int priority = 0;
-
+	private static Set<Link> links = new HashSet<>();
+	private static Link link = new Link (id,new Content(),new Module(),affiliation,priority);
 
 	
 	//allows us to send mocked http requests
@@ -81,9 +83,11 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	@BeforeTest 
 	public void preTestSetup () {
 
-		Set<Link> links = new HashSet<Link> ();
+		 links = new HashSet<Link> ();
 		//caution: content and module not sprint beans here
-		Link link = new Link (id,new Content(),new Module(),affiliation,priority);
+
+		 link = new Link (id,new Content(),new Module(),affiliation,priority);
+
 		links.add(link);
 		module = new Module (id,subject,created,links,new HashSet<ReqLink>(),new HashSet<Module>(),new HashSet<Module>());
 	}

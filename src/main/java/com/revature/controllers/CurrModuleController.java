@@ -29,29 +29,29 @@ public class CurrModuleController {
 	
 	@PostMapping
 	public ResponseEntity<CurriculumModule> createCurrModule(@RequestBody CurriculumModule cMod){
-		return ResponseEntity.ok(curriculumModuleService.createCurrModule(cMod));
+		return ResponseEntity.ok(curriculumModuleService.createCurriculumModule(cMod));
 	}
 	
 	@GetMapping
 	public ResponseEntity <Set<CurriculumModule>> getAllCurrModules(){
-		Set<CurriculumModule> currMods = curriculumModuleService.getAllCurrModules();
+		Set<CurriculumModule> currMods = curriculumModuleService.getAllCurriculumModules();
 		return ResponseEntity.ok(currMods);
 	}
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<CurriculumModule> getCurrModuleById(@PathVariable int id){
-		CurriculumModule currMod = curriculumModuleService.getCurrModuleById(id);
+		CurriculumModule currMod = curriculumModuleService.getCurriculumModuleById(id);
 		return ResponseEntity.ok(currMod);
 	}
 	
 	@PutMapping("/update")
 	public ResponseEntity<ArrayList<CurriculumModule>> updateCurrModules(@RequestBody Set<CurriculumModule> modules){
-		return ResponseEntity.ok((ArrayList<CurriculumModule>)curriculumModuleService.updateCurrModule(modules));
+		return ResponseEntity.ok((ArrayList<CurriculumModule>)curriculumModuleService.updateCurriculumModule(modules));
 	}
 	
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<String> deleteCurrModule(@PathVariable int id){
-		CurriculumModule cMod = curriculumModuleService.getCurrModuleById(id);
+		CurriculumModule cMod = curriculumModuleService.getCurriculumModuleById(id);
 		curriculumModuleService.deleteCurriculumModule(cMod);
 		return ResponseEntity.status(HttpStatus.OK).body("");
 	}

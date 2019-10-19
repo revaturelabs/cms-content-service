@@ -209,6 +209,7 @@ public class SearchServiceTest {
 		expected.add(contentJavaSoup);
 		expected.add(contentJava);
 
+
 		Link javaLink1 = new Link(2, contentJavaSoup, new Module(), "affiliation 2",0);
 		Link javaLink2 = new Link(3, contentJava, new Module(), "affiliation 3",1);
 
