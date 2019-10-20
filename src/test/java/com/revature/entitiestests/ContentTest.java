@@ -174,8 +174,8 @@ public class ContentTest {
 		//because it is necessary for spring boot
 		EqualsVerifier.forClass(Content.class)
                 .withPrefabValues(Link.class,
-						new Link(1, null, null, "different"),
-						new Link(2, null, null, "affiliations"))
+						new Link(1, null, null, "different",0),
+						new Link(2, null, null, "affiliations",0))
 				.withIgnoredFields("links")
 				.suppress(Warning.NONFINAL_FIELDS)
 				.verify();

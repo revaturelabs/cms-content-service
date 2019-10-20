@@ -2,13 +2,14 @@ package com.revature.repositories;
 
 import java.util.Set;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Module;
 
 @Repository
+@Transactional
 public interface ModuleRepository extends CrudRepository<Module,Integer>{
 
 	/**
