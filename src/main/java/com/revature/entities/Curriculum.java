@@ -2,15 +2,12 @@ package com.revature.entities;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 /**
@@ -38,24 +35,8 @@ public class Curriculum {
 	 */
 	public Curriculum() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * Constructor which takes parameter of name
-	 * 
-	 * @param name
-	 */
-	public Curriculum(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * Constructor which takes parameters of id and name
-	 * 
-	 * @param id
-	 * @param name
-	 */
 	public Curriculum(int id, String name) {
 		super();
 		this.id = id;
