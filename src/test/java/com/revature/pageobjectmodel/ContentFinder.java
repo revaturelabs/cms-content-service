@@ -28,7 +28,14 @@ public class ContentFinder {
 	public WebElement allRadioButton;
 	@FindBy(xpath="//button[@id='submitButton']")
 	public WebElement submitButton;
+	@FindBy(xpath="//*[@id=\"toast-container\"]/div")
+	public WebElement toastrPopUp;
 	
+	/**
+	 * Loaded Constructor
+	 * 
+	 * @param driver WebDriver driver
+	 */
 	public ContentFinder(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
@@ -61,26 +68,19 @@ public class ContentFinder {
 	}
 	
 	/**
-	 * Simulate clicking the Code Radio Button option WebElement
+	 * Simulate clicking given radio button option WebElement
+	 * 
+	 * @param radioButton WebElement radioButton to be clicked
 	 */
-	public void clickCodeRadioButton() {
+	public void clickRadioButton(WebElement radioButton) {
 		Actions actions = new Actions(driver);
-		actions.moveToElement(codeRadioButton).click().perform();
+		actions.moveToElement(radioButton).click().perform();
 	}
 	
 	/**
-	 * Simulate clicking the Document Radio Button option WebElement
+	 * Simulate clicking the submit button WebElement
 	 */
-	public void clickDocumentRadioButton() {
-		Actions actions = new Actions(driver);
-		actions.moveToElement(documentRadioButton).click().perform();
-	}
-	
-	/**
-	 * Simulate clicking the Powerpoint Radio Button option WebElement
-	 */
-	public void clickPowerpointRadioButton() {
-		Actions actions = new Actions(driver);
-		actions.moveToElement(powerpointRadioButton).click().perform();
+	public void clickSubmitButton() {
+		this.submitButton.click();
 	}
 }

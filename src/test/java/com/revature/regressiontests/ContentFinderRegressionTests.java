@@ -42,7 +42,7 @@ public class ContentFinderRegressionTests {
 	}
 	
 	/**
-	 * Check if the driver url is equal to the POM url
+	 * Test if the driver url is equal to the POM url
 	 */
 	@Test(priority=1)
 	public void testContentFinderPage() {
@@ -53,7 +53,7 @@ public class ContentFinderRegressionTests {
 	}
 	
 	/**
-	 * Input String into POM titleBox WebElement
+	 * Test input String into POM titleBox WebElement
 	 */
 	@Test(priority=2)
 	public void testInputToTitleBox() {
@@ -71,7 +71,9 @@ public class ContentFinderRegressionTests {
 		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
 		
 	}
-	
+	/**
+	 * Test input String into POM loadModulesBox WebElement
+	 */
 	@Test(priority=3)
 	public void testInputToLoadModulesBox() {
 		ContentFinder cf = new ContentFinder(driver);
@@ -82,6 +84,9 @@ public class ContentFinderRegressionTests {
 		assertEquals(cf.loadModulesBox.getText(), testLoadModulesBox.getText());
 	}
 	
+	/**
+	 * Test clearing POM loadModulesBox WebElement
+	 */
 	@Test(priority=4)
 	public void testClearLoadModulesBox() {
 		ContentFinder cf = new ContentFinder(driver);
@@ -92,6 +97,9 @@ public class ContentFinderRegressionTests {
 		assertEquals(cf.loadModulesBox.getText(), "");
 	}
 	
+	/**
+	 * Test selecting POM codeRadioButton WebElement
+	 */
 	@Test(priority=5)
 	public void testClickedCodeRadioButton() {
 		//Instantiate new POM of ContentFinder
@@ -103,11 +111,13 @@ public class ContentFinderRegressionTests {
 		//Check if WebElement under test and POM WebElement under test are equal
 		assertEquals(cf.codeRadioButton, testCodeRadioButton);
 		//Perform POM WebElement action
-		cf.clickCodeRadioButton();
+		cf.clickRadioButton(cf.codeRadioButton);
 		//Check if POM WebElement action succeed
 		assertTrue(cf.codeRadioButton.isSelected());
 	}
-	
+	/**
+	 * Test selecting POM documentRadioButton WebElement
+	 */
 	@Test(priority=6)
 	public void testClickedDocumentRadioButton() {
 		//Instantiate new POM of ContentFinder
@@ -119,11 +129,14 @@ public class ContentFinderRegressionTests {
 		//Check if WebElement under test and POM WebElement under test are equal
 		assertEquals(cf.documentRadioButton, testDocumentRadioButton);
 		//Perform POM WebElement action
-		cf.clickDocumentRadioButton();
+		cf.clickRadioButton(cf.documentRadioButton);
 		//Check if POM WebElement action succeed
 		assertTrue(cf.documentRadioButton.isSelected());
 	}
 	
+	/**
+	 * Test selecting POM powerpointRadioButton WebElement
+	 */
 	@Test(priority=7)
 	public void testClickedPowerpointRadioButton() {
 		//Instantiate new POM of ContentFinder
@@ -135,8 +148,65 @@ public class ContentFinderRegressionTests {
 		//Check if WebElement under test and POM WebElement under test are equal
 		assertEquals(cf.powerpointRadioButton, testPowerpointRadioButton);
 		//Perform POM WebElement action
-		cf.clickPowerpointRadioButton();
+		cf.clickRadioButton(cf.powerpointRadioButton);
 		//Check if POM WebElement action succeed
 		assertTrue(cf.powerpointRadioButton.isSelected());
+	}
+	
+	/**
+	 * Test selecting POM flaggedRadioButton WebElement
+	 */
+	@Test(priority=8)
+	public void testClickedFlaggedRadioButton() {
+		//Instantiate new POM of ContentFinder
+		ContentFinder cf = new ContentFinder(driver);
+		//Create a reference to the WebElement under test
+		WebElement testFlaggedRadioButton = driver.findElement(By.xpath("//input[@id='Flagged']"));
+		//Check if WebElement under test is not null
+		assertNotNull(testFlaggedRadioButton);
+		//Check if WebElement under test and POM WebElement under test are equal
+		assertEquals(cf.flaggedRadioButton, testFlaggedRadioButton);
+		//Perform POM WebElement action
+		cf.clickRadioButton(cf.flaggedRadioButton);
+		//Check if POM WebElement action succeed
+		assertTrue(cf.flaggedRadioButton.isSelected());
+	}
+	/**
+	 * Test selecting POM allRadioButton WebElement
+	 */
+	@Test(priority=9)
+	public void testClickedAllRadioButton() {
+		//Instantiate new POM of ContentFinder
+		ContentFinder cf = new ContentFinder(driver);
+		//Create a reference to the WebElement under test
+		WebElement testAllRadioButton = driver.findElement(By.xpath("//input[@id='All']"));
+		//Check if WebElement under test is not null
+		assertNotNull(testAllRadioButton);
+		//Check if WebElement under test and POM WebElement under test are equal
+		assertEquals(cf.allRadioButton, testAllRadioButton);
+		//Perform POM WebElement action
+		cf.clickRadioButton(cf.allRadioButton);
+		//Check if POM WebElement action succeed
+		assertTrue(cf.allRadioButton.isSelected());
+	}
+	
+	/**
+	 * Test clicking the POM submitButton WebElement
+	 */
+	public void testClickedSubmitButton() {
+		//Instantiate new POM of ContentFinder
+		ContentFinder cf = new ContentFinder(driver);
+		//Create a reference to the WebElement under test
+		WebElement testSubmitButton = driver.findElement(By.xpath("//button[@id='submitButton']"));
+		//Check if WebElement under test is not null
+		assertNotNull(testSubmitButton);
+		//Check if WebElement under test and POM WebElement under test are equal
+		assertEquals(cf.submitButton, testSubmitButton);
+		//Perform POM WebElment action
+		cf.clickSubmitButton();
+		assertTrue(cf.submitButton.isSelected());
+		//Create a reference to the WebElement toastr pop up
+		//Check css property opacity value is equal to 1
+		
 	}
 }
