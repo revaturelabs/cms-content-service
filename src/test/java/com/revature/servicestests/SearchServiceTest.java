@@ -1,30 +1,36 @@
 package com.revature.servicestests;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.revature.entities.Link;
-import com.revature.entities.ReqLink;
-import com.revature.repositories.LinkRepository;
-import com.revature.services.ModuleService;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
+import com.revature.entities.Link;
 import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
+import com.revature.entities.Request;
 import com.revature.repositories.ContentRepository;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
+import com.revature.repositories.RequestRepository;
 import com.revature.services.ContentService;
+import com.revature.services.ModuleService;
 import com.revature.services.SearchService;
 import com.revature.services.SearchServiceImpl;
-
-import static org.mockito.Mockito.*;
 
 public class SearchServiceTest {
 	//Any time that two nulls appear in a test of a constructor, that is for a feature that was created after the tests were created to allow them to pass.
@@ -41,6 +47,9 @@ public class SearchServiceTest {
 	private ContentService csMock;
 	@Mock
 	private ModuleService msMock;
+	
+	@Mock
+	private RequestRepository rrMock;
 	
 	@InjectMocks
 	private SearchService ss = new SearchServiceImpl();
@@ -145,7 +154,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * Tests fliterContentBySubjects()
+	 * Tests filterContentBySubjects()
 	 * Link Repository - findByModuleID()
 	 * Content Repository - findAllById()
 	 * Currently throws an IndexOutOfBounds Exception when you put in a ModuleId list with
@@ -229,44 +238,87 @@ public class SearchServiceTest {
 		Assert.assertEquals(actual, expected);
 	}
 	
-	/**
-	 * Tests filter()
-	 * There are verifications:
-	 * 1)verifies when fields are not null.
-	 * 2)verifies when the format is null.
-	 * 3)verifies when the title and format is null.
-	 * Content Repository - findByFormat(), findByTitleContaining()
-	 * Content Service - getAllContent()
-	 * Link Repository - findByModuleIdIn() 
-	 */
-	// @Test
-	// public void filterTest() {
-	// 	//Local Variables
-	// 	String format = "format";
-	// 	String titleContaining = "Test";
-	// 	List<Integer> moduleIds = new ArrayList<Integer>();
-	// 	moduleIds.add(100);
+	//Complete - Author: Carlos
+	@Test()
+	public void filterTest() {
+		 List<Integer> moduleIds = new ArrayList<Integer>();
 
+		Content content1 = new Content(1, "title 1", "format", "something", "http://blah.com",
+					1L, 1L, new HashSet<Link>());
+		Content content2 = new Content(2, "title 2", "format", "something else", "http://blah2.com",
+					1L, 1L, new HashSet<Link>());
 
-	// 	//When
-	// 	Mockito.when(crMock.findByFormat(format)).thenReturn(contentSetMock);
-	// 	Mockito.when(crMock.findByTitleContaining(titleContaining)).thenReturn(contentSetMock);
-	// 	Mockito.when(csMock.getAllContent()).thenReturn(contentSetMock);
-	// 	Mockito.when(lrMock.findByModuleIdIn(moduleIds)).thenReturn(linkSetMock);
+		Set<Content> expected = new HashSet<Content>();
+		expected.add(content1);
+		expected.add(content2);
+		Set<Content> expected2 = new HashSet<Content>();
+		expected2.add(content1);
+		List<Integer> ints = new ArrayList<Integer>();
+		
+		Module module = new Module();
+		Link link = new Link(1, content1, module, "String");
+		Link link2 = new Link(2, content2, module, "String");
 
-	// 	//Given/Then Test 1 - fields are not null
-	// 	ss.filter(titleContaining, format, moduleIds);
+		
+		//given
+		Mockito.when(crMock.findByFormat("format")).thenReturn(expected);
+		Mockito.when(crMock.findByTitle("title 1")).thenReturn(expected2);
+		Mockito.when(csMock.getAllContent()).thenReturn(expected);
 
-	// 	verify(crMock, times(2)).findByFormat(format);
-	// 	verify(lrMock, times(1)).findByModuleIdIn(moduleIds);
+		//when
+		Set<Content> actualContent1 = ss.filter("title 1", "format", moduleIds);
 
-	// 	//Given/Then Test 2 - format is null.
-	// 	ss.filter(titleContaining, null, moduleIds);
-	// 	verify(crMock, times(1)).findByTitleContaining(titleContaining);
+		verify(crMock).findByTitle("title 1");
+		verify(crMock).findByFormat("format");
+		verify(csMock).getAllContent();
+		
+		Assert.assertEquals(actualContent1, expected2);
+	}
+	
+	
+	//Incomplete - Author: Carlos. Work In Progress
+	@Test(enabled = false)
+	public void filterContentTest() {
+		String title = "title";
+		String format = "format";
+		String description = "description";
+		Content content = new Content();
+		Long dateCreated =  (long) 123;
+		Long lastModified = (long) 12;
+		Set<ReqLink> reqLinks = new HashSet<ReqLink>();
+		
+		Set<Request> RequestSetExpected = new HashSet<Request>();
+		//Local Variable. Expected Set
+		RequestSetExpected.add(new Request(1, title, format, description, content,dateCreated, lastModified, reqLinks));
+		RequestSetExpected.add(new Request(2, title, format, description, content,dateCreated, lastModified, reqLinks));
+	}
 
-	// 	//Given/Then Test 3 - title and format is null
-	// 	ss.filter(null, null, moduleIds);
-	// 	verify(csMock, times(1)).getAllContent();
+	//Complete test - Author: Carlos.
+	@Test
+	public void filterRequestByTitleTest() {
+		String title = "title";
+		String format = "format";
+		String description = "description";
+		Content content = new Content();
+		Long dateCreated = (long) 123;
+		Long lastModified = (long) 10;
+		Set<ReqLink> reqLinks = new HashSet<ReqLink>();
+		
+		Set<Request> requestSetExpected = new HashSet<Request>();
+		//Local Variable. Expected Set
+		requestSetExpected.add(new Request(1, title, format, description, content,dateCreated, lastModified, reqLinks));
+		requestSetExpected.add(new Request(2, title, format, description, content,dateCreated, lastModified, reqLinks));
+		
+		//given
+		Mockito.when(rrMock.findByTitle(title)).thenReturn(requestSetExpected);
+	
+		//when
+		Set<Request> actual = ss.filterRequestByTitle(title);
+		
+		verify(rrMock).findByTitle(title);
+		Assert.assertEquals(actual, requestSetExpected);
 
-	// }
+	}
+	
+	
 }
