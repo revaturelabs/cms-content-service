@@ -60,10 +60,19 @@ public class MetricsController {
 		}
 
 		contents = contentService.getAllContent();
+		for(Content c : contents) {
+			System.out.println(c.toString());
+		}
 		filtContents = searchService.filterContent(contents, filter);
-
+		System.out.println("Is filter content empty? : " + filtContents.isEmpty());
+		for(Content c : filtContents) {
+			System.out.println("Filter Contents: " + c.toString());
+		}
 		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
-
+		//System.out.println(contentFormats.isEmpty());
+		/*
+		 * for(String key : contentFormats.keySet()) { System.out.println(key); }
+		 */
 		Set<Module> modules = moduleService.getAllModules();
 		int modSize = modules.size();
 
@@ -81,7 +90,6 @@ public class MetricsController {
 		Integer numDoc = 0;
 		if (contentFormats.containsKey("Document"))
 			numDoc = contentFormats.get("Document");
-
 		Integer numPpt = 0;
 		if (contentFormats.containsKey("Powerpoint"))
 			numPpt = contentFormats.get("Powerpoint");

@@ -153,31 +153,38 @@ public class SearchServiceImpl implements SearchService {
 		Set<Content> filteredContent = new HashSet<Content>();
 		String title = filters.get("title").toString();
 		String format = filters.get("format").toString();
+		System.out.println("Title: " + title + ", Format: " + format);
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
 		Set<Integer> givenModIds = new HashSet<Integer>();
-
+		System.out.println("Filters modules: "  + filters.get("modules").toString());
 		// turn the string of integers we recieved into an ArrayList of integers
 		StringTokenizer st = new StringTokenizer(filters.get("modules").toString(), ",");
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-
+		for(Integer x : moduleIdsList) {
+			System.out.println("ModuleIdsList: " + x);
+		}
+		System.out.println("Is content empty? : " + contents.isEmpty());
 		// Step through each content provided to see if they are what we are looking for
 		for (Content content : contents) {
 			// if a search parameter is left "blank", then it is supposed to be disregarded
 			// in the search
 			if ((title.equals(content.getTitle()) || title.equals(""))
-					&& (format.equals(content.getFormat()) || format.equals(""))) {
+					&& (format.equals(content.getFormat()) || format.equals("All"))) {
+				System.out.println("Found content on title and format");
 				// make sure givenModIds starts empty
 				givenModIds.clear();
 				// extract the ids of the modules of the current content
 				for (Link link : content.getLinks()) {
-					givenModIds.add(link.getId());
+					System.out.println("Link Id: " + link.getId());
+					givenModIds.add(link.getModule().getId());
 				}
 				// check if the current content contains all of the mod id's in the filter
 				boolean hasAllModIds = true;
 				for (Integer i : moduleIdsList) {
 					if (!(givenModIds.contains(i))) {
+						System.out.println("Made it in !givenModIds.contains(i)");
 						hasAllModIds = false;
 						break;
 					}
@@ -188,6 +195,9 @@ public class SearchServiceImpl implements SearchService {
 			}
 		}
 
+		for(Content c : filteredContent) {
+			System.out.println(c.toString());
+		}
 		// this is an AND search, if you want to do an OR search, just use the
 		// <set>.addAll() method instead of the Sets.intersection() method
 		return filteredContent;
