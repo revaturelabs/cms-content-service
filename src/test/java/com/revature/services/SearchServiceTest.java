@@ -257,8 +257,8 @@ public class SearchServiceTest {
 		List<Integer> ints = new ArrayList<Integer>();
 		
 		Module module = new Module();
-		Link link = new Link(1, content1, module, "String");
-		Link link2 = new Link(2, content2, module, "String");
+		Link link = new Link(1, content1, module, "String", 1);
+		Link link2 = new Link(2, content2, module, "String", 2);
 
 		
 		//given
@@ -268,12 +268,15 @@ public class SearchServiceTest {
 
 		//when
 		Set<Content> actualContent1 = ss.filter("title 1", "format", moduleIds);
+		Set<Content> actualContent2 = ss.filter("", "format", moduleIds);
 
 		verify(crMock).findByTitle("title 1");
-		verify(crMock).findByFormat("format");
-		verify(csMock).getAllContent();
+		verify(crMock, times(2)).findByFormat("format");
+		verify(csMock,  times(2)).getAllContent();
 		
 		Assert.assertEquals(actualContent1, expected2);
+		Assert.assertEquals(actualContent2, expected);
+
 	}
 	
 	
