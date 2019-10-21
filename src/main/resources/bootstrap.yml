@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: CMSForce
   mvc:
     servlet:
       path: /cmsforce/
@@ -9,6 +11,17 @@ spring:
         service-id: config
         enabled: true
 
+logging:
+  file:
+    max-size: 2MB
+  level:
+    root: INFO
+    org:
+      springframework: WARN
+      hibernate: WARN
+    com:
+      netflix: WARN
+  config: src/main/resources/logging-spring.xml
 ---
 spring:
   profiles: dev

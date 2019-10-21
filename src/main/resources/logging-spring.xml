@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property resource="bootstrap.yml" />
+	<contextName>${spring.application.name}</contextName>
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>logs/cmslog.log</file>
+		<encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+			<providers>
+				<contextName>
+					<fieldName>app</fieldName>
+				</contextName>
+				<timestamp>
+					<fieldName>ts</fieldName>
+					<timeZone>UTC</timeZone>
+				</timestamp>
+				<loggerName>
+					<fieldName>logger</fieldName>
+				</loggerName>
+				<logLevel>
+					<fieldName>level</fieldName>
+				</logLevel>
+				<callerData>
+					<classFieldName>class</classFieldName>
+					<methodFieldName>method</methodFieldName>
+					<lineFieldName>line</lineFieldName>
+					<fileFieldName>file</fileFieldName>
+				</callerData>
+				<threadName>
+					<fieldName>thread</fieldName>
+				</threadName>
+				<mdc />
+				<arguments>
+					<includeNonStructuredArguments>false</includeNonStructuredArguments>
+				</arguments>
+				<stackTrace>
+					<fieldName>stack</fieldName>
+				</stackTrace>
+   				<message>
+					<fieldName>msg</fieldName>
+				</message>
+			</providers>
+		</encoder>
+	</appender>
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx
+            </Pattern>
+        </layout>
+    </appender>
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="stdout"/>
+	</root>
+</configuration>
