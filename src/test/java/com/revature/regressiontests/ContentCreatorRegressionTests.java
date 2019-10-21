@@ -1,6 +1,8 @@
 package com.revature.regressiontests;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,43 +33,70 @@ public class ContentCreatorRegressionTests {
 		assertEquals(driver.getCurrentUrl(), url);
 	}
 	@Test
-	public void checkTitleBox() {
+	public void testTitleBox() {
 		ContentCreator cc = new ContentCreator(driver);
+		WebElement titleBox = driver.findElement(By.id("titleTextBox"));
+		assertNotNull(titleBox);
+		assertEquals(cc.titleBox, titleBox);
 		cc.inputToTitleBox("Testing the selenium title box test");
-		assertEquals(driver.findElement(By.id("titleTextBox")), cc.titleBox);
+		assertEquals(cc.titleBox.getText(), titleBox.getText());
 	}
 	@Test
-	public void checkUrlBox() {
+	public void testUrlBox() {
 		ContentCreator cc = new ContentCreator(driver);
+		WebElement urlBox = driver.findElement(By.id("urlTextBox"));
+		assertNotNull(urlBox);
+		assertEquals(cc.urlBox, urlBox);
 		cc.inputToUrlBox("http://www.testnumber2.com");
-		assertEquals(driver.findElement(By.id("urlTextBox")), cc.urlBox);
+		assertEquals(cc.urlBox.getText(), urlBox.getText());
 	}
 	@Test
-	public void checkDescriptionBox() {
+	public void testModuleSearchBox() {
 		ContentCreator cc = new ContentCreator(driver);
-		cc.inputToDescriptionBox("A quality description would go here");
-		assertEquals(driver.findElement(By.id("exampleFormControlTextarea1")), cc.descriptionBox);
+		WebElement moduleFilterBox = driver.findElement(By.id("filter"));
+		assertNotNull(moduleFilterBox);
+		assertEquals(cc.moduleFilter, moduleFilterBox);
+		cc.inputToModuleFilterBox("The Big Downs");
+		assertEquals(cc.moduleFilter.getText(), moduleFilterBox.getText());
 	}
 	@Test
-	public void checkCodeRadioButton() {
+	public void testModuleResultClickable() {
+		driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node/div/tree-node-wrapper/div/div")).click();
+		driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node/div/tree-node-wrapper/div/div")).isSelected();
+	}
+	@Test
+	public void testDescriptionBox() {
+		ContentCreator cc = new ContentCreator(driver);
+		WebElement descriptionBox = driver.findElement(By.id("exampleFormControlTextarea1"));
+		assertNotNull(descriptionBox);
+		assertEquals(cc.descriptionBox, descriptionBox);
+		cc.inputToDescriptionBox("A quality description would go here");
+		assertEquals(cc.descriptionBox.getText(), descriptionBox.getText());
+	}
+	@Test
+	public void testCodeRadioButton() {
 		Actions actions = new Actions(driver);
 		WebElement radio = driver.findElement(By.id("Code"));
 		actions.moveToElement(radio).click().perform();
-		driver.findElement(By.id("Code")).isSelected();
+		assertTrue(radio.isSelected());
 	}
 	@Test
-	public void checkDocumentRadioButton() {
+	public void testDocumentRadioButton() {
 		Actions actions = new Actions(driver);
 		WebElement radio = driver.findElement(By.id("Document"));
 		actions.moveToElement(radio).click().perform();
-		driver.findElement(By.id("Document")).isSelected();
+		assertTrue(radio.isSelected());
 	}
 	@Test
-	public void checkPowerpointRadioButton() {
+	public void testPowerpointRadioButton() {
 		Actions actions = new Actions(driver);
 		WebElement radio = driver.findElement(By.id("Powerpoint"));
 		actions.moveToElement(radio).click().perform();
-		driver.findElement(By.id("Powerpoint")).isSelected();
+		assertTrue(radio.isSelected());
+	}
+	@Test
+	public void testSubmitButtonCheck() {
+		driver.findElement(By.id("submitButton")).click();
 	}
 	
 	@AfterClass

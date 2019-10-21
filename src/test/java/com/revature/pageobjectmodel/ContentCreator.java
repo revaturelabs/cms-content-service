@@ -12,13 +12,11 @@ public class ContentCreator {
 	public WebElement titleBox;
 	@FindBy(xpath="//input[@id='urlTextBox']")
 	public WebElement urlBox;
-	@FindBy(xpath="//[@id='filter']")
-	public WebElement filter;
+	@FindBy(xpath="//*[@id='filter']")
+	public WebElement moduleFilter;
 	//@FindBy(xpath="//[@id='descriptionTextBox']")
 	@FindBy(xpath="//textarea[@id='exampleFormControlTextarea1']")
 	public WebElement descriptionBox;
-	@FindBy(xpath="//input[@id='filter']")
-	public WebElement moduleFilterBox;
 	@FindBy(xpath="//button[@id='submitButton']")
 	public WebElement submitButton;
 	
@@ -36,6 +34,9 @@ public class ContentCreator {
 	}
 	public void inputToDescriptionBox(String des) {
 		this.descriptionBox.sendKeys(des);
+	}
+	public void inputToModuleFilterBox(String module) {
+		this.moduleFilter.sendKeys(module);
 	}
 	public void selectSubmitButton() {
 		this.submitButton.click();
