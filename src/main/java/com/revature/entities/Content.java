@@ -150,7 +150,7 @@ public class Content {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Content))
+		if (getClass() != obj.getClass())
 			return false;
 		Content other = (Content) obj;
 		if (dateCreated != other.dateCreated)

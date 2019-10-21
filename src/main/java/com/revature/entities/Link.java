@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /*
  * The point of the link entity is to give additional context
@@ -40,16 +39,21 @@ public class Link {
 	@Column
 	private String affiliation;
 	
+	@Column
+	private int priority;
+
 	public Link() {
 		super();
 	}
 
-	public Link(int id, Content content, Module module, String affiliation) {
+
+	public Link(int id, Content content, Module module, String affiliation, int priority) {
 		super();
 		this.id = id;
 		this.content = content;
 		this.module = module;
 		this.affiliation = affiliation;
+		this.priority = priority;
 	}
 
 	public int getId() {
@@ -84,13 +88,24 @@ public class Link {
 		this.affiliation = affiliation;
 	}
 
+	public int getPriority() {
+		return priority;
+	}
+
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((affiliation == null) ? 0 : affiliation.hashCode());
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((module == null) ? 0 : module.hashCode());
+		result = prime * result + priority;
 		return result;
 	}
 
@@ -100,7 +115,7 @@ public class Link {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Link))
+		if (getClass() != obj.getClass())
 			return false;
 		Link other = (Link) obj;
 		if (affiliation == null) {
@@ -113,17 +128,21 @@ public class Link {
 				return false;
 		} else if (!content.equals(other.content))
 			return false;
+		if (id != other.id)
+			return false;
 		if (module == null) {
 			if (other.module != null)
 				return false;
 		} else if (!module.equals(other.module))
+			return false;
+		if (priority != other.priority)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation + "]";
+		return "Link [id=" + id + ", content=" + content + ", module=" + module + ", affiliation=" + affiliation
+				+ ", priority=" + priority + "]";
 	}
-
 }

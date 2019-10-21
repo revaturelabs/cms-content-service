@@ -25,9 +25,6 @@ public class CMSforceApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CMSforceApplication.class, args);
-		
-	
-		
 	}
 
 }
