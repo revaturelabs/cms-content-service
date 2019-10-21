@@ -48,6 +48,7 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 
 	private Content content;
 	private List<Integer> modules;
+	private List<String> formats;
 	private Set<Content> retValue;
 	private Map<String, Object> reqBody;
 
@@ -76,7 +77,9 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		content = ContentFactory.getContent();
 		
 		modules = new ArrayList<Integer> ();
+		formats = new ArrayList<String> ();
 		modules.add(1);
+		formats.add(ContentFactory.format);
 		
 		retValue = new HashSet<Content> ();
 
@@ -114,12 +117,12 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	@Test
 	public void givenValidSearchGetContentNotEqual() throws Exception {
 		retValue.add(content);
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		Mockito.when(ss.filter(ContentFactory.title, formats, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param(filterTitle, (String) reqBody.get(filterTitle))
-				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterFormat, formats.get(0))
 				.param(filterModules, modules.get(0).toString()));
 		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				new TypeReference<Set<Content>>() { });
@@ -132,12 +135,12 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	public void givenInvalidSearchGetNoContentStatusOk () throws Exception {
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		Mockito.when(ss.filter(ContentFactory.title, formats, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param(filterTitle, (String) reqBody.get(filterTitle))
-				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterFormat, formats.get(0))
 				.param(filterModules, modules.get(0).toString()));
 		result.andExpect(status().isOk());
 	}
@@ -164,12 +167,12 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	
 	@Test
 	public void givenInvalidSearchGetNoContentNotNull () throws Exception {
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		Mockito.when(ss.filter(ContentFactory.title, formats, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param(filterTitle, (String) reqBody.get(filterTitle))
-				.param(filterFormat, (String) reqBody.get(filterFormat))
+				.param(filterFormat, formats.get(0))
 				.param(filterModules, modules.get(0).toString()));
 		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				new TypeReference<Set<Content>>() { });
