@@ -18,7 +18,6 @@ import com.revature.entities.ReqLink;
 import com.revature.entities.Request;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.ModuleRepository;
-import com.revature.repositories.ReqLinkRepository;
 import com.revature.repositories.RequestRepository;
 import com.revature.util.LogException;
 

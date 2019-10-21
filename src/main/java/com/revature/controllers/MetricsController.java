@@ -28,7 +28,6 @@ import com.revature.services.TimegraphService;
 import com.revature.util.MetricsData;
 import com.revature.util.TimeGraphData;
 
-
 @CrossOrigin
 @RestController
 @RequestMapping("/metrics")
@@ -41,64 +40,56 @@ public class MetricsController {
 	SearchService searchService;
 	@Autowired
 	TimegraphService timegraphService;
-	
+
 	@PostMapping("/{timeFrame}")
-	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, 
-								  @RequestBody Map<String, Object> filter) {		
+	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, @RequestBody Map<String, Object> filter) {
 		Set<Content> contents;
 		Set<Content> filtContents;
-		@SuppressWarnings("unchecked")
-		List<Integer> idsIn = new ArrayList<Integer>();
+		List<Integer> idsIn = new ArrayList<>();
 
 		// turn the string of integers we recieved into an ArrayList of integers
-		StringTokenizer st = new StringTokenizer(filter.get("modules").toString(), ",");
+		Object moduleObject = filter.get("modules");
+		StringTokenizer st = new StringTokenizer(moduleObject != null ? moduleObject.toString() : "", ",");
 		while (st.hasMoreTokens()) {
 			idsIn.add(Integer.parseInt(st.nextToken()));
 		}
-		
+
 		Set<Module> modulesIdsIn = new HashSet<Module>();
 		for (Integer id : idsIn) {
 			modulesIdsIn.add(moduleService.getModuleById(id));
 		}
 
-		if(idsIn.isEmpty()) {
-			contents = contentService.getAllContent();
-			filtContents = searchService.filterContent(contents, filter);
+		contents = contentService.getAllContent();
+		filtContents = searchService.filterContent(contents, filter);
 
-		} else {
-			contents = contentService.getAllContent();
-			filtContents = searchService.filterContent(contents, filter); }
-		
 		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
-		
-		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
+
+		Set<Module> modules = moduleService.getAllModules();
 		int modSize = modules.size();
-		
+
 		double avgMods = 0;
-		if(idsIn != null && !idsIn.isEmpty()) {
+		if (!idsIn.isEmpty()) {
 			avgMods = moduleService.getAverageByModules(modulesIdsIn);
 		} else {
 			avgMods = moduleService.getAverageByAllModules();
 		}
 
 		Integer numCode = 0;
-		if(contentFormats.containsKey("Code"))
+		if (contentFormats.containsKey("Code"))
 			numCode = contentFormats.get("Code");
-		
+
 		Integer numDoc = 0;
-		if(contentFormats.containsKey("Document"))
+		if (contentFormats.containsKey("Document"))
 			numDoc = contentFormats.get("Document");
-		
+
 		Integer numPpt = 0;
-		if(contentFormats.containsKey("Powerpoint"))
+		if (contentFormats.containsKey("Powerpoint"))
 			numPpt = contentFormats.get("Powerpoint");
 
 		TimeGraphData timeGraphData = timegraphService.getTimeGraphData(timeRange, filtContents);
-		
-		MetricsData gatheredMetrics = new MetricsData(
-				numCode, numDoc, numPpt, 
-				modSize, avgMods, timeGraphData);
-		 
-		 return gatheredMetrics;
+
+		MetricsData gatheredMetrics = new MetricsData(numCode, numDoc, numPpt, modSize, avgMods, timeGraphData);
+
+		return gatheredMetrics;
 	}
 }
