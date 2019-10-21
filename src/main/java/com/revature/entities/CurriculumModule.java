@@ -10,36 +10,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name="curriculum_module")
+@Table(name = "curriculum_module")
 public class CurriculumModule {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "curriculum_module_id")
 	private int id;
-	
-	@Column(name="curriculum_id")
+
+	@Column(name = "curriculum_id")
 	private int curriculum;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="module_id")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "module_id")
 	private Module module;
-	
+
 	@Column(name = "priority")
 	private int priority;
-	
+
 	public CurriculumModule() {
 		super();
-	}
-	
-	public CurriculumModule(int curriculum, Module module, int priority) {
-		super();
-		this.curriculum = curriculum;
-		this.module = module;
-		this.priority = priority;
 	}
 
 	public CurriculumModule(int id, int curriculum, Module module, int priority) {

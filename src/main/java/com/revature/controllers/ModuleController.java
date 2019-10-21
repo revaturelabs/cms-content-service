@@ -84,12 +84,7 @@ public class ModuleController {
 		}
         return ResponseEntity.ok(jsonModules);
     }
-	
-//	// return list of  modules attached to a given curriculum
-//	@GetMapping("/{id}/curriculum")
-//    public ResponseEntity<Set<Module>> getModuleByCurriculumId(@PathVariable int id) {
-//		return ResponseEntity.ok(moduleService.getModulesByCurricumId(id));
-//	}	
+		
 	//get all links by given module
 	@GetMapping("/{id}/links")
 	public ResponseEntity<Set<Link>> getLinksByModuleId(@PathVariable int id) {

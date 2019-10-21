@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 /*
  * The point of the link entity is to give additional context
  * to the relationship between a content object and a module object.

@@ -21,6 +21,4 @@ public interface CurriculumModuleService {
 	public Iterable<CurriculumModule> updateCurriculumModule(Set<CurriculumModule> currM);
 	
 	public void deleteCurriculumModule(CurriculumModule currM);
-
 }
-
