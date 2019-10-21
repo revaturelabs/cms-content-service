@@ -254,7 +254,7 @@ public class SearchServiceTest {
 		expected.add(content2);
 		Set<Content> expected2 = new HashSet<Content>();
 		expected2.add(content1);
-		List<Integer> ints = new ArrayList<Integer>();
+		
 		
 		Module module = new Module();
 		Link link = new Link(1, content1, module, "String", 1);
