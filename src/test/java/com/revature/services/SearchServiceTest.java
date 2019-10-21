@@ -55,15 +55,7 @@ public class SearchServiceTest {
 	@InjectMocks
 	private SearchService ss = new SearchServiceImpl();
 
-    //	===Fields===
-	// Link linkMock;
-	// Set<Link> linkSetMock = new HashSet<Link>();
 
-	// Content contentMock;
-	// Set<Content> contentSetMock = new HashSet<Content>();
-
-	// Module moduleMock;
-	
     //	===Tests===
 	@BeforeMethod
 	public void reinitMocks() {
@@ -73,34 +65,6 @@ public class SearchServiceTest {
 	}
 	@BeforeTest
 	public void testSetup() {
-		// Link link;
-		// Content content;
-
-		// content = new Content(50, "Test 1", "format", "Test Content #1",
-		// 		"www.example.com", linkSetMock, 1L, 1L, );
-		// link = new Link(1,content,100,"link-affiliation");
-		// linkSetMock.add(link);
-		// contentSetMock.add(content);
-
-		// content = new Content(51, "Test 2", "format", "Test Content #3",
-		// 		"www.example.com", linkSetMock, 1L, 1L );
-		// link = new Link(2,content,100,"lonk-affiliation");
-		// linkSetMock.add(link);
-		// contentSetMock.add(content);
-
-		// content = new Content(52, "Test 3", "format", "Test Content #3",
-		// 		"www.example.com", linkSetMock, 1L, 1L );
-		// link = new Link(3,content,101,"lank-affiliation");
-		// linkSetMock.add(link);
-		// contentSetMock.add(content);
-
-		// linkMock = link;
-		// contentMock = content;
-
-		// //Module
-		// //Constructor (Id, "Subject", DateCreated, Set<Link>)
-		// this.moduleMock = new Module(100, "Test Subject 1", 1L, this.linkSetMock, null, null);
-
 	}
 
 	/**
