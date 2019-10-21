@@ -1,3 +1,8 @@
-**Update Spring Boot Version to newest Version**
+**Update Spring Boot Version to newest Version** 10/16/2019
     -Change pom.xml for CMSForce,Eureka,and Zuul spring versions to 2.1.9
     -We had to change the spring cloud depenedencies finchley.sr3 to greenwhich.sr2 in order to avoid errors, build succeeds, and all tests pass.
+    
+**Include Swagger dependency for API documentation** 10/16/2019
+	-added @EnableSwagger2
+	-added swagger ui dependency to have a visual representation of our api documentation
+	-created swaggerConfig bean in the util package.
