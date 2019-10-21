@@ -47,7 +47,8 @@ public class SearchServiceTest {
 	private ContentService csMock;
 	@Mock
 	private ModuleService msMock;
-	
+	@Mock
+	private RequestService rsMock;
 	@Mock
 	private RequestRepository rrMock;
 	
@@ -324,5 +325,93 @@ public class SearchServiceTest {
 
 	}
 	
+	//Complete - Author:Joanna
+		@Test
+		public void filterRequestByFormatTest(){
+			String format = "format";
+			Set<ReqLink> reqLinks = new HashSet<ReqLink>();
+			Content content = new Content();
+			Long dateCreated = 20180201110400L;
+			Long lastModified = 20180201110400L;
+			Set<Request> requestSetExpected = new HashSet<Request>();
+			requestSetExpected.add(new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks));
+			requestSetExpected.add(new Request(2, "title", format, "description", content, dateCreated, lastModified, reqLinks));
+		
+			Mockito.when(rrMock.findByFormat(format)).thenReturn(requestSetExpected);
+			
+			Set<Request> actual = ss.filterRequestByFormat(format);
+			
+			verify(rrMock, times(1)).findByFormat(format);
+		    Assert.assertEquals(actual, requestSetExpected);
+		}
+		
+		//Complete - Author:Joanna
+		@Test
+		public void filterRequestBySubjectIds() {
+			List<Integer> moduleIds = new ArrayList();
+			moduleIds.add(1);
+			String format = "format";
+			Content content = new Content();
+			Long dateCreated = 20180201110400L;
+			Long lastModified = 20180201110400L;
+			Set<ReqLink> reqLinks1 = new HashSet<ReqLink>();
+			Set<Request> requestSetExpected = new HashSet<Request>();
+			Request r1 = new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1);
+			requestSetExpected.add(r1);
+			
+			Set<ReqLink> reqLinksForM1 = new HashSet<ReqLink>();
+			ReqLink rl1 = new ReqLink(1, new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
+			ReqLink rl2 = new ReqLink(2, new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
+			reqLinksForM1.add(rl1);
+			reqLinksForM1.add(rl2);
+			
+			Module m1 = new Module(1, "", 1L, null, reqLinksForM1, null, null);
+			Mockito.when(msMock.getModuleById(1)).thenReturn(m1);
+			
+			Set<Request> actual = ss.filterRequestBySubjectIds(moduleIds);
+			verify(msMock, times(1)).getModuleById(1);
+		    Assert.assertEquals(actual, requestSetExpected);
+		}
+		
+		//Complete - Author:Joanna
+		@Test
+		public void filterReq() {
+			String title = "title"; 
+			String format = "format";
+			List<Integer> moduleIds = new ArrayList();
+			
+			Content content = new Content();
+			Long dateCreated = 1L;
+			Long lastModified = 1L;
+			Set<ReqLink> reqLinks1 = new HashSet<ReqLink>();
+			Set<Request> requestSetExpected = new HashSet<Request>();
+			Request r1 = new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1);
+			Request r2 = new Request(2, "title", format, "description", content, dateCreated, lastModified, reqLinks1);
+			requestSetExpected.add(r1);
+			requestSetExpected.add(r2);
+			
+			Mockito.when(rsMock.getAllRequests()).thenReturn(requestSetExpected);
+			
+			//Mocking filterRequestByTitle
+			Mockito.when(rrMock.findByTitle(title)).thenReturn(requestSetExpected);
+			//Mocking filterRequestByFormat
+			Mockito.when(rrMock.findByFormat(format)).thenReturn(requestSetExpected);
+			//Mocking filterRequestBySubjectIds
+			Set<ReqLink> reqLinksForM1 = new HashSet<ReqLink>();
+			ReqLink rl1 = new ReqLink(1, new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
+			ReqLink rl2 = new ReqLink(2, new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
+			reqLinksForM1.add(rl1);
+			reqLinksForM1.add(rl2);
+			
+			Module m1 = new Module(1, "", 1L, null, reqLinksForM1, null, null);
+			Mockito.when(msMock.getModuleById(1)).thenReturn(m1);
+			
+			
+			Set<Request> actual = ss.filterReq(title, format, moduleIds);
+			verify(rsMock, times(1)).getAllRequests();
+			verify(rrMock, times(1)).findByTitle(title);
+			verify(rrMock, times(1)).findByFormat(format);
+		    Assert.assertEquals(actual, requestSetExpected);
+		}
 	
 }
