@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.revature.entities.Content;
@@ -20,14 +18,11 @@ public class ValidationUtil {
 	
 	private static final int MAX_CHAR_LENGTH = 254;
 	
-	@Pointcut("within(com.revature.services..*) ")//Pointcut location
-	public void servicesPC() {
-		
-	}
+	private final String pc="within(com.revature.services..*)";
 	
 	@LogException
-	@Before("servicesPC() && args(content,..)")
-	public void verifyContent(Content content) { //Method for throwing exceptions for content issues
+	@Before(pc+" && args(content,..)")
+	public boolean verifyContent(Content content) { //Method for throwing exceptions for content issues
 		if(content == null)
 			throw new InvalidContentException("content is of null value");
 		
@@ -42,41 +37,45 @@ public class ValidationUtil {
 		
 		if(content.getDescription().length() > MAX_CHAR_LENGTH)
 			throw new InvalidContentException("Description is longer than 254 characters.");
+		
+		return true;
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(module,..)")
-	public void verifyModule(Module module) { //Method for throwing exceptions if modules are empty or subjects are empty
+	@Before(pc+" && args(module,..)")
+	public boolean verifyModule(Module module) { //Method for throwing exceptions if modules are empty or subjects are empty
 		if(module == null)
 			throw new InvalidContentException("Module is of null value");
 		
 		if(module.getSubject().isEmpty() || module.getSubject().length() > MAX_CHAR_LENGTH)
 			throw new InvalidModuleException("Subject is empty or is longer than 254 characters.");
+		
+		return true;
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(title,..)")
+	@Before(pc+" && args(title,..)")
 	public void verifyStringTitle(String title) { //Exception thrown when titles exceed maximum length
 		if(title.length() > MAX_CHAR_LENGTH)
 			throw new InvalidSearchException("title is longer than 254 characters.");
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(format,..)")
+	@Before(pc+" && args(format,..)")
 	public void verifyStringFormat(String format) { //Same as above but with formats
 		if(format.length() > MAX_CHAR_LENGTH)
 			throw new InvalidSearchException("format is longer than 254 characters.");
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(moduleId,..)")
+	@Before(pc+" && args(moduleId,..)")
 	public void verifyModuleId(int moduleId) { //Exception thrown if there is an issue with the ID index location
 		if(moduleId <= 0)
 			throw new InvalidSearchException("the ModuleId is not a valid index.");
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(moduleIds,..)")
+	@Before(pc+" && args(moduleIds,..)")
 	public void verifyListModuleId(List<Integer> moduleIds) { //Verifying modules match their ID's
 		for(int x = 0; x < moduleIds.size(); x++) {
 			this.verifyModuleId(moduleIds.get(x));
@@ -84,7 +83,7 @@ public class ValidationUtil {
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(title, format, moduleIds,..)")
+	@Before(pc+" && args(title, format, moduleIds,..)")
 	public void verifyFilter(String title, String format, List<Integer> moduleIds) {
 		this.verifyStringTitle(title);
 		this.verifyStringFormat(format);
@@ -92,7 +91,7 @@ public class ValidationUtil {
 	}
 	
 	@LogException
-	@Before("servicesPC() && args(id,..)")
+	@Before(pc+" && args(id,..)")
 	public void verifyId(int id) {
 		if(id <= 0)
 			throw new InvalidSearchException("the id is not a valid index.");
