@@ -94,7 +94,12 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	@Test
 	public void givenValidSearchGetContentNotNull() throws Exception {
 		retValue.add(content);
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		//mock service return
+		
+		ArrayList<String> forList = new ArrayList<String>();
+		forList.add(ContentFactory.format);
+		
+		Mockito.when(ss.filter(ContentFactory.title, forList, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -139,7 +144,13 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	
 	@Test
 	public void givenInvalidSearchGetNoContentEquals () throws Exception {
-		Mockito.when(ss.filter(ContentFactory.title, ContentFactory.format, modules))
+		//given
+		//mock service return, expect empty search result
+		
+		ArrayList<String> forList = new ArrayList<String>();
+		forList.add(ContentFactory.format);
+		
+		Mockito.when(ss.filter(ContentFactory.title, forList, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)

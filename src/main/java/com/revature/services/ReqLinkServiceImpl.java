@@ -59,8 +59,10 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 
 	@Override
 	public Set<Set<ReqLink>> filter(String title, String format, List<Integer> moduleIdsList) {
-
-		Set<Request> filteredRequests = searchService.filterReq(title, format, moduleIdsList);
+		
+		List<String> formatList = new ArrayList<String>();
+		formatList.add(format);
+		Set<Request> filteredRequests = searchService.filterReq(title, formatList, moduleIdsList);
 		// links will hold the final search result, each set within the set containing
 		// links to a request
 		Set<Set<ReqLink>> setOfSetOfReqLinks = new HashSet<>();
