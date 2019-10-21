@@ -60,14 +60,7 @@ public class MetricsController {
 		}
 
 		contents = contentService.getAllContent();
-		for(Content c : contents) {
-			System.out.println(c.toString());
-		}
 		filtContents = searchService.filterContent(contents, filter);
-		System.out.println("Is filter content empty? : " + filtContents.isEmpty());
-		for(Content c : filtContents) {
-			System.out.println("Filter Contents: " + c.toString());
-		}
 		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
 		//System.out.println(contentFormats.isEmpty());
 		/*
