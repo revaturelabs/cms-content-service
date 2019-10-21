@@ -74,6 +74,7 @@ public class SearchServiceImpl implements SearchService {
 			return response;
 		}
 		else {
+			
 			return cr.findByFormat(format);
 		}
 	}
@@ -168,7 +169,10 @@ public class SearchServiceImpl implements SearchService {
 			Set<Content> formatContent = new HashSet<>();
 			
 			for(String format : formatList) {
+				
+				
 				formatContent.addAll(this.filterContentByFormat(format));
+				
 			}
 			
 			content = Sets.intersection(content, formatContent);
@@ -187,7 +191,9 @@ public class SearchServiceImpl implements SearchService {
 
 		Set<Content> filteredContent = new HashSet<Content>();
 		String title = filters.get("title").toString();
+		
 		String format = filters.get("format").toString();
+		
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
 		Set<Integer> givenModIds = new HashSet<Integer>();
 
@@ -201,8 +207,9 @@ public class SearchServiceImpl implements SearchService {
 		for (Content content : contents) {
 			// if a search parameter is left "blank", then it is supposed to be disregarded
 			// in the search
+			
 			if ((title.equals(content.getTitle()) || title.equals(""))
-					&& (format.equals(content.getFormat()) || format.equals(""))) {
+					&& (format.equals(content.getFormat()) || format.equals("") || format.equals("All"))) {
 				// make sure givenModIds starts empty
 				givenModIds.clear();
 				// extract the ids of the modules of the current content
