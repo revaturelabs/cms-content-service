@@ -1,10 +1,14 @@
 package com.revature.services;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,10 +22,10 @@ import org.testng.annotations.Test;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
+import com.revature.exceptions.InvalidContentException;
 import com.revature.repositories.ContentRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
-import com.revature.services.ContentServiceImpl;
 
 /**
  * Testing for the ContentService class.
@@ -167,23 +171,12 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	}
 
 	
-	//This method tests the functionality of the .getAllContentMinusLinks method within the ContentServiceImpl class
-	
-	@Test
-	public void testGetAllContentMinusLinks()
-	{
-//		contentSet = contServe.getAllContentMinusLinks();
-//		assertNotNull(contentSet);
-	}
-	
-
-	
 	/*
 	 * This method tests the functionality of the .getContentByFormatWithStrings method within the ContentServiceImpl class
 	 * */
 	
 	@Test(dependsOnMethods = {"testGetContentById"})
-	public void testGetContentByFormatWithStrings()
+	public void testGetFormatWithStrings()
 	{
 		secondContentSet = contServe.getAllContent();
 		for(Content item: secondContentSet)
@@ -198,15 +191,74 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	
 	
 	/*
-	 * This method tests the functionality of the .getContentByFormatWithStrings method within the ContentServiceImpl class
+	 * This method tests the functionality of the .getFormatCountWithContent method within the ContentServiceImpl class
 	 * */
 
 	@Test(dependsOnMethods = {"testGetContentById"})
-	public void testGetContentByFormatWithContents()
+	public void testGetFormatWithContents()
 	{
 		contentByFormat = contServe.getFormatCount(contentSet);
 		secondContentByFormat = contServe.getFormatCount(contentSet);
 		assertTrue(contentByFormat.equals(secondContentByFormat));
+	}
+	
+	//Author - Carlos
+	@Test
+	public void updateContentTest() {
+		contServe.updateContent(mockContent);
+		verify(contRep, times(3)).save(mockContent);
+	}
+	
+	//Author - Carlos
+	
+	@Test(expectedExceptions = {InvalidContentException.class})
+	public void updateContentTest_ContentIsNull() {
+		Content cont = null;
+		contServe.updateContent(cont);
+		
+	}
+	
+	//Author - Carlos
+	@Test
+	public void deleteContentTest() {
+		contServe.deleteContent(mockContent);
+		verify(contRep).delete(mockContent);
+	}
+	
+	//author - carlos
+	@Test
+	public void updateLinksByContentIdTest() {
+		Link link = new Link();
+		Link link2 = new Link();
+		List<Link> list = new ArrayList<Link>();
+		list.add(link2);
+		list.add(link);
+		
+		when(linkRep.save(link)).thenReturn(link);
+		when(linkRep.save(link2)).thenReturn(link2);
+
+		//Id is unused in the method. Id is irrelevant.
+		contServe.updateLinksByContentId(5, list);
+		verify(linkRep, times(4)).save(link);
+		verify(linkRep, times(4)).save(link2);
+	}
+	
+	//author - carlos
+	@Test
+	public void createLinksByContentIdTest() {
+		Link link = new Link();
+		Link link2 = new Link();
+		List<Link> list = new ArrayList<Link>();
+		list.add(link2);
+		list.add(link);
+		
+		when(linkRep.save(link)).thenReturn(link);
+		when(linkRep.save(link2)).thenReturn(link2);
+
+		//Id is unused in the method. Id is irrelevant.
+		contServe.updateLinksByContentId(5, list);
+		verify(linkRep, times(2)).save(link);
+		verify(linkRep, times(2)).save(link2);
 	}
 
 }
