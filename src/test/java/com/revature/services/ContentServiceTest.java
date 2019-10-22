@@ -172,11 +172,11 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 
 	
 	/*
-	 * This method tests the functionality of the .getContentByFormatWithStrings method within the ContentServiceImpl class
+	 * This method tests the functionality of the .getFormatCount(String) method within the ContentServiceImpl class
 	 * */
 	
 	@Test(dependsOnMethods = {"testGetContentById"})
-	public void testGetFormatWithStrings()
+	public void testGetFormatCount_StringVersion()
 	{
 		secondContentSet = contServe.getAllContent();
 		for(Content item: secondContentSet)
@@ -191,11 +191,11 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	
 	
 	/*
-	 * This method tests the functionality of the .getFormatCountWithContent method within the ContentServiceImpl class
+	 * This method tests the functionality of the .getFormatCount(content) method within the ContentServiceImpl class
 	 * */
 
 	@Test(dependsOnMethods = {"testGetContentById"})
-	public void testGetFormatWithContents()
+	public void testGetFormatCount_ContentVersion()
 	{
 		contentByFormat = contServe.getFormatCount(contentSet);
 		secondContentByFormat = contServe.getFormatCount(contentSet);
