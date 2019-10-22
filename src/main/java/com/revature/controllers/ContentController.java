@@ -93,7 +93,7 @@ public class ContentController {
 		return ResponseEntity.ok(contentService.getLinksByContentId(id));
 	}
 	// return list of links attached to a given curriculum
-	@GetMapping("//curriculum/{id}/links")
+	@GetMapping("/curriculum/{id}/links")
 	public ResponseEntity<Set<Link>> getLinksByCurricumId(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getLinksByCurricumId(id));
 		}
