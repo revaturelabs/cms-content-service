@@ -294,7 +294,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
         String [] params = { "title", "format", "modules" };
 		List<Integer> integers = new ArrayList<>();
 		integers.add(1);
-		Mockito.when(ss.filter(anyString(), anyString(), anyList())).thenReturn(expected);
+		Mockito.when(ss.filter(anyString(), anyList(), anyList())).thenReturn(expected);
 		ResultActions result = mvc.perform(get("/content").param(params[0], content.getTitle()).param(params[1], content.getFormat()).param(params[2], "1"));
 		result.andExpect(status().isOk());
 	}
@@ -306,7 +306,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
         String [] params = { "title", "format", "modules" };
 		List<Integer> integers = new ArrayList<>();
 		integers.add(1);
-		Mockito.when(ss.filter(anyString(), anyString(), anyList())).thenReturn(expected);
+		Mockito.when(ss.filter(anyString(), anyList(), anyList())).thenReturn(expected);
 		ResultActions result = mvc.perform(get("/content").param(params[0], content.getTitle()).param(params[1], content.getFormat()).param(params[2], "1"));
 		String actual = result.andReturn().getResponse().getContentAsString();
 		assertEquals(actual, convertToJSONContentSetString(expected), "Failed to find content");
