@@ -204,14 +204,14 @@ public class SearchServiceTest {
 		Assert.assertEquals(actual, expected);
 	}
 	
-	//Complete - Author: Carlos
+	//Complete - Author: Carlos 10/20 : fixed again after changes 10/22 by Carlos
 	@Test()
 	public void filterTest() {
 		 List<Integer> moduleIds = new ArrayList<Integer>();
 
-		Content content1 = new Content(1, "title 1", "format", "something", "http://blah.com",
+		Content content1 = new Content(1, "title 1", "format1", "something", "http://blah.com",
 					1L, 1L, new HashSet<Link>());
-		Content content2 = new Content(2, "title 2", "format", "something else", "http://blah2.com",
+		Content content2 = new Content(2, "title 2", "format2", "something else", "http://blah2.com",
 					1L, 1L, new HashSet<Link>());
 
 		Set<Content> expected = new HashSet<Content>();
@@ -224,19 +224,23 @@ public class SearchServiceTest {
 		Module module = new Module();
 		Link link = new Link(1, content1, module, "String", 1);
 		Link link2 = new Link(2, content2, module, "String", 2);
-
+		String format1 = "format1";
+		String format2 = "format2";
+		List<String> formats = new ArrayList<String>();
+		formats.add(format1);
+		formats.add(format2);
 		
 		//given
-		Mockito.when(crMock.findByFormat("format")).thenReturn(expected);
+		Mockito.when(crMock.findByFormat("format1")).thenReturn(expected);
 		Mockito.when(crMock.findByTitle("title 1")).thenReturn(expected2);
 		Mockito.when(csMock.getAllContent()).thenReturn(expected);
 
 		//when
-		Set<Content> actualContent1 = ss.filter("title 1", "format", moduleIds);
-		Set<Content> actualContent2 = ss.filter("", "format", moduleIds);
+		Set<Content> actualContent1 = ss.filter("title 1", formats, moduleIds);
+		Set<Content> actualContent2 = ss.filter("", formats, moduleIds);
 
 		verify(crMock).findByTitle("title 1");
-		verify(crMock, times(2)).findByFormat("format");
+		verify(crMock, times(2)).findByFormat(format1);
 		verify(csMock,  times(2)).getAllContent();
 		
 		Assert.assertEquals(actualContent1, expected2);
@@ -337,11 +341,16 @@ public class SearchServiceTest {
 		    Assert.assertEquals(actual, requestSetExpected);
 		}
 		
-		//Complete - Author:Joanna
+		//Complete - Author:Joanna 10/20 : fixed again after changes 10/22 By Carlos
 		@Test
 		public void filterReq() {
 			String title = "title"; 
-			String format = "format";
+			String format1 = "format1";
+			String format2 = "format2";
+			List<String> formats = new ArrayList<String>();
+			formats.add(format1);
+			formats.add(format2);
+
 			List<Integer> moduleIds = new ArrayList();
 			
 			Content content = new Content();
@@ -349,8 +358,8 @@ public class SearchServiceTest {
 			Long lastModified = 1L;
 			Set<ReqLink> reqLinks1 = new HashSet<ReqLink>();
 			Set<Request> requestSetExpected = new HashSet<Request>();
-			Request r1 = new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1);
-			Request r2 = new Request(2, "title", format, "description", content, dateCreated, lastModified, reqLinks1);
+			Request r1 = new Request(1, "title", format1, "description", content, dateCreated, lastModified, reqLinks1);
+			Request r2 = new Request(2, "title", format2, "description", content, dateCreated, lastModified, reqLinks1);
 			requestSetExpected.add(r1);
 			requestSetExpected.add(r2);
 			
@@ -359,11 +368,11 @@ public class SearchServiceTest {
 			//Mocking filterRequestByTitle
 			Mockito.when(rrMock.findByTitle(title)).thenReturn(requestSetExpected);
 			//Mocking filterRequestByFormat
-			Mockito.when(rrMock.findByFormat(format)).thenReturn(requestSetExpected);
+			Mockito.when(rrMock.findByFormat(format1)).thenReturn(requestSetExpected);
 			//Mocking filterRequestBySubjectIds
 			Set<ReqLink> reqLinksForM1 = new HashSet<ReqLink>();
-			ReqLink rl1 = new ReqLink(1, new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
-			ReqLink rl2 = new ReqLink(2, new Request(1, "title", format, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
+			ReqLink rl1 = new ReqLink(1, new Request(1, "title", format1, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
+			ReqLink rl2 = new ReqLink(2, new Request(1, "title", format2, "description", content, dateCreated, lastModified, reqLinks1), new Module(1, "", 1L, null, null, null, null), "affiliation 1");
 			reqLinksForM1.add(rl1);
 			reqLinksForM1.add(rl2);
 			
@@ -371,10 +380,10 @@ public class SearchServiceTest {
 			Mockito.when(msMock.getModuleById(1)).thenReturn(m1);
 			
 			
-			Set<Request> actual = ss.filterReq(title, format, moduleIds);
+			Set<Request> actual = ss.filterReq(title, formats, moduleIds);
 			verify(rsMock, times(1)).getAllRequests();
 			verify(rrMock, times(1)).findByTitle(title);
-			verify(rrMock, times(1)).findByFormat(format);
+			verify(rrMock, times(1)).findByFormat(format1);
 		    Assert.assertEquals(actual, requestSetExpected);
 		}
 	
