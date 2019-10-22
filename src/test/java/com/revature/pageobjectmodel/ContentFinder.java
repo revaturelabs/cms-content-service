@@ -16,20 +16,24 @@ public class ContentFinder {
 	public WebElement loadModulesBox;
 	@FindBy(xpath="//*[@id=\"subjectDropDown\"]/div/span[1]")
 	public WebElement clearLoadModulesBox;
-	@FindBy(xpath="//input[@id='Code']")
-	public WebElement codeRadioButton;
-	@FindBy(xpath="//input[@id='Document']")
-	public WebElement documentRadioButton;
-	@FindBy(xpath="//input[@id='Powerpoint']")
-	public WebElement powerpointRadioButton;
-	@FindBy(xpath="//input[@id='Flagged']")
-	public WebElement flaggedRadioButton;
-	@FindBy(xpath="//input[@id='All']")
-	public WebElement allRadioButton;
-	@FindBy(xpath="//button[@id='submitButton']")
+	//@FindBy(xpath="//input[@id='Code']")
+	//public WebElement codeRadioButton;
+	//@FindBy(xpath="//input[@id='Document']")
+	//public WebElement documentRadioButton;
+	//@FindBy(xpath="//input[@id='Powerpoint']")
+	//public WebElement powerpointRadioButton;
+	//@FindBy(xpath="//input[@id='Flagged']")
+	//public WebElement flaggedRadioButton;
+	//@FindBy(xpath="//input[@id='All']")
+	//public WebElement allRadioButton;
+	@FindBy(xpath="//*[@id='Code']")
+	public WebElement codeButton;
+	@FindBy(xpath="//*[@id='Document']")
+	public WebElement documentButton;
+	@FindBy(xpath="//*[@id='Powerpoint']")
+	public WebElement powerpointButton;
+	@FindBy(xpath="//*[@id='submitButton']")
 	public WebElement submitButton;
-	@FindBy(xpath="//*[@id=\"toast-container\"]/div")
-	public WebElement toastrPopUp;
 	
 	/**
 	 * Loaded Constructor
@@ -75,6 +79,15 @@ public class ContentFinder {
 	public void clickRadioButton(WebElement radioButton) {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(radioButton).click().perform();
+	}
+	
+	/**
+	 * Simulate clicking given button WebElement
+	 * 
+	 * @param button WebElement button to be clicked
+	 */
+	public void clickButton(WebElement button) {
+		button.click();
 	}
 	
 	/**
