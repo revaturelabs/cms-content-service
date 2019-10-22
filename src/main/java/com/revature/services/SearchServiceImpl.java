@@ -207,11 +207,7 @@ public class SearchServiceImpl implements SearchService {
 			// in the search
 			
 			if ((title.equals(content.getTitle()) || title.equals(""))
-<<<<<<< HEAD
-					&& (format.equals(content.getFormat()) || format.equals("All"))) {
-=======
 					&& (format.equals(content.getFormat()) || format.equals("") || format.equals("All"))) {
->>>>>>> dev
 				// make sure givenModIds starts empty
 				givenModIds.clear();
 				// extract the ids of the modules of the current content

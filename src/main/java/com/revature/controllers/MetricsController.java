@@ -62,10 +62,6 @@ public class MetricsController {
 		contents = contentService.getAllContent();
 		filtContents = searchService.filterContent(contents, filter);
 		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
-		//System.out.println(contentFormats.isEmpty());
-		/*
-		 * for(String key : contentFormats.keySet()) { System.out.println(key); }
-		 */
 		Set<Module> modules = moduleService.getAllModules();
 		int modSize = modules.size();
 
