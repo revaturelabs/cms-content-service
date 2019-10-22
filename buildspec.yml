@@ -11,7 +11,7 @@ phases:
       - $(aws ecr get-login --no-include-email --region $AWS_REGION)
       - BUILD_ID=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - TAG=$SERVICE_NAME:$BUILD_ID
-      - REPOSITORY_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$SERVICE_NAME:$BUILD_ID
+      - REPOSITORY_URL=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO_NAME:$BUILD_ID
       - echo Using $REPOSITORY_URL for $TAG
   build:
     commands:
