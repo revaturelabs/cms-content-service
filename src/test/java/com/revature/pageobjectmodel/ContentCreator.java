@@ -38,36 +38,36 @@ public class ContentCreator {
 	}
 	
 	/**
-	 * This method sends input to the Title Box of the web page.
+	 * This method sends input to the Title Box.
 	 * @param title, input String to be passed.
 	 */
 	public void inputToTitleBox(String title) {
 		this.titleBox.sendKeys(title);
 	}
 	/**
-	 * 
-	 * @param url
+	 * This method sends input to the Url Box.
+	 * @param url, input String to be passed.
 	 */
 	public void inputToUrlBox(String url) {
 		this.urlBox.sendKeys(url);
 	}
 	/**
-	 * 
-	 * @param des
+	 * This method sends input to Description Area
+	 * @param des, input String to be passed
 	 */
 	public void inputToDescriptionBox(String des) {
 		this.descriptionBox.sendKeys(des);
 	}
 	/**
-	 * 
-	 * @param module
+	 * This method sends input to the Module Filter
+	 * @param module, input String to be passed
 	 */
 	public void inputToModuleFilterBox(String module) {
 		this.moduleFilter.sendKeys(module);
 	}
 	/**
-	 * 
-	 * @param button
+	 * This method is just to click buttons...
+	 * @param button, the web element button to be clicked.
 	 */
 	public void clickButton(WebElement button) {
 		button.click();
