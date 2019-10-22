@@ -16,17 +16,22 @@ public class ContentCreator {
 	@FindBy(xpath="//input[@id='urlTextBox']")
 	public WebElement urlBox;
 	
-	@FindBy(xpath="//*[@id='filter']")
+	@FindBy(xpath="//input[@id='filter']")
 	public WebElement moduleFilter;
+	
 	@FindBy(xpath="//textarea[@id='exampleFormControlTextarea1']")
 	public WebElement descriptionBox;
-	@FindBy(xpath="//*[@id=\"Code\"]")
+	
+	@FindBy(xpath="//button[@id='Code']")
 	public WebElement codeButton;
-	@FindBy(xpath="//*[@id=\"Document\"]")
+	
+	@FindBy(xpath="//button[@id='Document']")
 	public WebElement documentButton;
-	@FindBy(xpath="//*[@id=\"Powerpoint\"]")
+	
+	@FindBy(xpath="//button[@id='Powerpoint']")
 	public WebElement powerpointButton;
-	@FindBy(xpath="//*[@id=\"submitButton\"]")
+	
+	@FindBy(xpath="//button[@id='submitButton']")
 	public WebElement submitButton;
 
 	/**
