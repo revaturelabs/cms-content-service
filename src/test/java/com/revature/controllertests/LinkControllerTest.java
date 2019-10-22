@@ -57,6 +57,8 @@ public class LinkControllerTest {
 
 	@Test
 	public void testCreateLink() throws Exception {
+		//setting a link (described parameters in linkservice)
+		//in Content entity has structure needed
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -125,6 +127,7 @@ public class LinkControllerTest {
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
 		Link link = new Link(0, content, module, "affiliation");
+		
 		Set<Link> allLinks = new HashSet<Link>();
 		allLinks.add(link);
 		Set<Set<Link>> setOfSets = new HashSet<>();
