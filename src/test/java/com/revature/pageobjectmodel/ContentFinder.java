@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ContentFinder {
+	
 	public String url = "http://localhost:4200/finder";
 	public WebDriver driver;
 	//Set up user input WebElements for the Page Object Model
