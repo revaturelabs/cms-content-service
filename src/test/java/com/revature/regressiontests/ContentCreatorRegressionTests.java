@@ -1,5 +1,6 @@
 package com.revature.regressiontests;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;

@@ -10,13 +10,25 @@ public class ContentCreator {
 	// Grab all the user input options for the Page Object Model
 	@FindBy(xpath="//input[@id='titleTextBox']")
 	public WebElement titleBox;
+
 	@FindBy(xpath="//input[@id='urlTextBox']")
 	public WebElement urlBox;
+	
 	@FindBy(xpath="//*[@id='filter']")
 	public WebElement moduleFilter;
-	//@FindBy(xpath="//[@id='descriptionTextBox']")
+	
 	@FindBy(xpath="//textarea[@id='exampleFormControlTextarea1']")
 	public WebElement descriptionBox;
+	
+	@FindBy(xpath="//button[@id='Code']")
+	public WebElement codeSelectBtn;
+	
+	@FindBy(xpath="//button[@id='Document']")
+	public WebElement documentSelectBtn;
+	
+	@FindBy(xpath="//button[@id='Powerpoint']")
+	public WebElement powerpointSelectBtn;
+	
 	@FindBy(xpath="//button[@id='submitButton']")
 	public WebElement submitButton;
 	
@@ -37,6 +49,15 @@ public class ContentCreator {
 	}
 	public void inputToModuleFilterBox(String module) {
 		this.moduleFilter.sendKeys(module);
+	}
+	public void selectCodeButton() {
+		this.codeSelectBtn.click();
+	}
+	public void selectDocumentButton() {
+		this.documentSelectBtn.click();
+	}
+	public void selectPowerpointButton() {
+		this.powerpointSelectBtn.click();
 	}
 	public void selectSubmitButton() {
 		this.submitButton.click();
