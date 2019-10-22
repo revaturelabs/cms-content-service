@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Sets;
 import com.revature.entities.Content;
 import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -39,6 +40,8 @@ public class SearchServiceImpl implements SearchService {
 	RequestService rs;
 	@Autowired
 	CurriculumService crs;
+	@Autowired
+	CurriculumModuleService cms;
 
 	/**
 	 * filterContentByTitle takes in a string value and returns a content object
@@ -183,7 +186,7 @@ public class SearchServiceImpl implements SearchService {
 		if (!(moduleIds.isEmpty())) {
 			content = Sets.intersection(content, this.filterContentBySubjectIds(moduleIds));
 		}
-		if(!(curriculaIds.isEmpty())) {
+		if(curriculaIds != null && !(curriculaIds.isEmpty())) {
 			content = Sets.intersection(content, this.filterContentByCurriculaIds(curriculaIds));
 		}
 		// this is an AND search, if you want to do an OR search, just use the
@@ -194,16 +197,36 @@ public class SearchServiceImpl implements SearchService {
 	
 	public Set<Content> filterContentByCurriculaIds(List<Integer> curriculaIds) {
 		
-		Set<Curriculum> curriculum = new HashSet<Curriculum>();
+		Set<Curriculum> curricula = new HashSet<Curriculum>();
+		Set<CurriculumModule> curriculumModules = new HashSet<CurriculumModule>();
+		Set<Module> modules = new HashSet<Module>();
+		Set<Link> links = new HashSet<Link>();
+		Set<Content> content = new HashSet<Content>();
+		Set<CurriculumModule> allCurriculumModules = cms.getAllCurriculumModules();
 		
 		for(Integer id : curriculaIds) {
-			curriculum.add(crs.getCurriculumById(id));
+			System.out.println(id);
+			curricula.add(crs.getCurriculumById(id));
 		}
-		
-		System.out.println(curriculum);
-		Set<Content> content = new HashSet<Content>();
-
-	
+		System.out.println(curricula);
+		for (Curriculum curriculum : curricula ) {
+			for(CurriculumModule curriculumModule : allCurriculumModules) {
+				if(curriculum.getId() == curriculumModule.getCurriculum()) {
+					curriculumModules.add(curriculumModule);
+				}
+			}
+			
+		}
+		for(CurriculumModule curriculumModule : curriculumModules) {
+			modules.add(curriculumModule.getModule());
+		}
+		for(Module module : modules) {
+			links.addAll(module.getLinks());
+		}
+		for(Link link : links) {
+			content.add(link.getContent());
+		}
+		System.out.println(content);
 		return content;
 	}
 
