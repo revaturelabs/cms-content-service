@@ -12,10 +12,9 @@ spring:
 ---
 spring:
   profiles: dev
-
-server:
-  port: 9002
-
+  cloud:
+    config:
+      uri: ${CONFIG_URL}
 eureka:   
  client:
    service-url:
