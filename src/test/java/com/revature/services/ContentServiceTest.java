@@ -7,6 +7,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testng.annotations.BeforeClass;
@@ -169,8 +171,19 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		secondContentSet = contServe.getAllContent();
 		assertTrue(contServe.getAllContent().equals(secondContentSet));
 	}
-
-	
+	//author Robert 
+	@Test 
+	public void testGetLinksByContentId() 
+	{
+	    Link testLink1 = new Link(1,testContent,null, "affiliation1", 1);
+	    Link testLink2 = new Link(2,testContent,null, "affiliation2", 2);
+	    Link testLink3 = new Link(3,testContent,null, "affiliation3", 3);
+	    Set<Link> linkSet = new HashSet<Link>();
+	    linkSet.add(testLink1); linkSet.add(testLink2); linkSet.add(testLink3);
+	    
+	    when(linkRep.findByContentId(testLink2.getId())).thenReturn((linkSet));
+	    assertTrue(contServe.getLinksByContentId(testLink2.getId()).equals(linkSet));
+	}
 	/*
 	 * This method tests the functionality of the .getFormatCount(String) method within the ContentServiceImpl class
 	 * */
@@ -178,17 +191,20 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetFormatCount_StringVersion()
 	{
-		secondContentSet = contServe.getAllContent();
-		for(Content item: secondContentSet)
-		{
-			contentList.add(item);
-		}
-		when(contRep.findAll()).thenReturn(contentList);
-		contentByFormat = contServe.getFormatCount(contentFormats);
-		secondContentByFormat = contServe.getFormatCount(contentFormats);
-		assertTrue(contentByFormat.equals(secondContentByFormat));
+		String [] mockArray = {"Java"};
+		Set<Content> mockSet = new HashSet<Content>();
+		Content mockContent = new Content(1, "title", "Java", "OOPL", "URL", 12345L, 54321L, links);
+		mockSet.add(mockContent);
+		
+		Map <String, Integer> expected = new HashMap<> ();
+		expected.put("Java", 1);
+		
+		Mockito.when(contRep.findAll()).thenReturn(mockSet);
+		Map <String, Integer> actualMap = new HashMap<> ();
+		actualMap = contServe.getFormatCount(mockArray);
+		
+		assertTrue(actualMap.equals(expected));
 	}
-	
 	
 	/*
 	 * This method tests the functionality of the .getFormatCount(content) method within the ContentServiceImpl class
@@ -196,10 +212,20 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetFormatCount_ContentVersion()
-	{
-		contentByFormat = contServe.getFormatCount(contentSet);
-		secondContentByFormat = contServe.getFormatCount(contentSet);
-		assertTrue(contentByFormat.equals(secondContentByFormat));
+	{ 
+		Set<Content> mockSet = new HashSet<Content>();
+		Content mockContent = new Content(1, "title", "Java", "OOPL", "URL", 12345L, 54321L, links);
+		Content mockContent2 = new Content(2, "title", "Hello", "OOPL", "URL", 2345L, 4321L, links);
+		mockSet.add(mockContent); mockSet.add(mockContent2);
+		
+		Map <String, Integer> expected = new HashMap<> ();
+		expected.put("Java", 1);
+		expected.put("Hello", 1);
+		
+		Map <String, Integer> actualMap = new HashMap<> ();
+		actualMap = contServe.getFormatCount(mockSet);
+	
+		assertTrue(actualMap.equals(expected));
 	}
 	
 	//Author - Carlos
