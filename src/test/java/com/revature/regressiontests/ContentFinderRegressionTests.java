@@ -283,7 +283,7 @@ public class ContentFinderRegressionTests {
 		//Check if WebElement under test and POM WebElement under test are equal
 		assertEquals(cf.submitButton, testSubmitButton);
 		//Perform POM WebElment action
-		cf.clickSubmitButton();
+		//cf.clickSubmitButton();
 		//assertTrue(testSubmitButton.isSelected());
 		//driver.manage().timeouts().implicitlyWait(10, Time)
 		String currentURL = driver.getCurrentUrl();
