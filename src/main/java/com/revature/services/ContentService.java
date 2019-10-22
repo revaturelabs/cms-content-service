@@ -27,5 +27,4 @@ public interface ContentService {
 
 	public List<Link> createLinksByContentId(int id, List<Link> links);
 	
-	public Set<Link> getLinksByCurricumId(int id);
 }

@@ -92,11 +92,6 @@ public class ContentController {
 	public ResponseEntity<Set<Link>> getLinksByContentId(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getLinksByContentId(id));
 	}
-	// return list of links attached to a given curriculum
-	@GetMapping("/curricula/{id}/links")
-	public ResponseEntity<Set<Link>> getLinksByCurricumId(@PathVariable int id) {
-		return ResponseEntity.ok(contentService.getLinksByCurricumId(id));
-		}
 	// This query returns a subset of Content based on the values of the query
 	// parameters passed in
 	// If a parameter is empty, it is not used in the filtering process.

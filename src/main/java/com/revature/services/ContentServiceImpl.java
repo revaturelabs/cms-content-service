@@ -12,12 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.entities.Content;
-import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.exceptions.InvalidContentException;
 import com.revature.exceptions.InvalidContentId;
 import com.revature.repositories.ContentRepository;
-import com.revature.repositories.CurriculumModuleRepository;
 import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.util.LogException;
@@ -32,8 +30,7 @@ public class ContentServiceImpl implements ContentService {
 	ModuleRepository mr;
 	@Autowired
 	LinkRepository lr;
-	@Autowired 
-	CurriculumModuleRepository cmR;
+
 
 	/**
 	 * create new content and store in database
@@ -167,12 +164,5 @@ public class ContentServiceImpl implements ContentService {
 		return savedLinks;
 	}
 
-
-	@Override
-	public Set<Link> getLinksByCurricumId(int id) {
-		CurriculumModule curr = cmR.findById(id);
-		Set<Link >links =curr.getModule().getLinks();
-	    return links;
-	}
 
 }

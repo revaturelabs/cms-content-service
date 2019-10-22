@@ -33,8 +33,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ContentController;
 import com.revature.entities.Content;
-import com.revature.entities.Curriculum;
-import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -47,7 +45,6 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
 	private MockMvc mvc;
 	private ObjectMapper objMapper = new ObjectMapper();
-	private static final int ID1 = 1;
 	private static final int id = 1;
 	private static final String subject = "subject";
 	private static final long created = 1;
@@ -315,16 +312,4 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(actual, convertToJSONContentSetString(expected), "Failed to find content");
 	}
 	
-	@Test
-	public void getLinksByCurricumId() throws Exception {
-		CurriculumModule curr =new CurriculumModule ();
-		curr.setId(ID1);
-		link = new Link (id,new Content(),new Module(),affiliation,priority);
-		Set<Link >links=new HashSet<>();
-		links.add(link);
-		Mockito.when(cs.getLinksByCurricumId(curr.getId())).thenReturn(links);
-		
-		ResultActions result = mvc.perform(get("/content/"+"/curricula/"+ID1+"/links"));
-		result.andExpect(status().isOk());
-	}
 }
