@@ -31,7 +31,6 @@ public class ContentServiceImpl implements ContentService {
 	@Autowired
 	LinkRepository lr;
 
-
 	/**
 	 * create new content and store in database
 	 */
@@ -163,6 +162,5 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return savedLinks;
 	}
-
 
 }

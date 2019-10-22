@@ -92,23 +92,22 @@ public class ContentController {
 	public ResponseEntity<Set<Link>> getLinksByContentId(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getLinksByContentId(id));
 	}
+
 	// This query returns a subset of Content based on the values of the query
 	// parameters passed in
 	// If a parameter is empty, it is not used in the filtering process.
 	// modules is a string in comma separated format of integers ex. "1,2,3,4"
+	
+	//Change this to tokenize the format input the same way we do modules
 	@LogException
 	@GetMapping(params = { "title", "format", "modules" })
 	public ResponseEntity<Set<JSONContent>> getSearchResults(
 			@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "format", required = false) String format,
-			@RequestParam(value = "modules", required = false) String modules) {
-		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
-		StringTokenizer st = new StringTokenizer(modules, ",");
-		while (st.hasMoreTokens()) {
-			moduleIdsList.add(Integer.parseInt(st.nextToken()));
-		}
-
-		Set<Content> contentSet = searchService.filter(title, format, moduleIdsList);
+			@RequestParam(value = "format", required = false) List<String> formats,
+			@RequestParam(value = "modules", required = false) List<Integer> modules) {
+		
+		
+		Set<Content> contentSet = searchService.filter(title, formats, modules);
 		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
 		for (Content content : contentSet) {
 			JSONContent jc = contentToJSONContent(content);
