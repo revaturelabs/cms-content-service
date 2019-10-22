@@ -37,7 +37,6 @@ public class LinkServiceImpl implements LinkService {
 		return links;
 	}
 
-
 	@Override
 	public Link getLinkById(int id) {
 		return lr.findById(id);

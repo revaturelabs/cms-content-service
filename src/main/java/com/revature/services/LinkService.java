@@ -3,7 +3,6 @@ package com.revature.services;
 import java.util.ArrayList;
 import java.util.Set;
 
-import com.netflix.ribbon.proxy.annotation.Content;
 import com.revature.entities.Link;
 
 public interface LinkService {

@@ -1,7 +1,6 @@
 package com.revature.controllers;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.JSONEntities.JSONContent;
-import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.services.LinkService;
 import com.revature.util.LogException;
@@ -43,24 +40,6 @@ public class LinkController {
 
 		return ResponseEntity.ok(linkService.createLink(link));
 	}
-	/*
-	 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<JSONContent> createContent(@RequestBody JSONContent jsonContent) throws Exception {
-		List<Link> links = new ArrayList<Link>();
-		Content content = jsonContentToContent(jsonContent);
-		content = contentService.createContent(content);
-		jsonContent.setId(content.getId());
-		if (jsonContent.getLinks() != null) {
-			for (Link link : jsonContent.getLinks()) {
-				link.setContent(content);
-				links.add(link);
-			}
-			contentService.createLinksByContentId(content.getId(), links);
-		}
-		return ResponseEntity.ok(jsonContent);
-	}
-	 
-	 */
 
 	// Returns all links
 	@GetMapping()

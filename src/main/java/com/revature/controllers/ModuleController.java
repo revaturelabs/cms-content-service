@@ -85,7 +85,7 @@ public class ModuleController {
 		}
         return ResponseEntity.ok(jsonModules);
     }
-		
+	
 	//get all links by given module
 	@GetMapping("/{id}/links")
 	public ResponseEntity<Set<Link>> getLinksByModuleId(@PathVariable int id) {
@@ -103,6 +103,7 @@ public class ModuleController {
 	public ResponseEntity<Module> updateModule(@PathVariable("id") int id, @RequestBody Module module) {
 		return ResponseEntity.ok(moduleService.updateModule(module));
 	}
+
 	// update link s based on module Id
 	@PutMapping(value = "{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<Link>> updateLinksById(@RequestBody Set<Link> links, @PathVariable int id) {

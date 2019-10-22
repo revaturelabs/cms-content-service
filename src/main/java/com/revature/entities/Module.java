@@ -167,6 +167,7 @@ public class Module {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Module [id=" + id + ", subject=" + subject + ", created=" + created + ", parents=" + parents + "]";

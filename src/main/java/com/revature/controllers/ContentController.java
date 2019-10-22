@@ -67,7 +67,6 @@ public class ContentController {
 		return ResponseEntity.ok(contentService.createLinksByContentId(id, links));
 	}
 
-
 	// Returns all Content
 	@GetMapping()
 	public ResponseEntity<Set<JSONContent>> getAllContent() {
@@ -79,6 +78,7 @@ public class ContentController {
 		}
 		return ResponseEntity.ok(jsonContent);
 	}
+
 	// Returns specific content
 	@GetMapping(value = "{id}")
 	public ResponseEntity<JSONContent> getContentById(@PathVariable int id) {
@@ -92,14 +92,11 @@ public class ContentController {
 	public ResponseEntity<Set<Link>> getLinksByContentId(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getLinksByContentId(id));
 	}
-	
-	// return list of  links attached to a given curriculum
-	@GetMapping("/{id}/curriculum")
+	// return list of links attached to a given curriculum
+	@GetMapping("//curriculum/{id}/links")
 	public ResponseEntity<Set<Link>> getLinksByCurricumId(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getLinksByCurricumId(id));
-	}
-	
-
+		}
 	// This query returns a subset of Content based on the values of the query
 	// parameters passed in
 	// If a parameter is empty, it is not used in the filtering process.

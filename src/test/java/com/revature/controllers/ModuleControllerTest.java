@@ -13,13 +13,6 @@ import java.util.Set;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.cmsforce.CMSforceApplication;
-import com.revature.entities.Content;
-import com.revature.entities.Link;
-import com.revature.entities.Module;
-import com.revature.entities.ReqLink;
-import com.revature.services.ModuleService;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -32,6 +25,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import com.revature.cmsforce.CMSforceApplication;
+import com.revature.controllers.ModuleController;
+import com.revature.entities.Content;
+import com.revature.entities.Link;
+import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
+import com.revature.services.ModuleService;
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ModuleControllerTest extends AbstractTestNGSpringContextTests {

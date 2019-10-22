@@ -51,6 +51,8 @@ public class ContentServiceImpl implements ContentService {
 		//return the saved content
 		return content;
 	}
+	
+
 	/**
 	 * Get all the content from the database and passes a set of content objects
 	 */
@@ -62,6 +64,7 @@ public class ContentServiceImpl implements ContentService {
 		return contents;
 	}
 
+	
 	/**
 	 * get content from the data base that match a passed in id
 	 * then returns the content with that id.
@@ -71,7 +74,7 @@ public class ContentServiceImpl implements ContentService {
 	public Content getContentById(int id) {	
 		return cr.findById(id);
 	}
-
+	
 	/**
 	 * gets formats and cycles through all elements in DB to return
 	 * how many times each format is used. 
@@ -163,19 +166,13 @@ public class ContentServiceImpl implements ContentService {
 		}
 		return savedLinks;
 	}
-	
-	/**
-	 * get contents that included in certain curriculum from the data 
-	 * based on curriculum Id.
-	 */
+
+
 	@Override
 	public Set<Link> getLinksByCurricumId(int id) {
-
 		CurriculumModule curr = cmR.findById(id);
 		Set<Link >links =curr.getModule().getLinks();
 	    return links;
 	}
-
-
 
 }

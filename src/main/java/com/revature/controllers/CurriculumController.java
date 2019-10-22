@@ -3,11 +3,6 @@ package com.revature.controllers;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.revature.entities.Curriculum;
-import com.revature.entities.CurriculumModule;
-import com.revature.services.CurriculumModuleService;
-import com.revature.services.CurriculumService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.revature.entities.CurriculumModule;
+import com.revature.entities.Curriculum;
+import com.revature.services.CurriculumModuleService;
+import com.revature.services.CurriculumService;
 
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
