@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ContentFinder {
+	
 	public String url = "http://localhost:4200/finder";
 	public WebDriver driver;
 	//Set up user input WebElements for the Page Object Model
@@ -35,20 +36,52 @@ public class ContentFinder {
 	}
 	
 	//Interactive methods
+	/**
+	 * Input String into titleBox WebElement
+	 * 
+	 * @param title String title to be entered into titleBox HTML input element
+	 */
 	public void inputToTitleBox(String title) {
 		this.titleBox.sendKeys(title);
 	}
-	
+	/**
+	 * Input String into LoadModulesBox WebElement
+	 * 
+	 * @param modules String modules to be entered into loadModulesBox HTML 
+	 * input element
+	 */
 	public void inputToLoadModulesBox(String modules) {
 		this.loadModulesBox.sendKeys(modules);
 	}
 	
+	/**
+	 * Simulate clicking the clear loadModulesBox cross WebElement
+	 */
 	public void clearLoadModulesBox() {
 		this.clearLoadModulesBox.click();
 	}
 	
+	/**
+	 * Simulate clicking the Code Radio Button option WebElement
+	 */
 	public void clickCodeRadioButton() {
 		Actions actions = new Actions(driver);
 		actions.moveToElement(codeRadioButton).click().perform();
+	}
+	
+	/**
+	 * Simulate clicking the Document Radio Button option WebElement
+	 */
+	public void clickDocumentRadioButton() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(documentRadioButton).click().perform();
+	}
+	
+	/**
+	 * Simulate clicking the Powerpoint Radio Button option WebElement
+	 */
+	public void clickPowerpointRadioButton() {
+		Actions actions = new Actions(driver);
+		actions.moveToElement(powerpointRadioButton).click().perform();
 	}
 }
