@@ -209,9 +209,9 @@ public class SearchServiceTest {
 	public void filterTest() {
 		 List<Integer> moduleIds = new ArrayList<Integer>();
 
-		Content content1 = new Content(1, "title 1", "format", "something", "http://blah.com",
+		Content content1 = new Content(1, "title 1", "format1", "something", "http://blah.com",
 					1L, 1L, new HashSet<Link>());
-		Content content2 = new Content(2, "title 2", "format", "something else", "http://blah2.com",
+		Content content2 = new Content(2, "title 2", "format2", "something else", "http://blah2.com",
 					1L, 1L, new HashSet<Link>());
 
 		Set<Content> expected = new HashSet<Content>();
@@ -231,7 +231,7 @@ public class SearchServiceTest {
 		formats.add(format2);
 		
 		//given
-		Mockito.when(crMock.findByFormat("format")).thenReturn(expected);
+		Mockito.when(crMock.findByFormat("format1")).thenReturn(expected);
 		Mockito.when(crMock.findByTitle("title 1")).thenReturn(expected2);
 		Mockito.when(csMock.getAllContent()).thenReturn(expected);
 
