@@ -61,7 +61,9 @@ public class MetricsController {
 
 		contents = contentService.getAllContent();
 		filtContents = searchService.filterContent(contents, filter);
+
 		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
+
 		Set<Module> modules = moduleService.getAllModules();
 		int modSize = modules.size();
 
@@ -79,6 +81,7 @@ public class MetricsController {
 		Integer numDoc = 0;
 		if (contentFormats.containsKey("Document"))
 			numDoc = contentFormats.get("Document");
+
 		Integer numPpt = 0;
 		if (contentFormats.containsKey("Powerpoint"))
 			numPpt = contentFormats.get("Powerpoint");
