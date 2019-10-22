@@ -229,8 +229,9 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 		matches.add(request2);
 
 		ArrayList<Integer> modList = new ArrayList<Integer>();
+		ArrayList<String> formatList = new ArrayList<String>();
 
-		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
+		Mockito.when(ss.filterReq(title, formatList, modList)).thenReturn(matches);
 
 		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param("title", title).param("format", format).param("modules", modules));
@@ -251,8 +252,9 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 		matches.add(request2);
 
 		ArrayList<Integer> modList = new ArrayList<Integer>();
+		ArrayList<String> formatList = new ArrayList<String>();
 
-		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
+		Mockito.when(ss.filterReq(title, formatList, modList)).thenReturn(matches);
 
 		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param("title", title).param("format", format).param("modules", modules));
@@ -261,7 +263,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 				new TypeReference<Set<JSONRequest>>() {
 				});
 
-		Mockito.verify(ss).filterReq(title, format, modList);
+		Mockito.verify(ss).filterReq(title, formatList, modList);
 		Assert.assertEquals(actual, convertToJSONRequests(matches), "Failed to retrieve expected search");
 	}
 
@@ -278,10 +280,11 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 		matches.add(request2);
 
 		ArrayList<Integer> modList = new ArrayList<Integer>();
+		ArrayList<String> formatList = new ArrayList<String>();
 		modList.add(1);
 		modList.add(2);
 
-		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
+		Mockito.when(ss.filterReq(title, formatList, modList)).thenReturn(matches);
 
 		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param("title", title).param("format", format).param("modules", modules));
@@ -303,8 +306,10 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 		ArrayList<Integer> modList = new ArrayList<Integer>();
 		modList.add(1);
 		modList.add(2);
+		
+		ArrayList<String> formatList = new ArrayList<String>();
 
-		Mockito.when(ss.filterReq(title, format, modList)).thenReturn(matches);
+		Mockito.when(ss.filterReq(title, formatList, modList)).thenReturn(matches);
 
 		ResultActions result = mvc.perform(get("/requests").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param("title", title).param("format", format).param("modules", modules));
@@ -313,7 +318,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 				new TypeReference<Set<JSONRequest>>() {
 				});
 
-		Mockito.verify(ss).filterReq(title, format, modList);
+		Mockito.verify(ss).filterReq(title, formatList, modList);
 		Assert.assertEquals(actual, convertToJSONRequests(matches), "Failed to retrieve expected search");
 	}
 

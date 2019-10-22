@@ -94,19 +94,11 @@ public class RequestController {
 	@LogException
 	@GetMapping(params = { "title", "format", "modules" })
 	public ResponseEntity<Set<JSONRequest>> getSearchResults(@RequestParam(value = "title", required = false) String title,
-			@RequestParam(value = "format", required = false) String format,
-			@RequestParam(value = "modules", required = false) String modules) {
-		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
-		if (modules != null)
-		{
-			StringTokenizer st = new StringTokenizer(modules, ",");
-			while (st.hasMoreTokens())
-			{
-				moduleIdsList.add(Integer.parseInt(st.nextToken()));
-			}
-		}
+			@RequestParam(value = "format", required = false) List<String> format,
+			@RequestParam(value = "modules", required = false) List<Integer> modules) {
 		
-		Set<Request> requests = searchService.filterReq(title, format, moduleIdsList);
+		
+		Set<Request> requests = searchService.filterReq(title, format, modules);
 		Set<JSONRequest> jsonRequests = new HashSet<JSONRequest>();
 		for (Request request : requests) {
 			JSONRequest jr = requestToJSONRequest(request);
