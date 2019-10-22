@@ -25,8 +25,7 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	@Mock
 	private CurriculumRepository crMock;
 	private Curriculum curriculum;
-
-		
+	
 	/**
 	 * This will add some of the setup needed to use spring
 	 * 
