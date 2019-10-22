@@ -15,7 +15,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Curriculum;
-import com.revature.entities.CurriculumModule;
 import com.revature.repositories.CurriculumRepository;
 
 @SpringBootTest(classes = CMSforceApplication.class)
