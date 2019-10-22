@@ -33,7 +33,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ContentController;
 import com.revature.entities.Content;
+import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
+import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
 import com.revature.services.ContentService;
 import com.revature.services.SearchService;
 import com.revature.testingutils.ContentFactory;
@@ -43,6 +47,15 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
 	private MockMvc mvc;
 	private ObjectMapper objMapper = new ObjectMapper();
+	private static final int ID1 = 1;
+	private static final int id = 1;
+	private static final String subject = "subject";
+	private static final long created = 1;
+	private static final String affiliation = "affiliation";
+	private static final int priority = 0;
+	private static Set<Link> links = new HashSet<>();
+	private static Link link = new Link (id,new Content(),new Module(),affiliation,priority);
+
 
 	@InjectMocks
 	private ContentController cc;
@@ -53,6 +66,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	@Mock
 	private SearchService ss;
 	private Content content;
+	private Module module;
 
 	/**
 	 * Initialize Mockito and mocking dependencies
@@ -71,6 +85,14 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	@BeforeTest
 	public void preTestSetup() {
 		content = ContentFactory.getContent();
+		 links = new HashSet<Link> ();
+			//caution: content and module not sprint beans here
+
+			 link = new Link (id,new Content(),new Module(),affiliation,priority);
+
+			links.add(link);
+			module = new Module(id, subject, created, links, new HashSet<ReqLink>(), new HashSet<Module>(),
+					new HashSet<Module>());
 	}
 
 	/**
@@ -291,5 +313,18 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		ResultActions result = mvc.perform(get("/content").param(params[0], content.getTitle()).param(params[1], content.getFormat()).param(params[2], "1"));
 		String actual = result.andReturn().getResponse().getContentAsString();
 		assertEquals(actual, convertToJSONContentSetString(expected), "Failed to find content");
+	}
+	
+	@Test
+	public void getLinksByCurricumId() throws Exception {
+		CurriculumModule curr =new CurriculumModule ();
+		curr.setId(ID1);
+		link = new Link (id,new Content(),new Module(),affiliation,priority);
+		Set<Link >links=new HashSet<>();
+		links.add(link);
+		Mockito.when(cs.getLinksByCurricumId(curr.getId())).thenReturn(links);
+		
+		ResultActions result = mvc.perform(get("/content/"+"/curricula/"+ID1+"/links"));
+		result.andExpect(status().isOk());
 	}
 }
