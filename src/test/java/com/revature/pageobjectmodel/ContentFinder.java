@@ -73,28 +73,11 @@ public class ContentFinder {
 	}
 	
 	/**
-	 * Simulate clicking given radio button option WebElement
-	 * 
-	 * @param radioButton WebElement radioButton to be clicked
-	 */
-	public void clickRadioButton(WebElement radioButton) {
-		Actions actions = new Actions(driver);
-		actions.moveToElement(radioButton).click().perform();
-	}
-	
-	/**
 	 * Simulate clicking given button WebElement
 	 * 
 	 * @param button WebElement button to be clicked
 	 */
 	public void clickButton(WebElement button) {
 		button.click();
-	}
-	
-	/**
-	 * Simulate clicking the submit button WebElement
-	 */
-	public void clickSubmitButton() {
-		this.submitButton.click();
 	}
 }
