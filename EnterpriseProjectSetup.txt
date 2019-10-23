@@ -1,0 +1,210 @@
+
+BASIC STARTUP FOR ENTERPRISE PROJECT W MICROSERVICES, DATABASE, ANGULAR
+
+0. Environment
+Please have the following downloaded and installed before continuing:
+
+Java EE 8, Maven, Eclipse (or STS, which will require installation, but should be more intuitive), Angular CLI, npm, Git, SQL Developer, and RDS
+1. Clone git repo
+Open Git-Bash or similar console
+
+CD into the location you want to set up the project
+
+Install meta (this allows you to run git commands across multiple repositories):
+
+npm i -g meta
+
+Create a new directory for your meta-project mkdir [folder name]
+
+Initialize a new git repository in your new dir:
+
+cd [folder name] && git init
+
+Initialize your new repository as a meta repo:
+
+meta init
+
+Clone the meta-repository and cd into it
+
+meta git clone https://github.com/revaturelabs/cms-meta.git
+
+cd cms-meta
+
+Checkout each repository to dev (except cms-config):
+
+meta git checkout dev
+
+8a. Wait, what do you mean by 'each repository'?
+
+meta git is a project for managing multi-project systems and repositories. CMS is a multi-repository project. Hence, the usage of meta.
+
+Checkout from the dev branch, creating a new branch for each feature
+
+Direct interaction with the dev branch is restricted.
+
+git checkout [new-branch-name]
+Replace [new-branch-name] with the new branch name.
+
+in each repository (except cms-config):
+
+git checkout -b [name-of-new-branch]
+There should be one shared branch per feature.
+Make sure to pull changes from the dev branch into your feature branch regularly to avoid merge conflicts.
+
+2. Install Docker
+Docker is used to set up a postgres database; this section can be skipped if you use an RDS
+1. Windows 10
+1a. Windows 10 Home
+
+Here's the link for Docker Toolbox.
+1b. Windows 10 Pro
+
+Go to the Docker homepage
+
+Install and enjoy!
+
+2. Linux (all flavors)
+Here's the guide for Ubuntu/Debian.
+
+Here are the downloads
+
+3. macOS
+Use the same link for Windows 10 Pro. Nobody in our batch had a Mac.
+3. Generate Local Database
+Note: you can replace postdb with whatever you want to call your database image.
+
+Navigate to the cms-content-service root folder. Ensure that there is a scripts folder.
+
+Build the image
+
+docker build -t postdb scripts
+Run the Docker image
+docker run -p 5432:5432 postdb
+X. Some additional commands
+
+List all docker containers
+docker container ls
+Stop Docker container assigned_name Docker assigns a name to each running instance.
+docker container stop assigned_name
+Delete Docker image postdb
+docker container rm postdb
+4. Setup Workspace
+You do not need to do the steps for each of these sections. The following instructions are for setting up your preferred workspace. But as you implement features that require going through the full stack, it might be a good idea to set up both Eclipse and VS Code.
+
+4.1. Setup VS Code
+In VS Code, install the Spring Boot Extension Pack extension.
+
+Run all of the services from the dashboard in the bottom left.
+
+2a. They will not all succeed. This is fine.
+
+Shut down any services that stayed up and running.
+
+Go to the launch.json file that was generated.
+
+Add "env":{ "spring_profiles_active":"local" } to all of the services.
+
+5a. Change "local" to "test" for the content service.
+
+5b. If you're still encountering any issues, add the following to launch.json:
+
+{
+     "type": "java",
+     "name": "Spring Boot-CMSforceApplication<CMSforce>",
+     "request": "launch",
+     "cwd": "${workspaceFolder}/content-service",
+     "console": "internalConsole",
+     "mainClass": "com.revature.cmsforce.CMSforceApplication",
+     "projectName": "CMSforce",
+     "args": "",
+     "env":{
+         "spring_profiles_active":"local",
+         "DB_URL": "jdbc:postgresql://localhost:5432/projectthree",
+         "DB_USER": "projectthree",
+         "DB_PASS": "password"
+     }
+ }
+Run the services in this order: Eureka, Config Server, MicroZ (Zuul), Content Service (may show up as CMSforce).
+
+4.2. Setup Eclipse
+In Eclipse, install the Spring extension.
+
+Right click each service and click 'Run as'.
+
+2a. If you can't find it, go to Window -> Show View -> Other ... -> search for 'Boot'.
+
+Change the environment variables to have "spring_profiles_active" be set to "local".
+
+3a. Change "local" to "test" for the content service.
+
+3b. Right click on project -> open Configuration -> Environment tab -> New... button
+
+Run the services in this order: Eureka, Config Server, MicroZ (Zuul), Content Service (may show up as CMSforce).
+
+4.3 Set up STS
+In STS, go to File -> Open Projects from the file system
+
+Import all projects from cms-meta
+
+Note
+Only run the following projects through one IDE.
+
+5. Run Servers
+TL:DR: Eureka -> Config -> Zuul -> Content
+
+5.1 Eureka Default Zone
+Discovery service
+Right-click on the service, run as configurations, make sure that it is showing the correct service, navigate to the environment variables tab
+Add spring_profiles_active as the name and local as the value
+5.2 Config Server
+Centralized configuration
+Navigate to the environment variables tab
+Add spring_profiles_active - local
+5.3 Zuul Default Zone
+You'll want to set your Zuul's defautZone to wherever you are hosting your Eureka(discovery) server.
+Navigate to the environment variables tab
+Add spring_profiles_active - local
+5.4 Application Server (CMSForce)
+Content service
+Navigate to the environment variables tab
+Add spring_profiles_active - local
+Setup Content Service Environment Variables
+Add the following to the environment variables tab:
+
+DB_URL - Url connection to the database
+
+See here for how to format your database URL
+DB_USER - Username for the database
+
+DB_PASS - Password for the database
+
+EUREKA_URL - Url to the discovery service
+
+spring_profiles_active - local
+
+Authentication-Service
+User service
+Login and registration features
+Navigate to the environment variables tab
+Add spring_profiles_active - local
+Run the services:
+If you set up windows, or OS environment variables, you will have to restart STS for it to have access to the OS environment variables if STS was running during setup.
+In STS, all of the services must be ran as a Spring Boot App
+Run -> Run Configurations -> Profile: local -> Apply for all 4 services
+Run Eureka Discovery Service
+Run Config Server
+Run Zuul Gateway Service
+Run Content Service (again, may go by CMSforce in your IDE)
+Run Authentication-Service (batches are not currently (Sep 2019) responsible for Authentication)
+Run the Angular front end
+In a command line, navigate to the frontend directory of cms-meta
+
+Install the dependencies:
+
+npm install
+
+Run the Angular development server
+
+ng serve
+
+In your browser, navigate to http://localhost:4200/
