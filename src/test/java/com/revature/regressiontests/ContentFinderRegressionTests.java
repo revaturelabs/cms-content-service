@@ -532,31 +532,34 @@ public class ContentFinderRegressionTests {
 		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
-		//Create a reference to the titleBox WebElement
-		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
-		//Check if titleBox WebElement is not null
-		assertNotNull(testTitleBox);
-		//Check if titleBox WebElement and POM titleBox WebElement are equal
-		assertEquals(cf.titleBox, testTitleBox);
-		//Perform POM titleBox WebElement action
-		cf.inputToTitleBox(testTitle);
-		//Check if POM titleBox WebElement action succeeded
-		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
 		
-		//create a reference to the powerpointButton WebElement
+		//Create references to WebElements under test
+		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
 		WebElement testPowerpointButton = driver.findElement(By.xpath("//*[@id='Powerpoint']"));
-		//check if powerpointButton WebElement is not null
+		
+		//Check if WebElements under test are not null
+		assertNotNull(testTitleBox);
 		assertNotNull(testPowerpointButton);
-		//Check if powerpointButton WebElement and POM powerointButton WebElement are equal
+		
+		//Check if local WebElements and POM WebElements are equal
+		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.powerpointButton, testPowerpointButton);
-		//Store pre click powerpointButton class value for later assertion
+		
+		//Store pre click classes of content type buttons
 		String preClickClassPowerpointButton = cf.powerpointButton.getAttribute("class");
-		//Perform POM powerointButton WebElement action
+		
+		//Perform POM WebElements actions
+		cf.inputToTitleBox(testTitle);
 		cf.clickButton(cf.powerpointButton);
-		//Check if POM powerpointButton WebElement action succeeded
+		
+		//Verify POM WebElements actions succeeded
+		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
 		assertNotEquals(cf.powerpointButton.getAttribute("class"), preClickClassPowerpointButton);
-		//Check if POM powerpointButton WebElement post click class contains btn-secondary
+		
+		//Store post click classes of content type buttons
 		String postClickClassPowerpointButton = cf.powerpointButton.getAttribute("class");
+		
+		//Verify post click classes of content type buttons contain btn-secondary
 		assertTrue(postClickClassPowerpointButton.contains("btn-secondary"));
 
 		//Wait until submitButton WebElement is visible
@@ -584,31 +587,34 @@ public class ContentFinderRegressionTests {
 		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
-		//Create a reference to the titleBox WebElement
-		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
-		//Check if titleBox WebElement is not null
-		assertNotNull(testTitleBox);
-		//Check if titleBox WebElement and POM titleBox WebElement are equal
-		assertEquals(cf.titleBox, testTitleBox);
-		//Perform POM titleBox WebElement action
-		cf.inputToTitleBox(testTitle);
-		//Check if POM titleBox WebElement action succeeded
-		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
 		
-		//Create a reference to the documentButton WebElement
+		//Create references to WebElements under test
+		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
 		WebElement testDocumentButton = driver.findElement(By.xpath("//*[@id='Document']"));
-		//check if documentButton WebElement is not null
+		
+		//Check if WebElements under test are not null
+		assertNotNull(testTitleBox);
 		assertNotNull(testDocumentButton);
-		//Check if documentButton WebElement and POM documentButton WebElement are equal
+		
+		//Check if local WebElements and POM WebElements are equal
+		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.documentButton, testDocumentButton);
-		//Store pre click documentButton class value for later assertion
+		
+		//Store pre click classes of content type buttons
 		String preClickClassDocumentButton = cf.documentButton.getAttribute("class");
-		//Perform POM documentButton WebElement action
+		
+		//Perform POM WebElements actions
+		cf.inputToTitleBox(testTitle);
 		cf.clickButton(cf.documentButton);
-		//Check if POM documentButton WebElement action succeeded
+		
+		//Verify POM WebElements actions succeeded
+		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
 		assertNotEquals(cf.documentButton.getAttribute("class"), preClickClassDocumentButton);
-		//Check if POM documentButton WebElement post click class contains btn-secondary
+		
+		//Store post click classes of content type buttons
 		String postClickClassDocumentButton = cf.documentButton.getAttribute("class");
+
+		//Verify post click classes of content type buttons contain btn-secondary
 		assertTrue(postClickClassDocumentButton.contains("btn-secondary"));
 
 		//Wait until submitButton WebElement is visible
@@ -636,31 +642,34 @@ public class ContentFinderRegressionTests {
 		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
-		//Create a reference to the titleBox WebElement
+		
+		//Create references to WebElements under test
 		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
-		//Check if titleBox WebElement is not null
+		WebElement testCodeButton = driver.findElement(By.xpath("//*[@id='Code']"));
+		
+		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
-		//Check if titleBox WebElement and POM titleBox WebElement are equal
+		assertNotNull(testCodeButton);
+		
+		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
-		//Perform POM titleBox WebElement action
+		assertEquals(cf.codeButton, testCodeButton);
+		
+		//Store pre click classes of content type buttons
+		String preClickClassCodeButton = cf.codeButton.getAttribute("class");
+		
+		//Perform POM WebElements actions
 		cf.inputToTitleBox(testTitle);
+		cf.clickButton(cf.codeButton);
+		
 		//Check if POM titleBox WebElement action succeeded
 		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
-		
-		//Create a reference to the codeButton WebElement
-		WebElement testCodeButton = driver.findElement(By.xpath("//*[@id='Code']"));
-		//Check if codeButton WebElement is not null
-		assertNotNull(testCodeButton);
-		//Check if codeButton WebElement and POM codeButton WebElement are equal
-		assertEquals(cf.codeButton, testCodeButton);
-		//Store pre click codeButton class value for later assertion
-		String preClickClassCodeButton = cf.codeButton.getAttribute("class");
-		//Perform POM codeButton WebElement action
-		cf.clickButton(cf.codeButton);
-		//Check if POM codeButton WebElement action succeeded
 		assertNotEquals(cf.codeButton.getAttribute("class"), preClickClassCodeButton);
-		//Check if POM codeButton WebElement post click class contains btn-secondary
+		
+		//Store post click classes of content type buttons
 		String postClickClassCodeButton = cf.codeButton.getAttribute("class");
+		
+		//Verify post click classes of content type buttons contain btn-secondary
 		assertTrue(postClickClassCodeButton.contains("btn-secondary"));
 
 		//Wait until submitButton WebElement is visible
