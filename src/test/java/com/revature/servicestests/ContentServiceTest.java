@@ -105,7 +105,7 @@ public class ContentServiceTest extends AbstractTestNGSpringContextTests
 		mockContent.setDescription("Bloohbitty");
 		mockContent.setUrl("www.blahbitty.com");
 //		//Create a new Link object
-		mockLink = new Link(3,mockContent, null, "stuff");
+		mockLink = new Link(3,mockContent, null, "stuff", 1);
 //		//create a new HashSet of Link objects
 		links = new HashSet<Link>();
 //		//Add the mock link to the list of links
@@ -304,9 +304,9 @@ public class ContentServiceTest extends AbstractTestNGSpringContextTests
 		
 		int dummyId = 1;
 		
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1", 1);
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2", 1);
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3", 1);
 
 		Set<Link> expected = new HashSet<>();
 		expected.add(link1);
@@ -327,9 +327,9 @@ public class ContentServiceTest extends AbstractTestNGSpringContextTests
 		
 		int dummyId = 1;
 		
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1", 1);
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2", 1);
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3", 1);
 
 		List<Link> expected = new ArrayList<>();
 		expected.add(link1);
@@ -358,9 +358,9 @@ public class ContentServiceTest extends AbstractTestNGSpringContextTests
 		
 		int dummyId = 1;
 		
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1", 1);
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2", 1);
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3", 1);
 
 		List<Link> expected = new ArrayList<>();
 		expected.add(link1);
