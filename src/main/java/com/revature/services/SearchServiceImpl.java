@@ -192,7 +192,15 @@ public class SearchServiceImpl implements SearchService {
 			
 			content = Sets.intersection(content, this.filterContentByCurriculaIds(curriculaIds));
 			
+			for(Content c : content) {
+				
+				if(c != null && c.getLinks().isEmpty()) {
+					content.remove(c);
+				}
+			}
 		}
+		
+		
 		// this is an AND search, if you want to do an OR search, just use the
 		// <set>.addAll() method instead of the Sets.intersection() method
 		return content;
