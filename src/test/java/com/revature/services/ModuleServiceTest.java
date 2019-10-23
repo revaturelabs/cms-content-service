@@ -1,3 +1,4 @@
+
 package com.revature.services;
 
 import static org.testng.Assert.assertTrue;
@@ -5,9 +6,6 @@ import static org.testng.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.revature.entities.*;
-import com.revature.repositories.LinkRepository;
-import com.revature.repositories.ReqLinkRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -15,12 +13,19 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import com.revature.cmsforce.CMSforceApplication;
+import com.revature.entities.Content;
+import com.revature.entities.Link;
+import com.revature.entities.Module;
+import com.revature.entities.ReqLink;
+import com.revature.entities.Request;
+import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
-import com.revature.services.ModuleService;
-import com.revature.services.ModuleServiceImpl;
+import com.revature.repositories.ReqLinkRepository;
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
@@ -118,10 +123,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByModules() {
-
-	 	Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
+	 	Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
 
 		Set<Link> links1 = new HashSet<Link>();
 		links1.add(link1);
@@ -152,10 +156,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 */
 	@Test
 	void testGetAverageByAllModules() {
-
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
 
 		Set<Link> links1 = new HashSet<Link>();
 		links1.add(link1);
@@ -222,6 +225,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Set<Module> results = msMock.getAllRootModules();
 
 		Mockito.verify(mrMock).findAll();
+		
 		Assert.assertEquals(results, parentsOfMod1);
 	}
 
@@ -260,10 +264,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 
 	@Test
 	void testDeleteModuleWithAllContent() {
-
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
-		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3");
 
 		Set<Link> links1 = new HashSet<Link>();
 		links1.add(link1);
@@ -285,11 +288,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Test
 	void testDeleteModuleWithSpecificContent() {
 		// Given
-		
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
-		Link linkToDelete = new Link(3, new Content(), new Module(), "affiliation3",0);
-
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
+		Link linkToDelete = new Link(3, new Content(), new Module(), "affiliation3");
 
 		Set<Link> multiLinks = new HashSet<Link>();
 		multiLinks.add(link1);
@@ -329,9 +330,8 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	@Test
 	void testGetLinksByModuleId() {
 		final int id = 1;
-
-		Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
-		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
+		Link link1 = new Link(1, new Content(), new Module(), "affiliation1");
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2");
 
 		Set<Link> links = new HashSet<Link>();
 		links.add(link1);
@@ -365,15 +365,5 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(rlrMock).findByModule(mod1);
 		Assert.assertEquals(actual, reqLinks);
 	}
-	
-	@Test
-	void testUpdateLinksByModuleId () {
-		Link link = new Link(1, new Content(), new Module(), "affiliation1",0);
-		Set<Link> links = new HashSet<Link>();
-		links.add(link);
-		Set<Link> actual = msMock.updateLinksByModuleId(1, links);
-		
-		Assert.assertEquals(actual, links);
-			
-	}
 }
+

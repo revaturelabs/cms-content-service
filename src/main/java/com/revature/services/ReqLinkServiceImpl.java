@@ -1,3 +1,4 @@
+
 package com.revature.services;
 
 import java.util.HashSet;
@@ -54,7 +55,14 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 
 	@Override
 	public void deleteReqLinkById(int id) {
-		rlr.delete(rlr.findById(id));
+		//not checking for null here could be a problem
+		
+		ReqLink reqLink = rlr.findById(id);
+		if (reqLink != null) {
+			rlr.delete(reqLink);
+		}
+		
+
 	}
 
 	@Override
@@ -76,3 +84,4 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 	}
 	
 }
+

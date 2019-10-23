@@ -28,7 +28,6 @@ import com.revature.util.LogException;
 @Transactional
 @RestController
 @RequestMapping(value = "/links")
-
 public class LinkController {
 
 	@Autowired
@@ -37,7 +36,6 @@ public class LinkController {
 	// creates one Link object
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Link> createLink(@RequestBody Link link) throws Exception {
-
 		return ResponseEntity.ok(linkService.createLink(link));
 	}
 

@@ -1,3 +1,4 @@
+
 package com.revature.services;
 
 import java.util.ArrayList;
@@ -34,13 +35,18 @@ public class RequestServiceImpl implements RequestService {
 	@LogException
 	@Override
 	public Request createRequest(Request request) {
-		// set date created and date modified
-		if (request.getDateCreated() == 0L && request.getLastModified() == 0L) {
-			request.setDateCreated(System.currentTimeMillis());
-			request.setLastModified(System.currentTimeMillis());
+		
+		if (request.getDateCreated() != null && request.getLastModified() != null) {
+			if (request.getDateCreated() == 0L && request.getLastModified() == 0L) {
+				request.setDateCreated(System.currentTimeMillis());
+				request.setLastModified(System.currentTimeMillis());
+			}
 		}
+		
 		// save the content to the database
-		request = rr.save(request);
+		if (request != null) {
+			request = rr.save(request);
+		}
 		// return the saved content
 		return request;
 	}
@@ -81,7 +87,7 @@ public class RequestServiceImpl implements RequestService {
 		if (newRequest == null) {
 			throw new InvalidRequestException("updateRequest, new request is null");
 		}
-		if (Character.isDigit(newRequest.getId())) {
+		if (rr.findById(newRequest.getId()) == null) {
 			throw new InvalidRequestIdException("updateRequest, newRequest does not have a valid id");
 		}
 		return rr.save(newRequest);
@@ -149,3 +155,4 @@ public class RequestServiceImpl implements RequestService {
 		return rlr.findByRequestId(id);
 	}
 }
+

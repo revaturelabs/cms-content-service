@@ -1,3 +1,4 @@
+
 package com.revature.services;
 
 import java.util.ArrayList;
@@ -75,26 +76,29 @@ public class SearchServiceImpl implements SearchService {
 		}
 		// get all content of each module
 		for (Module module : modules) {
-
+			
 			// get links of module, the links hold the content within them
 			links = module.getLinks();
-
+			
 			// make sure tempContent is empty at the start of a new iteration
 			tempContent.clear();
-
+			
+		
 			// add content in links to tempContent so we can work with it
 			for (Link link : links) {
 				tempContent.add(link.getContent());
 			}
+			
 			// if it is the first iteration, we just want to put tempContent into content
 			if (content.isEmpty()) {
+				// this causes content to be deleted when tempContent is cleared. Cloning may handle this side effect.
 				content = tempContent;
 			}
 			// in order to only get content associated to ALL provided modules, we perform
 			// an intersection on content and tempContent
 			else {
 				content = Sets.intersection(content, tempContent);
-
+				
 				// if content is empty after the intersection, then there is no content
 				// associated with ALL provided modules
 				if (content.isEmpty()) {
@@ -271,3 +275,4 @@ public class SearchServiceImpl implements SearchService {
 		return requests;
 	}
 }
+

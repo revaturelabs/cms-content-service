@@ -1,3 +1,4 @@
+
 package com.revature.services;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class ContentServiceImpl implements ContentService {
 		}
 		//save the content to the database
 		content = cr.save(content);
+		
 		//return the saved content
 		return content;
 	}
@@ -126,7 +128,7 @@ public class ContentServiceImpl implements ContentService {
 		if(newContent == null) {
 			throw new InvalidContentException("updateContent, newContent is null");
 		}
-		if (Character.isDigit(newContent.getId())) {
+		if (cr.findById(newContent.getId()) == null) {
 			throw new InvalidContentId("updateContent, newContent does not have a valid id");
 		}
 		return cr.save(newContent);
@@ -141,6 +143,7 @@ public class ContentServiceImpl implements ContentService {
 
 	@Override
 	public Set<Link> getLinksByContentId(int id) {
+		
 		return lr.findByContentId(id);
 	}
 
@@ -164,3 +167,4 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 }
+

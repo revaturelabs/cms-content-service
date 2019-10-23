@@ -46,7 +46,14 @@ public class Link {
 		super();
 	}
 
-
+	public Link(int id, Content content, Module module, String affiliation) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.module = module;
+		this.affiliation = affiliation;
+	}
+	
 	public Link(int id, Content content, Module module, String affiliation, int priority) {
 		super();
 		this.id = id;

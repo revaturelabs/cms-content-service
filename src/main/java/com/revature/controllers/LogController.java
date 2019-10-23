@@ -29,7 +29,7 @@ public class LogController {
 	@LogException
 	@GetMapping("/log")
 	public String getLog() throws IOException {
-		StringBuilder log = new StringBuilder("[");
+		StringBuilder log = new StringBuilder("");
 	     try (BufferedReader br = Files.newBufferedReader(Paths.get("/home/ec2-user/.jenkins/workspace/CMSforce/CMSforce/src/main/resources/ErrorLog.html"))){
 	    	 String line;
 	    		 while((line = br.readLine())!=null) {
