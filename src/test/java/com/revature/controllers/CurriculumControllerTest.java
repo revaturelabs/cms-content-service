@@ -27,8 +27,11 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.CurriculumController;
+import com.revature.entities.Content;
 import com.revature.entities.Curriculum;
 import com.revature.entities.CurriculumModule;
+import com.revature.entities.Link;
+import com.revature.entities.Module;
 import com.revature.services.CurriculumModuleService;
 import com.revature.services.CurriculumService;
 
@@ -188,5 +191,17 @@ public class CurriculumControllerTest {
 		String actual = result.andReturn().getResponse().getContentAsString();
 		String expected = objMapper.writeValueAsString(curriculum);
 		assertEquals(expected, actual, "Did not update curriculum correctly");
+	}
+	@Test
+	public void getLinksByCurricumId() throws Exception {
+		CurriculumModule curr =new CurriculumModule ();
+		curr.setId(ID1);
+		Link link = new Link (1,new Content(),new Module(),"affiliation",1);
+		Set<Link >links=new HashSet<>();
+		links.add(link);
+		Mockito.when(curriculumService.getLinksByCurricumId(curr.getId())).thenReturn(links);
+		
+		ResultActions result = mvc.perform(get("/curricula/"+ID1+"/links"));
+		result.andExpect(status().isOk());
 	}
 }
