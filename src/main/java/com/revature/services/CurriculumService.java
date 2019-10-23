@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.Set;
 
 import com.revature.entities.Curriculum;
+import com.revature.entities.Link;
 
 public interface CurriculumService {
 
@@ -17,6 +18,9 @@ public interface CurriculumService {
 	public Curriculum updateCurriculum(Curriculum curr);
 	
 	public void deleteCurriculum(Curriculum curr);
+	
+	public Set<Link> getLinksByCurricumId(int id);
+
 	
 	
 }
