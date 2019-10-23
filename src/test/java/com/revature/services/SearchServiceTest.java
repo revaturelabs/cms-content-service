@@ -133,16 +133,27 @@ public class SearchServiceTest {
 	public void filterContentByFlaggedFormatTest() {
 		//Local Variables
 		String format = "Flagged";
+		Set<Content> allContent  = new HashSet<Content>();
 		Set<Content> contentSetExpected  = new HashSet<Content>();
-		contentSetExpected.add(new Content(1, "title 1", "", "something", "http://blah.com",
+		
+		//Create a Content with an empty string as its format
+		Content noFormat = new Content(1, "title 1", "", "something", "http://blah.com",
+				1L, 1L, new HashSet<Link>());
+		
+		//Add the empty format Content and a non-empty format Content to a set
+		allContent.add(noFormat);
+		allContent.add(new Content(2, "title 2", "Code", "something else", "http://blah2.com",
 				1L, 1L, new HashSet<Link>()));
-		contentSetExpected.add(new Content(2, "title 2", "", "something else", "http://blah2.com",
-				1L, 1L, new HashSet<Link>()));
+		
+		//Add only the empty format content to the expected set
+		contentSetExpected.add(noFormat);
 
 		//Given
-		Mockito.when(csMock.getAllContent()).thenReturn(contentSetExpected);
+		//The getAllContent() method will return the allContent set
+		Mockito.when(csMock.getAllContent()).thenReturn(allContent);
 		
 		//When
+		//The filterContentByFormat() method should only return contents with empty formats
 		Set<Content> actual = ss.filterContentByFormat(format);
 		
 		//then
