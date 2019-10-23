@@ -43,8 +43,8 @@ public class ContentFinderRegressionTests {
 	 */
 	@AfterClass
 	public void tearDown() {
-		//driver.close();
-		//driver.quit();
+		driver.close();
+		driver.quit();
 	}
 	
 	/**

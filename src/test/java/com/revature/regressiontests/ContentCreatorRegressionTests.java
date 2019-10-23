@@ -85,7 +85,7 @@ public class ContentCreatorRegressionTests {
 		// Just a quick check to make sure the page factory can find the same element
 		assertEquals(cc.moduleFilter, moduleFilterBox);
 		// Send text input to the module filter text box
-		cc.inputToModuleFilterBox("The Big Downs");
+		cc.inputToModuleFilterBox("Java");
 		// Check that the text got sent to the correct box
 		assertEquals(cc.moduleFilter.getText(), moduleFilterBox.getText());
 	}
@@ -289,7 +289,6 @@ public class ContentCreatorRegressionTests {
 	@Test(priority=2)
 	public void testFormSubmitWithDocumentButton() {
 		driver.navigate().refresh();
-//		driver.navigate().to(url);
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
 		
@@ -369,7 +368,6 @@ public class ContentCreatorRegressionTests {
 	@Test(priority=3)
 	public void testFormSubmitWithPowerpointButton() {
 		driver.navigate().refresh();
-//		driver.navigate().to(url);
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
 		
