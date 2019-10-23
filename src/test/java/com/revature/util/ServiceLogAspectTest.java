@@ -35,7 +35,6 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass
     public void setup() {
-    	mockSerLogAspect = new ServiceLogAspect();
         MockitoAnnotations.initMocks(this);
         when(mSig.getName()).thenReturn("Method Signature");
         when(joinPoint.getSignature()).thenReturn(mSig);
