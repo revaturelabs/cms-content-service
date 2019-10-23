@@ -4,6 +4,7 @@
 	<test name="AllTests">
 		<classes>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 			<!-- These are the controller tests -->
 			<class name = "com.revature.controllers.ContentControllerTest"/>
 			<class name = "com.revature.controllers.CurriculumControllerTest"/>
@@ -27,6 +28,8 @@
 			<class name="com.revature.JSONEntities.JSONRequestTest" />
 			<!-- These are the Exception tests -->
 =======
+=======
+>>>>>>> Stashed changes
 			
 			<!-- These are the controller tests 
 			<class name="com.revature.controllertests.ContentControllerTest" />
@@ -47,6 +50,9 @@
 			<!- These are the cmsforce tests 
 			<class name="com.revature.cmsforcetests.CMSforceApplicationTest" />
 			<!- These are the Exception tests 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 			<class name="com.revature.exceptions.InvalidContentExceptionTest" />
 			<class name="com.revature.exceptions.InvalidContentIdTest" />
@@ -54,6 +60,7 @@
 			<class name="com.revature.exceptions.InvalidRequestExceptionTest" />
 			<class name="com.revature.exceptions.InvalidRequestIdExceptionTest" />
 			<class name="com.revature.exceptions.InvalidSearchExceptionTest" />
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 			<!-- These are the Service tests -->
 			<class name="com.revature.services.CurriculumServiceTest" />
@@ -70,6 +77,8 @@
 			<class name = "com.revature.util.ServiceLogAspectTest"/>
 			<class name = "com.revature.util.ExceptionAspectTest"/>	
 =======
+=======
+>>>>>>> Stashed changes
 			<!- These are the Service tests -->
 			<class name="com.revature.servicestests.TimeGraphServiceTest" />
 			<class name="com.revature.servicestests.ContentServiceTest" />
@@ -87,6 +96,9 @@
 			<class name="com.revature.utiltests.ValidationUtilTest" />
 			
 			-->
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 		</classes>
 	</test>
