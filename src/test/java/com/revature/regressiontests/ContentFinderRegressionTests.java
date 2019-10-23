@@ -43,7 +43,7 @@ public class ContentFinderRegressionTests {
 	@Test(priority=2)
 	public void testInputToTitleBox() {
 		ContentFinder cf = new ContentFinder(driver);
-		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
+		WebElement testTitleBox = driver.findElement(By.xpath("//input[@id='title']"));
 		assertNotNull(testTitleBox);
 		assertEquals(cf.titleBox, testTitleBox);
 		cf.inputToTitleBox(testTitle);
