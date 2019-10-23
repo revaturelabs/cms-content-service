@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.CurriculumModule;
+import com.revature.entities.Link;
 import com.revature.entities.Curriculum;
 import com.revature.services.CurriculumModuleService;
 import com.revature.services.CurriculumService;
@@ -48,7 +49,14 @@ public class CurriculumController {
 		Set<Curriculum> curriculums = curriculumService.getAllCurriculums();
 		return curriculums;
 	}
-    
+	@GetMapping("/{id}/links")
+	/**
+     * Mapping 'GET' request with '/curriculums' URL to CurriculumService ggetLinksByCurricumId method to get all Links Object available in database
+     * @return Links- all Links Objects available in database
+     */	
+	 public ResponseEntity<Set<Link>> getLinksByCurricumId(@PathVariable int id) {
+		return ResponseEntity.ok(curriculumService.getLinksByCurricumId(id));
+		}
 	
 	@GetMapping(value = "{id}")
 	/**
