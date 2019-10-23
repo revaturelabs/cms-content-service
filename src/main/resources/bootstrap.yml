@@ -12,7 +12,9 @@ spring:
 ---
 spring:
   profiles: dev
-
+  cloud:
+    config:
+      uri: ${CONFIG_URL}
 eureka:   
  client:
    service-url:

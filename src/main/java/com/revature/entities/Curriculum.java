@@ -21,7 +21,7 @@ public class Curriculum {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "curr_id", updatable = false, nullable = false)
+	@Column(name = "curriculum_id", updatable = false, nullable = false)
 	private int id;
 
 	@Column(name = "name", updatable = true, nullable = false)
