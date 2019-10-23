@@ -30,7 +30,7 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
 	ProceedingJoinPoint joinPoint;
 	@Mock
 	MethodSignature mSig;
-	
+	@InjectMocks
 	ServiceLogAspect serviceLogAspect;
 
     @BeforeClass
