@@ -106,7 +106,6 @@ public class ContentController {
 			@RequestParam(value = "format", required = false) List<String> formats,
 			@RequestParam(value = "modules", required = false) List<Integer> modules,
 			@RequestParam(value = "curriculum", required = false) List<Integer> curriculum) {
-		System.out.println(curriculum);
 		
 		Set<Content> contentSet = searchService.filter(title, formats, modules, curriculum);
 		Set<JSONContent> jsonContent = new HashSet<JSONContent>();
