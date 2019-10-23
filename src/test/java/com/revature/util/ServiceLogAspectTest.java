@@ -31,7 +31,7 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
 	@Mock
 	MethodSignature mSig;
 	@InjectMocks
-	ServiceLogAspect serviceLogAspect;
+	ServiceLogAspect mockSerLogAspect;
 
     @BeforeClass
     public void setup() {
