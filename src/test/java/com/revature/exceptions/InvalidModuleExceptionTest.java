@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class InvalidModuleExceptionTest {
 
 	@Test
-	public void InvalidModuleException_MessageInjectedByThrow_TestTrue() {
+	public void InvalidModuleExceptionMessageInjectedByThrowTestTrue() {
 		try {
 			throw new InvalidModuleException("InvalidModuleException message");
 		} catch (InvalidModuleException e) {
@@ -17,13 +17,13 @@ public class InvalidModuleExceptionTest {
 	}
 
 	@Test
-	public void InvalidModuleException_MessageInjectedBySuper_TestTrue() {
+	public void InvalidModuleExceptionMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidModuleException = new InvalidModuleException("InvalidModuleException message");
 		assertEquals("InvalidModuleException message", invalidModuleException.getMessage());
 	}
 
 	@Test
-	public void InvalidModuleException_MessageInjectedByThrow_TestFalse() {
+	public void InvalidModuleExceptionMessageInjectedByThrowTestFalse() {
 		try {
 			throw new InvalidModuleException("InvalidModuleException message");
 		} catch (InvalidModuleException e) {
@@ -32,7 +32,7 @@ public class InvalidModuleExceptionTest {
 	}
 
 	@Test
-	public void InvalidModuleException_MessageInjectedBySuper_TestFalse() {
+	public void InvalidModuleExceptionMessageInjectedBySuperTestFalse() {
 		RuntimeException invalidModuleException = new InvalidModuleException("InvalidModuleException message");
 		assertNotEquals("Testing failure", invalidModuleException.getMessage());
 	}

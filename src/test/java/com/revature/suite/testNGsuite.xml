@@ -11,6 +11,7 @@
 			<class name = "com.revature.controllertests.MetricsControllerTest"/>
 			<class name = "com.revature.controllertests.LinkControllerTest"/>
 			<class name = "com.revature.controllertests.ReqLinkControllerTest"/>
+			<class name = "com.revature.controllertests.LogControllerTest"/>
 			<!-- These are the entities tests -->
 			<class name="com.revature.entitiestests.ContentTest" />
 			<class name="com.revature.entitiestests.LinkTest" />

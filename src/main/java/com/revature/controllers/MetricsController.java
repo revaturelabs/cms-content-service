@@ -45,7 +45,7 @@ public class MetricsController {
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, @RequestBody Map<String, Object> filter) {
 		Set<Content> contents;
 		Set<Content> filtContents;
-		List<Integer> idsIn = new ArrayList<Integer>();
+		List<Integer> idsIn = new ArrayList<>();
 
 		// turn the string of integers we recieved into an ArrayList of integers
 		Object moduleObject = filter.get("modules");
@@ -59,18 +59,12 @@ public class MetricsController {
 			modulesIdsIn.add(moduleService.getModuleById(id));
 		}
 
-		if (idsIn.isEmpty()) {
-			contents = contentService.getAllContent();
-			filtContents = searchService.filterContent(contents, filter);
-
-		} else {
-			contents = contentService.getAllContent();
-			filtContents = searchService.filterContent(contents, filter);
-		}
+		contents = contentService.getAllContent();
+		filtContents = searchService.filterContent(contents, filter);
 
 		Map<String, Integer> contentFormats = contentService.getFormatCount(filtContents);
 
-		Set<Module> modules = (Set<Module>) moduleService.getAllModules();
+		Set<Module> modules = moduleService.getAllModules();
 		int modSize = modules.size();
 
 		double avgMods = 0;

@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class InvalidSearchExceptionTest {
 
 	@Test
-	public void InvalidSearchException_MessageInjectedByThrow_TestTrue() {
+	public void InvalidSearchExceptionMessageInjectedByThrowTestTrue() {
 		try {
 			throw new InvalidSearchException("InvalidSearchException message");
 		} catch (InvalidSearchException e) {
@@ -17,13 +17,13 @@ public class InvalidSearchExceptionTest {
 	}
 
 	@Test
-	public void InvalidSearchException_MessageInjectedBySuper_TestTrue() {
+	public void InvalidSearchExceptionMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidSearchException = new InvalidSearchException("InvalidSearchException message");
 		assertEquals("InvalidSearchException message", invalidSearchException.getMessage());
 	}
 
 	@Test
-	public void InvalidSearchException_MessageInjectedByThrow_TestFalse() {
+	public void InvalidSearchExceptionMessageInjectedByThrowTestFalse() {
 		try {
 			throw new InvalidSearchException("InvalidSearchException message");
 		} catch (InvalidSearchException e) {
@@ -32,7 +32,7 @@ public class InvalidSearchExceptionTest {
 	}
 
 	@Test
-	public void InvalidSearchException_MessageInjectedBySuper_TestFalse() {
+	public void InvalidSearchExceptionMessageInjectedBySuperTestFalse() {
 		RuntimeException invalidSearchException = new InvalidSearchException("InvalidSearchException message");
 		assertNotEquals("Testing failure", invalidSearchException.getMessage());
 	}
