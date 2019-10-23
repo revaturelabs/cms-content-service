@@ -196,13 +196,11 @@ public class SearchServiceImpl implements SearchService {
 		
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
 		Set<Integer> givenModIds = new HashSet<Integer>();
-
 		// turn the string of integers we recieved into an ArrayList of integers
 		StringTokenizer st = new StringTokenizer(filters.get("modules").toString(), ",");
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-
 		// Step through each content provided to see if they are what we are looking for
 		for (Content content : contents) {
 			// if a search parameter is left "blank", then it is supposed to be disregarded
@@ -214,7 +212,7 @@ public class SearchServiceImpl implements SearchService {
 				givenModIds.clear();
 				// extract the ids of the modules of the current content
 				for (Link link : content.getLinks()) {
-					givenModIds.add(link.getId());
+					givenModIds.add(link.getModule().getId());
 				}
 				// check if the current content contains all of the mod id's in the filter
 				boolean hasAllModIds = true;
@@ -230,6 +228,7 @@ public class SearchServiceImpl implements SearchService {
 			}
 		}
 
+		
 		// this is an AND search, if you want to do an OR search, just use the
 		// <set>.addAll() method instead of the Sets.intersection() method
 		return filteredContent;
