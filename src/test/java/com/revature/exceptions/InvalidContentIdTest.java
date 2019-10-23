@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class InvalidContentIdTest {
 
 	@Test
-	public void InvalidContentId_MessageInjectedByThrow_TestTrue() {
+	public void InvalidContentIdMessageInjectedByThrowTestTrue() {
 		try {
 			throw new InvalidContentId("InvalidContentId message");
 		} catch (InvalidContentId e) {
@@ -17,13 +17,13 @@ public class InvalidContentIdTest {
 	}
 
 	@Test
-	public void InvalidContentId_MessageInjectedBySuper_TestTrue() {
+	public void InvalidContentIdMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidContentId = new InvalidContentId("InvalidContentId message");
 		assertEquals("InvalidContentId message", invalidContentId.getMessage());
 	}
 
 	@Test
-	public void InvalidContentId_MessageInjectedByThrow_TestFalse() {
+	public void InvalidContentIdMessageInjectedByThrowTestFalse() {
 		try {
 			throw new InvalidContentId("InvalidContentId message");
 		} catch (InvalidContentId e) {
@@ -32,7 +32,7 @@ public class InvalidContentIdTest {
 	}
 
 	@Test
-	public void InvalidContentId_MessageInjectedBySuper_TestFalse() {
+	public void InvalidContentIdMessageInjectedBySuperTestFalse() {
 		RuntimeException invalidContentId = new InvalidContentId("InvalidContentId message");
 		assertNotEquals("Testing failure", invalidContentId.getMessage());
 	}

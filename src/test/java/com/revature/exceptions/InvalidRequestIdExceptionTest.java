@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class InvalidRequestIdExceptionTest {
 
 	@Test
-	public void InvalidRequestIdException_MessageInjectedByThrow_TestTrue() {
+	public void InvalidRequestIdExceptionMessageInjectedByThrowTestTrue() {
 		try {
 			throw new InvalidRequestIdException("InvalidRequestIdException message");
 		} catch (InvalidRequestIdException e) {
@@ -17,13 +17,13 @@ public class InvalidRequestIdExceptionTest {
 	}
 
 	@Test
-	public void InvalidRequestIdException_MessageInjectedBySuper_TestTrue() {
+	public void InvalidRequestIdExceptionMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidRequestIdException = new InvalidRequestIdException("InvalidRequestIdException message");
 		assertEquals("InvalidRequestIdException message", invalidRequestIdException.getMessage());
 	}
 
 	@Test
-	public void InvalidRequestIdException_MessageInjectedByThrow_TestFalse() {
+	public void InvalidRequestIdExceptionMessageInjectedByThrowTestFalse() {
 		try {
 			throw new InvalidRequestIdException("InvalidRequestIdException message");
 		} catch (InvalidRequestIdException e) {
@@ -32,7 +32,7 @@ public class InvalidRequestIdExceptionTest {
 	}
 
 	@Test
-	public void InvalidRequestIdException_MessageInjectedBySuper_TestFalse() {
+	public void InvalidRequestIdExceptionMessageInjectedBySuperTestFalse() {
 		RuntimeException invalidRequestIdException = new InvalidRequestException("InvalidRequestIdException message");
 		assertNotEquals("Testing failure", invalidRequestIdException.getMessage());
 	}

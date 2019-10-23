@@ -47,7 +47,6 @@ public class RequestController {
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<JSONRequest> createRequest(@RequestBody JSONRequest jsonRequest) throws Exception {
-		//return ResponseEntity.ok(requestService.createRequest(request));
 		List<ReqLink> reqLinks = new ArrayList<ReqLink>();
 		Request request = jsonRequestToRequest(jsonRequest);
 		request = requestService.createRequest(request);

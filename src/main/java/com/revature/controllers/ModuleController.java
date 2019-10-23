@@ -9,8 +9,8 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +30,6 @@ import com.revature.services.ModuleService;
 
 @CrossOrigin(origins = "*", allowCredentials="true")
 @RestController
-@Transactional
 @RequestMapping("/modules")
 public class ModuleController {
 
@@ -104,7 +103,13 @@ public class ModuleController {
 	public ResponseEntity<Module> updateModule(@PathVariable("id") int id, @RequestBody Module module) {
 		return ResponseEntity.ok(moduleService.updateModule(module));
 	}
-	
+
+	// update link s based on module Id
+	@PutMapping(value = "{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Set<Link>> updateLinksById(@RequestBody Set<Link> links, @PathVariable int id) {
+
+		return ResponseEntity.ok(moduleService.updateLinksByModuleId(id, links));
+	}
 	//delete a specific module, retaining all content
 	@DeleteMapping(value="{id}")
 	public ResponseEntity<String> deleteModule(@PathVariable int id) {

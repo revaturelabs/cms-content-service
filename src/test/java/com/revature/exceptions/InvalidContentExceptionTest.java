@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class InvalidContentExceptionTest {
 
 	@Test
-	public void InvalidContentException_MessageInjectedByThrow_TestTrue() {
+	public void InvalidContentExceptionMessageInjectedByThrowTestTrue() {
 		try {
 			throw new InvalidContentException("InvalidContentException message");
 		} catch (InvalidContentException e) {
@@ -22,13 +22,13 @@ public class InvalidContentExceptionTest {
 	}
 
 	@Test
-	public void InvalidContentException_MessageInjectedBySuper_TestTrue() {
+	public void InvalidContentExceptionMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidContentException = new InvalidContentException("InvalidContentException message");
 		assertEquals("InvalidContentException message", invalidContentException.getMessage());
 	}
 
 	@Test
-	public void InvalidContentException_MessageInjectedByThrow_TestFalse() {
+	public void InvalidContentExceptionMessageInjectedByThrowTestFalse() {
 		try {
 			throw new InvalidContentException("InvalidContentException message");
 		} catch (InvalidContentException e) {
@@ -37,7 +37,7 @@ public class InvalidContentExceptionTest {
 	}
 
 	@Test
-	public void InvalidContentException_MessageInjectedBySuper_TestFalse() {
+	public void InvalidContentExceptionMessageInjectedBySuperTestFalse() {
 		RuntimeException invalidContentException = new InvalidContentException("InvalidContentException message");
 		assertNotEquals("Testing failure", invalidContentException.getMessage());
 	}

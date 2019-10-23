@@ -16,7 +16,6 @@ import com.revature.entities.ReqLink;
  * Link object instance.
  */
 public class ContentFactory {
-	//content field values
 	private static final int MAX_CHAR_LENGTH = 254;
 	public static final String title = "TestTitle",
 							    format = "TestFormat",
@@ -43,7 +42,9 @@ public class ContentFactory {
 	public static Content getContent () {
 		//generate link set
 		Set<Link> links = new HashSet<Link> ();
-		Link link = new Link (linkId, null, null,"link-affiliation");
+
+		Link link = new Link (linkId, null, null,"link-affiliation",0);
+		
 		links.add(link);
 		Module module = new Module(moduleId, "test_module", 1L, links, new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -57,7 +58,7 @@ public class ContentFactory {
 	public static Content contentForExceptions(int condition) {
 		//generate link set
 				Set<Link> links = new HashSet<Link> ();
-				Link link = new Link (linkId, null, null,"link-affiliation");
+				Link link = new Link (linkId, null, null,"link-affiliation", 1);
 				links.add(link);
 				Module module = new Module(moduleId, "test_module", 1L, links, new HashSet<ReqLink>(),
 						new HashSet<Module>(), new HashSet<Module>());
@@ -75,7 +76,9 @@ public class ContentFactory {
 				Content content = new Content (id, parameters[0], parameters[1], parameters[2], parameters[3], 1L, 1L, links);
 				link.setContent(content);
 				link.setModule(module);
+				System.out.println(content.toString());
 				return content;
+				
 	}
 	public static Module moduleForException() {
 		Module badModule = new Module();

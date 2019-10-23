@@ -23,7 +23,7 @@ public interface ModuleService {
 	public Set<Module> getChildrenByParentId(int id);
 	
 	public Module updateModule(Module module);
-	
+
 	public void deleteModule(Module module);
 	
 	public void deleteModuleWithAllContent(Module module);
@@ -33,5 +33,7 @@ public interface ModuleService {
 	public Set<Link> getLinksByModuleId(int id);
 
 	public Set<ReqLink> getRequestLinksByModuleId(int id);
+
+	public Set<Link> updateLinksByModuleId(int id, Set<Link> links );
 
 }
