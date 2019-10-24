@@ -236,7 +236,7 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	}
 	
 	//Author - Carlos
-	
+	//Method tests updating content, We have to verify that the delete method is invoked in order to validate this test	
 	@Test(expectedExceptions = {InvalidContentException.class})
 	public void updateContentTest_ContentIsNull() {
 		Content cont = null;
@@ -245,13 +245,16 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	}
 	
 	//Author - Carlos
+	//Method tests deleting content, We have to verify that the delete method is invoked in order to validate this test
 	@Test
 	public void deleteContentTest() {
 		contServe.deleteContent(mockContent);
 		verify(contRep).delete(mockContent);
 	}
 	
-	//author - carlos
+	//author - Carlos
+	//Method tests updating links by content id. The method requires a list of links and a content Id
+	//However, method body does not use the Id.
 	@Test
 	public void updateLinksByContentIdTest() {
 		Link link = new Link();
@@ -270,6 +273,8 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	}
 	
 	//author - carlos
+	//Method tests creating links by content id. The method requires a list of links and a content Id
+	//However, method body does not use the Id.
 	@Test
 	public void createLinksByContentIdTest() {
 		Link link = new Link();

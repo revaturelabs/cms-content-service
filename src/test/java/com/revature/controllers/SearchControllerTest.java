@@ -34,13 +34,17 @@ import com.revature.entities.Content;
 import com.revature.services.SearchService;
 import com.revature.testingutils.ContentFactory;
 
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
+
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	
 	private static final String filterTitle = "title",
 								filterFormat = "format",
-								filterModules = "modules";	
+								filterModules = "modules",
+								filterCurricula = "curriculum";	
 
 	private MockMvc mvc;
 
@@ -100,15 +104,18 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		//mock service return
 		
 		ArrayList<String> forList = new ArrayList<String>();
+		ArrayList<Integer> curList = new ArrayList<Integer>();
 		forList.add(ContentFactory.format);
+		curList.add(1);
 		
-		Mockito.when(ss.filter(ContentFactory.title, forList, modules))
+		Mockito.when(ss.filter(anyString(), anyList(), anyList(), anyList()))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
 				.contentType(MediaType.APPLICATION_JSON_VALUE)
 				.param(filterTitle, (String) reqBody.get(filterTitle))
 				.param(filterFormat, (String) reqBody.get(filterFormat))
-				.param(filterModules, modules.get(0).toString()));
+				.param(filterModules, modules.get(0).toString())
+				.param(filterCurricula, "1"));
 		Set<Content> resultContent = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
 				new TypeReference<Set<Content>>() { });
 		assertEquals (resultContent.size(), 1, "Invalid number of resulting content");
