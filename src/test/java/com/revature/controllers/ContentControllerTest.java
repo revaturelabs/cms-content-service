@@ -98,7 +98,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if mocked http request fails
 	 */
 	@Test
-	public void givenValidDataCreateContentStatusOk() throws Exception {
+	public void CreateContentTest_StatusOk() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(content)));
@@ -106,7 +106,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void givenValidDataCreateContentTestReturn() throws Exception {
+	public void CreateContentTest_Return() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(content)));
@@ -115,7 +115,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void givenValidDataCreateContentGetLinksNotNullStatsuOk() throws Exception {
+	public void CreateContentTest_LinksNotNull() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));
 		contentBuilder.insert(contentBuilder.length() - 1,
@@ -126,7 +126,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void givenValidDataCreateContentGetLinksNotNullTestReturn() throws Exception {
+	public void CreateContentTest_LinksNotNullReturn() throws Exception {
 		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));
 		contentBuilder.insert(contentBuilder.length() - 1,
 				",\"links\":" + objMapper.writeValueAsString(content.getLinks()));
@@ -138,7 +138,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 
 	
 	@Test
-	public void createLinksStatusOk() throws Exception {
+	public void CreateLinksTest() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(post("/content/{id}/links", content.getId())
@@ -147,7 +147,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void createLinksTestReturn() throws Exception {
+	public void CreateLinksTest_Return() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(post("/content/{id}/links", content.getId())
@@ -163,7 +163,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if http request fails
 	 */
 	@Test
-	public void getAllContentsStatusOk() throws Exception {
+	public void GetAllContentsTest() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
@@ -172,7 +172,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void getAllContentsStatusTestReturn() throws Exception {
+	public void GetAllContentsTest_Return() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
@@ -199,7 +199,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if http request fails
 	 */
 	@Test
-	public void getContentByIdstatusOk() throws Exception {
+	public void GetContentTest_ById() throws Exception {
 		// given
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc.perform(get("/content/" + content.getId()));
@@ -207,7 +207,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void getContentByIdTestReturn() throws Exception {
+	public void GetContentTest_ByIdReturn() throws Exception {
 		// given
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc.perform(get("/content/" + content.getId()));
@@ -216,14 +216,14 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void getLinksByContentIdStatusOk() throws Exception {
+	public void GetLinksTest_ByContentId() throws Exception {
 		Mockito.when(cs.getLinksByContentId(content.getId())).thenReturn(content.getLinks());
 		ResultActions result = mvc.perform(get("/content/" + content.getId() + "/links"));
 		result.andExpect(status().isOk());
 	}
 	
 	@Test
-	public void getLinksByContentIdTestReturn() throws Exception {
+	public void GetLinksTest_ByContentIdReturn() throws Exception {
 		Mockito.when(cs.getLinksByContentId(content.getId())).thenReturn(content.getLinks());
 		ResultActions result = mvc.perform(get("/content/" + content.getId() + "/links"));
 		Set<Link> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
@@ -237,7 +237,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void updateContentStatusOk() throws Exception {
+	public void UpdateContentTest() throws Exception {
 		Mockito.when(cs.updateContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(put("/content/" + content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(content)));
@@ -245,7 +245,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void updateContentTestReturn() throws Exception {
+	public void UpdateContentTest_Return() throws Exception {
 		Mockito.when(cs.updateContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(put("/content/" + content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(content)));
@@ -254,7 +254,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	@Test
-	public void updateLinksStatusOk() throws Exception {
+	public void UpdateLinksTest() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.updateLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(put("/content/" + content.getId() + "/links")
@@ -263,7 +263,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void updateLinksTestReturn() throws Exception {
+	public void UpdateLinksTest_Return() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.updateLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(put("/content/" + content.getId() + "/links")
@@ -279,7 +279,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void deleteContentStatusOk() throws Exception {
+	public void DeleteContentTest() throws Exception {
 		Mockito.doNothing().when(cs).deleteContent(content);
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc
@@ -288,7 +288,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void getSearchResultsStatusOk() throws Exception {
+	public void SearchResultsTest() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
         String [] params = { "title", "format", "modules" };
@@ -300,7 +300,7 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	@Test
-	public void getSearchResultsTestReturn() throws Exception {
+	public void SearchResultsTest_Return() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
         String [] params = { "title", "format", "modules", "curriculum"};
