@@ -1,10 +1,15 @@
 package com.revature.regressiontests;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.hamcrest.CoreMatchers.not;
+import static org.testng.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
+import java.util.List;
+
+import org.hamcrest.collection.IsEmptyCollection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,6 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
@@ -22,9 +28,9 @@ public class ContentFinderRegressionTests {
 	
 	public static WebDriver driver;
 	
-	public static String url = "http://localhost:4200/finder";
+	public static String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/finder";
 	public String testTitle = "Test Title";
-	public String testLoadModule = "Test Load Module";
+	public String testLoadModule = "qazxsw";
 	public WebDriverWait wait;
 	
 	/**
@@ -46,6 +52,12 @@ public class ContentFinderRegressionTests {
 		//driver.close();
 		//driver.quit();
 	}
+	
+	@DataProvider(name="contentFinder")
+	public Object[][] contendFinderDP() {
+		return new Object[][] {{"TestCode", "C#"}};
+	}
+	
 	
 	/**
 	 * Test if the driver url is equal to the POM url
@@ -75,8 +87,8 @@ public class ContentFinderRegressionTests {
 		cf.inputToTitleBox(testTitle);
 		//Check if POM WebElement action succeed
 		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
-		
 	}
+	
 	/**
 	 * Test input String into POM loadModulesBox WebElement
 	 */
@@ -87,7 +99,23 @@ public class ContentFinderRegressionTests {
 		assertNotNull(testLoadModulesBox);
 		assertEquals(cf.loadModulesBox, testLoadModulesBox);
 		cf.inputToLoadModulesBox(testLoadModule);
-		assertEquals(cf.loadModulesBox.getText(), testLoadModulesBox.getText());
+		List<WebElement> testModuleOptions = driver.findElements(By.className("ng-option"));
+		assertThat(testModuleOptions, not(IsEmptyCollection.empty()));
+		for(WebElement option : testModuleOptions) {
+			System.out.println(option.getText());
+			if(option.getText().equals(testLoadModule)) {
+				option.click();
+				break;
+			}
+		}
+		List<WebElement> testModuleValues = driver.findElements(By.className("ng-value-label"));
+		assertThat(testModuleValues, not(IsEmptyCollection.empty()));
+		for(WebElement value : testModuleValues) {
+			if(value.getText().equals(testLoadModule)) {
+				assertEquals(value.getText(), testLoadModule);
+				break;
+			}
+		}
 	}
 	
 	/**
@@ -103,220 +131,56 @@ public class ContentFinderRegressionTests {
 		assertEquals(cf.loadModulesBox.getText(), "");
 	}
 	
-	/**
-	 * Test clicking POM codeButton WebElement
-	 */
-	@Test(priority=5, enabled=false)
-	public void testClickCodeButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testCodeButton = driver.findElement(By.xpath("//*[@id='Code']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testCodeButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		assertEquals(cf.codeButton, testCodeButton);
-		//Store pre click class value for later assertion
-		String preClickClass = cf.codeButton.getAttribute("class");
-		//Perform POM WebElement action
-		cf.clickButton(cf.codeButton);
-		//Check if POM WebElement action succeed
-		assertNotEquals(cf.codeButton.getAttribute("class"), preClickClass);
-		//Check if POM WebElement post click class contains btn-secondary
-		String postClickClass = cf.codeButton.getAttribute("class");
-		assertTrue(postClickClass.contains("btn-secondary"));
-	}
-	
-	/**
-	 * Test selecting POM codeRadioButton WebElement
-	 */
-	@Test(priority=5, enabled=false)
-	public void testClickedCodeRadioButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testCodeRadioButton = driver.findElement(By.xpath("//input[@id='Code']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testCodeRadioButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		//assertEquals(cf.codeRadioButton, testCodeRadioButton);
-		//Perform POM WebElement action
-		//cf.clickRadioButton(cf.codeRadioButton);
-		//Check if POM WebElement action succeed
-		//assertTrue(cf.codeRadioButton.isSelected());
-	}
-	
-	/**
-	 * Test clicking POM documentButton WebElement
-	 */
-	@Test(priority=6, enabled=false)
-	public void testClickDocumentButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testDocumentButton = driver.findElement(By.xpath("//*[@id='Document']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testDocumentButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		assertEquals(cf.documentButton, testDocumentButton);
-		//Store pre click class value for later assertion
-		String preClickClass = cf.documentButton.getAttribute("class");
-		//Perform POM WebElement action
-		cf.clickButton(cf.documentButton);
-		//Check if POM WebElement action succeed
-		assertNotEquals(cf.documentButton.getAttribute("class"), preClickClass);
-		//Check if POM WebElement post click class contains btn-secondary
-		String postClickClass = cf.documentButton.getAttribute("class");
-		assertTrue(postClickClass.contains("btn-secondary"));
-	}
-	
-	/**
-	 * Test selecting POM documentRadioButton WebElement
-	 */
-	@Test(priority=6, enabled=false)
-	public void testClickedDocumentRadioButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testDocumentRadioButton = driver.findElement(By.xpath("//input[@id='Document']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testDocumentRadioButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		//assertEquals(cf.documentRadioButton, testDocumentRadioButton);
-		//Perform POM WebElement action
-		//cf.clickRadioButton(cf.documentRadioButton);
-		//Check if POM WebElement action succeed
-		//assertTrue(cf.documentRadioButton.isSelected());
-	}
-	
-	/**
-	 * Test clicking POM powerpointButton WebElement
-	 */
-	@Test(priority=6, enabled=false)
-	public void testClickPowerpointButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testPowerpointButton = driver.findElement(By.xpath("//*[@id='Powerpoint']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testPowerpointButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		assertEquals(cf.powerpointButton, testPowerpointButton);
-		//Store pre click class value for later assertion
-		String preClickClass = cf.powerpointButton.getAttribute("class");
-		//Perform POM WebElement action
-		cf.clickButton(cf.documentButton);
-		//Check if POM WebElement action succeed
-		assertNotEquals(cf.documentButton.getAttribute("class"), preClickClass);
-		//Check if POM WebElement post click class contains btn-secondary
-		String postClickClass = cf.documentButton.getAttribute("class");
-		assertTrue(postClickClass.contains("btn-secondary"));
-	}
-	
-	/**
-	 * Test selecting POM powerpointRadioButton WebElement
-	 */
-	@Test(priority=7, enabled=false)
-	public void testClickedPowerpointRadioButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testPowerpointRadioButton = driver.findElement(By.xpath("//input[@id='Powerpoint']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testPowerpointRadioButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		//assertEquals(cf.powerpointRadioButton, testPowerpointRadioButton);
-		//Perform POM WebElement action
-		//cf.clickRadioButton(cf.powerpointRadioButton);
-		//Check if POM WebElement action succeed
-		//assertTrue(cf.powerpointRadioButton.isSelected());
-	}
-	
-	/**
-	 * Test selecting POM flaggedRadioButton WebElement
-	 */
-	@Test(priority=8, enabled=false)
-	public void testClickedFlaggedRadioButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testFlaggedRadioButton = driver.findElement(By.xpath("//input[@id='Flagged']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testFlaggedRadioButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		//assertEquals(cf.flaggedRadioButton, testFlaggedRadioButton);
-		//Perform POM WebElement action
-		//cf.clickRadioButton(cf.flaggedRadioButton);
-		//Check if POM WebElement action succeed
-		//assertTrue(cf.flaggedRadioButton.isSelected());
-	}
-	/**
-	 * Test selecting POM allRadioButton WebElement
-	 */
-	@Test(priority=9, enabled=false)
-	public void testClickedAllRadioButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testAllRadioButton = driver.findElement(By.xpath("//input[@id='All']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testAllRadioButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		//assertEquals(cf.allRadioButton, testAllRadioButton);
-		//Perform POM WebElement action
-		//cf.clickRadioButton(cf.allRadioButton);
-		//Check if POM WebElement action succeed
-		//assertTrue(cf.allRadioButton.isSelected());
-	}
-	
-	/**
-	 * Test clicking the POM submitButton WebElement
-	 */
-	@Test(priority=10, enabled=false)
-	public void testClickedSubmitButton() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testSubmitButton = driver.findElement(By.xpath("//*[@id='submitButton']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testSubmitButton);
-		//Check if WebElement under test and POM WebElement under test are equal
-		assertEquals(cf.submitButton, testSubmitButton);
-		//Perform POM WebElment action
-		//cf.clickSubmitButton();
-		//assertTrue(testSubmitButton.isSelected());
-		//driver.manage().timeouts().implicitlyWait(10, Time)
-		String currentURL = driver.getCurrentUrl();
-		assertTrue(currentURL.contains("?"));
-	}
-	
-	@DataProvider(name="formatButtons")
-	public Object[][] formatButtonsDP(){
-		Object[][] formatButtons = new Object[][] {{}};
-		return formatButtons;
-	}
-	
 	//=== REAL TESTS ===
 	/**
 	 * Test finding (All) Code, Document, Powerpoint content
 	 */
-	@Test
-	public void testFindingAllContent() {
+	@Test(dataProvider="contentFinder")
+	@Parameters({"title", "module"})
+	public void testFindingAllContent(String title, String module) {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 
-		//Create a reference to the titleBox WebElement
+		//Create references to WebElements under test
 		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
-		//Check if titleBox WebElement is not null
+		WebElement testLoadModulesBox = driver.findElement(By.xpath("//*[@id=\"subjectDropDown\"]/div/div/div[2]/input"));
+		
+		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
-		//Check if titleBox WebElement and POM titleBox WebElement are equal
+		assertNotNull(testLoadModulesBox);
+		
+		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
-		//Perform POM titleBox WebElement action
-		cf.inputToTitleBox(testTitle);
+		assertEquals(cf.loadModulesBox, testLoadModulesBox);
+		
+		//Perform POM WebElements actions
+		cf.inputToTitleBox(title);
+		cf.inputToLoadModulesBox(module);
+		List<WebElement> testModuleOptions = driver.findElements(By.className("ng-option"));
+		
 		//Check if POM titleBox WebElement action succeeded
 		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
+		assertThat(testModuleOptions, not(IsEmptyCollection.empty()));
+		
+		//Find and perform option click
+		for(WebElement option : testModuleOptions) {
+			System.out.println(option.getText());
+			if(option.getText().equals(module)) {
+				option.click();
+				break;
+			}
+		}
+		//Find and perform assertion on load module selected value
+		List<WebElement> testModuleValues = driver.findElements(By.className("ng-value-label"));
+		assertThat(testModuleValues, not(IsEmptyCollection.empty()));
+		for(WebElement value : testModuleValues) {
+			if(value.getText().equals(module)) {
+				assertEquals(value.getText(), module);
+				break;
+			}
+		}
 		
 		//Wait until submitButton WebElement is visible
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='submitButton']")));
@@ -337,7 +201,7 @@ public class ContentFinderRegressionTests {
 	/**
 	 * Test finding Code content only
 	 */
-	@Test
+	@Test(enabled=false)
 	public void testFindingCodeContent() {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);
@@ -400,7 +264,7 @@ public class ContentFinderRegressionTests {
 	/**
 	 * Test finding Document content only
 	 */
-	@Test
+	@Test(enabled=false)
 	public void testFindingDocumentContent() {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);
@@ -463,7 +327,7 @@ public class ContentFinderRegressionTests {
 	/**
 	 * Test finding Powerpoint content only
 	 */
-	@Test
+	@Test(enabled=false)
 	public void testFindingPowerpointContent() {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);
@@ -526,7 +390,7 @@ public class ContentFinderRegressionTests {
 	/**
 	 * Test finding Code and Document content
 	 */
-	@Test
+	@Test(enabled=false)
 	public void testFindingCodeAndDocumentContent() {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);
@@ -581,7 +445,7 @@ public class ContentFinderRegressionTests {
 	/**
 	 * Test finding Code, Powerpoint content
 	 */
-	@Test
+	@Test(enabled=false)
 	public void testFindingCodeAndPowerpointContent() {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);
@@ -636,7 +500,7 @@ public class ContentFinderRegressionTests {
 	/**
 	 * Test finding Document, Powerpoint content
 	 */
-	@Test
+	@Test(enabled=false)
 	public void testFindingDocumentAndPowerpointContent() {
 		//Instantiate new POM of ContentFinder
 		ContentFinder cf = new ContentFinder(driver);

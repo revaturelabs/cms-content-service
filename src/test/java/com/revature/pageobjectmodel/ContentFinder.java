@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ContentFinder {
 	
-	public String url = "http://localhost:4200/finder";
+	public String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/finder";
 	public WebDriver driver;
 	//Set up user input WebElements for the Page Object Model
 	@FindBy(xpath="//input[@name='title']")
@@ -16,16 +16,8 @@ public class ContentFinder {
 	public WebElement loadModulesBox;
 	@FindBy(xpath="//*[@id=\"subjectDropDown\"]/div/span[1]")
 	public WebElement clearLoadModulesBox;
-	//@FindBy(xpath="//input[@id='Code']")
-	//public WebElement codeRadioButton;
-	//@FindBy(xpath="//input[@id='Document']")
-	//public WebElement documentRadioButton;
-	//@FindBy(xpath="//input[@id='Powerpoint']")
-	//public WebElement powerpointRadioButton;
-	//@FindBy(xpath="//input[@id='Flagged']")
-	//public WebElement flaggedRadioButton;
-	//@FindBy(xpath="//input[@id='All']")
-	//public WebElement allRadioButton;
+	@FindBy(xpath="")
+	public WebElement loadModulesSpanArrow;
 	@FindBy(xpath="//*[@id='Code']")
 	public WebElement codeButton;
 	@FindBy(xpath="//*[@id='Document']")
