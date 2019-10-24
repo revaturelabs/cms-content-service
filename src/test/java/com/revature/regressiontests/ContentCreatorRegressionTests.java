@@ -319,7 +319,8 @@ public class ContentCreatorRegressionTests {
 		// After the submit is selected, a toastr message will appear.
 		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
 		assertNotNull(confirmSubmit);
-
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
 	@Test(priority = 2)
@@ -411,6 +412,8 @@ public class ContentCreatorRegressionTests {
 		// After the submit is selected, a toastr message will appear.
 		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
 		assertNotNull(confirmSubmit);
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
 	@Test(priority = 3)
@@ -502,6 +505,8 @@ public class ContentCreatorRegressionTests {
 		// After the submit is selected, a toastr message will appear.
 		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
 		assertNotNull(confirmSubmit);
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
 	@AfterClass
