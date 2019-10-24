@@ -287,7 +287,7 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		when(linkRep.save(link2)).thenReturn(link2);
 
 		//Id is unused in the method. Id is irrelevant.
-		contServe.updateLinksByContentId(5, list);
+		contServe.createLinksByContentId(5, list);
 		verify(linkRep, times(2)).save(link);
 		verify(linkRep, times(2)).save(link2);
 	}
