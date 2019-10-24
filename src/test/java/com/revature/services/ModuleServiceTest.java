@@ -61,6 +61,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 * Asserts true if a module list is returned
 	 */
 	@Test
+	//Tests the functionality that retrieves all modules.
+	//It uses the findAll() method from Module Repository and
+	//takes no argument.
 	void testGetAllModules() {
 		Module mod1 = new Module(1, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 			new HashSet<Module>(), new HashSet<Module>());
@@ -69,7 +72,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Set<Module> allModules = new HashSet<Module>();
 		allModules.add(mod1);
 		allModules.add(mod2);
-
+		
 		Mockito.when(mrMock.findAll()).thenReturn(allModules);
 
 		Set<Module> tmp = msMock.getAllModules();
@@ -84,12 +87,16 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 * Asserts True if temp variable equals m1 Module object
 	 */
 	@Test
+	//Tests the functionality for retrieving a module
+	//after passing the module ID as an argument.
+	//It uses the findById() method from Module Repository.
 	void testGetModuleById() {
 
+		
 		Module mod1 = new Module(1, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
 		Mockito.when(mrMock.findById(mod1.getId().intValue())).thenReturn(mod1);
-
+ 
 		Module tmp = msMock.getModuleById(mod1.getId());
 		Mockito.verify(mrMock).findById(mod1.getId().intValue());
 		assertTrue(mod1.equals(tmp));
@@ -101,7 +108,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 * Asserts true if temp variable equals m4 Module object
 	 */
 	@Test
+	//Tests the functionality for creating a module
+	//It uses the save() method from the Module Repository
+	//and takes a Module as an argument.
 	void testCreateModule() {
+		
 		Module mod1 = new Module(0, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
 		Mockito.when(mrMock.save(mod1)).thenReturn(mod1);
@@ -117,6 +128,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	 * Assert True if temp variable is greater than | equal to 0.0
 	 */
 	@Test
+	//Tests the functionality to calculate the average resources (links)
+	//given a set of modules.
+	//It takes a set of modules as an argument.
 	void testGetAverageByModules() {
 
 	 	Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
@@ -181,13 +195,20 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		assertTrue(Double.compare(tmp, 1.5) == 0);
 	}
 
-	@Test
+	/*
+	 * Tests getChildrenByParentsId() function.
+	 * ModuleRepository - findById()
+	 * Should return children modules of a given/parent module.
+	 * Takes a Module as an argument.
+	 * Asserts equals if results is equal to children(expected).
+	 */
+	@Test	
 	void testGetChildrenByParentId() {
 		Module mod1 = new Module(1, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
 
 		Set<Module> children = new HashSet<Module>();
-		children.add(mod1);
+		children.add(mod1);		
 		Module mod2 = new Module(2, "Testing", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), children);
 
@@ -199,6 +220,13 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(results, children);
 	}
 
+	/*
+	 * Tests getAllRootModules() method
+	 * ModuleRepository - findAll()
+	 * Should return all root modules (modules with no parents).
+	 * Takes no argument.
+	 * Asserts equals if results is equal to parentsOfMod1.
+	 */
 	@Test
 	void testGetAllRootModules() {
 		Module mod1 = new Module(1, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -223,8 +251,16 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 
 		Mockito.verify(mrMock).findAll();
 		Assert.assertEquals(results, parentsOfMod1);
+		
 	}
 
+	/*
+	 * Tests updateModule() method
+	 * ModuleRepository - save()
+	 * Should return the updated module.
+	 * Takes a module as an argument.
+	 * Assert equals if actual is equal to mod1.
+	 */
 	@Test
 	void testUpdateModule() {
 		Module mod1 = new Module(1, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -237,7 +273,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Tests delete()
+	 * Tests delete() method
+	 * ModuleRepository - delete()
+	 * Should verify that the delete() method is called.
+	 * Takes a Module as an argument.
 	 */
 	@Test
 	void testDeleteModule() {
@@ -250,6 +289,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(mrMock).delete(mod1);
 	}
 
+	/*
+	 * 
+	 */
 	@Test
 	void testDeleteModuleWithNullModule() {
 		Mockito.doNothing().when(mrMock).delete(null);
