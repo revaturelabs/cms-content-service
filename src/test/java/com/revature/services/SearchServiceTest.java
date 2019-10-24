@@ -130,10 +130,11 @@ public class SearchServiceTest {
 	 * @author Brett R.
 	 */
 	@Test
-	public void filterContentByFlaggedFormatTest() {
+	public void filterContentByFormatFlaggedEmptyTest() {
 		//Local Variables
 		String format = "Flagged";
 		Set<Content> contentSetExpected  = new HashSet<Content>();
+		
 		contentSetExpected.add(new Content(1, "title 1", "", "something", "http://blah.com",
 				1L, 1L, new HashSet<Link>()));
 		contentSetExpected.add(new Content(2, "title 2", "", "something else", "http://blah2.com",
@@ -143,11 +144,46 @@ public class SearchServiceTest {
 		Mockito.when(csMock.getAllContent()).thenReturn(contentSetExpected);
 		
 		//When
+		//The filterContentByFormat() method should only return contents with empty formats
 		Set<Content> actual = ss.filterContentByFormat(format);
 		
 		//then
 		verify(csMock, atLeastOnce()).getAllContent();
 		Assert.assertEquals(actual, contentSetExpected);
+	}
+	
+	/**
+	 * Tests filterContentByFormat()
+	 * 	- Specifically tests the format.equals("Flagged") branch of the if-else statement within
+	 * 		the filterContentByFormat() method
+	 * Content Repository - findByFormat(String format)
+	 * 
+	 * @author Brett R.
+	 */
+	@Test
+	public void filterContentByFormatFlaggedNonEmptyTest() {
+		//Local Variables
+		String format = "Flagged";
+		Set<Content> allContent  = new HashSet<Content>();
+		Set<Content> emptyContentSetExpected  = new HashSet<Content>();
+		
+		//Add the empty format Content and a non-empty format Content to a set
+		allContent.add(new Content(1, "title 1", "Document", "something", "http://blah.com",
+				1L, 1L, new HashSet<Link>()));
+		allContent.add(new Content(2, "title 2", "Code", "something else", "http://blah2.com",
+				1L, 1L, new HashSet<Link>()));
+		
+		//Given
+		//The getAllContent() method will return the allContent set
+		Mockito.when(csMock.getAllContent()).thenReturn(allContent);
+		
+		//When
+		//The filterContentByFormat() method should only return contents with empty formats (none in this case)
+		Set<Content> actual = ss.filterContentByFormat(format);
+		
+		//then
+		verify(csMock, atLeastOnce()).getAllContent();
+		Assert.assertEquals(actual, emptyContentSetExpected);
 	}
 
 	/**
