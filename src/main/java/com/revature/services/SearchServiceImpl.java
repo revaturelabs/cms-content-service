@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
 import com.revature.entities.Content;
+import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -36,6 +38,10 @@ public class SearchServiceImpl implements SearchService {
 	ModuleService ms;
 	@Autowired
 	RequestService rs;
+	@Autowired
+	CurriculumService crs;
+	@Autowired
+	CurriculumModuleService cms;
 
 	/**
 	 * filterContentByTitle takes in a string value and returns a content object
@@ -156,20 +162,19 @@ public class SearchServiceImpl implements SearchService {
 	//Change this to take a string array for format
 	@Override
 	@LogException
-	public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds) {
-
+	public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds, List<Integer> curriculaIds) {
+		
 		Set<Content> content = cs.getAllContent();
 
 		if (!("".equals(title))) {
 			content = Sets.intersection(content, this.filterContentByTitle(title));
 		}
+		
 		if (!(formatList.isEmpty())) {
-			
 			
 			Set<Content> formatContent = new HashSet<>();
 			
 			for(String format : formatList) {
-				
 				
 				formatContent.addAll(this.filterContentByFormat(format));
 				
@@ -177,13 +182,110 @@ public class SearchServiceImpl implements SearchService {
 			
 			content = Sets.intersection(content, formatContent);
 		}
+		
 		if (!(moduleIds.isEmpty())) {
+			
 			content = Sets.intersection(content, this.filterContentBySubjectIds(moduleIds));
+			
 		}
+		if(curriculaIds != null && !(curriculaIds.isEmpty())) {
+			
+			content = Sets.intersection(content, this.filterContentByCurriculaIds(curriculaIds));
+			
+			for(Content c : content) {
+				
+				if(c != null && c.getLinks().isEmpty()) {
+					content.remove(c);
+				}
+			}
+		}
+		
+		
 		// this is an AND search, if you want to do an OR search, just use the
 		// <set>.addAll() method instead of the Sets.intersection() method
 		return content;
 
+	}
+	
+    public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds) {
+		
+		Set<Content> content = cs.getAllContent();
+
+		if (!("".equals(title))) {
+			content = Sets.intersection(content, this.filterContentByTitle(title));
+		}
+		
+		if (!(formatList.isEmpty())) {
+			
+			Set<Content> formatContent = new HashSet<>();
+			
+			for(String format : formatList) {
+				
+				formatContent.addAll(this.filterContentByFormat(format));
+				
+			}
+			
+			content = Sets.intersection(content, formatContent);
+		}
+		
+		if (!(moduleIds.isEmpty())) {
+			
+			content = Sets.intersection(content, this.filterContentBySubjectIds(moduleIds));
+			
+		}
+		
+		// this is an AND search, if you want to do an OR search, just use the
+		// <set>.addAll() method instead of the Sets.intersection() method
+		return content;
+
+	}
+	
+	public Set<Content> filterContentByCurriculaIds(List<Integer> curriculaIds) {
+		
+		Set<Curriculum> curricula = new HashSet<Curriculum>();
+		
+		Set<CurriculumModule> curriculumModules = new HashSet<CurriculumModule>();
+		
+		Set<Module> modules = new HashSet<Module>();
+		
+		Set<Link> links = new HashSet<Link>();
+		
+		Set<Content> content = new HashSet<Content>();
+		
+		Set<CurriculumModule> allCurriculumModules = cms.getAllCurriculumModules();
+		
+		for(Integer id : curriculaIds) {
+			
+			curricula.add(crs.getCurriculumById(id));
+		}
+		
+		for (Curriculum curriculum : curricula ) {
+			
+			for(CurriculumModule curriculumModule : allCurriculumModules) {
+				
+				if(curriculum.getId() == curriculumModule.getCurriculum()) {
+					
+					curriculumModules.add(curriculumModule);
+				}
+			}
+			
+		}
+		for(CurriculumModule curriculumModule : curriculumModules) {
+			
+			modules.add(curriculumModule.getModule());
+			
+		}
+		for(Module module : modules) {
+			
+			links.addAll(module.getLinks());
+			
+		}
+		for(Link link : links) {
+			
+			content.add(link.getContent());
+		}
+	
+		return content;
 	}
 
 	@Override
