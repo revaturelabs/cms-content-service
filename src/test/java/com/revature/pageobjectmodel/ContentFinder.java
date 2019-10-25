@@ -13,11 +13,13 @@ public class ContentFinder {
 	@FindBy(xpath="//input[@name='title']")
 	public WebElement titleBox;
 	@FindBy(xpath="//*[@id=\"subjectDropDown\"]/div/div/div[2]/input")
-	public WebElement loadModulesBox;
+	public WebElement modulesBox;
 	@FindBy(xpath="//*[@id=\"subjectDropDown\"]/div/span[1]")
-	public WebElement clearLoadModulesBox;
-	@FindBy(xpath="")
-	public WebElement loadModulesSpanArrow;
+	public WebElement clearModulesBox;
+	@FindBy(xpath="//*[@id=\"curriculumDropDown\"]/div/div/div[2]/input")
+	public WebElement curriculaBox;
+	@FindBy(xpath="//*[@id=\"curriculumDropDown\"]/div/span[1]")
+	public WebElement clearCirriculaBox;
 	@FindBy(xpath="//*[@id='Code']")
 	public WebElement codeButton;
 	@FindBy(xpath="//*[@id='Document']")
@@ -39,28 +41,14 @@ public class ContentFinder {
 	
 	//Interactive methods
 	/**
-	 * Input String into titleBox WebElement
+	 * Input String into inputBox WebElement
 	 * 
-	 * @param title String title to be entered into titleBox HTML input element
+	 * @param inputBox WebElement inputBox HTML input element
+	 * @param inputStr String inputStr to be entered into inputBox HTML input
+	 * element
 	 */
-	public void inputToTitleBox(String title) {
-		this.titleBox.sendKeys(title);
-	}
-	/**
-	 * Input String into LoadModulesBox WebElement
-	 * 
-	 * @param modules String modules to be entered into loadModulesBox HTML 
-	 * input element
-	 */
-	public void inputToLoadModulesBox(String modules) {
-		this.loadModulesBox.sendKeys(modules);
-	}
-	
-	/**
-	 * Simulate clicking the clear loadModulesBox cross WebElement
-	 */
-	public void clearLoadModulesBox() {
-		this.clearLoadModulesBox.click();
+	public void inputToInputBox(WebElement inputBox, String inputStr) {
+		inputBox.sendKeys(inputStr);
 	}
 	
 	/**
