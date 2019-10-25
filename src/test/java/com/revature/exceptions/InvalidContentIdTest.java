@@ -5,10 +5,17 @@ import static org.testng.Assert.assertNotEquals;
 
 import org.testng.annotations.Test;
 
+/**
+ * Class for testing {@link com.revature.exceptions.InvalidContentId InvalidContentId}
+ *
+ */
 public class InvalidContentIdTest {
 
+	/**
+	 * Test for throwing an {@link com.revature.exceptions.InvalidContentId InvalidContentId} exception
+	 */
 	@Test
-	public void InvalidContentIdMessageInjectedByThrowTestTrue() {
+	public void testInvalidContentId_MessageInjectedByThrow() {
 		try {
 			throw new InvalidContentId("InvalidContentId message");
 		} catch (InvalidContentId e) {
@@ -16,24 +23,12 @@ public class InvalidContentIdTest {
 		}
 	}
 
+	/**
+	 * Test for ensuring that an {@link com.revature.exceptions.InvalidContentId InvalidContentId} is a {@link java.lang.RuntimeException RuntimeException}
+	 */
 	@Test
-	public void InvalidContentIdMessageInjectedBySuperTestTrue() {
+	public void testInvalidContentId_MessageInjectedBySuper() {
 		RuntimeException invalidContentId = new InvalidContentId("InvalidContentId message");
 		assertEquals("InvalidContentId message", invalidContentId.getMessage());
-	}
-
-	@Test
-	public void InvalidContentIdMessageInjectedByThrowTestFalse() {
-		try {
-			throw new InvalidContentId("InvalidContentId message");
-		} catch (InvalidContentId e) {
-			assertNotEquals("Testing failure", e.getMessage());
-		}
-	}
-
-	@Test
-	public void InvalidContentIdMessageInjectedBySuperTestFalse() {
-		RuntimeException invalidContentId = new InvalidContentId("InvalidContentId message");
-		assertNotEquals("Testing failure", invalidContentId.getMessage());
 	}
 }
