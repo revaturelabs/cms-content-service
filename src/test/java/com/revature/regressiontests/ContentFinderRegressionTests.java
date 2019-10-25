@@ -25,14 +25,10 @@ import org.testng.annotations.Test;
 import com.revature.pageobjectmodel.ContentFinder;
 
 public class ContentFinderRegressionTests {
-	
-	public static WebDriver driver;
-	
-	public static String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/finder";
-	public String testTitle = "Test Title";
-	public String testLoadModule = "qazxsw";
-	public String testCurricula = "Java Full Stack";
-	public WebDriverWait wait;
+	//Private variables
+	private static WebDriver driver;
+	private WebDriverWait wait;
+	private ContentFinder cf;
 	
 	/**
 	 * Set up chrome webdriver and navigate to ContentFinder page
@@ -41,7 +37,8 @@ public class ContentFinderRegressionTests {
 	public void setup() {
 		System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
 		driver = new ChromeDriver();
-		driver.get(url);
+		cf = new ContentFinder(driver);
+		driver.get(cf.url);
 		wait = new WebDriverWait(driver, 20);
 	}
 	
@@ -50,8 +47,8 @@ public class ContentFinderRegressionTests {
 	 */
 	@AfterClass
 	public void tearDown() {
-		//driver.close();
-		//driver.quit();
+		driver.close();
+		driver.quit();
 	}
 	
 	@DataProvider(name="contentFinder")
@@ -59,122 +56,6 @@ public class ContentFinderRegressionTests {
 		return new Object[][] {{"TestCode", "C#", ".NET Full Stack"}};
 	}
 	
-	
-	/**
-	 * Test if the driver url is equal to the POM url
-	 */
-	@Test(priority=1, enabled=false)
-	public void testContentFinderPage() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Check if driver url is equal to the POM url
-		assertEquals(driver.getCurrentUrl(), cf.url);
-	}
-	
-	/**
-	 * Test input String into POM titleBox WebElement
-	 */
-	@Test(priority=2, enabled=false)
-	public void testInputToTitleBox() {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
-		//Create a reference to the WebElement under test
-		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
-		//Check if WebElement under test is not null
-		assertNotNull(testTitleBox);
-		//Check if WebElement under test and POM WebElement under test are equal
-		assertEquals(cf.titleBox, testTitleBox);
-		//Perform POM WebElement action
-		cf.inputToInputBox(cf.titleBox, testTitle);
-		//Check if POM WebElement action succeed
-		assertEquals(cf.titleBox.getText(),testTitleBox.getText());
-	}
-	
-	/**
-	 * Test input String into POM loadModulesBox WebElement
-	 */
-	@Test(priority=3, enabled=false)
-	public void testInputToLoadModulesBox() {
-		ContentFinder cf = new ContentFinder(driver);
-		WebElement testLoadModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		assertNotNull(testLoadModulesBox);
-		assertEquals(cf.modulesBox, testLoadModulesBox);
-		cf.inputToInputBox(cf.modulesBox, testLoadModule);
-		List<WebElement> testModuleOptions = driver.findElements(By.className("ng-option"));
-		assertThat(testModuleOptions, not(IsEmptyCollection.empty()));
-		for(WebElement option : testModuleOptions) {
-			System.out.println(option.getText());
-			if(option.getText().equals(testLoadModule)) {
-				option.click();
-				break;
-			}
-		}
-		List<WebElement> testModuleValues = driver.findElements(By.className("ng-value-label"));
-		assertThat(testModuleValues, not(IsEmptyCollection.empty()));
-		for(WebElement value : testModuleValues) {
-			if(value.getText().equals(testLoadModule)) {
-				assertEquals(value.getText(), testLoadModule);
-				break;
-			}
-		}
-	}
-	
-	/**
-	 * Test input String into POM cirriculaBox WebElement
-	 */
-	@Test(priority=3, enabled=false)
-	public void testInputToCurriculaBox() {
-		ContentFinder cf = new ContentFinder(driver);
-		WebElement testLoadCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
-		assertNotNull(testLoadCurriculaBox);
-		assertEquals(cf.curriculaBox, testLoadCurriculaBox);
-		cf.inputToInputBox(cf.curriculaBox, testCurricula);
-		List<WebElement> testCurriculaOptions = driver.findElements(By.className("ng-option"));
-		assertThat(testCurriculaOptions, not(IsEmptyCollection.empty()));
-		for(WebElement option : testCurriculaOptions) {
-			System.out.println(option.getText());
-			if(option.getText().equals(testCurricula)) {
-				option.click();
-				break;
-			}
-		}
-		List<WebElement> testCurriculaValues = driver.findElements(By.className("ng-value-label"));
-		assertThat(testCurriculaValues, not(IsEmptyCollection.empty()));
-		for(WebElement value : testCurriculaValues) {
-			if(value.getText().equals(testCurricula)) {
-				assertEquals(value.getText(), testCurricula);
-				break;
-			}
-		}
-	}
-	
-	/**
-	 * Test clearing POM modulesBox WebElement
-	 */
-	@Test(priority=4, enabled=false)
-	public void testClearModulesBox() {
-		ContentFinder cf = new ContentFinder(driver);
-		WebElement testClearModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/span[1]"));
-		assertNotNull(testClearModulesBox);
-		assertEquals(cf.clearModulesBox, testClearModulesBox);
-		cf.clickButton(cf.clearModulesBox);
-		assertEquals(cf.modulesBox.getText(), "");
-	}
-	
-	/**
-	 * Test clearing POM cirruclaBox WebElement
-	 */
-	@Test(priority=4, enabled=false)
-	public void testClearCurriculaBox() {
-		ContentFinder cf = new ContentFinder(driver);
-		WebElement testClearCirriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/span[1]"));
-		assertNotNull(testClearCirriculaBox);
-		assertEquals(cf.clearCirriculaBox, testClearCirriculaBox);
-		cf.clickButton(cf.clearCirriculaBox);
-		assertEquals(cf.curriculaBox.getText(), "");
-	}
-	
-	//=== REAL TESTS ===
 	/**
 	 * Test finding (All) Code, Document, Powerpoint content
 	 * 
@@ -185,8 +66,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingAllContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 
@@ -275,8 +154,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingCodeContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 		
@@ -387,8 +264,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingDocumentContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 		
@@ -499,8 +374,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingPowerpointContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 		
@@ -611,8 +484,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingCodeAndDocumentContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 		
@@ -715,8 +586,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingCodeAndPowerpointContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 		
@@ -819,8 +688,6 @@ public class ContentFinderRegressionTests {
 	@Test(dataProvider="contentFinder")
 	@Parameters({"title", "module", "curricula"})
 	public void testFindingDocumentAndPowerpointContent(String title, String module, String curricula) {
-		//Instantiate new POM of ContentFinder
-		ContentFinder cf = new ContentFinder(driver);
 		//Check if driver url is equal to the POM url
 		assertTrue(driver.getCurrentUrl().contains(cf.url));
 		
@@ -846,7 +713,7 @@ public class ContentFinderRegressionTests {
 		String preClickClassCodeButton = cf.codeButton.getAttribute("class");
 		
 		//Perform POM WebElements actions
-		cf.inputToInputBox(cf.titleBox, testTitle);
+		cf.inputToInputBox(cf.titleBox, title);
 		cf.clickButton(cf.codeButton);
 		cf.inputToInputBox(cf.modulesBox, module);
 		List<WebElement> testModuleOptions = driver.findElements(By.className("ng-option"));
