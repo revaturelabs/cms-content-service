@@ -24,39 +24,66 @@ import com.revature.entities.Link;
 import com.revature.services.LinkService;
 import com.revature.util.LogException;
 
+/**
+ * LinkController
+ * Delegate different HTTP request for curriculum to corresponding {@link com.revature.service.LinkService LinkService} method
+ *
+ */
 @CrossOrigin(origins = "*", allowCredentials = "true")
 @Transactional
 @RestController
 @RequestMapping(value = "/links")
-
 public class LinkController {
 
 	@Autowired
 	LinkService linkService;
-
-	// creates one Link object
+	/**
+	 * HTTP POST method
+	 * Uses @PostMapping to create one {@link com.revature.entities.Link Link} object using the {@link com.revature.service.LinkServiceImpl#createLink(Link) createLink} method.
+	 * Upon successful creation, the ResponseEntity will return status OK.
+	 * @param link
+	 * @return ResponseEntity<Link>
+	 * @throws Exception
+	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Link> createLink(@RequestBody Link link) throws Exception {
 
 		return ResponseEntity.ok(linkService.createLink(link));
 	}
 
-	// Returns all links
+	/**
+	 * HTTP GET method
+	 * Uses @GetMapping to retrieve all {@link com.revature.entities.Link Link} objects using the {@link com.revature.service.LinkServiceImpl#getAllLinks() getAllLink()} method.
+	 * Upon successful retrieval, the ResponseEntity will return status OK.
+	 * @param link
+	 * @return ResponseEntity<Link>
+	 */
 	@GetMapping()
 	public ResponseEntity<Set<Link>> getAllLinks() {
 		return ResponseEntity.ok(linkService.getAllLinks());
 	}
 
-	// Returns specific link
+	/**
+	 * HTTP GET method
+	 * Uses @GetMapping to retrieve a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#getLinkById(int id) getLinkById(int id)} method.
+	 * Upon successful retrieval, the ResponseEntity will return status OK.
+	 * @param id
+	 * @return ResponseEntity<Link>
+	 */
 	@GetMapping(value = "{id}")
 	public ResponseEntity<Link> getLinkById(@PathVariable int id) {
 		return ResponseEntity.ok(linkService.getLinkById(id));
 	}
 
-	// This query returns a subset of Links based on the values of the query
-	// parameters passed in
-	// If a parameter is empty, it is not used in the filtering process.
-	// modules is a string in comma separated format of integers ex. "1,2,3,4"
+	/**
+	 * HTTP GET method
+	 * Uses @GetMapping to retrieve specific {@link com.revature.entities.Link Link} objects based on title, format, and modules using the {@link com.revature.service.LinkServiceImpl#filter(String title, String format, String modules) filter(String title, String format, String modules)} method.
+	 * If a parameter is empty, it is not used in the filtering process.
+	 * "modules" is a String in comma-separated format of integers (e.g. "1,2,3,4").
+	 * Upon successful retrieval, the ResponseEntity will return status OK.
+	 * @param title, format, modules
+	 * @return ResponseEntity<Set<Set<Link>>>
+	 */
 	@LogException
 	@GetMapping(params = { "title", "format", "modules" })
 	public ResponseEntity<Set<Set<Link>>> getSearchResults(
@@ -71,13 +98,25 @@ public class LinkController {
 		return ResponseEntity.ok(linkService.filter(title, format, moduleIdsList));
 	}
 
-	// update a link
+	/**
+	 * HTTP PUT method
+	 * Uses @PutMapping to update a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#updateLink(Link link) updateLink(Link link)} method.
+	 * Upon successful update, the ResponseEntity will return status OK.
+	 * @param link
+	 * @return ResponseEntity<Link>
+	 */
 	@PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Link> updateLink(@RequestBody Link link) {
 		return ResponseEntity.ok(linkService.updateLink(link));
 	}
 
-	// deletes a single Link
+	/**
+	 * HTTP DELETE method
+	 * Uses @DeleteMapping to delete a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#deleteLinkById(int id) deleteLinkById(int id)} method.
+	 * Upon successful update, the ResponseEntity will return status OK.
+	 * @param id
+	 * @return ResponseEntity<Link>
+	 */
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteLink(@PathVariable int id) {
 		linkService.deleteLinkById(id);
