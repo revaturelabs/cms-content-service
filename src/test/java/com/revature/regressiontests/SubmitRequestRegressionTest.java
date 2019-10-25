@@ -19,7 +19,7 @@ public class SubmitRequestRegressionTest {
 	
 	public static WebDriver driver;
 	
-	public static String url = "http://localhost:4200/submit-request";
+	public static String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/submit-request";
 	public String testTitle = "Submit Request Test";
 	public String testDescription = "This is an automated selenium request.";
 	public String testLoadModule = "Test Load Module";

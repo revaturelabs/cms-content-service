@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 public class SubmitRequest {
 
 	public WebDriver driver;
-	public String url = "http://localhost:4200/submit-request";
+	public String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/submit-request";
 	
 	@FindBy(xpath="//input[@id='title']")
 	public WebElement titleBox;
