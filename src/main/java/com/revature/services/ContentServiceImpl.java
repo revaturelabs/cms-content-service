@@ -132,6 +132,8 @@ public class ContentServiceImpl implements ContentService {
 		return cr.save(newContent);
 	}
 
+	
+	
 	@Override
 	public void deleteContent(Content content) {
 		if(content != null) {

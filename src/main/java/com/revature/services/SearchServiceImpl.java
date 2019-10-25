@@ -44,7 +44,7 @@ public class SearchServiceImpl implements SearchService {
 	CurriculumModuleService cms;
 
 	/**
-	 * filterContentByTitle takes in a string value and returns a content object
+	 * filterContentByTitle takes in a string value and returns a set of content object(s)
 	 */
 	@Override
 	@LogException
@@ -53,7 +53,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/**
-	 * filderContentByFormat takes in a string value and returns a content object
+	 * filderContentByFormat takes in a string value and returns a set of content object(s)
 	 */
 	@Override
 	@LogException
@@ -159,7 +159,6 @@ public class SearchServiceImpl implements SearchService {
 	 * content that matches all 3 inputs using AND logic. If an input is empty it is
 	 * ignored and is not part of the logic.
 	 */
-	//Change this to take a string array for format
 	@Override
 	@LogException
 	public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds, List<Integer> curriculaIds) {
@@ -207,6 +206,10 @@ public class SearchServiceImpl implements SearchService {
 
 	}
 	
+	/**
+	 * This Method is used to return a set of content that has been filtered through criteria that is passed in as arguments.
+	 * the arguments can be empty. This method can filter by title, formats, and moduleId
+	 */
     public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds) {
 		
 		Set<Content> content = cs.getAllContent();
@@ -240,6 +243,10 @@ public class SearchServiceImpl implements SearchService {
 
 	}
 	
+    /**
+     * @param curriculaIds (A List of Integers)
+     * @return A set of content that has been filtered by curriculaIds
+     */
 	public Set<Content> filterContentByCurriculaIds(List<Integer> curriculaIds) {
 		
 		Set<Curriculum> curricula = new HashSet<Curriculum>();
@@ -288,6 +295,10 @@ public class SearchServiceImpl implements SearchService {
 		return content;
 	}
 
+    /**
+     * @param Set<Content> contents, Map<String, Object> filters
+     * @return a Set of Content
+     */
 	@Override
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters) {
 
@@ -336,6 +347,9 @@ public class SearchServiceImpl implements SearchService {
 		return filteredContent;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public Set<Request> filterRequestByTitle(String title) {
 		return rr.findByTitle(title);
