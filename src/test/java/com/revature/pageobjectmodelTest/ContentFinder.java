@@ -2,7 +2,6 @@ package com.revature.pageobjectmodelTest;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -17,19 +16,30 @@ public class ContentFinder {
 	public WebElement loadModulesBox;
 	@FindBy(xpath="//*[@id=\"subjectDropDown\"]/div/span[1]")
 	public WebElement clearLoadModulesBox;
-	@FindBy(xpath="//input[@id='Code']")
-	public WebElement codeRadioButton;
-	@FindBy(xpath="//input[@id='Document']")
-	public WebElement documentRadioButton;
-	@FindBy(xpath="//input[@id='Powerpoint']")
-	public WebElement powerpointRadioButton;
-	@FindBy(xpath="//input[@id='Flagged']")
-	public WebElement flaggedRadioButton;
-	@FindBy(xpath="//input[@id='All']")
-	public WebElement allRadioButton;
-	@FindBy(xpath="//button[@id='submitButton']")
+	//@FindBy(xpath="//input[@id='Code']")
+	//public WebElement codeRadioButton;
+	//@FindBy(xpath="//input[@id='Document']")
+	//public WebElement documentRadioButton;
+	//@FindBy(xpath="//input[@id='Powerpoint']")
+	//public WebElement powerpointRadioButton;
+	//@FindBy(xpath="//input[@id='Flagged']")
+	//public WebElement flaggedRadioButton;
+	//@FindBy(xpath="//input[@id='All']")
+	//public WebElement allRadioButton;
+	@FindBy(xpath="//*[@id='Code']")
+	public WebElement codeButton;
+	@FindBy(xpath="//*[@id='Document']")
+	public WebElement documentButton;
+	@FindBy(xpath="//*[@id='Powerpoint']")
+	public WebElement powerpointButton;
+	@FindBy(xpath="//*[@id='submitButton']")
 	public WebElement submitButton;
 	
+	/**
+	 * Loaded Constructor
+	 * 
+	 * @param driver WebDriver driver
+	 */
 	public ContentFinder(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 		this.driver = driver;
@@ -62,26 +72,11 @@ public class ContentFinder {
 	}
 	
 	/**
-	 * Simulate clicking the Code Radio Button option WebElement
+	 * Simulate clicking given button WebElement
+	 * 
+	 * @param button WebElement button to be clicked
 	 */
-	public void clickCodeRadioButton() {
-		Actions actions = new Actions(driver);
-		actions.moveToElement(codeRadioButton).click().perform();
-	}
-	
-	/**
-	 * Simulate clicking the Document Radio Button option WebElement
-	 */
-	public void clickDocumentRadioButton() {
-		Actions actions = new Actions(driver);
-		actions.moveToElement(documentRadioButton).click().perform();
-	}
-	
-	/**
-	 * Simulate clicking the Powerpoint Radio Button option WebElement
-	 */
-	public void clickPowerpointRadioButton() {
-		Actions actions = new Actions(driver);
-		actions.moveToElement(powerpointRadioButton).click().perform();
+	public void clickButton(WebElement button) {
+		button.click();
 	}
 }
