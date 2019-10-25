@@ -22,7 +22,7 @@ public class ContentCreatorRegressionTests {
 
 	public static WebDriver driver;
 
-	public static String url = "http://localhost:4200/content-creator";
+	public static String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/content-creator";
 
 	@BeforeClass
 	public void setUP() {
@@ -146,10 +146,8 @@ public class ContentCreatorRegressionTests {
 		String preClickClass = codeButton.getAttribute("class");
 		// Click the code button
 		codeButton.click();
-		// Compare the preclick value with the class attribute after the button is
-		// pressed.
-		// Because code button is selected on page load, these two values will actually
-		// be the same
+		// Compare the preclick value with the class attribute after the button is pressed.
+		// Because code button is selected on page load, these two values will actually be the same
 		assertEquals(preClickClass, codeButton.getAttribute("class"));
 		// When pressed the class attribute should contain the string "btn-primary"
 		assertTrue(codeButton.getAttribute("class").contains("btn-primary"));
@@ -175,11 +173,9 @@ public class ContentCreatorRegressionTests {
 		String preClickClass = documentButton.getAttribute("class");
 		// Click the document button
 		documentButton.click();
-		// Compare the preclick and the post click class attribute, they should be
-		// different
+		// Compare the preclick and the post click class attribute, they should be different
 		assertNotEquals(preClickClass, documentButton.getAttribute("class"));
-		// When clicked, the document button class attribute should contain the string
-		// "btn-primary"
+		// When clicked, the document button class attribute should contain the string "btn-primary"
 		assertTrue(documentButton.getAttribute("class").contains("btn-primary"));
 		// The code button should NOT contain the string "btn-primary"
 		assertFalse(cc.codeButton.getAttribute("class").contains("btn-primary"));
@@ -203,11 +199,9 @@ public class ContentCreatorRegressionTests {
 		String preClickClass = cc.powerpointButton.getAttribute("class");
 		// Click the powerpoint button
 		cc.powerpointButton.click();
-		// Compare the preclick and the post click class attribute, the should be
-		// different
+		// Compare the preclick and the post click class attribute, the should be different
 		assertNotEquals(preClickClass, cc.powerpointButton.getAttribute("class"));
-		// When clicked, the powerpoint button class attribute should contain the string
-		// "btn-primary"
+		// When clicked, the powerpoint button class attribute should contain the string "btn-primary"
 		assertTrue(cc.powerpointButton.getAttribute("class").contains("btn-primary"));
 		// The code button should NOT contain the string "btn-primary"
 		assertFalse(cc.codeButton.getAttribute("class").contains("btn-primary"));
@@ -326,7 +320,6 @@ public class ContentCreatorRegressionTests {
 	@Test(priority = 2)
 	public void testFormSubmitWithDocumentButton() {
 		driver.navigate().refresh();
-		// driver.navigate().to(url);
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
 
@@ -393,8 +386,7 @@ public class ContentCreatorRegressionTests {
 
 		// test that the two class values are equal because code is selected by default.
 		assertNotEquals(preClickClass, postClickClass);
-		// When clicked, the document button class attribute should contain the string
-		// "btn-primary"
+		// When clicked, the document button class attribute should contain the string "btn-primary"
 		assertTrue(documentBtn.getAttribute("class").contains("btn-primary"));
 
 		// The code button should NOT contain the string "btn-primary"
@@ -419,7 +411,7 @@ public class ContentCreatorRegressionTests {
 	@Test(priority = 3)
 	public void testFormSubmitWithPowerpointButton() {
 		driver.navigate().refresh();
-		// driver.navigate().to(url);
+		
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
 
@@ -486,8 +478,7 @@ public class ContentCreatorRegressionTests {
 
 		// test that the two class values are equal because code is selected by default.
 		assertNotEquals(preClickClass, postClickClass);
-		// When clicked, the powerpoint button class attribute should contain the string
-		// "btn-primary"
+		// When clicked, the powerpoint button class attribute should contain the string "btn-primary"
 		assertTrue(cc.powerpointButton.getAttribute("class").contains("btn-primary"));
 
 		// The code button should NOT contain the string "btn-primary"
@@ -505,8 +496,6 @@ public class ContentCreatorRegressionTests {
 		// After the submit is selected, a toastr message will appear.
 		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
 		assertNotNull(confirmSubmit);
-		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
-		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
 	@AfterClass
