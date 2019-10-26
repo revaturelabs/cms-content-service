@@ -347,19 +347,27 @@ public class SearchServiceImpl implements SearchService {
 		return filteredContent;
 	}
 
-	/**
-	 * 
-	 */
+    /**
+     * @param String title
+     * @return a Set of Requests
+     */
 	@Override
 	public Set<Request> filterRequestByTitle(String title) {
 		return rr.findByTitle(title);
 	}
-
+    /**
+     * @param String format
+     * @return a Set of Requests
+     */
 	@Override
 	public Set<Request> filterRequestByFormat(String format) {
 		return rr.findByFormat(format);
 	}
 
+    /**
+     * @param List<Integer> moduleIds
+     * @return a Set of Requests
+     */
 	@Override
 	public Set<Request> filterRequestBySubjectIds(List<Integer> moduleIds) {
 		Set<Module> modules = new HashSet<Module>();
