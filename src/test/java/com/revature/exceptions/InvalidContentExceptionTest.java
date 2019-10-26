@@ -7,13 +7,16 @@ import org.testng.annotations.Test;
 
 
 /**
- * Simple Test for InvalidContentException to allow for testng full coverage.
+ * Class for testing {@link com.revature.exceptions.InvalidContentException InvalidContentException}
  *
  */
 public class InvalidContentExceptionTest {
 
+	/**
+	 * Test for throwing an {@link com.revature.exceptions.InvalidContentException InvalidContentException}
+	 */
 	@Test
-	public void InvalidContentExceptionMessageInjectedByThrowTestTrue() {
+	public void testInvalidContentException_MessageInjectedByThrow() {
 		try {
 			throw new InvalidContentException("InvalidContentException message");
 		} catch (InvalidContentException e) {
@@ -21,24 +24,12 @@ public class InvalidContentExceptionTest {
 		}
 	}
 
+	/**
+	 * Test for ensuring that an {@link com.revature.exceptions.InvalidContentException InvalidContentException} is a {@link java.lang.RuntimeException RuntimeException}
+	 */
 	@Test
-	public void InvalidContentExceptionMessageInjectedBySuperTestTrue() {
+	public void testInvalidContentException_MessageInjectedBySuper() {
 		RuntimeException invalidContentException = new InvalidContentException("InvalidContentException message");
 		assertEquals("InvalidContentException message", invalidContentException.getMessage());
-	}
-
-	@Test
-	public void InvalidContentExceptionMessageInjectedByThrowTestFalse() {
-		try {
-			throw new InvalidContentException("InvalidContentException message");
-		} catch (InvalidContentException e) {
-			assertNotEquals("Testing failure", e.getMessage());
-		}
-	}
-
-	@Test
-	public void InvalidContentExceptionMessageInjectedBySuperTestFalse() {
-		RuntimeException invalidContentException = new InvalidContentException("InvalidContentException message");
-		assertNotEquals("Testing failure", invalidContentException.getMessage());
 	}
 }

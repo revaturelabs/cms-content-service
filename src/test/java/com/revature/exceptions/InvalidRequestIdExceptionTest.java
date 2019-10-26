@@ -5,8 +5,14 @@ import static org.testng.Assert.assertNotEquals;
 
 import org.testng.annotations.Test;
 
+/**
+ * Class for testing {@link com.revature.exceptions.InvalidRequestIdException InvalidRequestIdException}
+ */
 public class InvalidRequestIdExceptionTest {
 
+	/**
+	 * Test for throwing an {@link com.revature.exceptions.InvalidRequestIdException InvalidRequestIdException}
+	 */
 	@Test
 	public void InvalidRequestIdExceptionMessageInjectedByThrowTestTrue() {
 		try {
@@ -16,24 +22,12 @@ public class InvalidRequestIdExceptionTest {
 		}
 	}
 
+	/**
+	 * Test for ensuring that an {@link com.revature.exceptions.InvalidRequestIdException InvalidRequestIdException} is a {@link java.lang.RuntimeException RuntimeException}
+	 */
 	@Test
 	public void InvalidRequestIdExceptionMessageInjectedBySuperTestTrue() {
 		RuntimeException invalidRequestIdException = new InvalidRequestIdException("InvalidRequestIdException message");
 		assertEquals("InvalidRequestIdException message", invalidRequestIdException.getMessage());
-	}
-
-	@Test
-	public void InvalidRequestIdExceptionMessageInjectedByThrowTestFalse() {
-		try {
-			throw new InvalidRequestIdException("InvalidRequestIdException message");
-		} catch (InvalidRequestIdException e) {
-			assertNotEquals("Testing failure", e.getMessage());
-		}
-	}
-
-	@Test
-	public void InvalidRequestIdExceptionMessageInjectedBySuperTestFalse() {
-		RuntimeException invalidRequestIdException = new InvalidRequestException("InvalidRequestIdException message");
-		assertNotEquals("Testing failure", invalidRequestIdException.getMessage());
 	}
 }
