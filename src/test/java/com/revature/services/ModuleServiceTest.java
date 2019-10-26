@@ -56,14 +56,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	//EachTest will test one function to make sure base functionality works
 	
 	/**
-	 * Tests getAllModules()
-	 * Module Repository - findAll()
-	 * Asserts true if a module list is returned
+	 * This method tests { @link com.revature.services.ModuleServiceImpl#getAllModules() getAllModules() } 
+	 * This takes no argument and is expected to return a set containing all modules.
+	 * This mocks ModuleRepository and ModuleServiceImpl
 	 */
 	@Test
-	//Tests the functionality that retrieves all modules.
-	//It uses the findAll() method from Module Repository and
-	//takes no argument.
 	void testGetAllModules() {
 		Module mod1 = new Module(1, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 			new HashSet<Module>(), new HashSet<Module>());
@@ -82,14 +79,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Tests GetModuleById()
-	 * Module Repository - findById()
-	 * Asserts True if temp variable equals m1 Module object
+	 * This method tests { @link com.revature.services.ModuleServiceImpl#getModuleById() getModuleById() } 
+	 * This takes an int and is expected to return a set containing all modules.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
-	//Tests the functionality for retrieving a module
-	//after passing the module ID as an argument.
-	//It uses the findById() method from Module Repository.
 	void testGetModuleById() {
 
 		
@@ -103,14 +97,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Tests createModule()
-	 * Module Repository - save()
-	 * Asserts true if temp variable equals m4 Module object
+	 * This method tests { @link com.revature.services.ModuleServiceImpl#createModule(module) createModule(module) } 
+	 * This takes a Module and is expected to return a Module.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
-	//Tests the functionality for creating a module
-	//It uses the save() method from the Module Repository
-	//and takes a Module as an argument.
 	void testCreateModule() {
 		
 		Module mod1 = new Module(0, "Java", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -123,14 +114,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Tests getAverageByModuleIds
-	 * Link Repository - findByModuleIdin()
-	 * Assert True if temp variable is greater than | equal to 0.0
+	 * This method tests { @link com.revature.services.ModuleServiceImpl#getAverageByAllModules() getAverageByAllModules() } 
+	 * This takes a Module and is expected to return a Module.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
-	//Tests the functionality to calculate the average resources (links)
-	//given a set of modules.
-	//It takes a set of modules as an argument.
 	void testGetAverageByModules() {
 
 	 	Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
@@ -159,12 +147,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 
-	/*
-	 * Tests getChildrenByParentsId() function.
-	 * ModuleRepository - findById()
-	 * Should return children modules of a given/parent module.
-	 * Takes a Module as an argument.
-	 * Asserts equals if results is equal to children(expected).
+	/**
+	 * This method tests { @link com.revature.services.ModuleServiceImpl#getChildrenByParentId(int) getChildrenByParentId(int) }
+	 * This method assumes an int that refers to a Module ID is passed as an argument and returns a set of Modules.
+	 * This mocks ModuleRepository and ModuleServiceImpl classes.
 	 */
 	@Test	
 	void testGetChildrenByParentId() {
@@ -184,12 +170,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(results, children);
 	}
 
-	/*
-	 * Tests getAllRootModules() method
-	 * ModuleRepository - findAll()
-	 * Should return all root modules (modules with no parents).
-	 * Takes no argument.
-	 * Asserts equals if results is equal to parentsOfMod1.
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getAllRootModules() getAllRootModules()}
+	 * This method takes no argument and is expected to return a set of root modules.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
 	void testGetAllRootModules() {
@@ -218,12 +202,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		
 	}
 
-	/*
-	 * Tests updateModule() method
-	 * ModuleRepository - save()
-	 * Should return the updated module.
-	 * Takes a module as an argument.
-	 * Assert equals if actual is equal to mod1.
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#updateModule(Module) updateModule(Module)}
+	 * This method assumes a Module and is expected to update and return that module.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
 	void testUpdateModule() {
@@ -237,10 +219,9 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Tests delete() method
-	 * ModuleRepository - delete()
-	 * Should verify that the delete() method is called.
-	 * Takes a Module as an argument.
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#deleteModule(Module) deleteModule(Module)}
+	 * This method assumes a Module and is expected to delete that module.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
 	void testDeleteModule() {
@@ -253,8 +234,10 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(mrMock).delete(mod1);
 	}
 
-	/*
-	 * 
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#deleteModule(Module) deleteModule(Module)}
+	 * This method assumes a null value and is expected not perform the delete function.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
 	@Test
 	void testDeleteModuleWithNullModule() {
@@ -264,6 +247,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(mrMock, Mockito.times(0)).delete(null);
 	}
 
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#deleteModuleWithAllContent(Module) deleteModuleWithAllContent(Module)}
+	 * This method assumes a Module and is expected to delete the contents within that module and the module.
+	 * This mocks LinkRepository, ModuleRepository and ModuleServiceImpl.
+	 */
 	@Test
 	void testDeleteModuleWithAllContent() {
 
@@ -288,6 +276,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(mrMock).delete(mod1);
 	}
 
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#deleteModuleWithSpecificContent(Module) deleteModuleWithSpecificContent(Module)}
+	 * This method takes a Module and is expected to delete contents that is only associated with that module.
+	 * This mocks LinkRepository, ModuleRepository and ModuleServiceImpl.
+	 */
 	@Test
 	void testDeleteModuleWithSpecificContent() {
 		// Given
@@ -332,6 +325,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Mockito.verify(mrMock).delete(mod1);
 	}
 
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getLinksByModuleId(int) getLinksByModuleId(int)}
+	 * This method takes an int that refers to the module ID and is expected to return a set of Links.
+	 * This mocks LinkRepository and ModuleServiceImpl.
+	 */
 	@Test
 	void testGetLinksByModuleId() {
 		final int id = 1;
@@ -351,6 +349,11 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(actual, links);
 	}
 
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getRequestLinksByModuleId(int) getRequestLinksByModuleId(int)}
+	 * This method takes an int that refers to the module ID and is expected to return a set of ReqLinks.
+	 * This mocks ReqLinkRepository, ModuleRepository and ModuleServiceImpl.
+	 */
 	@Test
 	void testGetRequestLinksByModuleId() {
 		ReqLink reqLink1 = new ReqLink(1, new Request(), new Module(), "affiliation1");
@@ -372,6 +375,14 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		Assert.assertEquals(actual, reqLinks);
 	}
 	
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#updateLinksByModuleId(int, Set) updateLinksByModuleId(int, Set)}
+	 * This method takes an int that refers to the module ID and a set of links
+	 * and is expected to update and return that set.
+	 * This mocks ReqLinkRepository, ModuleRepository and ModuleServiceImpl.
+	 * 
+	 * Note from tester: this does not need/use the int argument
+	 */
 	@Test
 	void testUpdateLinksByModuleId () {
 		Link link = new Link(1, new Content(), new Module(), "affiliation1",0);
