@@ -174,7 +174,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		modules.add(mod1);
 		modules.add(mod2);
 
-		Mockito.when(msMock.getAllModules()).thenReturn(modules);
+		Mockito.when(msMock.getAllModules()).thenReturn(modules); 
 		double tmp = msMock.getAverageByAllModules();
 
 		assertTrue(Double.compare(tmp, 1.5) == 0);
