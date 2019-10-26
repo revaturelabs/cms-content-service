@@ -114,7 +114,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * This method tests { @link com.revature.services.ModuleServiceImpl#getAverageByAllModules() getAverageByAllModules() } 
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getAverageByModules(Set) getAverageByModules(Set)} 
 	 * This takes a Module and is expected to return a Module.
 	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
@@ -146,6 +146,39 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 		assertTrue(Double.compare(tmp, 1.5) == 0);
 	}
 	
+	/**
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getAverageByAllModules() getAverageByAllModules()} 
+	 * This takes no argument and is expected to return a double/average value of all the resources' resources.
+	 * This mocks ModuleRepository and ModuleServiceImpl.
+	 */
+	@Test
+	void testGetAverageByAllModules() {
+
+	 	Link link1 = new Link(1, new Content(), new Module(), "affiliation1",0);
+		Link link2 = new Link(2, new Content(), new Module(), "affiliation2",0);
+		Link link3 = new Link(3, new Content(), new Module(), "affiliation3",0);
+
+		Set<Link> links1 = new HashSet<Link>();
+		links1.add(link1);
+		links1.add(link2);
+
+		Set<Link> links2 = new HashSet<Link>();
+		links2.add(link3);
+
+		Module mod1 = new Module(1, "Java", 1L, links1, new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+		Module mod2 = new Module(2, "Testing", 1L, links2, new HashSet<ReqLink>(),
+				new HashSet<Module>(), new HashSet<Module>());
+
+		Set<Module> modules = new HashSet<Module>();
+		modules.add(mod1);
+		modules.add(mod2);
+
+		Mockito.when(msMock.getAllModules()).thenReturn(modules);
+		double tmp = msMock.getAverageByAllModules();
+
+		assertTrue(Double.compare(tmp, 1.5) == 0);
+	}
 
 	/**
 	 * This method tests { @link com.revature.services.ModuleServiceImpl#getChildrenByParentId(int) getChildrenByParentId(int) }
