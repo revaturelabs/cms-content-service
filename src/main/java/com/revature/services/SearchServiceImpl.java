@@ -53,7 +53,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/**
-	 * filderContentByFormat takes in a string value and returns a set of content object(s)
+	 * filterContentByFormat takes in a string value and returns a set of content object(s)
 	 */
 	@Override
 	@LogException
@@ -209,6 +209,9 @@ public class SearchServiceImpl implements SearchService {
 	/**
 	 * This Method is used to return a set of content that has been filtered through criteria that is passed in as arguments.
 	 * the arguments can be empty. This method can filter by title, formats, and moduleId
+	 * 
+	 * 	 * Notes are left for the developers, This Method and Its Test should be removed. The Over-ridden version of this test and its method
+	 * can effectively replace these
 	 */
     public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds) {
 		

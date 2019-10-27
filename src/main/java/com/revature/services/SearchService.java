@@ -30,4 +30,7 @@ public interface SearchService {
 	public Set<Request> filterRequestBySubjectIds(List<Integer> moduleIds);
 	
 	public Set<Request> filterReq(String title, List<String> format, List<Integer> modules);
+	
+	//Added By UTAT-643. Needed For Testing Purposes === TestfilterContentByCurriculaIds()
+	public Set<Content> filterContentByCurriculaIds(List<Integer> curriculaIds);
 }

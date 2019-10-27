@@ -121,49 +121,37 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	}
 	
 	
-	/*
+	/**
 	 * This test is testing the functionality of the createContent method within the ContentServiceImpl class
-	 * */
+	 * {@link com.revature.services.ContentService#createContent(Content) createContent(Content).}
+	 * 
+	 */
 	
 	@Test
 	public void testCreateContent() 
-	{
-		ret = contServe.createContent(mockContent);
-		assertEquals(ret, mockContent, "Should get back same content");
+	{	
+		Content content = new Content(1, null, null, null, null, 0, 0, links);
+		Mockito.when(contRep.save(content)).thenReturn(content);
+		Content actual = contServe.createContent(content);
+		assertEquals(content, actual);
 	}
 	
-	/*
+	/**
 	 * This method tests the functionality of the .getConentById method within the ContentServiceImpl class
-	 * */
+	 * {@link com.revature.services.ContentService#getContentById(int) getContentById(int).}
+	 */
 	
 	@Test
 	public void testGetContentById()
 	{
 		when(contRep.findById(testContent.getId())).thenReturn(testContent);
 		assertTrue(contServe.getContentById(testContent.getId()).equals(testContent));
-	}
+	}	
 	
-	/*
-	 * This method tests the functionality of the .updateContent method within the ContentServiceImpl class
-	 * */
-	
-	@Test
-	public void testUpdateContent()
-	{
-
-//		links.add(new Link(5,mockContent.getId(),9, "other stuff"));
-//		testContent.setLinks(links);
-//		contentSet.add(testContent);
-//		when(contRep.findById(testContent.getId())).thenReturn(contentSet);
-//		mockContent = contServe.updateContent(testContent);
-//		assertTrue(testContent.equals(mockContent));
-	}
-	
-	
-	/*
+	/**
 	 * This method tests the functionality of the .getAllContent method within the ContentServiceImpl class
-	 * */
-	
+	 * {@link com.revature.services.ContentService#getAllContent() getAllContent().}
+	 */
 	@Test
 	public void testGetAllContent()
 	{
@@ -172,7 +160,9 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		secondContentSet = contServe.getAllContent();
 		assertTrue(contServe.getAllContent().equals(secondContentSet));
 	}
-	//author Robert 
+	/**
+	 * this method tests {@link com.revature.services.ContentService#getLinksByContentId(int) getLinksByContentId(int).}
+	 */
 	@Test 
 	public void testGetLinksByContentId() 
 	{
@@ -185,10 +175,11 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 	    when(linkRep.findByContentId(testLink2.getId())).thenReturn((linkSet));
 	    assertTrue(contServe.getLinksByContentId(testLink2.getId()).equals(linkSet));
 	}
-	/*
-	 * This method tests the functionality of the .getFormatCount(String) method within the ContentServiceImpl class
-	 * */
-	
+
+	/**
+	 * this method tests {@link com.revature.services.ContentService#getFormatCount(String[]) getFormatCount(String[]).}
+	 * this method assumes a string array of formats is passed in as an argument, and returns the amount of appearances a format has in the form of a Map<String, Integer>
+	 */
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetFormatCount_StringVersion()
 	{
@@ -207,37 +198,45 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		assertTrue(actualMap.equals(expected));
 	}
 	
-	/*
-	 * This method tests the functionality of the .getFormatCount(content) method within the ContentServiceImpl class
-	 * */
-
+	/**
+	 * this method tests {@link com.revature.services.ContentService#getFormatCount(Set) getFormatCount(Set<Content>).}
+	 * this method assumes a Set of Content is passed in as an argument, and returns the amount of appearances a format has in the form of a Map<String, Integer>
+	 * 
+	 * Defect Present: Bug - The method does not correctly handle multiple formats if the format in question is not the first format. you can replicate this bug by adding a new object with format hello and setting the expected map to expected.pun("hello", 2)
+	 */
 	@Test(dependsOnMethods = {"testGetContentById"})
 	public void testGetFormatCount_ContentVersion()
 	{ 
 		Set<Content> mockSet = new HashSet<Content>();
 		Content mockContent = new Content(1, "title", "Java", "OOPL", "URL", 12345L, 54321L, links);
-		Content mockContent2 = new Content(2, "title", "Hello", "OOPL", "URL", 2345L, 4321L, links);
-		mockSet.add(mockContent); mockSet.add(mockContent2);
+		Content mockContent2 = new Content(2, "title", "Java", "OOPL", "URL", 2345L, 4321L, links);
+		Content mockContent3 = new Content(3, "title", "Hello", "OOPL", "URL", 2345L, 4321L, links);
+
+		mockSet.add(mockContent); mockSet.add(mockContent2); mockSet.add(mockContent3);
 		
 		Map <String, Integer> expected = new HashMap<> ();
-		expected.put("Java", 1);
+		expected.put("Java", 2);
 		expected.put("Hello", 1);
 		
 		Map <String, Integer> actualMap = new HashMap<> ();
 		actualMap = contServe.getFormatCount(mockSet);
 	
-		assertTrue(actualMap.equals(expected));
+		assertEquals(actualMap, expected);
 	}
 	
-	//Author - Carlos
+	/**
+ 	* this method tests {@link com.revature.services.ContentService#updateContent(Content) updateContent(Content).}
+ 	*/
 	@Test
-	public void updateContentTest() {
+	public void testUpdateContent() {
 		contServe.updateContent(mockContent);
-		verify(contRep, times(3)).save(mockContent);
+		verify(contRep, times(2)).save(mockContent);
 	}
 	
-	//Author - Carlos
-	//Method tests updating content, We have to verify that the delete method is invoked in order to validate this test	
+	/**
+ 	* this method tests {@link com.revature.services.ContentService#updateContent(Content) updateContent(Content).}
+ 	* assuming that the content passed in as an argument is null, then throws an exception
+ 	*/
 	@Test(expectedExceptions = {InvalidContentException.class})
 	public void updateContentTest_ContentIsNull() {
 		Content cont = null;
@@ -245,17 +244,19 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		
 	}
 	
-	//Author - Carlos
-	//Method tests deleting content, We have to verify that the delete method is invoked in order to validate this test
+	/**
+ 	* this method tests {@link com.revature.services.ContentService#deleteContent(Content) deleteContent(Content).}
+ 	*/
 	@Test
-	public void deleteContentTest() {
+	public void testDeleteContent() {
 		contServe.deleteContent(mockContent);
 		verify(contRep).delete(mockContent);
 	}
 	
-	//author - Carlos
-	//Method tests updating links by content id. The method requires a list of links and a content Id
-	//However, method body does not use the Id.
+	/**
+ 	* this method tests {@link com.revature.services.ContentService#updateLinksByContentId(int, List) updateLinksByContentId(int).}
+ 	* this method assumes an integer Id is passed and then returns a set of the newly persisted link objects
+ 	*/
 	@Test
 	public void updateLinksByContentIdTest() {
 		Link link = new Link();
@@ -273,17 +274,12 @@ public class ContentServiceTest// extends AbstractTestNGSpringContextTests
 		verify(linkRep, times(4)).save(link2);
 	}
 	
-	//author - carlos
-	//Method tests creating links by content id. The method requires a list of links and a content Id
-	//However, method body does not use the Id.
-	
 	/**
-	 * Create a valid account.
-	 * result Account will be persisted without any errors,
-	 *         and Account.getId() will no longer be <code>null</code>
+	 * This method Tests {@link com.revature.services.ContentServiceImpl#createLinksByContentId(int, List) createLinksByContentId(int List<Link>.}
+	 * This Method assumes an int id and list of link objects are passed as arguments, and returns a List of the newly persisted Link Objects. 
 	 */
 	@Test
-	public void createLinksByContentIdTest() {
+	public void testCreateLinksByContentId() {
 		Link link = new Link();
 		Link link2 = new Link();
 		List<Link> list = new ArrayList<Link>();

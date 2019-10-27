@@ -41,9 +41,10 @@ public class CurriculumModuleServiceImplTest {
 	/**
 	 * The main purpose of this method is delegation to the repository for
 	 * persistence. Therefore verification is used.
+	 * {@link com.revature.services.CurriculumModuleServiceImpl#createCurriculumModule(CurriculumModule) createCurriculumModule(CurriculumModule).}
 	 */
 	@Test
-	public void createCurriculumModuleTest() {
+	public void testCreateCurriculumModule() {
 		curriculumModuleService.createCurriculumModule(curriculumModule);
 		verify(curriculumModuleRepository).save(curriculumModule);
 	}
@@ -51,9 +52,10 @@ public class CurriculumModuleServiceImplTest {
 	/**
 	 * The main purpose of this method is delegation to the repository for deletion.
 	 * Therefore verification is used.
+	 * {@link com.revature.services.CurriculumModuleServiceImpl#deleteCurriculumModule(CurriculumModule) deleteCurriculumModule(CurriculumModule).}
 	 */
 	@Test
-	public void deleteCurriculumModuleTest() {
+	public void testDeleteCurriculumModule() {
 		curriculumModuleService.deleteCurriculumModule(curriculumModule);
 		verify(curriculumModuleRepository).delete(curriculumModule);
 	}
@@ -62,10 +64,11 @@ public class CurriculumModuleServiceImplTest {
 	 * Tests getting all objects. The purpose is to test whether the
 	 * expected objects are returned regardless of method logic. As of now their is
 	 * no additional logic so the expected objects are the same as that returned from
-	 * the repository
+	 * the repository.
+	 * {@link com.revature.services.CurriculumModuleServiceImpl#getAllCurriculumModules() getAllCurriculumModules().}
 	 */
 	@Test
-	public void getAllCurriculumModulesTest() {
+	public void testGetAllCurriculumModules() {
 		Set<CurriculumModule> expected = new HashSet<>();
 		expected.add(curriculumModule);
 		when(curriculumModuleRepository.findAll()).thenReturn(expected);
@@ -77,10 +80,11 @@ public class CurriculumModuleServiceImplTest {
 	 * Tests getting an object based on an Id. The purpose is to test whether the
 	 * expected object is returned regardless of method logic. As of now their is
 	 * no additional logic so the expected object is the same as that returned from
-	 * the repository
+	 * the repository.
+	 * {@link com.revature.services.CurriculumModuleServiceImpl#getCurriculumModuleById(int) getCurriculumModuleById(int).}
 	 */
 	@Test
-	public void getCurriculumModuleByIdTest() {
+	public void testGetCurriculumModuleById() {
 		CurriculumModule expected = curriculumModule;
 		when(curriculumModuleRepository.findById(expected.getId())).thenReturn(expected);
 		CurriculumModule actual = curriculumModuleService.getCurriculumModuleById(expected.getId());
@@ -90,9 +94,10 @@ public class CurriculumModuleServiceImplTest {
 	/**
 	 * The main purpose of this method is delegation to the repository for updating.
 	 * Therefore verification is used.
+	 * {@link com.revature.services.CurriculumModuleServiceImpl#updateCurriculumModule(Set) updateCurriculumModule(Set<CurriculumModule>).}
 	 */
 	@Test
-	public void updateCurriculumModuleTest() {
+	public void testUpdateCurriculumModule() {
 		Set<CurriculumModule> curriculumModules = new HashSet<>();
 		curriculumModuleService.updateCurriculumModule(curriculumModules);
 		verify(curriculumModuleRepository).saveAll(curriculumModules);

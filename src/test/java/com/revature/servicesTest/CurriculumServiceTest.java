@@ -1,20 +1,31 @@
 package com.revature.servicesTest;
 
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.testng.Assert.assertEquals;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
+import com.revature.entities.Link;
+import com.revature.entities.Module;
+import com.revature.repositories.CurriculumModuleRepository;
 import com.revature.repositories.CurriculumRepository;
 import com.revature.services.CurriculumService;
 import com.revature.services.CurriculumServiceImpl;
@@ -23,9 +34,11 @@ import com.revature.services.CurriculumServiceImpl;
 public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	
 	@InjectMocks
-	private CurriculumService csMock;
+	private CurriculumService csMock = new CurriculumServiceImpl();
 	@Mock
 	private CurriculumRepository crMock;
+	@Mock
+	private CurriculumModuleRepository cmrMock;
 	private Curriculum curriculum;
 		
 	/**
@@ -47,12 +60,12 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	}
 	
 	/**
-	 * Test getAllCurriculums
-	 * Curriculum Repository - findAll()
-	 * Assert True is Curriculum List is returned
+	 * This method Tests {@link com.revature.services.CurriculumServiceImpl#getCurriculumById(int) getCurriculumById(int).}
+	 * This Method assumes an int id was passed in as an argument, and returns a Curriculum Object. 
+	 * This Method Mocks the CurriculumRepository.
 	 */
 	@Test
-	void testGetAllCurriculums() {
+	public void testGetAllCurriculums() {
 		Curriculum curr1 = new Curriculum(1, "Test Curriculum 1");
 		Curriculum curr2 = new Curriculum(2, "Test Curriculum 2");
 		
@@ -70,12 +83,12 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	}
 	
 	/**
-	 * Tests getCurriculumById()
-	 * Curriculum Repository - findById()
-	 * Asserts True if tmp variable equals the curr1 Curriculum 
+	 * This method Tests {@link com.revature.services.CurriculumServiceImpl#getCurriculumById(int) getCurriculumById(int).}
+	 * This Method assumes an int id was passed in as an argument, and returns a Curriculum Object. 
+	 * This Method Mocks the CurriculumRepository.
 	 */
 	@Test
-	void testGetCurriculumById() {
+	public void testGetCurriculumById() {
 		Curriculum  curr1 = new Curriculum(1, "Test get By Id 1");
 		Mockito.when(crMock.findById(curr1.getId())).thenReturn(curr1);
 		
@@ -84,12 +97,12 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	}
 	
 	/**
-	 * Tests getCurriculumById()
-	 * Curriculum Repository - findByName()
-	 * Asserts True if tmp variable equals the curr1 Curriculum 
+	 * This method Tests {@link com.revature.services.CurriculumServiceImpl#getCurriculumByName(String) getCurriculumByName(String).}
+	 * This Method assumes a String name was passed in as an argument, and returns a Curriculum Object. 
+	 * This Method Mocks the CurriculumRepository.
 	 */
 	@Test
-	void testGetCurriculumByname() {
+	public void testGetCurriculumByname() {
 		Curriculum curr1 = new Curriculum(1, "Java");
 		Mockito.when(crMock.findByName(curr1.getName())).thenReturn(curr1);
 		
@@ -104,7 +117,7 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	 * Therefore verification is used.
 	 */
 	@Test
-	void testCreateCurriculum() {
+	public void testCreateCurriculum() {
 		csMock.createCurriculum(curriculum);
 		verify(crMock).save(curriculum);
 	}
@@ -116,7 +129,7 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	 * Therefore verification is used.
 	 */
 	@Test
-	void testUpdateModule() {
+	public void testUpdateModule() {
 		csMock.updateCurriculum(curriculum);
 		verify(crMock).save(curriculum);
 	}
@@ -126,16 +139,32 @@ public class CurriculumServiceTest extends AbstractTestNGSpringContextTests{
 	 * Therefore verification is used.
 	 */
 	@Test
-	void testDeleteCurriculum() {	
+	public void testDeleteCurriculum() {	
 		csMock.deleteCurriculum(curriculum);
 		verify(crMock).delete(curriculum);
 	}
 	
 	@Test
-	void testDeleteCurriculumNull() {	
+	public void testDeleteCurriculumNull() {	
 		csMock.deleteCurriculum(null);
 		verify(crMock, times(0)).delete(any(Curriculum.class));
 	}
 	
-
+	/**
+	 * This method Tests {@link com.revature.services.CurriculumServiceImpl#getLinksByCurricumId(int) getLinksByCurriculumId(int).}
+	 * This Method assumes an int id was passed in as an argument, and returns a set of links. 
+	 * This Method Mocks the CurriculumModuleRepository.
+	 */
+	@Test
+	public void testgetLinksByCurriculumId() {
+		CurriculumModule cm = new CurriculumModule();
+		Set<Link> links = new HashSet<Link>();
+		links.add(new Link());
+		cm.setModule(new Module(1, null, 0, links, null, null, null));
+		Mockito.when(cmrMock.findById(anyInt())).thenReturn(cm);
+		
+		Set<Link> actual = csMock.getLinksByCurricumId(1);
+		
+		assertEquals(links, actual);
+	}
 }

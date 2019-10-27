@@ -72,10 +72,13 @@ public class ContentServiceImpl implements ContentService {
 	}
 	
 	/**
-	 * gets formats and cycles through all elements in DB to return
-	 * how many times each format is used. 
-	 * Much faster than using a findByFormat
-	 * */
+	 * @param Set<Content> contents
+	 * 
+	 * this method counts the frequency of a format within a given set of contents. it returns
+	 * a Map consiting of a string format and an int representing the frequency
+	 * 
+	 * Note From Tester: similarly to the getRequestByFormat method in Request serviceImpl, this method can be done without using the String array as an argument
+	 */
 	@Override
 	@LogException
 	public Map<String, Integer> getFormatCount(String[] formats) {
@@ -99,6 +102,15 @@ public class ContentServiceImpl implements ContentService {
 		return formatCountMapping;
 	}
 	
+	/**
+	 * @param Set<Content> contents
+	 * 
+	 * this method counts the frequency of a format within a given set of contents. it returns
+	 * a Map consiting of a string format and an int representing the frequency
+	 * 
+	 * Note From Tester: similarly to the getRequestByFormat method in Request serviceImpl, this method can be used within the getFormatCount(Sring[]) method. thus reusing code and removing rendundancies
+	 * Note From Tester: Defect Exists. See testGetFormatCount_ContentVersion() documentation in ContentServiceTest
+	 */
 	@Override
 	@LogException
 	public Map<String, Integer> getFormatCount(Set<Content> contents) {
@@ -119,6 +131,8 @@ public class ContentServiceImpl implements ContentService {
 	 * @param newContent - content received from client request
 	 * @return - the updated content
 	 * @throws - NullPointerException - if the newContent parameter is null or if the requested content to be updated doesn't exist in content Repository
+	 * 
+	 * Note From Tester: this method requires refactoring. due to strongly typing the ids as int, it currently isnt hitting the second if statement
 	 */
 	@Override
 	@LogException
@@ -147,6 +161,15 @@ public class ContentServiceImpl implements ContentService {
 	}
 
 
+	/**
+	 * @param int Id
+	 * @param List<Link> links
+	 * 
+	 * this method updates and persists links
+	 * 
+	 * Note From Tester: this method does not use the Id
+	 * Note From Test: the save method handles both creation and updating. so only one method is needed to handle both needs
+	 */
 	@Override
 	public List<Link> updateLinksByContentId(int id, List<Link> links) {
 		for (Link link : links) {
@@ -155,7 +178,15 @@ public class ContentServiceImpl implements ContentService {
 		return links;
 	}
 
-
+	/**
+	 * @param int Id
+	 * @param List<Link> links
+	 * 
+	 * this method creates and persists links
+	 * 
+	 * Note From Tester: this method does not use the Id
+	 * Note From Tester: the save method handles both creation and updating. so only one method is needed to handle both needs
+	 */
 	@Override
 	public List<Link> createLinksByContentId(int id, List<Link> links) {
 		List<Link> savedLinks = new ArrayList<Link>();

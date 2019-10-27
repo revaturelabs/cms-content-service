@@ -1,13 +1,17 @@
 package com.revature.servicesTest;
 
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.testng.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.mockito.InjectMocks;
@@ -20,6 +24,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.revature.entities.Content;
+import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -29,6 +35,8 @@ import com.revature.repositories.LinkRepository;
 import com.revature.repositories.ModuleRepository;
 import com.revature.repositories.RequestRepository;
 import com.revature.services.ContentService;
+import com.revature.services.CurriculumModuleService;
+import com.revature.services.CurriculumService;
 import com.revature.services.ModuleService;
 import com.revature.services.RequestService;
 import com.revature.services.SearchService;
@@ -53,6 +61,10 @@ public class SearchServiceTest {
 	private RequestService rsMock;
 	@Mock
 	private RequestRepository rrMock;
+	@Mock
+	private CurriculumService crsMock;
+	@Mock
+	private CurriculumModuleService cmsMock;
 	
 	@InjectMocks
 	private SearchService ss = new SearchServiceImpl();
@@ -96,6 +108,8 @@ public class SearchServiceTest {
 		Assert.assertEquals(actual, contentSetExpected);
 	}
 	
+	
+	
 	/**
 	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String).}
 	 * This Method assumes a String Title was passed in as an argument, and returns a Set of Content. 
@@ -126,7 +140,6 @@ public class SearchServiceTest {
 	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String).}
 	 * This Method assumes format.equals("flagged"), and returns a Set of Content that has no format assigned to it. 
 	 * This Method Mocks the ContentService.
-	 * 
 	 */
 	@Test
 	public void filterContentByFormatFlaggedEmptyTest() {
@@ -192,7 +205,7 @@ public class SearchServiceTest {
 	 * more than one number.
 	 */
 	@Test
-	public void filterContentBySubjectsTest() {
+	public void filterContentBySubjectIdsTest() {
 		Content contentJavaSoup = new Content(1, "title 1", "format", "something", "http://blah.com",
 				1L, 1L, new HashSet<Link>());
 		Content contentJava = new Content(2, "title 2", "format", "something else", "http://blah2.com",
@@ -271,10 +284,13 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List, List) filter(String, List<String>, List<Integer>, List<Integer>).}
-	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List) filter(String, List<String>, List<Integer>).}
+	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIds passed as an argument, and returns a set of Content.
 	 * Any of the parameters can be empty.
 	 * This Method Mocks the ContentRepository and the ContentService.
+	 * 
+	 * Notes are left for the developers, This Test and Its Method should be removed. The Over-ridden version of this test and its method
+	 * can effectively replace these
 	 */
 	@Test()
 	public void filterTest() {
@@ -319,29 +335,124 @@ public class SearchServiceTest {
 
 	}
 	
-	
-	//Incomplete - Author: Carlos. Work In Progress
-	@Test(enabled = false)
-	public void filterContentTest() {
-		String title = "title";
-		String format = "format";
-		String description = "description";
-		Content content = new Content();
-		Long dateCreated =  (long) 123;
-		Long lastModified = (long) 12;
-		Set<ReqLink> reqLinks = new HashSet<ReqLink>();
-		
-		Set<Request> RequestSetExpected = new HashSet<Request>();
-		//Local Variable. Expected Set
-		RequestSetExpected.add(new Request(1, title, format, description, content,dateCreated, lastModified, reqLinks));
-		RequestSetExpected.add(new Request(2, title, format, description, content,dateCreated, lastModified, reqLinks));
-	}
+	/**
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List) filter(String, List<String>, List<Integer>, List<Integer>).}
+	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
+	 * Any of the parameters can be empty.
+	 * This Method Mocks the ContentRepository and the ContentService.
+	 */
+	@Test()
+	public void filterTest_OverrideVersion() {
+		 List<Integer> moduleIds = new ArrayList<Integer>();
+		 List<Integer> curriculaIds = new ArrayList<Integer>();
 
+		Content content1 = new Content(1, "title 1", "format1", "something", "http://blah.com",
+					1L, 1L, new HashSet<Link>());
+		Content content2 = new Content(2, "title 2", "format2", "something else", "http://blah2.com",
+					1L, 1L, new HashSet<Link>());
+		Curriculum curriculum = new Curriculum(1, "testCurriculum");
+		
+
+		Set<Content> expected = new HashSet<Content>();
+		expected.add(content1);
+		expected.add(content2);
+		Set<Content> expected2 = new HashSet<Content>();
+		expected2.add(content1);
+		
+		
+		Module module = new Module();
+		Link link = new Link(1, content1, module, "String", 1);
+		Link link2 = new Link(2, content2, module, "String", 2);
+		String format1 = "format1";
+		String format2 = "format2";
+		List<String> formats = new ArrayList<String>();
+		formats.add(format1);
+		formats.add(format2);
+		
+		//given
+		Mockito.when(crMock.findByFormat("format1")).thenReturn(expected);
+		Mockito.when(crMock.findByTitle("title 1")).thenReturn(expected2);
+		Mockito.when(csMock.getAllContent()).thenReturn(expected);
+		Mockito.when(crsMock.getCurriculumById(anyInt())).thenReturn(curriculum);
+
+
+		//when
+		Set<Content> actualContent1 = ss.filter("title 1", formats, moduleIds, curriculaIds);
+		Set<Content> actualContent2 = ss.filter("", formats, moduleIds, curriculaIds);
+
+		verify(crMock).findByTitle("title 1");
+		verify(crMock, times(2)).findByFormat(format1);
+		verify(csMock,  times(2)).getAllContent();
+		
+		Assert.assertEquals(actualContent1, expected2);
+		Assert.assertEquals(actualContent2, expected);
+
+	}
+	
+	/**
+	 * This method tests {@link com.revature.services.SearchServiceImpl#filterContentByCurriculaIds(List) filterContentByCurriculaIds(List<Integer>).}
+	 * This method assumes a List of Integers and returns a set of Content after filtering by curriculaIds
+	 * This Method Mocks the curriculumModulesService, and CurriculumService
+	 */
+	@Test()
+	public void TestfilterContentByCurriculaIds() {
+		List<Integer> curriculaIds = new ArrayList<Integer>();
+		Set<CurriculumModule> cm = new HashSet<CurriculumModule>();
+		curriculaIds.add(1);
+		
+		Curriculum curriculum = new Curriculum(1, "curriculumTest");
+		
+		//given
+		Mockito.when(cmsMock.getAllCurriculumModules()).thenReturn(cm);
+		Mockito.when(crsMock.getCurriculumById(anyInt())).thenReturn(curriculum);
+		
+		//When
+		Set<Content> actualContent = ss.filterContentByCurriculaIds(curriculaIds);
+		
+		verify(cmsMock).getAllCurriculumModules();
+		verify(crsMock).getCurriculumById(anyInt());
+		
+		assertNotNull(actualContent);
+
+	}
+	
+	
+	/**
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContent(Set, java.util.Map) filterContent(Set<Content>, Map<String, Object>).}
+	 * This Method assumes a Set of content and a Map of string-Object pairs is passed as an argument, and returns a set of Content.
+	 */
+	@Test()
+	public void filterContentTest() {
+		Set<Content> contents = new HashSet<Content>();
+		Map<String, Object> filters = new HashMap<String, Object>();
+		Set<Link> links = new HashSet<Link>();
+
+		
+		Content content = new Content(1, "titleTest", "formatTest", null, null, 0, 0, null );
+		Module module = new Module(1, null, 0, links, null, null, null);
+		Link link = new Link(1, content, module, null, 0);
+		content.setLinks(links);
+		contents.add(content);
+		links.add(link);
+		
+		
+		filters.put("title", "titleTest");
+		filters.put("format", "formatTest");
+		filters.put("modules", "");
+		
+		//when
+		Set<Content> actualContent = ss.filterContent(contents, filters);
+		
+		assertNotNull(actualContent);
+		assertEquals(contents, actualContent);
+		
+	}
+	
 	/**
 	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestByTitle(String) filterRequestByTitle(String).}
 	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
 	 * Any of the parameters can be empty.
-	 * This Method Mocks the ContentRepository and the ContentService.
+	 * This Method Mocks the RequestRepository
 	 */
 	@Test
 	public void filterRequestByTitleTest() {
@@ -373,7 +484,7 @@ public class SearchServiceTest {
 	 	* This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestByFormat(String) filterRequestByFormat(String).}
 	 	* This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
 	 	* Any of the parameters can be empty.
-	 	* This Method Mocks the ContentRepository and the ContentService.
+	 	* This Method Mocks the RequestRepository
 	 	*/
 		@Test
 		public void filterRequestByFormatTest(){
@@ -394,7 +505,11 @@ public class SearchServiceTest {
 		    Assert.assertEquals(actual, requestSetExpected);
 		}
 		
-		//Complete - Author:Joanna
+		/**
+	 	* This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestBySubjectIds(List) filterRequestsBySubjectIds(List<Integer>).}
+	 	* This Method assumes a List of Integer SubjectIds is passed as an argument, and returns a set of Requests.
+	 	* This Method Mocks the ModuleService
+	 	*/
 		@Test
 		public void filterRequestBySubjectIdsTest() {
 			List<Integer> moduleIds = new ArrayList();
@@ -421,18 +536,11 @@ public class SearchServiceTest {
 			verify(msMock, times(1)).getModuleById(1);
 		    Assert.assertEquals(actual, requestSetExpected);
 		}
-		
-		//Complete - Author:Joanna 10/20 : fixed again after changes 10/22 By Carlos
-		
+				
 		/**
-		 * 
-		 * Method Test
-		 * Linked to
-		 * Expected Result
-		 * 
-		 * 
-		 * Filter Request test is used to test the {@link com.revature.services.SearchServiceImpl#filterReq(String, List, List) filter request method}
-		 * this expects a list of requests to be returned.
+		 * This Method tests {@link com.revature.services.SearchServiceImpl#filterReq(String, List, List) filter request method}
+		 * This method assumes a string title and/Or list of Strings formatList and/or list of integer moduleIds, and returns a list of requests.
+		 * This Method mocks the RequestRepositroy, RequestService, and ModuleService.
 		 */
 		@Test
 		public void filterReqTest() {
