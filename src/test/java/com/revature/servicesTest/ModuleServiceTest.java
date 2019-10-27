@@ -61,7 +61,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	//EachTest will test one function to make sure base functionality works
 	
 	/**
-	 * This method tests { @link com.revature.services.ModuleServiceImpl#getAllModules() getAllModules() } 
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getAllModules() getAllModules() } 
 	 * This takes no argument and is expected to return a set containing all modules.
 	 * This mocks ModuleRepository and ModuleServiceImpl
 	 */
@@ -84,7 +84,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * This method tests { @link com.revature.services.ModuleServiceImpl#getModuleById() getModuleById() } 
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getModuleById() getModuleById() } 
 	 * This takes an int and is expected to return a set containing all modules.
 	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
@@ -102,7 +102,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * This method tests { @link com.revature.services.ModuleServiceImpl#createModule(module) createModule(module) } 
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#createModule(module) createModule(module) } 
 	 * This takes a Module and is expected to return a Module.
 	 * This mocks ModuleRepository and ModuleServiceImpl.
 	 */
@@ -186,7 +186,7 @@ public class ModuleServiceTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.services.ModuleServiceImpl#getChildrenByParentId(int) getChildrenByParentId(int) }
+	 * This method tests {@link com.revature.services.ModuleServiceImpl#getChildrenByParentId(int) getChildrenByParentId(int) }
 	 * This method assumes an int that refers to a Module ID is passed as an argument and returns a set of Modules.
 	 * This mocks ModuleRepository and ModuleServiceImpl classes.
 	 */
