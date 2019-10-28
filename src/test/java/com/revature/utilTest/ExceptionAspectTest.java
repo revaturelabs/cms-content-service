@@ -51,7 +51,14 @@ public class ExceptionAspectTest {
     	
     }   
     
-    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ExceptionAspect#LogException() 
+	 * LogException()}.
+	 * This method assumes that a that an exception was thrown and passed into the LogException Method.
+	 * The result expected is the controller log appended with the message generated from the logger when
+	 * the program does NOT throw an exception.
+	 */
     @Test
     public void LogExceptionTestLogMessage() {
     	List<ILoggingEvent> classLoggerLogs = listAppender.list;
@@ -59,12 +66,28 @@ public class ExceptionAspectTest {
         assertEquals("There was an issue in " + "\n", classLoggerLogs.get(0).getMessage());        
     }
     
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ExceptionAspect#LogException() 
+	 * LogException()}.
+	 * This method assumes that a that an exception was thrown and passed into the LogException Method.
+	 * The result expected is the controller log appended with the message generated from the logger when
+	 * the program throws the exception.
+	 */
     @Test
     public void LogExceptionTestExceptionMessage() {
     	List<ILoggingEvent> classLoggerLogs = listAppender.list;
         easpect.LogException(e);
         assertEquals(e.getMessage(), classLoggerLogs.get(1).getMessage());
         
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ExceptionAspect#LogException() 
+	 * LogException()}.
+	 * This method assumes that a that an exception was thrown and passed into the LogException Method.
+	 * The result expected is that Level.ERROR will return the same result as the ILoggingEvent.getLevel()
+	 * after the program throws the exception.
+	 */    
     }
     @Test
     public void LogExceptionTestLogLevel() {
@@ -73,6 +96,7 @@ public class ExceptionAspectTest {
         assertEquals(Level.ERROR,classLoggerLogs.get(1).getLevel());
         
     }
+    //NO ASSERTION
     @Test
     public void LogException_Overload_Test() {    	
     	easpect.LogException();    	
