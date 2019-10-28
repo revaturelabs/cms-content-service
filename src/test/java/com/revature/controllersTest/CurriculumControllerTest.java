@@ -61,7 +61,8 @@ public class CurriculumControllerTest {
 	private Curriculum curriculum2;
 
 	/**
-	 * Initialize Mockito and mocking dependencies
+	 * This {@link com.revature.controllers.CurriculumControllerTest#setup() setup} method initializes the Mockito and
+	 * mocked dependencies once before any tests are run.
 	 */
 	@BeforeClass
 	public void setup() {
@@ -72,7 +73,7 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Ensures clean curriculum for each test
+	 * This {@link com.revature.controllers.CurriculumControllerTest#preTestSetup() preTestSetup} ensures clean curriculum for each test.
 	 */
 	@BeforeTest
 	public void preTestSetup() {
@@ -81,10 +82,23 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Test adding a new Curriculum into the back-end
+	 * This {@link com.revature.controllers.CurriculumControllerTest#givenValidDataCreateCurriculum() givenValidDataCreateCurriculum} method tests the
+	 * {@link com.revature.controllers.CurriculumController#createCurriculum(Curriculum) createCurriculum} method.
+	 * This method assumes a mocked curriculum is returned after adding Curriculum to back-end.
+	 * The result expected is that the mocked Curriculum matches the returned Curriculum.
+	 *
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#createCurriculum(Curriculum curriculum) 
+	 * createCurriculum(Curriculum curriculum)}.
+	 * This method assumes that a new curriculum object is passed into the curriculum controller 
+	 * and outputs as a string.
+	 * The result expected is that the object curriculum mapped to a string is 
+	 * equivalent to the output from the mock controller.
+	 */  
 	@Test
 	public void givenValidDataCreateCurriculum() throws Exception {
 		Mockito.when(curriculumService.createCurriculum(curriculum)).thenReturn(curriculum);
@@ -99,10 +113,21 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Test retrieving all the modules from the back-end
+	 * The {@link #getAllCurriculum() getAllCurriculum} method tests the 
+	 * {@link com.revature.controllers.CurriculumController#getAllCurriculums() getAllCurriculums} method.
+	 * This method assumes that a set of curriculum will be returned.
+	 * The result expected is a JSON string of the curriculums.
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#getAllCurriculums() 
+	 * getAllCurriculums()}.
+	 * This method assumes that the /curricula endpoint in the controller receives a request.
+	 * The result expected is that the object curriculums mapped to a string is 
+	 * equivalent to the output from the mock controller.
+	 */  
 	@Test
 	public void getAllCurriculum() throws Exception {
 		Set<Curriculum> curriculums = new HashSet<Curriculum>();
@@ -140,10 +165,25 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Test pulling a specific curriculum from the back-end
+	 * This {@link #getCurriculumById() getCurriculumById} method tests the
+	 * {@link com.revature.controllers.CurriculumController#getCurriculumById(int) getCurriculumById} method.
+	 * This method assumes a mocked curriculum will be returned.
+	 * The result expected is an a mocked curriculum match.
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#getCurriculumById(int id) 
+	 * getCurriculumById(int id)}.
+	 * This method assumes that a curriculum id is passed into the curriculum controller. The method then
+	 * creates a curriculum module.
+	 * This method also assumes that a curriculum module set is created. 
+	 * The result expected is that the curriculum object is 
+	 * equivalent to the output from the mock controller from the object mapper.
+	 * the second expected result is that relevant modules are added to the curriculum containing the 
+	 * id assed into the method.
+	 */  
 	@Test
 	public void getCurriculumById() throws Exception {
 		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(curriculum);
@@ -158,6 +198,14 @@ public class CurriculumControllerTest {
 		assertEquals(curriculum, actual, "Curriculum was not pulled");
 	}
 	
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#getCurriculumById(int id) 
+	 * createCurriculum(int id)}.
+	 * This method assumes that a new curriculum object is passed into the curriculum controller 
+	 * and outputs as a string.
+	 * The result expected is that the id is not found.
+	 */  
 	@Test
 	public void getCurriculumByIdNotFound() throws Exception {
 		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(null);
@@ -166,10 +214,21 @@ public class CurriculumControllerTest {
 	}
 
 	/**
+	 * The {@link #deleteCurriculum() deleteCurriculum} method tests the 
+	 * {@link com.revature.controllers.CurriculumController#deleteCurriculum(int)  controller deleteCurriculum} method.
+	 * The method assumes no delete will actually occur.
+	 * The result expected is a status OK.
 	 * Test removing a module from the back-end
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#deleteCurriculum(int id) 
+	 * deleteCurriculum(int id)}.
+	 * This method assumes that a new curriculum exists by id.
+	 * The result expected is that the endpoint gets hit without throwing an exception.
+	 */  
 	@Test
 	public void deleteCurriculum() throws Exception {
 		Mockito.doNothing().when(curriculumService).deleteCurriculum(curriculum);
@@ -179,7 +238,16 @@ public class CurriculumControllerTest {
 
 		result.andExpect(status().isOk());
 	}
-
+	
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#updateCurriculum(int id, Curriculum curriculum) 
+	 * updateCurriculum(int id, Curriculum curriculum)}.
+	 * This method assumes that a curriculum object is passed into the curriculum controller 
+	 * and outputs as a string.
+	 * The result expected is that the object curriculums mapped to a string is 
+	 * equivalent to the output from the mock controller.
+	 */  
 	@Test
 	public void updateCurriculum() throws Exception {
 		curriculum.setName("UpdatedTest");
@@ -192,8 +260,18 @@ public class CurriculumControllerTest {
 		String expected = objMapper.writeValueAsString(curriculum);
 		assertEquals(expected, actual, "Did not update curriculum correctly");
 	}
+	
+	/**
+	 * This method tests
+	 * {@link com.revature.controllers.CurriculumController#getLinksByCurriculumId(int id) 
+	 * getLinksByCurriculumId(int id)}.
+	 * This method assumes that an id is passed into the controller, hits the endpoint and gets the links
+	 * associated with the curriculum id.
+	 * The result expected is that the object passed into the mock controller returns an ok status
+	 * when the request hits the endpoint.
+	 */  
 	@Test
-	public void getLinksByCurricumId() throws Exception {
+	public void getLinksByCurriculumId() throws Exception {
 		CurriculumModule curr =new CurriculumModule ();
 		curr.setId(ID1);
 		Link link = new Link (1,new Content(),new Module(),"affiliation",1);

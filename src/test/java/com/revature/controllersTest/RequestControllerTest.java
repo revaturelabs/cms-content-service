@@ -67,7 +67,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#createRequest(JSONRequest) createRequest(JSONRequest) }
+	 * This method tests {@link com.revature.controllers.RequestController#createRequest(JSONRequest) createRequest(JSONRequest) }
 	 * This takes a JSONRequest and should return the created request.
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -87,7 +87,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#createReqLinks(List, int) createReqLinks(List, int) }
+	 * This method tests {@link com.revature.controllers.RequestController#createReqLinks(List, int) createReqLinks(List, int) }
 	 * This takes a set of ReqLinks and an ID, and should return a set of the created ReqLinks.
 	 * This tests if the response status is OK
 	 * This mocks RequestService.
@@ -111,7 +111,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#createReqLinks(List, int) createReqLinks(List, int) }
+	 * This method tests {@link com.revature.controllers.RequestController#createReqLinks(List, int) createReqLinks(List, int) }
 	 * This takes a set of ReqLinks and an ID, and should return a set of the created ReqLinks.
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -137,7 +137,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getAllRequest() getAllRequest() }
+	 * This method tests {@link com.revature.controllers.RequestController#getAllRequest() getAllRequest() }
 	 * This takes no argument and should return a set of Requests.
 	 * This tests if the response status is OK
 	 * This mocks RequestService.
@@ -156,7 +156,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getAllRequest() getAllRequest() }
+	 * This method tests {@link com.revature.controllers.RequestController#getAllRequest() getAllRequest() }
 	 * This takes no argument and should return a set of Requests.
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -181,7 +181,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getRequestById(int) getRequestById(int) }
+	 * This method tests {@link com.revature.controllers.RequestController#getRequestById(int) getRequestById(int) }
 	 * This takes an ID and should return a Request.
 	 * This tests if the response status is OK
 	 * This mocks RequestService.
@@ -197,7 +197,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getRequestById(int) getRequestById(int) }
+	 * This method tests {@link com.revature.controllers.RequestController#getRequestById(int) getRequestById(int) }
 	 * This takes an ID and should return a Request.
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -216,7 +216,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getReqLinksByRequestId(int) getReqLinksByRequestId(int) }
+	 * This method tests {@link com.revature.controllers.RequestController#getReqLinksByRequestId(int) getReqLinksByRequestId(int) }
 	 * This takes an ID and should return a set of ReqLinks.
 	 * This tests if the response status is OK
 	 * This mocks RequestService.
@@ -239,7 +239,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getReqLinksByRequestId(int) getReqLinksByRequestId(int) }
+	 * This method tests {@link com.revature.controllers.RequestController#getReqLinksByRequestId(int) getReqLinksByRequestId(int) }
 	 * This takes an ID and should return a set of ReqLinks.
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -275,7 +275,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
+	 * This method tests {@link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
 	 * This takes a title, list of format, and list of module IDs, and should return a set of JSONRequests.
 	 * This tests if the response status is OK
 	 * This mocks RequestService.
@@ -305,7 +305,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
+	 * This method tests {@link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
 	 * This takes a title, list of format, and list of module IDs, and should return a set of JSONRequests.
 	 * This tests the search by title.
 	 * This mocks RequestService.
@@ -340,7 +340,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
+	 * This method tests {@link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
 	 * This takes a title, list of format, and list of module IDs, and should return a set of JSONRequests.
 	 * This tests of the status is OK
 	 * This mocks RequestService.
@@ -371,7 +371,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
+	 * This method tests {@link com.revature.controllers.RequestController#getSearchResults(String, List, List) getSearchResults(String, List, List) }
 	 * This takes a title, list of format, and list of module IDs, and should return a set of JSONRequests.
 	 * This tests the search by Module IDs
 	 * This mocks RequestService.
@@ -409,7 +409,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#updateRequest(Integer, Request) updateRequest(Integer, Request) }
+	 * This method tests {@link com.revature.controllers.RequestController#updateRequest(Integer, Request) updateRequest(Integer, Request) }
 	 * This takes an ID and a Request and should return the updated Request
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -428,7 +428,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#updateRequest(Integer, Request) updateRequest(Integer, Request) }
+	 * This method tests {@link com.revature.controllers.RequestController#updateRequest(Integer, Request) updateRequest(Integer, Request) }
 	 * This takes an ID and a Request.
 	 * This tests if the given ID is null and should return a 405 status.
 	 * This mocks RequestService.
@@ -446,7 +446,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#updateReqLinks(int, List) updateReqLinks(int, List) }
+	 * This method tests {@link com.revature.controllers.RequestController#updateReqLinks(int, List) updateReqLinks(int, List) }
 	 * This takes an ID and a set of ReqLinks, and should return the updated set of ReqLinks.
 	 * This tests if the status is OK.
 	 * This mocks RequestService.
@@ -469,7 +469,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#updateReqLinks(int, List) updateReqLinks(int, List) }
+	 * This method tests {@link com.revature.controllers.RequestController#updateReqLinks(int, List) updateReqLinks(int, List) }
 	 * This takes an ID and a set of ReqLinks, and should return the updated set of ReqLinks.
 	 * This mocks RequestService.
 	 * @throws Exception
@@ -496,7 +496,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * This method tests { @link com.revature.controllers.RequestController#deleteRequest(int) deleteRequest(int)  }
+	 * This method tests {@link com.revature.controllers.RequestController#deleteRequest(int) deleteRequest(int)  }
 	 * This takes an ID and should delete the request.
 	 * This mocks RequestService.
 	 * @throws Exception

@@ -41,6 +41,14 @@ public class MetricsController {
 	@Autowired
 	TimegraphService timegraphService;
 
+	/**
+	 * The {@link #getMetrics(long, Map) getMetrics} method takes in a path variable timeRange and a Posted map to filter
+	 * content by in order to return metrics data about the content and modules.
+	 * 
+	 * @param timeRange A path variable that indicates what range of time to generate metrics for. Used by time graph in reports.
+	 * @param filter A content filter to restrict what content is tracked in the metrics report.
+	 * @return
+	 */
 	@PostMapping("/{timeFrame}")
 	public MetricsData getMetrics(@PathVariable("timeFrame") long timeRange, @RequestBody Map<String, Object> filter) {
 		Set<Content> contents;
