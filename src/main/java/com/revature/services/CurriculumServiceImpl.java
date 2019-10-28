@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
+import com.revature.entities.Link;
+import com.revature.repositories.CurriculumModuleRepository;
 import com.revature.repositories.CurriculumRepository;
 import com.revature.util.LogException;
 
@@ -21,7 +24,9 @@ public class CurriculumServiceImpl implements CurriculumService {
 
 	@Autowired
 	CurriculumRepository curriculumRepository;
-
+	@Autowired 
+	CurriculumModuleRepository cmR;
+	
 	@Override
 	@LogException
 	/**
@@ -98,5 +103,16 @@ public class CurriculumServiceImpl implements CurriculumService {
 		Curriculum curriculum = curriculumRepository.findById(id);
 		return curriculum;
 	}
-
+	/**
+	 * Service method to get a Links Object by Curriculum id
+	 * 
+	 * @param id - Curriculum Id
+	 * @return Links 
+	 */
+	@Override
+	public Set<Link> getLinksByCurricumId(int id) {
+		CurriculumModule curr = cmR.findById(id);
+		Set<Link >links =curr.getModule().getLinks();
+	    return links;
+	}
 }

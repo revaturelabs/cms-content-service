@@ -5,9 +5,9 @@ drop table if exists joins;
 drop table if exists req_link;
 drop table if exists requests;
 drop table if exists curriculum_module;
-drop table if exists module;
-drop table if exists content;
-drop table if exists curriculum;
+drop table if exists module CASCADE;
+drop table if exists content CASCADE;
+drop table if exists curriculum CASCADE;
 
 
 
