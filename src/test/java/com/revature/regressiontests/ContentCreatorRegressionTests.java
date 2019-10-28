@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.revature.pageobjectmodel.ContentCreator;
@@ -40,7 +41,8 @@ public class ContentCreatorRegressionTests {
 	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
 	@Test(priority = 1)
-	public void testFormSubmitWithCodeButton() {
+	@Parameters({"title", "url", "module", "description"})
+	public void testFormSubmitWithCodeButton(String title, String url, String module, String description) {
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
 
@@ -88,10 +90,10 @@ public class ContentCreatorRegressionTests {
 		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
 
 		// input text into the title box
-		cc.inputToTitleBox("Selenium Test Title input box");
-		cc.inputToUrlBox("http://www.testnumber2.com");
-		cc.inputToModuleFilterBox("Java");
-		cc.inputToDescriptionBox("A quality description would go here");
+		cc.inputToTitleBox(title);
+		cc.inputToUrlBox(url);
+		cc.inputToModuleFilterBox(module);
+		cc.inputToDescriptionBox(description);
 
 		// test that both instances of the input box contain the same text
 		assertEquals(cc.titleBox.getText(), titleBox.getText());
@@ -138,7 +140,8 @@ public class ContentCreatorRegressionTests {
 	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
 	@Test(priority = 2)
-	public void testFormSubmitWithDocumentButton() {
+	@Parameters({"title", "url", "module", "description"})
+	public void testFormSubmitWithDocumentButton(String title, String url, String module, String description) {
 		driver.navigate().refresh();
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
@@ -187,10 +190,10 @@ public class ContentCreatorRegressionTests {
 		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
 
 		// input text into the title box
-		cc.inputToTitleBox("Selenium Test Title input box");
-		cc.inputToUrlBox("http://www.testnumber2.com");
-		cc.inputToModuleFilterBox("Java");
-		cc.inputToDescriptionBox("A quality description would go here");
+		cc.inputToTitleBox(title);
+		cc.inputToUrlBox(url);
+		cc.inputToModuleFilterBox(module);
+		cc.inputToDescriptionBox(description);
 
 		// test that both instances of the input box contain the same text
 		assertEquals(cc.titleBox.getText(), titleBox.getText());
@@ -237,7 +240,8 @@ public class ContentCreatorRegressionTests {
 	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
 	@Test(priority = 3)
-	public void testFormSubmitWithPowerpointButton() {
+	@Parameters({"title", "url", "module", "description"})
+	public void testFormSubmitWithPowerpointButton(String title, String url, String module, String description) {
 		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
@@ -287,10 +291,10 @@ public class ContentCreatorRegressionTests {
 		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
 
 		// input text into the title box
-		cc.inputToTitleBox("Selenium Test Title input box");
-		cc.inputToUrlBox("http://www.testnumber2.com");
-		cc.inputToModuleFilterBox("Java");
-		cc.inputToDescriptionBox("A quality description would go here");
+		cc.inputToTitleBox(title);
+		cc.inputToUrlBox(url);
+		cc.inputToModuleFilterBox(module);
+		cc.inputToDescriptionBox(description);
 
 		// test that both instances of the input box contain the same text
 		assertEquals(cc.titleBox.getText(), titleBox.getText());
@@ -335,7 +339,8 @@ public class ContentCreatorRegressionTests {
 	 * the toastr pop-up. 
 	 */
 	@Test(priority = 4)
-	public void testInvalidURL() {
+	@Parameters({"title", "badUrl", "module", "description"})
+	public void testInvalidURL(String title, String badUrl, String module, String description) {
 		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
@@ -351,10 +356,10 @@ public class ContentCreatorRegressionTests {
 		assertNotNull(cc.codeButton);
 		assertNotNull(cc.submitButton);
 		
-		cc.inputToTitleBox("URL Negative Input Test");
-		cc.inputToUrlBox("invalidUrl.com");
-		cc.inputToModuleFilterBox("Java");
-		cc.inputToDescriptionBox("A quality description would go here");
+		cc.inputToTitleBox(title);
+		cc.inputToUrlBox(badUrl);
+		cc.inputToModuleFilterBox(module);
+		cc.inputToDescriptionBox(description);
 		
 		// attempt to submit the create content form
 		cc.clickButton(cc.submitButton);
@@ -372,9 +377,10 @@ public class ContentCreatorRegressionTests {
 		assertEquals(toastMessageCheck, "Invalid URL. e.g. \"http://example.com\", \"ftp://www.example.com\", \"http://192.168.0.0\"");
 	}
 	
-	@Test(priority = 5) 
-	public void testSubmitWithNoTitle() {
-driver.navigate().refresh();
+	@Test(priority = 5)
+	@Parameters({"url", "module", "description"})
+	public void testSubmitWithNoTitle(String url, String module, String description) {
+		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
@@ -389,9 +395,9 @@ driver.navigate().refresh();
 		assertNotNull(cc.codeButton);
 		assertNotNull(cc.submitButton);
 		
-		cc.inputToUrlBox("http://testURL.com");
-		cc.inputToModuleFilterBox("Java");
-		cc.inputToDescriptionBox("A quality description would go here");
+		cc.inputToUrlBox(url);
+		cc.inputToModuleFilterBox(module);
+		cc.inputToDescriptionBox(description);
 		
 		// attempt to submit the create content form
 		cc.clickButton(cc.submitButton);
