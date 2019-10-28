@@ -63,7 +63,7 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	private SearchService ss;
 	
 	/**
-	 * Initialize Mockito and mocking dependencies 
+	 * Initialize Mockito and mocking dependencies before any tests in this class are run.
 	 */
 	@BeforeClass
 	public void setup() {
@@ -74,7 +74,7 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Ensure clean content and request information for each test
+	 * Ensure clean content and request information for each test. Runs before each test.
 	 */
 	@BeforeTest 
 	public void preTestSetup () {
@@ -95,11 +95,15 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	
 	
 	/**
-	 * Test searching for content by the title and format
+	 * This {@link #testValidSearch_ResultExists() testValidSearch_ResultExists} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List)()  getSearchResults} method.
+	 * This method assumes that a Get request with search params is sent.
+	 * The result expected is a set with a mocked content
+	 * 
 	 * @throws Exception - if the http method fails
 	 */
 	@Test
-	public void givenValidSearchGetContentNotNull() throws Exception {
+	public void testValidSearch_ResultExists() throws Exception {
 		retValue.add(content);
 		//mock service return
 		
@@ -120,9 +124,16 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 				new TypeReference<Set<Content>>() { });
 		assertEquals (resultContent.size(), 1, "Invalid number of resulting content");
 	}
-	
+	/**
+	 * This {@link #testValidSearch_SetReturned() testValidSearch_SetReturned} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List) getSearchResults} method.
+	 * This method assumes that a Get request is sent with search params.
+	 * The result expected is a non-empty set of content.
+	 * 
+	 * @throws Exception
+	 */
 	@Test
-	public void givenValidSearchGetContentNotEqual() throws Exception {
+	public void testValidSearch_SetReturned() throws Exception {
 		retValue.add(content);
 		Mockito.when(ss.filter(ContentFactory.title, formats, modules))
 						.thenReturn(retValue);
@@ -137,11 +148,15 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 	}
 	
 	/**
-	 * Test searching for content that is not in the system
+	 * This {@link #testInvalidSearch_StatusOk() testInvalidSearch_StatusOk} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List) getSearchResults} method.
+	 * This method assumes that invalid input is accepted returning no values but a positive status in a ResponseEntity.
+	 * The result expected is a status message 200.
+	 * 
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void givenInvalidSearchGetNoContentStatusOk () throws Exception {
+	public void testInvalidSearch_StatusOk() throws Exception {
 		Mockito.when(ss.filter(ContentFactory.title, formats, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")
@@ -151,9 +166,16 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 				.param(filterModules, modules.get(0).toString()));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * This {@link #testInvalidSearch_ResultEmpty() testInvalidSearch_ResultEmpty} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List) getSearchResults} method.
+	 * This method assumes that invalid input is accepted returning no values but a positive status in a ResponseEntity.
+	 * The result expected is an empty set of contents.
+	 * 
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
-	public void givenInvalidSearchGetNoContentEquals () throws Exception {
+	public void testInvalidSearch_ResultEmpty() throws Exception {
 		//given
 		//mock service return, expect empty search result
 		
@@ -172,8 +194,16 @@ public class SearchControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals (resultContent.size(), 0, "Invalid number of resulting content");
 	}
 	
+	/**
+	 * This {@link #testInvalidSearch_SetReturned() testInvalidSearch_SetReturned} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List) getSearchResults} method.
+	 * This method assumes that invalid input is accepted returning no values but a positive status in a ResponseEntity.
+	 * The result expected is that an empty set of contents exists.
+	 * 
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
-	public void givenInvalidSearchGetNoContentNotNull () throws Exception {
+	public void testInvalidSearch_SetReturned() throws Exception {
 		Mockito.when(ss.filter(ContentFactory.title, formats, modules))
 						.thenReturn(retValue);
 		ResultActions result = mvc.perform(get ("/content")

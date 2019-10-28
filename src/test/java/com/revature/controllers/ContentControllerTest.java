@@ -66,7 +66,8 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	private Module module;
 
 	/**
-	 * Initialize Mockito and mocking dependencies
+	 * The {@link com.revature.controllers.ContentControllerTest#setup() setup} method prepares for tests in the 
+	 * ContentControllerTest file by mocking data using Mockito before any test is run. 
 	 */
 	@BeforeClass
 	public void setup() {
@@ -77,7 +78,8 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Ensure clean content for each test
+	 * The {@link com.revature.controllers.ContentControllerTest#preTestSetup() preTestSetup} method prepares for a test
+	 * by ensuring clean content is made for each test.
 	 */
 	@BeforeTest
 	public void preTestSetup() {
@@ -93,29 +95,46 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testCreateContent() TestCreateContent} method tests the
+	 * {@link com.revature.controllers.ContentController#createContent(com.revature.JSONEntities.JSONContent) createContent} method.
+	 * This method assumes content is created and passed using a Post request.
+	 * The result expected is a status OK ResponseEntity.
 	 * Test adding new content to the back-end
 	 * 
 	 * @throws Exception - if mocked http request fails
+	 * @return A passed test if the returned status is OK.
 	 */
 	@Test
-	public void CreateContentTest_StatusOk() throws Exception {
+	public void testCreateContent() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(content)));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testCreateContent_Return() TestCreateContent_Return} method tests the
+	 * {@link com.revature.controllers.ContentController#createContent(com.revature.JSONEntities.JSONContent) createContent} method.
+	 * This method assumes that content is created and passed using a Post request.
+	 * The result expected is a returned content that matches the mocked content.
+	 * @throws Exception
+	 */
 	@Test
-	public void CreateContentTest_Return() throws Exception {
+	public void testCreateContent_Return() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(post("/content").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(objMapper.writeValueAsString(content)));
 		Content ret = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
 		assertEquals(ret, content, "Failed to create content");
 	}
-
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testCreateContent_LinksNotNull() TestCreateContent_LinksNotNull} method tests the
+	 * {@link com.revature.controllers.ContentController#createContent(com.revature.JSONEntities.JSONContent)} method.
+	 * The method assumes that a mocked content will be sent using Post with links attached.
+	 * The result expected is a ResponseEntity with status OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void CreateContentTest_LinksNotNull() throws Exception {
+	public void testCreateContent_LinksNotNull() throws Exception {
 		Mockito.when(cs.createContent(content)).thenReturn(content);
 		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));
 		contentBuilder.insert(contentBuilder.length() - 1,
@@ -125,8 +144,15 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 	}
 
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testCreateContent_LinksNotNullReturn() TestCreateContent_LinksNotNullReturn} method tests the
+	 * {@link com.revature.controllers.ContentController#createContent(com.revature.JSONEntities.JSONContent)} method.
+	 * The method assumes that a mocked content will be sent using Post with links attached.
+	 * The result expected is a ResponseEntity that has the mocked content and links attached.
+	 * @throws Exception
+	 */
 	@Test
-	public void CreateContentTest_LinksNotNullReturn() throws Exception {
+	public void testCreateContent_LinksNotNullReturn() throws Exception {
 		StringBuilder contentBuilder = new StringBuilder(objMapper.writeValueAsString(content));
 		contentBuilder.insert(contentBuilder.length() - 1,
 				",\"links\":" + objMapper.writeValueAsString(content.getLinks()));
@@ -136,18 +162,30 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(ret, content, "Failed to create content");
 	}
 
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testCreateLinks() TestCreateLinks} method tests the
+	 * {@link com.revature.controllers.ContentController#createLinks(List, int) createLinks} method.
+	 * This method assumes mocked content has links to be created
+	 * The reult expected is a ResponseEntity with status OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void CreateLinksTest() throws Exception {
+	public void testCreateLinks() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(post("/content/{id}/links", content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(links)));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testCreateLinks_Return() TestCreateLinks_Return} method tests the
+	 * {@link com.revature.controllers.ContentController#createLinks(List, int) createLinks} method.
+	 * This method assumes mocked content has links to be created
+	 * The result expected is a ResponseEntity with a list of Links that were created.
+	 * @throws Exception
+	 */
 	@Test
-	public void CreateLinksTest_Return() throws Exception {
+	public void testCreateLinks_Return() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.createLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(post("/content/{id}/links", content.getId())
@@ -158,12 +196,14 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Test retrieving all content from the back-end
-	 * 
-	 * @throws Exception - if http request fails
+	 * The {@link com.revature.controllers.ContentControllerTest#testGetAllContents() testGetAllContents} method tests the
+	 * {@link com.revature.controllers.ContentController#getAllContent() getAllContents} method.
+	 * This method assumes nothing is sent in a Get request.
+	 * The result expected is a ResponseEntity with status OK.
+	 * @throws Exception
 	 */
 	@Test
-	public void GetAllContentsTest() throws Exception {
+	public void testGetAllContents() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
@@ -171,8 +211,15 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testGetAllContents_Return() testGetAllContents_Return} method tests the
+	 * {@link com.revature.controllers.ContentController#getAllContent() getAllContents} method.
+	 * This method assumes nothing is sent in a Get request.
+	 * The result expected is a ResponseEntity with the mocked content.
+	 * @throws Exception
+	 */
 	@Test
-	public void GetAllContentsTest_Return() throws Exception {
+	public void testGetAllContents_Return() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
 		Mockito.when(cs.getAllContent()).thenReturn(expected);
@@ -180,7 +227,13 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		String actual = result.andReturn().getResponse().getContentAsString();
 		assertEquals(actual, convertToJSONContentSetString(expected), "Failed to find content");
 	}
-
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#convertToJSONContentSetString(Set) convertToJSONContentSetString} method is
+	 * a utility function for use in the ContentControllerTest file.
+	 * @param allContent A set that contains the content to be JSON stringified.
+	 * @return
+	 * @throws Exception
+	 */
 	private String convertToJSONContentSetString(Set<Content> allContent) throws Exception {
 		StringBuilder result = new StringBuilder("[");
 		for (Content con : allContent) {
@@ -194,36 +247,56 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Test retrieving content based upon an id
+	 * The {@link com.revature.controllers.ContentControllerTest#testGetContent_ById() testGetContent_ById} method tests the
+	 * {@link com.revature.controllers.ContentController#getContentById(int) getContentById} method.
+	 * The method assumes that a mocked content is available for retrieval.
+	 * The result expected is a ResponseEntity with status OK.
 	 * 
 	 * @throws Exception - if http request fails
 	 */
 	@Test
-	public void GetContentTest_ById() throws Exception {
+	public void testGetContent_ById() throws Exception {
 		// given
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc.perform(get("/content/" + content.getId()));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testGetContent_ByIdReturn() testGetContent_ByIdReturn} method tests the
+	 * {@link com.revature.controllers.ContentController#getContentById(int) getContentById} method.
+	 * The method assumes that a mocked content is available for retrieval.
+	 * The result expected is a ResponseEntity with the mocked content.
+	 * 
+	 * @throws Exception - if http request fails
+	 */
 	@Test
-	public void GetContentTest_ByIdReturn() throws Exception {
+	public void testGetContent_ByIdReturn() throws Exception {
 		// given
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc.perform(get("/content/" + content.getId()));
 		Content actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
 		assertEquals(actual, content, "Failed to retrieve content");
 	}
-
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testGetLinks_ByContentId() testGetLinks_ByContentId} method tests
+	 * the {@link com.revature.controllers.ContentController#getLinksByContentId(int) getLinksByContentId} method.
+	 * This method assumes that a mocked content is available that has links.
+	 * The result expected is a ResponseEntity with status OK.
+	 */
 	@Test
-	public void GetLinksTest_ByContentId() throws Exception {
+	public void testGetLinks_ByContentId() throws Exception {
 		Mockito.when(cs.getLinksByContentId(content.getId())).thenReturn(content.getLinks());
 		ResultActions result = mvc.perform(get("/content/" + content.getId() + "/links"));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testGetLinks_ByContentIdReturn() testGetLinks_ByContentIdReturn} method tests
+	 * the {@link com.revature.controllers.ContentController#getLinksByContentId(int) getLinksByContentId} method.
+	 * This method assumes that a mocked content is available that has links.
+	 * The result expected is a ResponseEntity with the mocked content links.
+	 */
 	@Test
-	public void GetLinksTest_ByContentIdReturn() throws Exception {
+	public void testGetLinks_ByContentIdReturn() throws Exception {
 		Mockito.when(cs.getLinksByContentId(content.getId())).thenReturn(content.getLinks());
 		ResultActions result = mvc.perform(get("/content/" + content.getId() + "/links"));
 		Set<Link> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
@@ -232,38 +305,61 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Test updating existing content
+	 * The {@link com.revature.controllers.ContentControllerTest#testUpdateContent() testUpdateContent} method tests the
+	 * {@link com.revature.controllers.ContentController#updateContent(Content) updateContent} method.
+	 * The method assumes that a mocked content is available for "update"
+	 * The result expected is a response entity with Status OK.
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void UpdateContentTest() throws Exception {
+	public void testUpdateContent() throws Exception {
 		Mockito.when(cs.updateContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(put("/content/" + content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(content)));
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testUpdateContent_Return() testUpdateContent_Return} method tests the
+	 * {@link com.revature.controllers.ContentController#updateContent(Content) updateContent} method.
+	 * The method assumes that a mocked content is available for "update"
+	 * The result expected is a response entity with the mocked content returned.
+	 * 
+	 * @throws Exception - if the http request fails
+	 */
 	@Test
-	public void UpdateContentTest_Return() throws Exception {
+	public void testUpdateContent_Return() throws Exception {
 		Mockito.when(cs.updateContent(content)).thenReturn(content);
 		ResultActions result = mvc.perform(put("/content/" + content.getId())
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(content)));
 		Content actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Content.class);
 		assertEquals(actual, content, "Failed to update content");
 	}
-
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testUpdateLinks() testUpdateLinks} method tests the
+	 * {@link com.revature.controllers.ContentController#updateLinks(List, int)} method.
+	 * The method assumes a mocked content has links.
+	 * The result expected is a ResponseEntity with status ok.
+	 * @throws Exception
+	 */
 	@Test
-	public void UpdateLinksTest() throws Exception {
+	public void testUpdateLinks() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.updateLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(put("/content/" + content.getId() + "/links")
 				.contentType(MediaType.APPLICATION_JSON_VALUE).content(objMapper.writeValueAsString(links)));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testUpdateLinks_Return() testUpdateLinks_Return} method tests the
+	 * {@link com.revature.controllers.ContentController#updateLinks(List, int) updateLinks} method.
+	 * The method assumes a mocked content has links.
+	 * The result expected is a ResponseEntity with the mocked content returned.
+	 * @throws Exception
+	 */
 	@Test
-	public void UpdateLinksTest_Return() throws Exception {
+	public void testUpdateLinks_Return() throws Exception {
 		List<Link> links = content.getLinks().stream().collect(Collectors.toList());
 		Mockito.when(cs.updateLinksByContentId(content.getId(), links)).thenReturn(links);
 		ResultActions result = mvc.perform(put("/content/" + content.getId() + "/links")
@@ -274,21 +370,30 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Test deleting existing content
+	 * The {@link com.revature.controllers.ContentControllerTest#testDeleteContent() testDeleteContent} method tests the
+	 * {@link com.revature.controllers.ContentController#deleteContent(int) deleteContent} method.
+	 * The method assumes nothing happens when delete is called.
+	 * The result expected is a ResponseEntity with status OK.
 	 * 
 	 * @throws Exception
 	 */
 	@Test
-	public void DeleteContentTest() throws Exception {
+	public void testDeleteContent() throws Exception {
 		Mockito.doNothing().when(cs).deleteContent(content);
 		Mockito.when(cs.getContentById(content.getId())).thenReturn(content);
 		ResultActions result = mvc
 				.perform(delete("/content/" + content.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testSearchResults() testSearchResults} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List) getSearchResults} method.
+	 * The method assumes that we are searching for the mocked content.
+	 * The result expected is a ResponseEntity with status OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void SearchResultsTest() throws Exception {
+	public void testSearchResults() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
         String [] params = { "title", "format", "modules" };
@@ -298,9 +403,15 @@ public class ContentControllerTest extends AbstractTestNGSpringContextTests {
 		ResultActions result = mvc.perform(get("/content").param(params[0], content.getTitle()).param(params[1], content.getFormat()).param(params[2], "1"));
 		result.andExpect(status().isOk());
 	}
-	
+	/**
+	 * The {@link com.revature.controllers.ContentControllerTest#testSearchResults_Return() testSearchResults_Return} method tests the
+	 * {@link com.revature.controllers.ContentController#getSearchResults(String, List, List, List) getSearchResults} method.
+	 * The method assumes that we are searching for the mocked content.
+	 * The result expected is a ResponseEntity with the mocked content as a JSON string.
+	 * @throws Exception
+	 */
 	@Test
-	public void SearchResultsTest_Return() throws Exception {
+	public void testSearchResults_Return() throws Exception {
 		Set<Content> expected = new HashSet<Content>();
 		expected.add(content);
         String [] params = { "title", "format", "modules", "curriculum"};
