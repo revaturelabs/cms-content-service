@@ -4,47 +4,52 @@
 	<test name="AllTests">
 		<classes>
 			<!-- These are the controller tests -->
-			<class name = "com.revature.controllers.ContentControllerTest"/>
-			<class name = "com.revature.controllers.CurriculumControllerTest"/>
-			<class name = "com.revature.controllers.CurriculumModuleControllerTest"/>
-			<class name = "com.revature.controllers.ModuleControllerTest"/>
-			<class name = "com.revature.controllers.SearchControllerTest"/>
-			<class name = "com.revature.controllers.RequestControllerTest"/>
-			<class name = "com.revature.controllers.MetricsControllerTest"/>
-			<class name = "com.revature.controllers.LinkControllerTest"/>
+			<class name = "com.revature.controllersTest.ContentControllerTest"/>
+			<class name = "com.revature.controllersTest.CurriculumControllerTest"/>
+			<class name = "com.revature.controllersTest.CurriculumModuleControllerTest"/>
+			<class name = "com.revature.controllersTest.ModuleControllerTest"/>
+			<class name = "com.revature.controllersTest.SearchControllerTest"/>
+			<class name = "com.revature.controllersTest.RequestControllerTest"/>
+			<class name = "com.revature.controllersTest.MetricsControllerTest"/>
+			<class name = "com.revature.controllersTest.LinkControllerTest"/>
+			<class name = "com.revature.controllersTest.ReqLinkControllerTest"/>
 			<!-- These are the entities tests -->
-			<class name="com.revature.entities.ContentTest" />
-			<class name="com.revature.entities.LinkTest" />
-			<class name="com.revature.entities.CurriculumModuleTest" />
-			<class name="com.revature.entities.CurriculumTest" />
-			<class name="com.revature.entities.ModuleTest" />
-			<class name="com.revature.entities.ReqLinkTest" />
-			<class name="com.revature.entities.RequestTest" />
+			<class name="com.revature.entitiesTest.ContentTest" />
+			<class name="com.revature.entitiesTest.LinkTest" />
+			<class name="com.revature.entitiesTest.CurriculumModuleTest" />
+			<class name="com.revature.entitiesTest.CurriculumTest" />
+			<class name="com.revature.entitiesTest.ModuleTest" />
+			<class name="com.revature.entitiesTest.ReqLinkTest" />
+			<class name="com.revature.entitiesTest.RequestTest" />
 			<!-- These are the JSONEntities tests -->
-			<class name="com.revature.JSONEntities.JSONContentTest" />
-			<class name="com.revature.JSONEntities.JSONModuleTest" />
-			<class name="com.revature.JSONEntities.JSONRequestTest" />
+			<class name="com.revature.JSONEntitiesTest.JSONContentTest" />
+			<class name="com.revature.JSONEntitiesTest.JSONModuleTest" />
+			<class name="com.revature.JSONEntitiesTest.JSONRequestTest" />
 			<!-- These are the Exception tests -->
-			<class name="com.revature.exceptions.InvalidContentExceptionTest" />
-			<class name="com.revature.exceptions.InvalidContentIdTest" />
-			<class name="com.revature.exceptions.InvalidModuleExceptionTest" />
-			<class name="com.revature.exceptions.InvalidRequestExceptionTest" />
-			<class name="com.revature.exceptions.InvalidRequestIdExceptionTest" />
-			<class name="com.revature.exceptions.InvalidSearchExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidContentExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidContentIdTest" />
+			<class name="com.revature.exceptionsTest.InvalidModuleExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidRequestExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidRequestIdExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidSearchExceptionTest" />
 			<!-- These are the Service tests -->
-			<class name="com.revature.services.CurriculumServiceTest" />
-			<class name="com.revature.services.CurriculumModuleServiceImplTest" />
-			<class name="com.revature.services.TimeGraphServiceTest" />
-			<class name="com.revature.services.ContentServiceTest" />
-			<class name="com.revature.services.ModuleServiceTest" />
-			<class name="com.revature.services.SearchServiceTest" />
+			<class name="com.revature.servicesTest.CurriculumServiceTest" />
+			<class name="com.revature.servicesTest.CurriculumModuleServiceImplTest" />
+			<class name="com.revature.servicesTest.TimeGraphServiceTest" />
+			<class name="com.revature.servicesTest.ContentServiceTest" />
+			<class name="com.revature.servicesTest.ModuleServiceTest" />
+			<class name="com.revature.servicesTest.SearchServiceTest" />
+			<class name="com.revature.servicesTest.RequestServiceTest" />
+			<class name="com.revature.servicesTest.ReqLinkServiceTest" />
+			<class name="com.revature.servicesTest.LinkServiceTest" />
+			
 			<!-- These are the Util tests -->
-			<class name = "com.revature.util.MetricsDataTest"/>
-			<class name = "com.revature.util.TimeGraphTest"/>
-			<class name = "com.revature.util.ValidationUtilTest"/>
-			<class name = "com.revature.util.ControllerLogAspectTest"/>
-			<class name = "com.revature.util.ServiceLogAspectTest"/>
-			<class name = "com.revature.util.ExceptionAspectTest"/>	
+			<class name = "com.revature.utilTest.MetricsDataTest"/>
+			<class name = "com.revature.utilTest.TimeGraphTest"/>
+			<class name = "com.revature.utilTest.ValidationUtilTest"/>
+			<class name = "com.revature.utilTest.ControllerLogAspectTest"/>
+			<class name = "com.revature.utilTest.ServiceLogAspectTest"/>
+			<class name = "com.revature.utilTest.ExceptionAspectTest"/>	
 		</classes>
 	</test>
 </suite>
