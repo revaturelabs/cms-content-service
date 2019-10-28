@@ -45,6 +45,15 @@ public class RequestController {
 	@Autowired
 	SearchService searchService;
 
+	/**
+	 * This method handles creating a Request.
+	 * It takes a 
+	 * @param jsonRequest
+	 * and 
+	 * @return a JSONRequest.
+	 * It calls the createRequest() from RequestService
+	 * @throws Exception
+	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<JSONRequest> createRequest(@RequestBody JSONRequest jsonRequest) throws Exception {
 		List<ReqLink> reqLinks = new ArrayList<ReqLink>();
@@ -58,11 +67,26 @@ public class RequestController {
 		return ResponseEntity.ok(jsonRequest);
 	}
 
+	/**
+	 * This method handles creating ReqLink
+	 * and it takes 
+	 * @param reqLinks 
+	 * @param id.
+	 * It @return a List of ReqLink.
+	 * It calls the createReqLinksByRequestId() from RequestService
+	 */
 	@PostMapping(value = "/{id}/req-links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReqLink>> createReqLinks(@RequestBody List<ReqLink> reqLinks, @PathVariable int id) {
 		return ResponseEntity.ok(requestService.createReqLinksByRequestId(id, reqLinks));
 	}
 
+	/**
+	 * This method handles getting all Request
+	 * It takes no parameter 
+	 * and 
+	 * @return a Set of JSONRequest.
+	 * It calls the getAllRequests() from RequestService.
+	 */
 	@GetMapping()
 	public ResponseEntity<Set<JSONRequest>> getAllRequest() {
 		Set<Request> requests = requestService.getAllRequests();
@@ -74,6 +98,14 @@ public class RequestController {
 		return ResponseEntity.ok(jsonRequests);
 	}
 
+	/**
+	 * This method handles getting a Request given a request ID.
+	 * It takes a 
+	 * @param id 
+	 * and 
+	 * @return a JSONRequest.
+	 * It calls the getRequestById() from RequestService.
+	 */
 	@GetMapping(value = "{id}")
 	public ResponseEntity<JSONRequest> getRequestById(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
@@ -81,16 +113,29 @@ public class RequestController {
 		return ResponseEntity.ok(jr);
 	}
 
-	// return all links attached to a given request
+	/**
+	 * This method handles getting the ReqLinks of a Request.
+	 * It takes a 
+	 * @param id 
+	 * and 
+	 * @return a List of ReqLink.
+	 * It calls the getReqLinksByRequestId() from RequestService.
+	 */
 	@GetMapping("/{id}/req-links")
 	public ResponseEntity<List<ReqLink>> getReqLinksByRequestId(@PathVariable int id) {
 		return ResponseEntity.ok(requestService.getReqLinksByRequestId(id));
 	}
 
-	// This query returns a subset of Request based on the values of the query
-	// parameters passed in
-	// If a parameter is empty, it is not used in the filtering process.
-	// modules is a string in comma separated format of integers ex. "1,2,3,4"
+	/**
+	 * This method handles getting Requests based on the given title/format/Module ID.
+	 * It takes
+	 * @param title
+	 * @param format
+	 * @param modules
+	 * And 
+	 * @return a Set of JSONRequest.
+	 * It calls the filterReq() from SearchService.
+	 */
 	@LogException
 	@GetMapping(params = { "title", "format", "modules" })
 	public ResponseEntity<Set<JSONRequest>> getSearchResults(@RequestParam(value = "title", required = false) String title,
@@ -107,6 +152,15 @@ public class RequestController {
 		return ResponseEntity.ok(jsonRequests);
 	}
 
+	/**
+	 * This method handles updating a Request.
+	 * It takes
+	 * @param id
+	 * @param r
+	 * and 
+	 * @return a Request.
+	 * It calls the updateRequest() from RequestService.
+	 */
 	@PutMapping(value = "{id}")
 	public ResponseEntity<Request> updateRequest(@PathVariable Integer id, @RequestBody Request r) {
 		if (requestService.getRequestsById(id) == null) {
@@ -115,11 +169,28 @@ public class RequestController {
 		return ResponseEntity.ok(requestService.updateRequest(r));
 	}
 
+	/**
+	 * This method handles updating ReqLinks.
+	 * It takes 
+	 * @param id
+	 * @param reqLinks
+	 * and 
+	 * @return a List of ReqLink.
+	 * It calls the updateReqLinks() from RequestService.
+	 */
 	@PutMapping(value = "{id}/links")
 	public ResponseEntity<List<ReqLink>> updateReqLinks(@PathVariable int id, @RequestBody List<ReqLink> reqLinks) {
 		return ResponseEntity.ok(requestService.updateReqLinks(id, reqLinks));
 	}
 
+	/**
+	 * This method handles deleting a Request.
+	 * It takes a
+	 * @param id
+	 * and
+	 * @return a String.
+	 * It calls the deleteRequest() from RequestService.
+	 */
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteRequest(@PathVariable int id) {
 		Request request = requestService.getRequestsById(id);
