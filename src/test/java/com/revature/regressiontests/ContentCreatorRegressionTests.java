@@ -372,9 +372,9 @@ public class ContentCreatorRegressionTests {
 		assertEquals(toastMessageCheck, "Invalid URL. e.g. \"http://example.com\", \"ftp://www.example.com\", \"http://192.168.0.0\"");
 	}
 	
-	@Test(priority = 5) 
+	@Test(priority=5)
 	public void testSubmitWithNoTitle() {
-driver.navigate().refresh();
+		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
@@ -407,6 +407,44 @@ driver.navigate().refresh();
 		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
 		// test our toast message to be the defined error message.
 		assertEquals(toastMessageCheck, "Please fill in all input fields!");
+	}
+	
+	@Test(priority=6)
+	public void testExistingURL() {
+		driver.navigate().refresh();
+		
+		// validate we are indeed on the correct page / URL
+		assertEquals(driver.getCurrentUrl(), url);
+
+		// create an instance of our Content Creator POM to use the defined web elements
+		ContentCreator cc = new ContentCreator(driver);
+		
+		// test that we have retrieved a valid web elements
+		assertNotNull(cc.titleBox);
+		assertNotNull(cc.moduleFilter);
+		assertNotNull(cc.descriptionBox);
+		assertNotNull(cc.codeButton);
+		assertNotNull(cc.submitButton);
+		
+		cc.inputToTitleBox("Testing Existing URL Msg");
+		cc.inputToUrlBox("http://www.testnumber2.com");
+		cc.inputToModuleFilterBox("Java");
+		cc.inputToDescriptionBox("A quality description would go here");
+		
+		// attempt to submit the create content form
+		cc.clickButton(cc.submitButton);
+		
+		// Create wait to confirm the toast message pops up
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='toast-container']/div")));
+		
+		// After the submit is selected, a toastr message will appear.
+		WebElement errorMsg = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
+		assertNotNull(errorMsg);
+		// Retrieve our toast message
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		// test our toast message to be the defined error message.
+		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
 	@AfterClass
