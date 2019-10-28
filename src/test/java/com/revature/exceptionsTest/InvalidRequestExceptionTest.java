@@ -1,18 +1,16 @@
 package com.revature.exceptionsTest;
 
 import static org.testng.Assert.assertEquals;
+
 import static org.testng.Assert.assertNotEquals;
 
 import org.testng.annotations.Test;
 
-<<<<<<< HEAD:src/test/java/com/revature/exceptionsTest/InvalidRequestExceptionTest.java
 import com.revature.exceptions.InvalidRequestException;
 
-=======
 /**
  * Class for testing {@link com.revature.exceptions.InvalidRequestException InvalidRequestException}
  */
->>>>>>> cba4e573336b49e07cc69336f48150344250f355:src/test/java/com/revature/exceptions/InvalidRequestExceptionTest.java
 public class InvalidRequestExceptionTest {
 
 	/**

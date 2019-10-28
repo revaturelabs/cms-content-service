@@ -1,6 +1,7 @@
-package com.revature.regressiontests;
+package com.revature.regressionTests;
 
 import static org.testng.Assert.assertEquals;
+
 import static org.testng.Assert.assertNotNull;
 
 import org.openqa.selenium.By;
@@ -11,7 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.revature.pageobjectmodel.SubmitRequest;
+import com.revature.pageobjectmodelTest.SubmitRequest;
 
 
 public class SubmitRequestRegressionTest {
