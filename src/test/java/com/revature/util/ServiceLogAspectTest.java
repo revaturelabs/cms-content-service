@@ -2,6 +2,7 @@ package com.revature.util;
 import static org.testng.Assert.assertEquals;
 import java.util.List;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.mockito.InjectMocks;
@@ -41,18 +42,42 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
     	classLogger.detachAndStopAllAppenders();
     	classLogger.addAppender(listAppender);
     }    
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logContentServiceCreateContent(JoinPoint jp) 
+	 * logContentServiceCreateContent(JoinPoint jp)}.
+	 * This method assumes that a joinpoint will be passed in when content gets created.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logContentService_createContent_Test() {
     	mockSerLogAspect.logContentServiceCreateContent(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully created a content", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logContentServiceCreateContent(JoinPoint jp) 
+	 * logContentServiceCreateContent(JoinPoint jp)}.
+	 * This method assumes that a joinpoint will be passed in when all content gets retrieved.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logContentService_getAllContent_Test() {
         mockSerLogAspect.logContentServiceGetAllContent(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved all contents", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logContentServiceGetContentById(JoinPoint jp) 
+	 * logContentServiceGetContentById(JoinPoint jp)}.
+	 * This method assumes that a joinpoint will be passed in when content is retrieved by ID.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logContentService_getContentById_Test() {
         mockSerLogAspect.logContentServiceGetContentById(joinPoint);
@@ -60,6 +85,13 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
         assertEquals(mSig.getName() + " has successfully retrieved a content", classLoggerLogs.get(0).getMessage());
     }
     
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logSearchService_filterContentByTitle(joinPoint) 
+	 * logSearchService_filterContentByTitle(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when content is filtered by title.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logSearchService_filterContentByTitle_Test() {
         mockSerLogAspect.logSearchService_filterContentByTitle(joinPoint);
@@ -67,42 +99,96 @@ public class ServiceLogAspectTest extends AbstractTestNGSpringContextTests {
         assertEquals(mSig.getName() + " has successfully filtered a content by title", classLoggerLogs.get(0).getMessage());
     }
     
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logSearchServiceFilterContentByFormat(joinPoint)
+	 * logSearchServiceFilterContentByFormat(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when content is filtered by format.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logSearchService_filterContentByFormat_Test() {
         mockSerLogAspect.logSearchServiceFilterContentByFormat(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully filtered a content by format", classLoggerLogs.get(0).getMessage());
     }
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logSearchServiceFilterContentBySubjects(joinPoint)
+	 * logSearchServiceFilterContentBySubjects(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when content is filtered by subjects.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logSearchService_filterContentBySubjects_Test() {
         mockSerLogAspect.logSearchServiceFilterContentBySubjects(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully filtered a content by subject", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logSearchServiceGetContentByModuleId(joinPoint)
+	 * logSearchServiceGetContentByModuleId(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when content is retrieved by module ID.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logSearchService_getContentByModuleId_Test() {
         mockSerLogAspect.logSearchServiceGetContentByModuleId(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved a content by module ID", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logSearchServiceFilter(joinPoint)
+	 * logSearchServiceFilter(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when content is filtered.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logSearchService_filter_Test() {
         mockSerLogAspect.logSearchServiceFilter(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully filtered a content", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logModuleServiceGetAllModules(joinPoint)
+	 * logModuleServiceGetAllModules(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when all modules are retrieved.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logModuleService_getAllModules_Test() {
         mockSerLogAspect.logModuleServiceGetAllModules(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved all the modules", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logModuleServiceGetModuleById(joinPoint)
+	 * logModuleServiceGetModuleById(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when a module is retrieved by ID.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logModuleService_getModuleById_Test() {
         mockSerLogAspect.logModuleServiceGetModuleById(joinPoint);
         List<ILoggingEvent> classLoggerLogs = listAppender.list;
         assertEquals(mSig.getName() + " has successfully retrieved a module by ID", classLoggerLogs.get(0).getMessage());
     }
+    
+	/**
+	 * This method tests
+	 * {@link com.revature.util.ServiceLogAspect#logModuleServiceCreateModule(joinPoint)
+	 * logModuleServiceCreateModule(joinPoint)}.
+	 * This method assumes that a joinpoint will be passed in when a module is created.
+	 * The result expected is the controller log will output the correct message.
+	 */
     @Test
     public void logModuleService_createModule() {
         mockSerLogAspect.logModuleServiceCreateModule(joinPoint);

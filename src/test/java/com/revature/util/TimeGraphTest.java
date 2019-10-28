@@ -33,12 +33,26 @@ public class TimeGraphTest {
 		t2 = null;
 	}
 
+	/**
+	 * This method tests
+	 * {@link com.revature.util.TimegraphData#TimeGraphData() 
+	 * TimeGraphData()}.
+	 * This method assumes that a TimeGraphData Object exists.
+	 * The result expected is that the newly instantiated object is a member of the TimeGraphData class.
+	 */
 	@Test
 	void testTimeGraphDataInstanceof() {
 		TimeGraphData one = new TimeGraphData(new ArrayList<Long>(), 0);
 		assertTrue(one instanceof TimeGraphData);
 	}
 
+	/**
+	 * This method tests
+	 * {@link com.revature.util.TimegraphData#TimeGraphData() 
+	 * TimeGraphData()}.
+	 * This method assumes that 2 TimeGraphData Objects exist.
+	 * The result expected is that the newly instantiated objects are different from each other.
+	 */
 	@Test
 	void testTimeGraphDataNotEqual() {
 		TimeGraphData one = new TimeGraphData(new ArrayList<Long>(), 0);
@@ -46,11 +60,24 @@ public class TimeGraphTest {
 		assertTrue(one != two);
 	}
 
+	/** GETTERS AND SETTERS FOR TIMEGRAPH DATA OBJECT
+	 * This method tests
+	 * {@link com.revature.util.TimeGraphData#getReturnedLongs() 
+	 * getReturnedLongs()}.
+	 * This method assumes that a TimeGraphData object t1 contains the array of longs al.
+	 * The result expected is that the array of longs returned from the object and al are the same.
+	 */    
 	@Test
 	void testGetReturnedLongs() {
 		assertTrue(t1.getReturnedLongs().equals(al));
 	}
 
+	/**This method tests
+	 * {@link com.revature.util.TimeGraphData#setReturnedLongs() 
+	 * setReturnedLongs()}.
+	 * This method assumes that a TimeGraphData object t1 receives a new array of longs atmp.
+	 * The result expected is that t1 returns the array of longs atmp.
+	 */    
 	@Test
 	void testSetReturnedLongs() {
 		List<Long> atmp = new ArrayList<Long>();
@@ -59,17 +86,36 @@ public class TimeGraphTest {
 		assertTrue(t1.getReturnedLongs().equals(atmp));
 	}
 
+	/**This method tests
+	 * {@link com.revature.util.TimeGraphData#getNumContents(List<Long> returnedDates) 
+	 * getNumContents(List<Long> returnedDates)}.
+	 * This method assumes that a TimeGraphData object t2 contains the integer numContents.
+	 * The result expected is that numContents returns 2.
+	 */   
 	@Test
 	void testGetNumContents() {
 		assertTrue(t2.getNumContents() == 2);
 	}
 
+	/**This method tests
+	 * {@link com.revature.util.TimeGraphData#setNumContents(int numContents) 
+	 * setNumContents(int numContents)}.
+	 * This method assumes that a the integer numContents in the object t2 gets set to 5.
+	 * The result expected is that t2.numContents = 5.
+	 */    
 	@Test
 	void testSetNumContents() {
 		t2.setNumContents(5);
 		assertTrue(t2.getNumContents() == 5);
 	}
 
+	/**
+	 * This method tests
+	 * {@link com.revature.util.TimeGraphData#toString() 
+	 * toString()}.
+	 * This method assumes that a MetricsData object exists.
+	 * The result expected is the stringified version of the MetricsData Object.
+	 */    
 	@Test
 	void testToString() {
 		assertTrue(t1.toString() instanceof String);
