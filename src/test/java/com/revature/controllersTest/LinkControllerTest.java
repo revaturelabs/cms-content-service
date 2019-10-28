@@ -66,12 +66,12 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#createLink(Link) createLink(Link)} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#createLink(Link) createLink(Link)} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Link} being created contains both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
 	 * 
-	 * The expected result is a status of OK.
+	 * The expected result is a status of OK (200).
 	 * @throws Exception
 	 */
 	@Test
@@ -88,7 +88,7 @@ public class LinkControllerTest {
 	}
 	
 	/**
-	 * Tests the {@link com.revature.controller.LinkController#createLink(Link) createLink(Link)} method.
+	 * Tests the {@link com.revature.controllers.LinkController#createLink(Link) createLink(Link)} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Link} being created contains both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
@@ -111,12 +111,12 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#getAllLinks() getAllLinks()} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#getAllLinks() getAllLinks()} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Links} being retrieved contain both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
 	 * 
-	 * The expected result is a status of OK.
+	 * The expected result is a status of OK (200).
 	 * @throws Exception
 	 */
 	@Test
@@ -134,7 +134,7 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the {@link com.revature.controller.LinkController#getAllLinks() getAllLinks()} method.
+	 * Tests the {@link com.revature.controllers.LinkController#getAllLinks() getAllLinks()} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Links} being retrieved contain both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
@@ -160,12 +160,12 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#getLinkById(int) getAllLinks(int)} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#getLinkById(int) getAllLinks(int)} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Links} being retrieved contain both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
 	 * 
-	 * The expected result is a status of OK.
+	 * The expected result is a status of OK (200).
 	 * @throws Exception
 	 */
 	@Test
@@ -181,7 +181,7 @@ public class LinkControllerTest {
 	}
 	
 	/**
-	 * Tests the {@link com.revature.controller.LinkController#getLinkById(int) getLinkById(int)} method.
+	 * Tests the {@link com.revature.controllers.LinkController#getLinkById(int) getLinkById(int)} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Link} being retrieved contains both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
@@ -203,11 +203,11 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#getSearchResults(String,String,String) getAllLinks(String, String, String)} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#getSearchResults(String,String,String) getAllLinks(String, String, String)} method.
 	 * 
 	 * This method assumes that the search returns a valid Set<Set<Link>>.
 	 * 
-	 * The expected result is a status of OK.
+	 * The expected result is a status of OK (200).
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
@@ -231,7 +231,7 @@ public class LinkControllerTest {
 	}
 	
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#getSearchResults(String,String,String) getAllLinks(String, String, String)} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#getSearchResults(String,String,String) getAllLinks(String, String, String)} method.
 	 * 
 	 * This method assumes that the search returns a valid Set<Set<Link>>.
 	 * 
@@ -262,12 +262,12 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#updateLink(Link) updateLink(Link)} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#updateLink(Link) updateLink(Link)} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Link} being updated contains both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
 	 * 
-	 * The expected result is a status of OK.
+	 * The expected result is a status of OK (200).
 	 * @throws Exception
 	 */
 	@Test
@@ -284,7 +284,7 @@ public class LinkControllerTest {
 	}
 	
 	/**
-	 * Tests the {@link com.revature.controller.LinkController#updateLink(Link) updateLink(Link)} method.
+	 * Tests the {@link com.revature.controllers.LinkController#updateLink(Link) updateLink(Link)} method.
 	 * 
 	 * This method assumes that the {@link com.revature.entities.Link Link} being created contains both a
 	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
@@ -307,11 +307,11 @@ public class LinkControllerTest {
 	}
 
 	/**
-	 * Tests the status result of the {@link com.revature.controller.LinkController#deleteLink(Link) deleteLink(Link)} method.
+	 * Tests the status result of the {@link com.revature.controllers.LinkController#deleteLink(Link) deleteLink(Link)} method.
 	 * 
 	 * This method assumes no deletion will be performed when testing the method.
 	 * 
-	 * The expected result is a status of OK.
+	 * The expected result is a status of OK (200).
 	 * @throws Exception
 	 */
 	@Test

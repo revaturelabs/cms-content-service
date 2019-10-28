@@ -35,7 +35,7 @@ import com.revature.entities.ReqLink;
 import com.revature.services.CurriculumModuleService;
 
 /**
- * Test class for CRUD implementation of curriculum controller test.
+ * Tests the {@link com.revature.controllers.CurriculumModuleController CurriculumModuleController} class.
  */
 @SpringBootTest(classes = CMSforceApplication.class)
 public class CurriculumModuleControllerTest {
@@ -49,19 +49,35 @@ public class CurriculumModuleControllerTest {
 	@Mock
 	private CurriculumModuleService curriculumModuleService;
 
+	/**
+	 * Set up for testing the CurriculumModuleController.
+	 * Instantiates mocks.
+	 */
 	@BeforeClass
 	public void setup() {
 		curriculumModuleController = new CurriculumModuleController();
 		mvc = MockMvcBuilders.standaloneSetup(curriculumModuleController).build();
 	}
 
+	/**
+	 * Initializes mocks before each method.
+	 */
 	@BeforeMethod
 	public void reinitMocks() {
 		MockitoAnnotations.initMocks(this);
 	}
 
+	/**
+	 * Tests the result of the {@link com.revature.controllers.CurriculumModuleController#createCurrModule(CurriculumModule) createCurrModule(CurriculumModule)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.CurriculumModule CurriculumModule} being created is valid and that the {@link com.revature.services.CurriculumModuleService#createCurriculumModule(CurriculumModule) createCurriculumModule(CurriculumModule)}
+	 * in the {@link com.revature.services.CurriculumModuleService CurriculumModuleService} returns a given CurriculumModule.
+	 * 
+	 * The expected result is a CurriculumModule mapped from a ResponseEntity<CurriculumModule> matching the test CurriculumModule.
+	 * @throws Exception
+	 */
 	@Test
-	public void CreateCurriculumModule() throws Exception {
+	public void testCreateCurriculumModule() throws Exception {
 		Curriculum curriculum = new Curriculum(1, "Java Full Stack");
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -79,8 +95,17 @@ public class CurriculumModuleControllerTest {
 		Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum module");
 	}
 
+	/**
+	 * Tests the {@link com.revature.controllers.CurriculumModuleController#getCurrModuleById(int) getCurrModuleById(int)} method from the {@link com.revature.controllers.CurriculumModuleController CurriculumModuleController}.
+	 * 
+	 * This method assumes that the {@link com.revature.services.CurriculumModuleService#getCurriculumModuleById(int) getCurriculumModuleById(int)} method in the {@link com.revature.services.CurriculumModuleService CurriculumModuleService}
+	 * returns a given {@link com.revature.entities.CurriculumModule CurriculumModule}.
+	 * 
+	 * The expected result is a CurriculumModule mapped from a ResponseEntity<CurriculumModule> matching the test CurriculumModule.
+	 * @throws Exception
+	 */
 	@Test
-	public void GetCurriculumModuleById() throws Exception {
+	public void testGetCurriculumModuleById() throws Exception {
 		Curriculum curriculum = new Curriculum(1, "Java Full Stack");
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -99,8 +124,17 @@ public class CurriculumModuleControllerTest {
 		Assert.assertEquals(actual, curriculumModule, "Failed to retrieve expected curriculum Module");
 	}
 
+	/**
+	 * Tests the {@link com.revature.controllers.CurriculumModuleController#getAllCurrModules() getAllCurrModules()} method from the {@link com.revature.controllers.CurriculumModuleController CurriculumModuleController}.
+	 * 
+	 * This method assumes that the {@link com.revature.services.CurriculumModuleService#getAllCurriculumModules() getAllCurriculumModules()} method in the {@link com.revature.services.CurriculumModuleService CurriculumModuleService}
+	 * returns a given Set<{@link com.revature.entities.CurriculumModule CurriculumModule}>.
+	 * 
+	 * The expected result is a Set<CurriculumModule> mapped from a ResponseEntity<Set<CurriculumModule>> matching the test Set<CurriculumModule>.
+	 * @throws Exception
+	 */
 	@Test
-	public void GetAllCurriculumModules() throws Exception {
+	public void testGetAllCurriculumModules() throws Exception {
 		Curriculum curriculum = new Curriculum(1, "Java Full Stack");
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -121,8 +155,17 @@ public class CurriculumModuleControllerTest {
 		Assert.assertEquals(actual, allCurriculumModules, "Failed to retrieve expected curriculum modules");
 	}
 
+	/**
+	 * Tests the return status of the {@link com.revature.controllers.CurriculumModuleController#updateCurrModules(int, Set) updateCurrModules(int, Set)} method from the {@link com.revature.controllers.CurriculumModuleController CurriculumModuleController}.
+	 * 
+	 * This method assumes that the {@link com.revature.services.CurriculumModuleService#updateCurriculumModule(Set) updateCurriculumModule(Set)} method in the {@link com.revature.services.CurriculumModuleService CurriculumModuleService}
+	 * returns a given ArrayList<{@link com.revature.entities.CurriculumModule CurriculumModule}>.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
+	 */
 	@Test
-	public void UpdateCurriculumModuleStatusOk() throws Exception {
+	public void testUpdateCurriculumModule_StatusOk() throws Exception {
 		Curriculum curriculum = new Curriculum(1, "Java Full Stack");
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -143,8 +186,17 @@ public class CurriculumModuleControllerTest {
 		result.andExpect(status().isOk());
 	}
 
+	/**
+	 * Tests the return status of the {@link com.revature.controllers.CurriculumModuleController#deleteCurrModule(int) deleteCurrModule(int)} method from the {@link com.revature.controllers.CurriculumModuleController CurriculumModuleController}.
+	 * 
+	 * This method assumes that the {@link com.revature.services.CurriculumModuleService#deleteCurriculumModule(CurriculumModule) deleteCurriculumModule(CurriculumModule)} method in the {@link com.revature.services.CurriculumModuleService CurriculumModuleService}
+	 * returns a given {@link com.revature.entities.CurriculumModule CurriculumModule}.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
+	 */
 	@Test
-	public void DeleteCurriculumModuleStatusOk() throws Exception {
+	public void testDeleteCurriculumModule_StatusOk() throws Exception {
 		Curriculum curriculum = new Curriculum(1, "Java Full Stack");
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());

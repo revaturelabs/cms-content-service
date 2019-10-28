@@ -27,7 +27,7 @@ import com.revature.services.CurriculumModuleService;
  * @author Java Batch 1908
  *
  *         CurriculumModule Controller
- *         Delegate different HTTP request for CurriculumModule to corresponding CurriculumModuleService method
+ *         Delegate different HTTP request for {@link com.revature.entities.CurriculumModule CurriculumModule} to corresponding {@link com.revature.services.CurriculumModuleService CurriculumModuleService} methods
  * 
  *
  */
@@ -36,34 +36,34 @@ public class CurriculumModuleController {
 	@Autowired
 	CurriculumModuleService curriculumModuleService;
 	
-	@PostMapping
 	/**
-	 *  Mapping 'POST' request with '/curriculum-modules' URL to CurriculumModuleService's createCurriculumModule method to create a new CurriculumModule record in database
+	 * Mapping 'POST' request with '/curriculum-modules' URL to {@link com.revature.services.CurriculumModuleServiceImpl#createCurriculumModule(CurriculumModule) createCurriculumModule(CurriculumModule)} to create a new {@link com.revature.entities.CurriculumModule CurriculumModule} record in database
 	 *
 	 * @param cMod - the CurriculumModule Object to create, it's provided in request body
 	 * @return ResponseEntity<CurriculumModule> - response body with JSON format of CurriculumModule Object
 	 */
+	@PostMapping
 	public ResponseEntity<CurriculumModule> createCurrModule(@RequestBody CurriculumModule cMod){
 		return ResponseEntity.ok(curriculumModuleService.createCurriculumModule(cMod));
 	}
 	
-	@GetMapping
-	 /**
-     * Mapping 'GET' request with '/curriculum-modules' URL to CurriculumModuleService's getAllCurriculumModules method to get all CurriculumModule Object available in database
+	/**
+     * Mapping 'GET' request with '/curriculum-modules' URL to {@link com.revature.services.CurriculumModuleServiceImpl#getAllCurriculumModules() getAllCurriculumModules()} to get all {@link com.revature.entities.CurriculumModule CurriculumModule} objects available in database
      * @return ResponseEntity<set<CurriculumModule>> - response body with JSON format of a set of CurriculumModule Objects available in database
      */
+	@GetMapping
 	public ResponseEntity <Set<CurriculumModule>> getAllCurrModules(){
 		Set<CurriculumModule> currMods = curriculumModuleService.getAllCurriculumModules();
 		return ResponseEntity.ok(currMods);
 	}
 	
-	@GetMapping(value="/{id}")
 	/**
-	 * Mapping 'GET' request with '/curriculum-modules/{id}' URL to CurriculumModuleService getCurriculumModuleById method to get the CurriculumMoudle Object with given Id
+	 * Mapping 'GET' request with '/curriculum-modules/{id}' URL to {@link com.revature.services.CurriculumModuleServiceImpl#getCurriculumModuleById(int) getCurriculumModuleById(int)} method to get the {@link com.revature.entities.CurriculumModule CurriculumModule} object with given Id
 	 * @param id - CurriculumModule Id
 	 * @return ResponseEntity<Curriculum> - ResponseBody with JSON format of CurriculumModule Object 
 	 * 
 	 */
+	@GetMapping(value="/{id}")
 	public ResponseEntity<CurriculumModule> getCurrModuleById(@PathVariable int id){
 		CurriculumModule currMod = curriculumModuleService.getCurriculumModuleById(id);
 		return ResponseEntity.ok(currMod);
@@ -71,7 +71,7 @@ public class CurriculumModuleController {
 	
 	@PutMapping(value="/curriculum/{id}")
 	/**
-	 * Mapping 'PUT' request with '/curriculum-modules/curriculum/{id}' URL to CurriculumService's updateCurrModules method to update Curriculum record in database with given id
+	 * Mapping 'PUT' request with '/curriculum-modules/curriculum/{id}' URL to {@link com.revature.services.CurriculumModuleServiceImpl#updateCurrModules(Set<CurriculumModule>) updateCurrModules(Set<CurriculumModule>)} to update the {@link com.revature.entities.CurriculumModule CurriculumModule} record in database with given id
 	 *
 	 * @param modules - a set of CurriculumModule Objects to update provided in request body
 	 * @param id - Curriculum Id associated with all CurriculumModules
@@ -84,13 +84,13 @@ public class CurriculumModuleController {
 		return ResponseEntity.ok((ArrayList<CurriculumModule>)curriculumModuleService.updateCurriculumModule(modules));
 	}
 	
-	@DeleteMapping(value="/{id}")
 	/**
-	 * Mapping 'DELETE' request with '/curriculum-modules/{id}' URL to CurriculumModuleService getCurriculumModuleById and deleteCurriculumModule method to delete the CurriculumModule record in database with given id
+	 * Mapping 'DELETE' request with '/curriculum-modules/{id}' URL to {@link com.revature.services.CurriculumModuleServiceImpl#getCurriculumModuleById(int) getCurriculumModuleById(int)} and {@link com.revature.services.CurriculumModuleService#deleteCurriculumModule(CurriculumModule) deleteCurriculumModule(CurriculumModule)} to delete the {@link com.revature.entities.CurriculumModule CurriculumModule} record in database with given id
 	 *
 	 * @param id - the CurriculumModule id to delete
 	 * @return ResponseEntity<String> - set status to be "HTTPStatus.ok" and empty string in response body if the CurriculumModule record with given Id is successfully deleted
-	 */	
+	 */
+	@DeleteMapping(value="/{id}")
 	public ResponseEntity<String> deleteCurrModule(@PathVariable int id){
 		CurriculumModule cMod = curriculumModuleService.getCurriculumModuleById(id);
 		curriculumModuleService.deleteCurriculumModule(cMod);
