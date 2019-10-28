@@ -34,6 +34,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * Tests the {@link com.revature.controllers.LinkController LinkController} class.
+ */
 @SpringBootTest(classes = CMSforceApplication.class)
 public class LinkControllerTest {
 
@@ -44,19 +47,35 @@ public class LinkControllerTest {
 	@Mock
 	private LinkService ls;
 
+	/**
+	 * Set up for testing the LinkController.
+	 * Instantiates mocks.
+	 */
 	@BeforeClass
 	public void setup() {
 		lc = new LinkController();
 		mvc = MockMvcBuilders.standaloneSetup(lc).build();
 	}
 
+	/**
+	 * Initializes mocks before each method.
+	 */
 	@BeforeMethod
 	public void reinitMocks() {
 		MockitoAnnotations.initMocks(this);
 	}
 
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#createLink(Link) createLink(Link)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Link} being created contains both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a status of OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void testCreateLinkStatusOk() throws Exception {
+	public void testCreateLink_StatusOk() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -68,8 +87,17 @@ public class LinkControllerTest {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the {@link com.revature.controller.LinkController#createLink(Link) createLink(Link)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Link} being created contains both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a Link mapped from a ResponseEntity<Link> matching the test Link.
+	 * @throws Exception
+	 */
 	@Test
-	public void testCreateLinkTestReturn() throws Exception {
+	public void testCreateLink_Return() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -82,8 +110,17 @@ public class LinkControllerTest {
 		Assert.assertEquals(actual, link, "Failed to retrieve expected link");
 	}
 
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#getAllLinks() getAllLinks()} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Links} being retrieved contain both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a status of OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void testGetAllLinksStatusOk() throws Exception {
+	public void testGetAllLinks_StatusOk() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -93,16 +130,20 @@ public class LinkControllerTest {
 		allLinks.add(link);
 		Mockito.when(ls.getAllLinks()).thenReturn(allLinks);
 		ResultActions result = mvc.perform(get("/links").contentType(MediaType.APPLICATION_JSON_VALUE));
-		Set<Link> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
-				new TypeReference<Set<Link>>() {
-				});
 		result.andExpect(status().isOk());
-		Mockito.verify(ls).getAllLinks();
-		Assert.assertEquals(actual, allLinks, "Failed to retrieve expected links");
 	}
 
+	/**
+	 * Tests the {@link com.revature.controller.LinkController#getAllLinks() getAllLinks()} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Links} being retrieved contain both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a Set<Link> mapped from a ResponseEntity<Set<Link>> matching the test Set<Link>.
+	 * @throws Exception
+	 */
 	@Test
-	public void testGetAllLinksStatusTestReturn() throws Exception {
+	public void testGetAllLinksStatus_Return() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -118,8 +159,17 @@ public class LinkControllerTest {
 		Assert.assertEquals(actual, allLinks, "Failed to retrieve expected links");
 	}
 
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#getLinkById(int) getAllLinks(int)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Links} being retrieved contain both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a status of OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void testGetLinkByIdStatusOk() throws Exception {
+	public void testGetLinkById_StatusOk() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -130,8 +180,17 @@ public class LinkControllerTest {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the {@link com.revature.controller.LinkController#getLinkById(int) getLinkById(int)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Link} being retrieved contains both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a Link mapped from a ResponseEntity<Link> with an id matching the test Link's id.
+	 * @throws Exception
+	 */
 	@Test
-	public void testGetLinkByIdTestReturn() throws Exception {
+	public void testGetLinkById_Return() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -140,12 +199,20 @@ public class LinkControllerTest {
 		Mockito.when(ls.getLinkById(link.getId())).thenReturn(link);
 		ResultActions result = mvc.perform(get("/links/" + link.getId()).contentType(MediaType.APPLICATION_JSON_VALUE));
 		Link actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Link.class);
-		Assert.assertEquals(actual, link, "Failed to retrieve expected link");
+		Assert.assertEquals(actual.getId(), link.getId(), "Failed to retrieve expected link");
 	}
 
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#getSearchResults(String,String,String) getAllLinks(String, String, String)} method.
+	 * 
+	 * This method assumes that the search returns a valid Set<Set<Link>>.
+	 * 
+	 * The expected result is a status of OK.
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	@Test()
-	public void testGetSearchResultsStatusOk() throws Exception {
+	public void testGetSearchResults_StatusOk() throws Exception {
 		String[] params = { "title", "format", "modules" };
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
@@ -163,9 +230,17 @@ public class LinkControllerTest {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#getSearchResults(String,String,String) getAllLinks(String, String, String)} method.
+	 * 
+	 * This method assumes that the search returns a valid Set<Set<Link>>.
+	 * 
+	 * The expected result is a Set<Set<Link>> mapped from a ResponseEntity<Link> matching the test Set<Set<Link>>.
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	@Test()
-	public void testGetSearchResultsTestReturn() throws Exception {
+	public void testGetSearchResults_Return() throws Exception {
 		String[] params = { "title", "format", "modules" };
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
@@ -186,8 +261,17 @@ public class LinkControllerTest {
 		Assert.assertEquals(actual, setOfSets, "Failed to retrieve expected links");
 	}
 
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#updateLink(Link) updateLink(Link)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Link} being updated contains both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a status of OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void testUpdateLinkSTatusOk() throws Exception {
+	public void testUpdateLink_StatusOk() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -199,8 +283,17 @@ public class LinkControllerTest {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the {@link com.revature.controller.LinkController#updateLink(Link) updateLink(Link)} method.
+	 * 
+	 * This method assumes that the {@link com.revature.entities.Link Link} being created contains both a
+	 * valid {@link com.revature.entities.Content Content} object and a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a Link mapped from a ResponseEntity<Link> matching the test Link.
+	 * @throws Exception
+	 */
 	@Test
-	public void testUpdateLinkTestReturn() throws Exception {
+	public void testUpdateLink_Return() throws Exception {
 		Content content = new Content(1, "title", "format", "description", "http://www.google.com", 1L, 1L,
 				new HashSet<Link>());
 		Module module = new Module(1, "test_module", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
@@ -213,8 +306,16 @@ public class LinkControllerTest {
 		Assert.assertEquals(actual, link, "Failed to retrieve expected link");
 	}
 
+	/**
+	 * Tests the status result of the {@link com.revature.controller.LinkController#deleteLink(Link) deleteLink(Link)} method.
+	 * 
+	 * This method assumes no deletion will be performed when testing the method.
+	 * 
+	 * The expected result is a status of OK.
+	 * @throws Exception
+	 */
 	@Test
-	public void testDeleteLinkStatusOk() throws Exception {
+	public void testDeleteLink_StatusOk() throws Exception {
 		int linkId = 1;
 		Mockito.doNothing().when(ls).deleteLinkById(linkId);
 		ResultActions result = mvc.perform(delete("/links/" + linkId).contentType(MediaType.APPLICATION_JSON_VALUE));
