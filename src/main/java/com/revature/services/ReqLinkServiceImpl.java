@@ -29,6 +29,9 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 	@Autowired
 	SearchService searchService;
 
+	/**
+	 *  This method persists the ReqLink along with the Request and Module associated with the ReqLink
+	 */
 	@Override
 	public ReqLink createReqLink(ReqLink reqLink) {
 		reqLink.setRequest(rr.save(reqLink.getRequest()));
@@ -53,11 +56,20 @@ public class ReqLinkServiceImpl implements ReqLinkService {
 		return rlr.save(reqLink);
 	}
 
+	/*
+	 * Note From Tester - this method makes two database calls. suggest refactoring to just pass in the ReqLink object instead of its Id
+	 */
 	@Override
 	public void deleteReqLinkById(int id) {
 		rlr.delete(rlr.findById(id));
 	}
 
+	/**
+	 * @param - String Title, String Format, List<Integer> moduleId
+	 * this method returns a set of sets of ReqLink objects. each set of ReqLink Objects pertains to a Request.
+	 * 
+	 * Note From Tester - This method turns the String format into a Single Item List in order to pass it as a List to another method. It may be better to offer the option of initially passing a List of formats rather than having a single format turn into a list
+	 */
 	@Override
 	public Set<Set<ReqLink>> filter(String title, String format, List<Integer> moduleIdsList) {
 		

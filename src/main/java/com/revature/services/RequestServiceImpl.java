@@ -31,6 +31,10 @@ public class RequestServiceImpl implements RequestService {
 	@Autowired
 	ReqLinkRepository rlr;
 
+	/**
+	 * method returns the newly persisted request object. It assigns a date created and date modified if there is none set yet
+	 * 
+	 */
 	@LogException
 	@Override
 	public Request createRequest(Request request) {
@@ -46,7 +50,7 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	/**
-	 * Get all the requests from the database and passes a set of requests objects
+	 * Get all the requests from the database and returns a set of requests objects
 	 */
 	@Override
 	@LogException
@@ -74,6 +78,8 @@ public class RequestServiceImpl implements RequestService {
 	 * @throws - NullPointerException - if the newContent parameter is null or if
 	 *           the requested requests to be updated doesn't exist in requests
 	 *           Repository
+	 *           InvalidRequestException - if request is null
+	 *           InvalidRequestIdException - if request id is invalid *note for developer, this must be refactored. it can't be tested Id can't be anything other than an int due to strong type declaration*
 	 */
 	@Override
 	@LogException
@@ -90,6 +96,9 @@ public class RequestServiceImpl implements RequestService {
 	/**
 	 * gets formats and cycles through all elements in DB to return how many times
 	 * each format is used. Much faster than using a findByFormat
+	 * 
+	 * Note From Tester: this method name does not describe the purpose of its implementation. should be getRequestCountByFormat since it returns the number of times the format is used and not the requests themselves
+	 * Note From Tester: This method passes a string array of Formats that is not used inside the method body
 	 */
 	@Override
 	@LogException
@@ -106,6 +115,12 @@ public class RequestServiceImpl implements RequestService {
 		return numList;
 	}
 
+	/**
+	 * gets formats associated with the set of requests that were passed in as an argument and counts the occurences of the formats
+	 * 
+	 * Note From Tester: this method name does not describe the purpose of its implementation. should be getRequestCountByFormat since it returns the number of times the format is used and not the requests themselves
+	 * Note From Tester: This method when renamed could be used within the getRequestsByFormat(String[]) after that method finds all the requests from the database. 
+	 */
 	@Override
 	@LogException
 	public Map<String, Integer> getRequestsByFormat(Set<Request> requests) {
@@ -127,6 +142,12 @@ public class RequestServiceImpl implements RequestService {
 		}
 	}
 	
+	/**
+	 * this method takes an id and list of reqLinks and updates the reqlinks
+	 * 
+	 * Note From Tester: this method does not need/use the int id
+	 * Note From Tester: the save method does both create and update. meaning only one method is required instead of one for each.
+	 */
 	@Override
 	public List<ReqLink> updateReqLinks(int id, List<ReqLink> reqLinks) {
 		for (ReqLink reqLink : reqLinks) {
@@ -135,6 +156,12 @@ public class RequestServiceImpl implements RequestService {
 		return reqLinks;
 	}
 
+	/**
+	 * this method takes an id and list of reqLinks and creates/saves the reqlinks
+	 * 
+	 * Note From Tester: this method does not need/use the int id
+	 * Note From Tester: the save method does both create and update. meaning only one method is required instead of one for each.
+	 */
 	@Override
 	public List<ReqLink> createReqLinksByRequestId(int id, List<ReqLink> reqLinks) {
 		List<ReqLink> savedReqLinks = new ArrayList<ReqLink>();
