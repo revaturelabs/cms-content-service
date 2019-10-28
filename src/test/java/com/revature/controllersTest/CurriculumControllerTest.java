@@ -61,7 +61,8 @@ public class CurriculumControllerTest {
 	private Curriculum curriculum2;
 
 	/**
-	 * Initialize Mockito and mocking dependencies
+	 * This {@link com.revature.controllers.CurriculumControllerTest#setup() setup} method initializes the Mockito and
+	 * mocked dependencies once before any tests are run.
 	 */
 	@BeforeClass
 	public void setup() {
@@ -72,7 +73,7 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Ensures clean curriculum for each test
+	 * This {@link com.revature.controllers.CurriculumControllerTest#preTestSetup() preTestSetup} ensures clean curriculum for each test.
 	 */
 	@BeforeTest
 	public void preTestSetup() {
@@ -81,7 +82,11 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Test adding a new Curriculum into the back-end
+	 * This {@link com.revature.controllers.CurriculumControllerTest#givenValidDataCreateCurriculum() givenValidDataCreateCurriculum} method tests the
+	 * {@link com.revature.controllers.CurriculumController#createCurriculum(Curriculum) createCurriculum} method.
+	 * This method assumes a mocked curriculum is returned after adding Curriculum to back-end.
+	 * The result expected is that the mocked Curriculum matches the returned Curriculum.
+	 *
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
@@ -108,7 +113,10 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Test retrieving all the modules from the back-end
+	 * The {@link #getAllCurriculum() getAllCurriculum} method tests the 
+	 * {@link com.revature.controllers.CurriculumController#getAllCurriculums() getAllCurriculums} method.
+	 * This method assumes that a set of curriculum will be returned.
+	 * The result expected is a JSON string of the curriculums.
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
@@ -157,7 +165,10 @@ public class CurriculumControllerTest {
 	}
 
 	/**
-	 * Test pulling a specific curriculum from the back-end
+	 * This {@link #getCurriculumById() getCurriculumById} method tests the
+	 * {@link com.revature.controllers.CurriculumController#getCurriculumById(int) getCurriculumById} method.
+	 * This method assumes a mocked curriculum will be returned.
+	 * The result expected is an a mocked curriculum match.
 	 * 
 	 * @throws Exception - if the http request fails
 	 */
@@ -203,6 +214,10 @@ public class CurriculumControllerTest {
 	}
 
 	/**
+	 * The {@link #deleteCurriculum() deleteCurriculum} method tests the 
+	 * {@link com.revature.controllers.CurriculumController#deleteCurriculum(int)  controller deleteCurriculum} method.
+	 * The method assumes no delete will actually occur.
+	 * The result expected is a status OK.
 	 * Test removing a module from the back-end
 	 * 
 	 * @throws Exception - if the http request fails

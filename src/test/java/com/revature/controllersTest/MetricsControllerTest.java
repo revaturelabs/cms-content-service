@@ -66,6 +66,10 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 	private double avgMods = 0;
 	private Map<String, Integer> contentFormats;
 
+	/**
+	 * This {@link #setup() setup} method is run before any tests in this class are run and is used to prepare
+	 * mocked data.
+	 */
 	@BeforeClass
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
@@ -80,12 +84,24 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 		modules.add(module);
 		modSize = modules.size();
 	}
-
+	/**
+	 * This {@link #beforeEachTest() beforeEachTest} method is run before every test and ensures clean data.
+	 * @throws JsonProcessingException
+	 * @throws Exception
+	 */
 	@BeforeMethod
 	public void beforeEachTest() throws JsonProcessingException, Exception {
 		contentFormats = new HashMap<>();
 	}
-
+	/**
+	 * This {@link #testidsInNotEmpty() testidsInNotEmpty} method tests the
+	 * {@link com.revature.controllers.MetricsController#getMetrics(long, Map) getMetrics} method.
+	 * This method assumes that metrics gathered are equal to mocked metrics.
+	 * The result expected is an equality check between mock and returned metrics.
+	 * 
+	 * @throws JsonProcessingException
+	 * @throws Exception
+	 */
 	@Test
 	public void testidsInNotEmpty() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
@@ -102,7 +118,15 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 
 		assertEquals(actual, gatheredMetrics);
 	}
-	
+	/**
+	 * This {@link #testidsInNotEmptyCodeExists() testidsInNotEmptyCodeExists} method tests the
+	 * {@link com.revature.controllers.MetricsController#getMetrics(long, Map) getMetrics} method.
+	 * The method assumes that code content is available for the metrics graph.
+	 * The result expected is a MetricsData that matches mocked metrics.
+	 * 
+	 * @throws JsonProcessingException
+	 * @throws Exception
+	 */
 	@Test
 	public void testidsInNotEmptyCodeExists() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
@@ -120,7 +144,15 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 
 		assertEquals(actual, gatheredMetrics);
 	}
-	
+	/**
+	 * This {@link #testidsInNotEmptyPowerpointExists() testidsInNotEmptyPowerpointExists} method tests the
+	 * {@link com.revature.controllers.MetricsController#getMetrics(long, Map) getMetrics} method.
+	 * The method assumes that powerpoint content is available for the metrics graph.
+	 * The result expected is a MetricsData that matches mocked metrics.
+	 * 
+	 * @throws JsonProcessingException
+	 * @throws Exception
+	 */
 	@Test
 	public void testidsInNotEmptyPowerpointExists() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
@@ -138,7 +170,15 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 
 		assertEquals(actual, gatheredMetrics);
 	}
-	
+	/**
+	 * This {@link #testidsInNotEmptyDocumentExists() testidsInNotEmptyDocumentExists} method tests the
+	 * {@link com.revature.controllers.MetricsController#getMetrics(long, Map) getMetrics} method.
+	 * The method assumes that document content is available for the metrics graph.
+	 * The result expected is a MetricsData that matches mocked metrics.
+	 * 
+	 * @throws JsonProcessingException
+	 * @throws Exception
+	 */
 	@Test
 	public void testidsInNotEmptyDocumentExists() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
@@ -156,7 +196,16 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 
 		assertEquals(actual, gatheredMetrics);
 	}
-	
+	/**
+	 * This {@link #testidsInEmpty() testidsInEmpty} method tests the
+	 * {@link com.revature.controllers.MetricsController#getMetrics(long, Map) getMetrics} method.
+	 * This method assumes that metrics gathered are equal to mocked metrics. 
+	 * This method assumes that no filter is sent, or empty filter is sent in request.
+	 * The result expected is an equality check between mock and returned metrics.
+	 * 
+	 * @throws JsonProcessingException
+	 * @throws Exception
+	 */
 	@Test
 	public void testidsInEmpty() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
