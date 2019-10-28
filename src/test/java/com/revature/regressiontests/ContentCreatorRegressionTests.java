@@ -41,8 +41,8 @@ public class ContentCreatorRegressionTests {
 	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
 	@Test(priority = 1)
-	@Parameters({"title", "url", "module", "description"})
-	public void testFormSubmitWithCodeButton(String title, String url, String module, String description) {
+	@Parameters({"title", "goodUrl", "module", "description"})
+	public void testFormSubmitWithCodeButton(String title, String goodUrl, String module, String description) {
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
 
@@ -91,7 +91,7 @@ public class ContentCreatorRegressionTests {
 
 		// input text into the title box
 		cc.inputToTitleBox(title);
-		cc.inputToUrlBox(url);
+		cc.inputToUrlBox(goodUrl);
 		cc.inputToModuleFilterBox(module);
 		cc.inputToDescriptionBox(description);
 
@@ -140,8 +140,8 @@ public class ContentCreatorRegressionTests {
 	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
 	@Test(priority = 2)
-	@Parameters({"title", "url", "module", "description"})
-	public void testFormSubmitWithDocumentButton(String title, String url, String module, String description) {
+	@Parameters({"title", "goodUrl", "module", "description"})
+	public void testFormSubmitWithDocumentButton(String title, String goodUrl, String module, String description) {
 		driver.navigate().refresh();
 		// validate we are indeed on the correct page / URL
 		assertEquals(driver.getCurrentUrl(), url);
@@ -191,7 +191,7 @@ public class ContentCreatorRegressionTests {
 
 		// input text into the title box
 		cc.inputToTitleBox(title);
-		cc.inputToUrlBox(url);
+		cc.inputToUrlBox(goodUrl);
 		cc.inputToModuleFilterBox(module);
 		cc.inputToDescriptionBox(description);
 
@@ -240,8 +240,8 @@ public class ContentCreatorRegressionTests {
 	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
 	@Test(priority = 3)
-	@Parameters({"title", "url", "module", "description"})
-	public void testFormSubmitWithPowerpointButton(String title, String url, String module, String description) {
+	@Parameters({"title", "goodUrl", "module", "description"})
+	public void testFormSubmitWithPowerpointButton(String title, String goodUrl, String module, String description) {
 		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
@@ -292,7 +292,7 @@ public class ContentCreatorRegressionTests {
 
 		// input text into the title box
 		cc.inputToTitleBox(title);
-		cc.inputToUrlBox(url);
+		cc.inputToUrlBox(goodUrl);
 		cc.inputToModuleFilterBox(module);
 		cc.inputToDescriptionBox(description);
 
@@ -378,8 +378,8 @@ public class ContentCreatorRegressionTests {
 	}
 	
 	@Test(priority = 5)
-	@Parameters({"url", "module", "description"})
-	public void testSubmitWithNoTitle(String url, String module, String description) {
+	@Parameters({"validUrl", "module", "description"})
+	public void testSubmitWithNoTitle(String validUrl, String module, String description) {
 		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
@@ -395,7 +395,7 @@ public class ContentCreatorRegressionTests {
 		assertNotNull(cc.codeButton);
 		assertNotNull(cc.submitButton);
 		
-		cc.inputToUrlBox(url);
+		cc.inputToUrlBox(validUrl);
 		cc.inputToModuleFilterBox(module);
 		cc.inputToDescriptionBox(description);
 		
