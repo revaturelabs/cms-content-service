@@ -53,7 +53,7 @@ public class LinkController {
 
 	/**
 	 * HTTP GET method
-	 * Uses @GetMapping to retrieve all {@link com.revature.entities.Link Link} objects using the {@link com.revature.service.LinkServiceImpl#getAllLinks() getAllLink()} method.
+	 * Uses @GetMapping to retrieve all {@link com.revature.entities.Link Link} objects using the {@link com.revature.service.LinkServiceImpl#getAllLinks() getAllLinks()} method.
 	 * Upon successful retrieval, the ResponseEntity will return status OK.
 	 * @param link
 	 * @return ResponseEntity<Link>
@@ -65,7 +65,7 @@ public class LinkController {
 
 	/**
 	 * HTTP GET method
-	 * Uses @GetMapping to retrieve a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#getLinkById(int id) getLinkById(int id)} method.
+	 * Uses @GetMapping to retrieve a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#getLinkById(int) getLinkById(int)} method.
 	 * Upon successful retrieval, the ResponseEntity will return status OK.
 	 * @param id
 	 * @return ResponseEntity<Link>
@@ -77,7 +77,7 @@ public class LinkController {
 
 	/**
 	 * HTTP GET method
-	 * Uses @GetMapping to retrieve specific {@link com.revature.entities.Link Link} objects based on title, format, and modules using the {@link com.revature.service.LinkServiceImpl#filter(String title, String format, String modules) filter(String title, String format, String modules)} method.
+	 * Uses @GetMapping to retrieve specific {@link com.revature.entities.Link Link} objects based on title, format, and modules using the {@link com.revature.service.LinkServiceImpl#filter(String, String, String) filter(String title, String format, String modules)} method.
 	 * If a parameter is empty, it is not used in the filtering process.
 	 * "modules" is a String in comma-separated format of integers (e.g. "1,2,3,4").
 	 * Upon successful retrieval, the ResponseEntity will return status OK.
@@ -100,7 +100,7 @@ public class LinkController {
 
 	/**
 	 * HTTP PUT method
-	 * Uses @PutMapping to update a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#updateLink(Link link) updateLink(Link link)} method.
+	 * Uses @PutMapping to update a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#updateLink(Link) updateLink(Link link)} method.
 	 * Upon successful update, the ResponseEntity will return status OK.
 	 * @param link
 	 * @return ResponseEntity<Link>
@@ -112,7 +112,7 @@ public class LinkController {
 
 	/**
 	 * HTTP DELETE method
-	 * Uses @DeleteMapping to delete a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#deleteLinkById(int id) deleteLinkById(int id)} method.
+	 * Uses @DeleteMapping to delete a specific {@link com.revature.entities.Link Link} object based on id using the {@link com.revature.service.LinkServiceImpl#deleteLinkById(int) deleteLinkById(int id)} method.
 	 * Upon successful update, the ResponseEntity will return status OK.
 	 * @param id
 	 * @return ResponseEntity<Link>
