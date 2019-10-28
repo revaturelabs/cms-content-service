@@ -31,14 +31,14 @@ public class ContentCreatorRegressionTests {
 		driver.get(url);
 	}
 
-	@Test(enabled = false)
 	/**
-	 * Test to ensure the correct page was opened
+	 * @purpose this method is used to test the content creator page
+	 * this is a "happy path" test and tests all input fields with 
+	 * correct input. Then the test will select the "Code" button specifically
+	 * and then submit the form. Lastly, it is testing for a toastr message.
+	 * Currently the toastr message should say "The URL already exsists in database."
+	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
 	 */
-	public void confirmedContentCreatorPage() {
-		assertEquals(driver.getCurrentUrl(), url);
-	}
-
 	@Test(priority = 1)
 	public void testFormSubmitWithCodeButton() {
 		// validate we are indeed on the correct page / URL
@@ -129,6 +129,14 @@ public class ContentCreatorRegressionTests {
 		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
+	/**
+	 * @purpose this method is used to test the content creator page
+	 * this is a "happy path" test and tests all input fields with 
+	 * correct input. Then the test will select the "Document" button specifically
+	 * and then submit the form. Lastly, it is testing for a toastr message.
+	 * Currently the toastr message should say "The URL already exsists in database."
+	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
+	 */
 	@Test(priority = 2)
 	public void testFormSubmitWithDocumentButton() {
 		driver.navigate().refresh();
@@ -220,6 +228,14 @@ public class ContentCreatorRegressionTests {
 		assertEquals(toastMessageCheck, "The URL already exsists in database.");
 	}
 
+	/**
+	 * @purpose this method is used to test the content creator page
+	 * this is a "happy path" test and tests all input fields with 
+	 * correct input. Then the test will select the "Powerpoint" button specifically
+	 * and then submit the form. Lastly, it is testing for a toastr message.
+	 * Currently the toastr message should say "The URL already exsists in database."
+	 * because we are re-inputting the same input. (We didn't want to fill up the test DB)
+	 */
 	@Test(priority = 3)
 	public void testFormSubmitWithPowerpointButton() {
 		driver.navigate().refresh();
@@ -264,11 +280,11 @@ public class ContentCreatorRegressionTests {
 		assertEquals(cc.submitButton, submitBtn);
 
 		// The class should NOT contain the string "wrapper-active"
-//		assertFalse(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
+		assertFalse(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
 		// Click the module
-//		getModule.click();
+		getModule.click();
 		// The class should contain the string "wrapper-active"
-//		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
+		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
 
 		// input text into the title box
 		cc.inputToTitleBox("Selenium Test Title input box");
@@ -308,6 +324,89 @@ public class ContentCreatorRegressionTests {
 		// After the submit is selected, a toastr message will appear.
 		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
 		assertNotNull(confirmSubmit);
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		assertEquals(toastMessageCheck, "The URL already exsists in database.");
+	}
+	
+	/**
+	 * @purpose this method is used to test the content creator page
+	 * this is a "negative path" test and tests inputting negative or invalid data.
+	 * The result of this test will test for an error or "invalid URL" message within
+	 * the toastr pop-up. 
+	 */
+	@Test(priority = 4)
+	public void testInvalidURL() {
+		driver.navigate().refresh();
+		
+		// validate we are indeed on the correct page / URL
+		assertEquals(driver.getCurrentUrl(), url);
+
+		// create an instance of our Content Creator POM to use the defined web elements
+		ContentCreator cc = new ContentCreator(driver);
+		
+		// test that we have retrieved a valid web elements
+		assertNotNull(cc.titleBox);
+		assertNotNull(cc.moduleFilter);
+		assertNotNull(cc.descriptionBox);
+		assertNotNull(cc.codeButton);
+		assertNotNull(cc.submitButton);
+		
+		cc.inputToTitleBox("URL Negative Input Test");
+		cc.inputToUrlBox("invalidUrl.com");
+		cc.inputToModuleFilterBox("Java");
+		cc.inputToDescriptionBox("A quality description would go here");
+		
+		// attempt to submit the create content form
+		cc.clickButton(cc.submitButton);
+		
+		// Create wait to confirm the toast message pops up
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='toast-container']/div")));
+
+		// After the submit is selected, a toastr message will appear.
+		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
+		assertNotNull(confirmSubmit);
+		// Retrieve our toast message
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		// test our toast message to be the defined error message.
+		assertEquals(toastMessageCheck, "Invalid URL. e.g. \"http://example.com\", \"ftp://www.example.com\", \"http://192.168.0.0\"");
+	}
+	
+	@Test(priority = 5) 
+	public void testSubmitWithNoTitle() {
+driver.navigate().refresh();
+		
+		// validate we are indeed on the correct page / URL
+		assertEquals(driver.getCurrentUrl(), url);
+
+		// create an instance of our Content Creator POM to use the defined web elements
+		ContentCreator cc = new ContentCreator(driver);
+		
+		// test that we have retrieved a valid web elements
+		assertNotNull(cc.titleBox);
+		assertNotNull(cc.moduleFilter);
+		assertNotNull(cc.descriptionBox);
+		assertNotNull(cc.codeButton);
+		assertNotNull(cc.submitButton);
+		
+		cc.inputToUrlBox("http://testURL.com");
+		cc.inputToModuleFilterBox("Java");
+		cc.inputToDescriptionBox("A quality description would go here");
+		
+		// attempt to submit the create content form
+		cc.clickButton(cc.submitButton);
+		
+		// Create wait to confirm the toast message pops up
+		WebDriverWait wait = new WebDriverWait(driver, 5);
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@id='toast-container']/div")));
+
+		// After the submit is selected, a toastr message will appear.
+		WebElement confirmSubmit = driver.findElement(By.xpath("//*[@id='toast-container']/div"));
+		assertNotNull(confirmSubmit);
+		// Retrieve our toast message
+		String toastMessageCheck = driver.findElement(By.xpath("//*[@id=\"toast-container\"]/div/div")).getText();
+		// test our toast message to be the defined error message.
+		assertEquals(toastMessageCheck, "Please fill in all input fields!");
 	}
 
 	@AfterClass
