@@ -198,6 +198,11 @@ public class RequestController {
 		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
 	
+	/**
+	 * This converts a Request object to a JSONRequest object.
+	 * @param request
+	 * @return
+	 */
 	public JSONRequest requestToJSONRequest(Request request) {
 		JSONRequest jsonRequest = new JSONRequest();
 		jsonRequest.setId(request.getId());
@@ -211,6 +216,11 @@ public class RequestController {
 		return jsonRequest;
 	}
 	
+	/**
+	 * This converts a JSONRequest object to a Request object.
+	 * @param jsonRequest
+	 * @return
+	 */
 	public Request jsonRequestToRequest(JSONRequest jsonRequest) {
 		Request request = new Request();
 		request.setId(jsonRequest.getId());
