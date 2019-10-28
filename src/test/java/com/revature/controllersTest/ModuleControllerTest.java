@@ -12,7 +12,6 @@ import java.util.Set;
 
 import javax.ws.rs.core.MediaType;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -26,57 +25,71 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.cmsforce.CMSforceApplication;
 import com.revature.controllers.ModuleController;
 import com.revature.entities.Content;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
+import com.revature.repositories.ModuleRepository;
 import com.revature.services.ModuleService;
 
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
+	// Any time that two nulls appear in a test of a constructor, that is for a
+	// feature that was created after the tests were created to allow them to pass.
+
 	private static final int id = 1;
 	private static final String subject = "subject";
 	private static final long created = 1;
 	private static final String affiliation = "affiliation";
-	private static final int priority = 0;
-	private static Set<Link> links = new HashSet<>();
-	private static Link link = new Link (id,new Content(),new Module(),affiliation,priority);
 
-	
-	//allows us to send mocked http requests
+	// allows us to send mocked http requests
 	private MockMvc mvc;
+
+	// allows json<->object conversion
 	private ObjectMapper objMapper = new ObjectMapper();
+
+	// the controller being tested
 	@InjectMocks
 	private ModuleController mc;
 
+	// the service the controller depends on
 	@Mock
 	private ModuleService ms;
+
+	// module being used in http requests
 	private Module module;
+	
+	@Mock
+	private ModuleRepository mr; 
+
+	// links for modules
+	private Set<Link> links = new HashSet<Link>();
 
 	/**
 	 * Initialize Mockito and mocking dependencies
 	 */
 	@BeforeClass
 	public void setup() {
+		// build mock MVC so can build mock requests
 		mc = new ModuleController();
 		mvc = MockMvcBuilders.standaloneSetup(mc).build();
 
+		// enables mockito annotations
 		MockitoAnnotations.initMocks(this);
 	}
 
 	/**
 	 * Ensure clean module for each test
 	 */
-	@BeforeTest 
-	public void preTestSetup () {
+	@BeforeTest
+	public void preTestSetup() {
 
-		 links = new HashSet<Link> ();
-		//caution: content and module not sprint beans here
-
-		 link = new Link (id,new Content(),new Module(),affiliation,priority);
-
+		// caution: content and module not spring beans here
+		Link link = new Link(id, new Content(), new Module(), affiliation,0);
 		links.add(link);
 		module = new Module(id, subject, created, links, new HashSet<ReqLink>(), new HashSet<Module>(),
 				new HashSet<Module>());
@@ -88,19 +101,19 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void givenValidDataCreateModuleStatusOK() throws Exception {
+	public void givenValidDataCreateModule() throws Exception {
+		// given
 		Mockito.when(ms.createModule(module)).thenReturn(module);
-		ResultActions result = mvc.perform(
-				post("/modules").contentType(MediaType.APPLICATION_JSON).content(objMapper.writeValueAsString(module)));
-		result.andExpect(status().isOk());
-	}
 
-	@Test
-	public void givenValidDataCreateModuleTestReturnTrue() throws Exception {
-		Mockito.when(ms.createModule(module)).thenReturn(module);
+		// when
 		ResultActions result = mvc.perform(
 				post("/modules").contentType(MediaType.APPLICATION_JSON).content(objMapper.writeValueAsString(module)));
 		Module actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Module.class);
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// expect should get back same module
 		assertEquals(actual, module, "Module was not created");
 	}
 
@@ -110,24 +123,32 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void getAllModulesStatusOK() throws Exception {
-		Set<Module> modules = new HashSet<Module>();
-		modules.add(module);
-		Mockito.when(ms.getAllModules()).thenReturn(modules);
-		ResultActions result = mvc.perform(get("/modules").contentType(MediaType.APPLICATION_JSON));
-		result.andExpect(status().isOk());
-	}
+	public void testGetAllModules() throws Exception {
+		Set<Module> parents = new HashSet<Module>();
+		parents.add(new Module());
 
-	@Test
-	public void getAllModulesTestReturnTrue() throws Exception {
+		// given
+		Module moduleWithParent = new Module(id, subject, created, links, new HashSet<ReqLink>(), parents,
+				new HashSet<Module>());
+
 		Set<Module> modules = new HashSet<Module>();
-		modules.add(module);
+		modules.add(moduleWithParent);
+		//modules.add(module);
+		
 		Mockito.when(ms.getAllModules()).thenReturn(modules);
+
+		// when
 		ResultActions result = mvc.perform(get("/modules").contentType(MediaType.APPLICATION_JSON));
 		String actual = result.andReturn().getResponse().getContentAsString();
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// check in json format to get around compare warnings
 		assertEquals(actual, convertToJSONModuleSetString(modules), "Failed to get back modules");
 	}
 
+	// tests returning module as a JSON string
 	private String convertToJSONModuleSetString(Set<Module> allModules) throws Exception {
 		StringBuilder result = new StringBuilder("[");
 		for (Module mod : allModules) {
@@ -136,7 +157,9 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		}
 		if (allModules.size() > 0)
 			result.deleteCharAt(result.length() - 1);
+
 		result.append("]");
+
 		return result.toString();
 	}
 
@@ -146,18 +169,21 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void getModuleByIdStatusOK() throws Exception {
+	public void testGetModuleById() throws Exception {
+		// given
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
-		ResultActions result = mvc.perform(get("/modules/" + id));
-		result.andExpect(status().isOk());
-	}
 
-	@Test
-	public void getModuleById() throws Exception {
-		Mockito.when(ms.getModuleById(id)).thenReturn(module);
+		// then
 		ResultActions result = mvc.perform(get("/modules/" + id));
 		Module actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(), Module.class);
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// expect should get back same module
 		assertEquals(actual, module, "Module was not created");
+		// expect same id as return
+		// assertEquals (actual.getId(), id, "Module has the incorrect id");
 	}
 
 	/**
@@ -166,34 +192,148 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception - if the http request fails
 	 */
 	@Test
-	public void deleteModuleStatusOK() throws Exception {
+	public void deleteModule() throws Exception {
+		// given
 		Mockito.doNothing().when(ms).deleteModule(module);
 		Mockito.when(ms.getModuleById(id)).thenReturn(module);
+
+		// then
 		ResultActions result = mvc.perform(delete("/modules/" + id));
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+	}
+
+	@Test
+	public void testGetAllRootModules() throws Exception {
+
+		// module without parent
+		Module rootModule = new Module(id, subject, created, links, new HashSet<ReqLink>(), new HashSet<Module>(),
+				new HashSet<Module>());
+
+		// given
+		Set<Module> modules = new HashSet<Module>();
+		modules.add(module);
+		Mockito.when(ms.getAllRootModules()).thenReturn(modules);
+
+		// when
+		ResultActions result = mvc.perform(get("/modules/roots").contentType(MediaType.APPLICATION_JSON));
+		String actual = result.andReturn().getResponse().getContentAsString();
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// check in json format to get around compare warnings
+		assertEquals(actual, convertToJSONModuleSetString(modules), "Failed to get back root modules");
+	}
+
+	@Test
+	public void testGetChildrenByParentId() throws Exception {
+		Module childModule = new Module();
+		Set<Module> setWithChildModule = new HashSet<Module>();
+		setWithChildModule.add(childModule);
+		Module module = new Module(id, subject, created, links, new HashSet<ReqLink>(), new HashSet<Module>(),
+				setWithChildModule);
+
+		Mockito.when(ms.getChildrenByParentId(module.getId())).thenReturn(module.getChildren());
+
+		// when
+		ResultActions result = mvc
+				.perform(get("/modules/" + module.getId() + "/children").contentType(MediaType.APPLICATION_JSON));
+		String actual = result.andReturn().getResponse().getContentAsString();
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// check in json format to get around compare warnings
+		assertEquals(actual, convertToJSONModuleSetString(setWithChildModule), "Failed to get back child modules");
+	}
+
+	@Test
+	public void testGetLinksByModuleId() throws Exception {
+
+		Module module = new Module(id, subject, created, links, new HashSet<ReqLink>(), new HashSet<Module>(),
+				new HashSet<Module>());
+
+		Mockito.when(ms.getLinksByModuleId(id)).thenReturn(module.getLinks());
+
+		ResultActions result = mvc
+				.perform(get("/modules/" + module.getId() + "/links").contentType(MediaType.APPLICATION_JSON));
+
+		Set<Link> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<Link>>() {
+				});
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// check in json format to get around compare warnings
+		assertEquals(actual, links, "Failed to get back links");
+	}
+
+	@Test
+	public void testGetReqLinksByModuleId() throws Exception {
+
+		Set<ReqLink> reqLinks = new HashSet<ReqLink>();
+		Module module = new Module(id, subject, created, links, reqLinks, new HashSet<Module>(),
+				new HashSet<Module>());
+
+		Mockito.when(ms.getRequestLinksByModuleId(id)).thenReturn(module.getReqLinks());
+
+		ResultActions result = mvc
+				.perform(get("/modules/" + module.getId() + "/req-links").contentType(MediaType.APPLICATION_JSON));
+
+		Set<ReqLink> actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Set<ReqLink>>() {
+				});
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// check in json format to get around compare warnings
+		assertEquals(actual, reqLinks, "Failed to get back request links");
+	}
+	
+	@Test
+	public void testUpdateModule() throws Exception {
+
+
+		Mockito.when(ms.updateModule(module)).thenReturn(module);
+
+		ResultActions result = mvc
+				.perform(put("/modules/" + module.getId()).contentType(MediaType.APPLICATION_JSON));
+
+		Module actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
+				new TypeReference<Module>() {
+				});
+
+		// then
+		// expect status of OK
+		result.andExpect(status().isOk());
+		// check in json format to get around compare warnings
+		assertEquals(actual, module, "Failed to update module");
+	}
+	
+	@Test
+	public void testDeleteModuleWithSpecificContent() throws Exception {
+		
+		Mockito.doNothing().when(ms).deleteModuleWithSpecificContent(module);
+		
+		ResultActions result = mvc.
+				perform(delete("/modules/" + module.getId()).contentType(MediaType.APPLICATION_JSON));
+		
 		result.andExpect(status().isOk());
 	}
 	
-	/**
-	 * Tests that updating a module based on its id, when successful, will return a status code of 200
-	 * @throws Exception 
-	 */
 	@Test
-	public void updateModuleBasedOnId () throws Exception {
-		//given
-		links.add(link);
-		Mockito.when(ms.updateLinksByModuleId(id, links)).thenReturn(links);
-		//then
-		ResultActions result = mvc.perform(put ("/modules/"+id+"/links").contentType(MediaType.APPLICATION_JSON)
-				.content (objMapper.writeValueAsString(links)));
+	public void testDeleteModuleWithAllContent() throws Exception {
 		
-		//expect status of OK
-		result.andExpect (status().isOk ());
-		//expect controller to return set of links
-		String actual = result.andReturn().getResponse()
-				.getContentAsString();
-		String linksJson = objMapper.writeValueAsString(links);
+		Mockito.doNothing().when(ms).deleteModuleWithAllContent(module);
 		
-		assertEquals (linksJson, actual);
+		ResultActions result = mvc.
+				perform(delete("/modules/" + module.getId()).contentType(MediaType.APPLICATION_JSON));
 		
+		result.andExpect(status().isOk());
 	}
 }
