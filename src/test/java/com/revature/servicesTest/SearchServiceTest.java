@@ -82,7 +82,7 @@ public class SearchServiceTest {
 	}
 
 	/**
-	 * This method tests {@link com.revature.services.SearchServiceImpl#filterContentByTitle(String) filterContentByTiyle(String).}
+	 * This method tests {@link com.revature.services.SearchServiceImpl#filterContentByTitle(String) filterContentByTiyle(String)}.
 	 * This Method assumes a String Title was passed in as an argument, and returns a Set of Content. 
 	 * This Method Mocks the ContentRepository
 	 */
@@ -111,7 +111,7 @@ public class SearchServiceTest {
 	
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String)}.
 	 * This Method assumes a String Title was passed in as an argument, and returns a Set of Content. 
 	 * This Method Mocks the ContentRepository.
 	 */
@@ -137,7 +137,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String)}.
 	 * This Method assumes format.equals("flagged"), and returns a Set of Content that has no format assigned to it. 
 	 * This Method Mocks the ContentService.
 	 */
@@ -165,7 +165,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentByFormat(String) filterContentByFormat(String)}.
 	 * This Method assumes format.equals("flagged") where no content has an empty format, and returns an empty Set of Content. 
 	 * This Method Mocks the ContentService.
 	 */
@@ -197,7 +197,7 @@ public class SearchServiceTest {
 
 
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentBySubjectIds(List) filterContentBySubjectIds(List<Integers>).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContentBySubjectIds(List) filterContentBySubjectIds(List<Integers>)}.
 	 * This Method assumes a list of Integers representing moduleIDs is passed as an argument, and returns a set of Content.
 	 * This Method Mocks the ModuleService
 	 * 
@@ -247,7 +247,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#getContentByModuleId(int) getContentByModuleId(int).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#getContentByModuleId(int) getContentByModuleId(int)}.
 	 * This Method assumes an int representing a moduleID is passed as an argument, and returns a single Content.
 	 * This Method Mocks the ModuleRepository.
 	 */
@@ -284,7 +284,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List) filter(String, List<String>, List<Integer>).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List) filter(String, List<String>, List<Integer>)}.
 	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIds passed as an argument, and returns a set of Content.
 	 * Any of the parameters can be empty.
 	 * This Method Mocks the ContentRepository and the ContentService.
@@ -336,7 +336,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List) filter(String, List<String>, List<Integer>, List<Integer>).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List) filter(String, List<String>, List<Integer>, List<Integer>)}.
 	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
 	 * Any of the parameters can be empty.
 	 * This Method Mocks the ContentRepository and the ContentService.
@@ -390,7 +390,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method tests {@link com.revature.services.SearchServiceImpl#filterContentByCurriculaIds(List) filterContentByCurriculaIds(List<Integer>).}
+	 * This method tests {@link com.revature.services.SearchServiceImpl#filterContentByCurriculaIds(List) filterContentByCurriculaIds(List<Integer>)}.
 	 * This method assumes a List of Integers and returns a set of Content after filtering by curriculaIds
 	 * This Method Mocks the curriculumModulesService, and CurriculumService
 	 */
@@ -418,7 +418,7 @@ public class SearchServiceTest {
 	
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContent(Set, java.util.Map) filterContent(Set<Content>, Map<String, Object>).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterContent(Set, java.util.Map) filterContent(Set<Content>, Map<String, Object>)}.
 	 * This Method assumes a Set of content and a Map of string-Object pairs is passed as an argument, and returns a set of Content.
 	 */
 	@Test()
@@ -449,7 +449,7 @@ public class SearchServiceTest {
 	}
 	
 	/**
-	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestByTitle(String) filterRequestByTitle(String).}
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestByTitle(String) filterRequestByTitle(String)}.
 	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
 	 * Any of the parameters can be empty.
 	 * This Method Mocks the RequestRepository
@@ -481,7 +481,7 @@ public class SearchServiceTest {
 	}
 	
 		/**
-	 	* This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestByFormat(String) filterRequestByFormat(String).}
+	 	* This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestByFormat(String) filterRequestByFormat(String)}.
 	 	* This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
 	 	* Any of the parameters can be empty.
 	 	* This Method Mocks the RequestRepository
@@ -506,7 +506,7 @@ public class SearchServiceTest {
 		}
 		
 		/**
-	 	* This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestBySubjectIds(List) filterRequestsBySubjectIds(List<Integer>).}
+	 	* This method Tests {@link com.revature.services.SearchServiceImpl#filterRequestBySubjectIds(List) filterRequestsBySubjectIds(List<Integer>)}.
 	 	* This Method assumes a List of Integer SubjectIds is passed as an argument, and returns a set of Requests.
 	 	* This Method Mocks the ModuleService
 	 	*/
