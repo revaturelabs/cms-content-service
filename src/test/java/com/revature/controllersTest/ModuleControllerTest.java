@@ -1,11 +1,13 @@
 package com.revature.controllersTest;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.testng.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyList;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +26,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anySet;
+
+
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -302,38 +308,64 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		Mockito.when(ms.updateModule(module)).thenReturn(module);
 
 		ResultActions result = mvc
-				.perform(put("/modules/" + module.getId()).contentType(MediaType.APPLICATION_JSON));
-
-		Module actual = objMapper.readValue(result.andReturn().getResponse().getContentAsString(),
-				new TypeReference<Module>() {
-				});
-
-		// then
-		// expect status of OK
+				.perform(put("/modules/" + module.getId())
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objMapper.writeValueAsString(module)));
+		
 		result.andExpect(status().isOk());
-		// check in json format to get around compare warnings
-		assertEquals(actual, module, "Failed to update module");
+	}
+		
+		@Test
+		public void testUpdateLinksById() throws Exception {
+			Module moduleId = new Module();
+			Set<Link> links = new HashSet<Link>();
+			
+			
+			Mockito.when(ms.updateLinksByModuleId(anyInt(), anySet())).thenReturn(links);
+
+			ResultActions result = mvc.perform(put("/modules/" + anyInt() + "/links")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(objMapper.writeValueAsString(anySet())));
+
+			result.andExpect(status().isOk());
 	}
 	
 	@Test
 	public void testDeleteModuleWithSpecificContent() throws Exception {
-		
+		Mockito.when(ms.getModuleById(anyInt())).thenReturn(module);
 		Mockito.doNothing().when(ms).deleteModuleWithSpecificContent(module);
 		
 		ResultActions result = mvc.
-				perform(delete("/modules/" + module.getId()).contentType(MediaType.APPLICATION_JSON));
+				perform(delete("/modules/" + anyInt())
+						.contentType(MediaType.APPLICATION_JSON)
+						.param("type", "unique"));
 		
 		result.andExpect(status().isOk());
 	}
 	
 	@Test
 	public void testDeleteModuleWithAllContent() throws Exception {
-		
+		Mockito.when(ms.getModuleById(anyInt())).thenReturn(module);
 		Mockito.doNothing().when(ms).deleteModuleWithAllContent(module);
 		
 		ResultActions result = mvc.
-				perform(delete("/modules/" + module.getId()).contentType(MediaType.APPLICATION_JSON));
+				perform(delete("/modules/" + anyInt())
+						.contentType(MediaType.APPLICATION_JSON)
+						.param("type", "all"));
 		
 		result.andExpect(status().isOk());
+	}
+	
+	@Test
+	public void testDeleteModuleWithTypeNotAllOrUnique() throws Exception {
+		Mockito.when(ms.getModuleById(anyInt())).thenReturn(module);
+		Mockito.doNothing().when(ms).deleteModuleWithAllContent(module);
+		
+		ResultActions result = mvc.
+				perform(delete("/modules/" + anyInt())
+						.contentType(MediaType.APPLICATION_JSON)
+						.param("type", "else"));
+		
+		result.andExpect(status().isNotFound());
 	}
 }

@@ -128,7 +128,7 @@ public class ReqLinkControllerTest {
 	}
 	
 	/**
-	 * this method tests {@link com.revature.controllers.ReqLinkController#updatReqLink(ReqLink) updateReqLink(ReqLink).}
+	 * this method tests {@link com.revature.controllers.ReqLinkController#updateReqLink(ReqLink) updateReqLink(ReqLink).}
 	 * this method tests the updating of a reqLink objects by passing a ReqLink object as an argument and expecting a response status of ok
 	 * @throws Exception
 	 */
