@@ -388,6 +388,25 @@ public class SearchServiceTest {
 		Assert.assertEquals(actualContent2, expected);
 
 	}
+	/**
+	 * This method Tests {@link com.revature.services.SearchServiceImpl#filter(String, List, List, List) filter(String, List<String>, List<Integer>, List<Integer>)}.
+	 * This Method assumes a String Title and/or List of String Formats and/or a List Integer ModuleIdsm and/or a list of Integer curriculaIds passed as an argument, and returns a set of Content.
+	 * This Method Tests the results when using an non-empy list curriculaId.
+	 * Any of the parameters can be empty.
+	 * This Method Mocks the ContentRepository and the ContentService.
+	 */
+	@Test()
+	public void filterTest_OverrideVersion_ContentgetLinksIsEmpty() {
+		Set<Content> expected = new HashSet<Content>();
+		List<Integer> curriculaIds = new ArrayList<Integer>();
+		List<Integer> moduleIds = new ArrayList<Integer>();
+		List<String> formats = new ArrayList<String>();
+		curriculaIds.add(1);
+
+		Set<Content> actual = ss.filter(null, formats, moduleIds, curriculaIds);
+		
+		assertEquals(actual, expected);
+	}
 	
 	/**
 	 * This method tests {@link com.revature.services.SearchServiceImpl#filterContentByCurriculaIds(List) filterContentByCurriculaIds(List<Integer>)}.
@@ -401,6 +420,18 @@ public class SearchServiceTest {
 		curriculaIds.add(1);
 		
 		Curriculum curriculum = new Curriculum(1, "curriculumTest");
+		CurriculumModule curriculumModule = new CurriculumModule();
+		curriculumModule.setCurriculum(1);
+		Module module = new Module();
+		Set<Link> links = new HashSet<Link>();
+		Content content = new Content();
+		Link link = new Link();
+		link.setContent(content);
+		links.add(link);
+		module.setLinks(links);
+		curriculumModule.setModule(module);
+		
+		cm.add(curriculumModule);
 		
 		//given
 		Mockito.when(cmsMock.getAllCurriculumModules()).thenReturn(cm);
@@ -536,6 +567,8 @@ public class SearchServiceTest {
 			verify(msMock, times(1)).getModuleById(1);
 		    Assert.assertEquals(actual, requestSetExpected);
 		}
+		
+		
 				
 		/**
 		 * This Method tests {@link com.revature.services.SearchServiceImpl#filterReq(String, List, List) filter request method}

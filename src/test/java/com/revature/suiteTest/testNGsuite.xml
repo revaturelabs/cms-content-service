@@ -3,6 +3,7 @@
 <suite name="CMSForce">
 	<test name="AllTests">
 		<classes>
+			<class name = "com.revature.applicationTest.ApplicationTest"/>
 			<!-- These are the controller tests -->
 			<class name = "com.revature.controllersTest.ContentControllerTest"/>
 			<class name = "com.revature.controllersTest.CurriculumControllerTest"/>
