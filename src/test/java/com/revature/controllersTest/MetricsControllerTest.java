@@ -103,7 +103,7 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testidsInNotEmpty() throws JsonProcessingException, Exception {
+	public void testIdsInNotEmpty() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
 		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
 		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
@@ -128,7 +128,7 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testidsInNotEmptyCodeExists() throws JsonProcessingException, Exception {
+	public void testIdsInNotEmptyCodeExists() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
 		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
 		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
@@ -154,7 +154,7 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testidsInNotEmptyPowerpointExists() throws JsonProcessingException, Exception {
+	public void testIdsInNotEmptyPowerpointExists() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
 		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
 		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
@@ -180,7 +180,7 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testidsInNotEmptyDocumentExists() throws JsonProcessingException, Exception {
+	public void testIdsInNotEmptyDocumentExists() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
 		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
 		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);
@@ -207,7 +207,7 @@ public class MetricsControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testidsInEmpty() throws JsonProcessingException, Exception {
+	public void testIdsInEmpty() throws JsonProcessingException, Exception {
 		Mockito.when(moduleService.getModuleById(Mockito.anyInt())).thenReturn(module);
 		Mockito.when( moduleService.getAllModules()).thenReturn(modules);
 		Mockito.when(timegraphService.getTimeGraphData(Mockito.anyLong(), Mockito.anySet())).thenReturn(timeGraphData);

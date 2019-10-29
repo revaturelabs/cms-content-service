@@ -73,7 +73,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGivenValidDataCreateRequest() throws Exception {
+	public void testCreateRequest() throws Exception {
 		Set<ReqLink> reqLinks = new HashSet<>();
 		ReqLink reqLink = new ReqLink();
 		reqLinks.add(reqLink);
@@ -94,7 +94,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGivenValidDataCreateReqLinksStatusOK() throws Exception {
+	public void testCreateReqLinks() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -117,7 +117,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGivenValidDataCreateReqLinksTestReturn() throws Exception {
+	public void testDataCreateReqLinks_TestReturn() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -144,7 +144,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetAllRequestsStatusOK() throws Exception {
+	public void testGetAllRequests_StatusOK() throws Exception {
 		Set<Request> reqs = new HashSet<Request>();
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		reqs.add(request);
@@ -162,7 +162,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetAllRequestsTestReturn() throws Exception {
+	public void testGetAllRequests_TestReturn() throws Exception {
 		Set<Request> reqs = new HashSet<Request>();
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		reqs.add(request);
@@ -188,7 +188,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetRequestByIdStatusOk() throws Exception {
+	public void testGetRequestById_StatusOk() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
 		ResultActions result = mvc
@@ -203,7 +203,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetRequestByIdTestReturn() throws Exception {
+	public void testGetRequestByIdTest_Return() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(request);
 
@@ -223,7 +223,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetReqLinksByRequestIdStatusOk() throws Exception {
+	public void testGetReqLinksByRequestId_StatusOk() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -245,7 +245,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetReqLinksByRequestIdTestReturn() throws Exception {
+	public void testGetReqLinksByRequestId_TestReturn() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -282,7 +282,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetSearchResultsByTitleStatusOk() throws Exception {
+	public void testGetSearchResultsByTitle_StatusOk() throws Exception {
 		String title = "test title";
 		String format = "";
 		String modules = "";
@@ -347,7 +347,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetSearchResultsByModulesStatusO() throws Exception {
+	public void testGetSearchResultsByModules_StatusOk() throws Exception {
 		String title = "";
 		String format = "";
 		String modules = "1,2";
@@ -378,7 +378,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testGetSearchResultsByModulesTestReturn() throws Exception {
+	public void testGetSearchResultsByModules_TestReturn() throws Exception {
 		String title = "";
 		String format = "";
 		String modules = "1,2";
@@ -435,7 +435,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testUpdateRequestWithInvalidId() throws Exception {
+	public void testUpdateRequest_WithInvalidId() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Mockito.when(rs.getRequestsById(request.getId())).thenReturn(null);
 
@@ -453,7 +453,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testUpdateReqLinksStatusOk() throws Exception {
+	public void testUpdateReqLinks_StatusOk() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
@@ -475,7 +475,7 @@ public class RequestControllerTest extends AbstractTestNGSpringContextTests {
 	 * @throws Exception
 	 */
 	@Test
-	public void testUpdateReqLinksTestReturn() throws Exception {
+	public void testUpdateReqLinks_TestReturn() throws Exception {
 		request = new Request(0, "test title", "code", "test description", null, 1L, 1L, new HashSet<ReqLink>());
 		Module module = new Module(0, "module_subject", 1L, new HashSet<Link>(), new HashSet<ReqLink>(),
 				new HashSet<Module>(), new HashSet<Module>());
