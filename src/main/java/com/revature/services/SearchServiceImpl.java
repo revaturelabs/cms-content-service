@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Sets;
 import com.revature.entities.Content;
+import com.revature.entities.Curriculum;
+import com.revature.entities.CurriculumModule;
 import com.revature.entities.Link;
 import com.revature.entities.Module;
 import com.revature.entities.ReqLink;
@@ -36,6 +38,10 @@ public class SearchServiceImpl implements SearchService {
 	ModuleService ms;
 	@Autowired
 	RequestService rs;
+	@Autowired
+	CurriculumService crs;
+	@Autowired
+	CurriculumModuleService cms;
 
 	/**
 	 * filterContentByTitle takes in a string value and returns a content object
@@ -52,7 +58,31 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	@LogException
 	public Set<Content> filterContentByFormat(String format) {
-		return cr.findByFormat(format);
+		
+		
+		if(format.equals("Flagged")) {
+			
+			
+			Set<Content> allContent = cs.getAllContent();
+			Set<Content> response = new HashSet<Content>();
+			
+			
+			
+			for(Content content: allContent) {
+				
+				
+				if(content.getFormat().isEmpty()) {
+					
+					response.add(content);
+				}
+			}
+			
+			return response;
+		}
+		else {
+			
+			return cr.findByFormat(format);
+		}
 	}
 
 	/**
@@ -89,10 +119,13 @@ public class SearchServiceImpl implements SearchService {
 			// if it is the first iteration, we just want to put tempContent into content
 			if (content.isEmpty()) {
 				content = tempContent;
+				
 			}
 			// in order to only get content associated to ALL provided modules, we perform
 			// an intersection on content and tempContent
 			else {
+				
+				
 				content = Sets.intersection(content, tempContent);
 
 				// if content is empty after the intersection, then there is no content
@@ -126,25 +159,133 @@ public class SearchServiceImpl implements SearchService {
 	 * content that matches all 3 inputs using AND logic. If an input is empty it is
 	 * ignored and is not part of the logic.
 	 */
+	//Change this to take a string array for format
 	@Override
 	@LogException
-	public Set<Content> filter(String title, String format, List<Integer> moduleIds) {
-
+	public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds, List<Integer> curriculaIds) {
+		
 		Set<Content> content = cs.getAllContent();
 
 		if (!("".equals(title))) {
 			content = Sets.intersection(content, this.filterContentByTitle(title));
 		}
-		if (!("".equals(format))) {
-			content = Sets.intersection(content, this.filterContentByFormat(format));
+		
+		if (!(formatList.isEmpty())) {
+			
+			Set<Content> formatContent = new HashSet<>();
+			
+			for(String format : formatList) {
+				
+				formatContent.addAll(this.filterContentByFormat(format));
+				
+			}
+			
+			content = Sets.intersection(content, formatContent);
 		}
+		
 		if (!(moduleIds.isEmpty())) {
+			
 			content = Sets.intersection(content, this.filterContentBySubjectIds(moduleIds));
+			
 		}
+		if(curriculaIds != null && !(curriculaIds.isEmpty())) {
+			
+			content = Sets.intersection(content, this.filterContentByCurriculaIds(curriculaIds));
+			
+			for(Content c : content) {
+				
+				if(c != null && c.getLinks().isEmpty()) {
+					content.remove(c);
+				}
+			}
+		}
+		
+		
 		// this is an AND search, if you want to do an OR search, just use the
 		// <set>.addAll() method instead of the Sets.intersection() method
 		return content;
 
+	}
+	
+    public Set<Content> filter(String title, List<String> formatList, List<Integer> moduleIds) {
+		
+		Set<Content> content = cs.getAllContent();
+
+		if (!("".equals(title))) {
+			content = Sets.intersection(content, this.filterContentByTitle(title));
+		}
+		
+		if (!(formatList.isEmpty())) {
+			
+			Set<Content> formatContent = new HashSet<>();
+			
+			for(String format : formatList) {
+				
+				formatContent.addAll(this.filterContentByFormat(format));
+				
+			}
+			
+			content = Sets.intersection(content, formatContent);
+		}
+		
+		if (!(moduleIds.isEmpty())) {
+			
+			content = Sets.intersection(content, this.filterContentBySubjectIds(moduleIds));
+			
+		}
+		
+		// this is an AND search, if you want to do an OR search, just use the
+		// <set>.addAll() method instead of the Sets.intersection() method
+		return content;
+
+	}
+	
+	public Set<Content> filterContentByCurriculaIds(List<Integer> curriculaIds) {
+		
+		Set<Curriculum> curricula = new HashSet<Curriculum>();
+		
+		Set<CurriculumModule> curriculumModules = new HashSet<CurriculumModule>();
+		
+		Set<Module> modules = new HashSet<Module>();
+		
+		Set<Link> links = new HashSet<Link>();
+		
+		Set<Content> content = new HashSet<Content>();
+		
+		Set<CurriculumModule> allCurriculumModules = cms.getAllCurriculumModules();
+		
+		for(Integer id : curriculaIds) {
+			
+			curricula.add(crs.getCurriculumById(id));
+		}
+		
+		for (Curriculum curriculum : curricula ) {
+			
+			for(CurriculumModule curriculumModule : allCurriculumModules) {
+				
+				if(curriculum.getId() == curriculumModule.getCurriculum()) {
+					
+					curriculumModules.add(curriculumModule);
+				}
+			}
+			
+		}
+		for(CurriculumModule curriculumModule : curriculumModules) {
+			
+			modules.add(curriculumModule.getModule());
+			
+		}
+		for(Module module : modules) {
+			
+			links.addAll(module.getLinks());
+			
+		}
+		for(Link link : links) {
+			
+			content.add(link.getContent());
+		}
+	
+		return content;
 	}
 
 	@Override
@@ -152,27 +293,28 @@ public class SearchServiceImpl implements SearchService {
 
 		Set<Content> filteredContent = new HashSet<Content>();
 		String title = filters.get("title").toString();
+		
 		String format = filters.get("format").toString();
+		
 		ArrayList<Integer> moduleIdsList = new ArrayList<Integer>();
 		Set<Integer> givenModIds = new HashSet<Integer>();
-
 		// turn the string of integers we recieved into an ArrayList of integers
 		StringTokenizer st = new StringTokenizer(filters.get("modules").toString(), ",");
 		while (st.hasMoreTokens()) {
 			moduleIdsList.add(Integer.parseInt(st.nextToken()));
 		}
-
 		// Step through each content provided to see if they are what we are looking for
 		for (Content content : contents) {
 			// if a search parameter is left "blank", then it is supposed to be disregarded
 			// in the search
+			
 			if ((title.equals(content.getTitle()) || title.equals(""))
-					&& (format.equals(content.getFormat()) || format.equals(""))) {
+					&& (format.equals(content.getFormat()) || format.equals("") || format.equals("All"))) {
 				// make sure givenModIds starts empty
 				givenModIds.clear();
 				// extract the ids of the modules of the current content
 				for (Link link : content.getLinks()) {
-					givenModIds.add(link.getId());
+					givenModIds.add(link.getModule().getId());
 				}
 				// check if the current content contains all of the mod id's in the filter
 				boolean hasAllModIds = true;
@@ -188,6 +330,7 @@ public class SearchServiceImpl implements SearchService {
 			}
 		}
 
+		
 		// this is an AND search, if you want to do an OR search, just use the
 		// <set>.addAll() method instead of the Sets.intersection() method
 		return filteredContent;
@@ -254,14 +397,23 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	@LogException
-	public Set<Request> filterReq(String title, String format, List<Integer> moduleIds) {
+	public Set<Request> filterReq(String title, List<String> formatList, List<Integer> moduleIds) {
 		Set<Request> requests = rs.getAllRequests();
 
 		if (!("".equals(title))) {
 			requests = Sets.intersection(requests, this.filterRequestByTitle(title));
 		}
-		if (!("".equals(format))) {
-			requests = Sets.intersection(requests, this.filterRequestByFormat(format));
+		if (!(formatList.isEmpty())) {
+			
+			Set<Request> formatRequest = new HashSet<>();
+			
+			for(String format : formatList) {
+				formatRequest.addAll(this.filterRequestByFormat(format));
+			}
+			
+			requests = Sets.intersection(requests, formatRequest);
+			
+			
 		}
 		if (!(moduleIds.isEmpty())) {
 			requests = Sets.intersection(requests, this.filterRequestBySubjectIds(moduleIds));

@@ -17,7 +17,9 @@ public interface SearchService {
 	
 	public Set<Content> getContentByModuleId(int moduleId);
 	
-	public Set<Content> filter(String title, String format, List<Integer> modules);
+	public Set<Content> filter(String title, List<String> format, List<Integer> modules, List<Integer> curricula);
+	
+	public Set<Content> filter(String title, List<String> format, List<Integer> modules);
 	
 	public Set<Content> filterContent(Set<Content> contents, Map<String, Object> filters);
 	
@@ -27,5 +29,5 @@ public interface SearchService {
 	
 	public Set<Request> filterRequestBySubjectIds(List<Integer> moduleIds);
 	
-	public Set<Request> filterReq(String title, String format, List<Integer> modules);
+	public Set<Request> filterReq(String title, List<String> format, List<Integer> modules);
 }
