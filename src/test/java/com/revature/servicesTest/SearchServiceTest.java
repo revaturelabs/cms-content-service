@@ -87,7 +87,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ContentRepository
 	 */
 	@Test
-	public void filterContentByTitleTest() {
+	public void testFilterContentByTitle() {
 		String title = "Test Subject 3";
 
 		//Local Variables
@@ -116,7 +116,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ContentRepository.
 	 */
 	@Test
-	public void filterContentByFormatTest() {
+	public void TestFilterContentByFormat() {
 		//Local Variables
 		String format = "format";
 		Set<Content> contentSetExpected  = new HashSet<Content>();
@@ -142,7 +142,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ContentService.
 	 */
 	@Test
-	public void filterContentByFormatFlaggedEmptyTest() {
+	public void TestFilterContentByFormatFlaggedEmpty() {
 		//Local Variables
 		String format = "Flagged";
 		Set<Content> contentSetExpected  = new HashSet<Content>();
@@ -170,7 +170,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ContentService.
 	 */
 	@Test
-	public void filterContentByFormatFlaggedNonEmptyTest() {
+	public void testFilterContentByFormatFlaggedNonEmpty() {
 		//Local Variables
 		String format = "Flagged";
 		Set<Content> allContent  = new HashSet<Content>();
@@ -205,7 +205,7 @@ public class SearchServiceTest {
 	 * more than one number.
 	 */
 	@Test
-	public void filterContentBySubjectIdsTest() {
+	public void testFilterContentBySubjectIds() {
 		Content contentJavaSoup = new Content(1, "title 1", "format", "something", "http://blah.com",
 				1L, 1L, new HashSet<Link>());
 		Content contentJava = new Content(2, "title 2", "format", "something else", "http://blah2.com",
@@ -252,7 +252,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ModuleRepository.
 	 */
 	@Test
-	public void getContentByModuleIdTest() {
+	public void testGetContentByModuleId() {
 		Content contentJavaSoup = new Content(1, "title 1", "format", "something", "http://blah.com",
 				1L, 1L, new HashSet<Link>());
 		Content contentJava = new Content(2, "title 2", "format", "something else", "http://blah2.com",
@@ -293,7 +293,7 @@ public class SearchServiceTest {
 	 * can effectively replace these
 	 */
 	@Test()
-	public void filterTest() {
+	public void testFilter() {
 		 List<Integer> moduleIds = new ArrayList<Integer>();
 
 		Content content1 = new Content(1, "title 1", "format1", "something", "http://blah.com",
@@ -342,7 +342,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ContentRepository and the ContentService.
 	 */
 	@Test()
-	public void filterTest_OverrideVersion() {
+	public void testFilter_OverrideVersion() {
 		 List<Integer> moduleIds = new ArrayList<Integer>();
 		 List<Integer> curriculaIds = new ArrayList<Integer>();
 
@@ -396,7 +396,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the ContentRepository and the ContentService.
 	 */
 	@Test()
-	public void filterTest_OverrideVersion_ContentgetLinksIsEmpty() {
+	public void testFilter_OverrideVersion_ContentgetLinksIsEmpty() {
 		Set<Content> expected = new HashSet<Content>();
 		List<Integer> curriculaIds = new ArrayList<Integer>();
 		List<Integer> moduleIds = new ArrayList<Integer>();
@@ -453,7 +453,7 @@ public class SearchServiceTest {
 	 * This Method assumes a Set of content and a Map of string-Object pairs is passed as an argument, and returns a set of Content.
 	 */
 	@Test()
-	public void filterContentTest() {
+	public void testFilterContent() {
 		Set<Content> contents = new HashSet<Content>();
 		Map<String, Object> filters = new HashMap<String, Object>();
 		Set<Link> links = new HashSet<Link>();
@@ -486,7 +486,7 @@ public class SearchServiceTest {
 	 * This Method Mocks the RequestRepository
 	 */
 	@Test
-	public void filterRequestByTitleTest() {
+	public void testFilterRequestByTitle() {
 		String title = "title";
 		String format = "format";
 		String description = "description";
@@ -518,7 +518,7 @@ public class SearchServiceTest {
 	 	* This Method Mocks the RequestRepository
 	 	*/
 		@Test
-		public void filterRequestByFormatTest(){
+		public void testFilterRequestByFormat(){
 			String format = "format";
 			Set<ReqLink> reqLinks = new HashSet<ReqLink>();
 			Content content = new Content();
@@ -542,7 +542,7 @@ public class SearchServiceTest {
 	 	* This Method Mocks the ModuleService
 	 	*/
 		@Test
-		public void filterRequestBySubjectIdsTest() {
+		public void testFilterRequestBySubjectIds() {
 			List<Integer> moduleIds = new ArrayList();
 			moduleIds.add(1);
 			String format = "format";
@@ -576,7 +576,7 @@ public class SearchServiceTest {
 		 * This Method mocks the RequestRepositroy, RequestService, and ModuleService.
 		 */
 		@Test
-		public void filterReqTest() {
+		public void testFilterReq() {
 			String title = "title"; 
 			String format1 = "format1";
 			String format2 = "format2";

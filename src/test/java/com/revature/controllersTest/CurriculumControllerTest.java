@@ -100,7 +100,7 @@ public class CurriculumControllerTest {
 	 * equivalent to the output from the mock controller.
 	 */  
 	@Test
-	public void givenValidDataCreateCurriculum() throws Exception {
+	public void testCreateCurriculum() throws Exception {
 		Mockito.when(curriculumService.createCurriculum(curriculum)).thenReturn(curriculum);
 
 		ResultActions result = mvc.perform(post("/curricula").contentType(MediaType.APPLICATION_JSON)
@@ -129,7 +129,7 @@ public class CurriculumControllerTest {
 	 * equivalent to the output from the mock controller.
 	 */  
 	@Test
-	public void getAllCurriculum() throws Exception {
+	public void testGetAllCurriculum() throws Exception {
 		Set<Curriculum> curriculums = new HashSet<Curriculum>();
 		curriculums.add(curriculum);
 		curriculums.add(curriculum2);
@@ -138,7 +138,7 @@ public class CurriculumControllerTest {
 		ResultActions result = mvc.perform(get("/curricula").contentType(MediaType.APPLICATION_JSON));
 		String actual = result.andReturn().getResponse().getContentAsString();
 
-		assertEquals(actual, convertToJSONCurriculumSetString(curriculums), "Failed to get back Curriculums");
+		assertEquals(actual, testConvertToJSONCurriculumSetString(curriculums), "Failed to get back Curriculums");
 
 	}
 
@@ -150,7 +150,7 @@ public class CurriculumControllerTest {
 	 * @throws Exception - If the set of curriculums is null will throw an exception
 	 *                   (NullPointerException)
 	 */
-	private String convertToJSONCurriculumSetString(Set<Curriculum> allCurriculums) throws Exception {
+	private String testConvertToJSONCurriculumSetString(Set<Curriculum> allCurriculums) throws Exception {
 		StringBuilder result = new StringBuilder("[");
 		for (Curriculum curr : allCurriculums) {
 			result.append(objMapper.writeValueAsString(curr));
@@ -185,7 +185,7 @@ public class CurriculumControllerTest {
 	 * id assed into the method.
 	 */  
 	@Test
-	public void getCurriculumById() throws Exception {
+	public void testGetCurriculumById() throws Exception {
 		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(curriculum);
 		Set<CurriculumModule> currModules = new HashSet<CurriculumModule>();
 		CurriculumModule curriculumModule = new CurriculumModule(1,curriculum.getId(),null,1);
@@ -207,7 +207,7 @@ public class CurriculumControllerTest {
 	 * The result expected is that the id is not found.
 	 */  
 	@Test
-	public void getCurriculumByIdNotFound() throws Exception {
+	public void testGetCurriculumByIdNotFound() throws Exception {
 		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(null);
 		ResultActions result = mvc.perform(get("/curricula/" + ID1));
 		result.andExpect(status().isNotFound());
@@ -230,7 +230,7 @@ public class CurriculumControllerTest {
 	 * The result expected is that the endpoint gets hit without throwing an exception.
 	 */  
 	@Test
-	public void deleteCurriculum() throws Exception {
+	public void testDeleteCurriculum() throws Exception {
 		Mockito.doNothing().when(curriculumService).deleteCurriculum(curriculum);
 		Mockito.when(curriculumService.getCurriculumById(ID1)).thenReturn(curriculum);
 
@@ -249,7 +249,7 @@ public class CurriculumControllerTest {
 	 * equivalent to the output from the mock controller.
 	 */  
 	@Test
-	public void updateCurriculum() throws Exception {
+	public void testUpdateCurriculum() throws Exception {
 		curriculum.setName("UpdatedTest");
 		Mockito.when(curriculumService.updateCurriculum(curriculum)).thenReturn(curriculum);
 
@@ -271,7 +271,7 @@ public class CurriculumControllerTest {
 	 * when the request hits the endpoint.
 	 */  
 	@Test
-	public void getLinksByCurriculumId() throws Exception {
+	public void testGetLinksByCurriculumId() throws Exception {
 		CurriculumModule curr =new CurriculumModule ();
 		curr.setId(ID1);
 		Link link = new Link (1,new Content(),new Module(),"affiliation",1);
