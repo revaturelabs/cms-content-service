@@ -2,7 +2,6 @@ package com.revature.regressiontests;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
@@ -56,12 +55,7 @@ public class ContentCreatorRegressionTests {
 		WebElement descriptionBox = driver.findElement(By.id("exampleFormControlTextarea1"));
 		WebElement codeBtn = driver.findElement(By.id("Code"));
 		WebElement submitBtn = driver.findElement(By.id("submitButton"));
-		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node[2]/div/tree-node-wrapper/div/div/tree-node-content/comment()[2]"));
-		WebElement moduleWrapperDiv = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node[1]/div/tree-node-wrapper/div/div"));
-
-		// get the class attribute of the code "option" / button
-		String preClickClass = codeBtn.getAttribute("class");
-
+		
 		// test that we have retrieved a valid web element
 		assertNotNull(titleBox);
 		assertNotNull(urlBox);
@@ -69,10 +63,6 @@ public class ContentCreatorRegressionTests {
 		assertNotNull(descriptionBox);
 		assertNotNull(codeBtn);
 		assertNotNull(submitBtn);
-		assertNotNull(getModule);
-//		assertNotNull(moduleWrapperDiv);
-		// test that the class is not null
-		assertNotNull(preClickClass);
 
 		// test that this web element is equal to the title input box defined in the POM
 		assertEquals(cc.titleBox, titleBox);
@@ -82,17 +72,15 @@ public class ContentCreatorRegressionTests {
 		assertEquals(cc.codeButton, codeBtn);
 		assertEquals(cc.submitButton, submitBtn);
 
-		// The class should NOT contain the string "wrapper-active"
-//		assertFalse(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
-//		// Click the module
-//		getModule.click();
-//		// The class should contain the string "wrapper-active"
-//		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
-
 		// input text into the title box
 		cc.inputToTitleBox(title);
 		cc.inputToUrlBox(goodUrl);
 		cc.inputToModuleFilterBox(module);
+		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node/div/tree-node-wrapper/div/div"));
+		assertNotNull(getModule);
+		assertFalse(getModule.getAttribute("class").contains("node-content-wrapper-active"));
+		getModule.click();
+		assertTrue(getModule.getAttribute("class").contains("node-content-wrapper-active"));
 		cc.inputToDescriptionBox(description);
 
 		// test that both instances of the input box contain the same text
@@ -104,11 +92,6 @@ public class ContentCreatorRegressionTests {
 		// "select" the code option.. by clicking it
 		cc.clickButton(cc.codeButton);
 
-		// retrieve the class
-		String postClickClass = codeBtn.getAttribute("class");
-
-		// test that the two class values are equal because code is selected by default.
-		assertEquals(preClickClass, postClickClass);
 		// When pressed the class attribute should contain the string "btn-primary"
 		assertTrue(codeBtn.getAttribute("class").contains("btn-primary"));
 
@@ -156,11 +139,6 @@ public class ContentCreatorRegressionTests {
 		WebElement descriptionBox = driver.findElement(By.id("exampleFormControlTextarea1"));
 		WebElement documentBtn = driver.findElement(By.id("Document"));
 		WebElement submitBtn = driver.findElement(By.id("submitButton"));
-//		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node[1]/div/tree-node-wrapper/div/div/tree-node-content/span"));
-//		WebElement moduleWrapperDiv = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node[1]/div/tree-node-wrapper/div/div"));
-
-		// get the class attribute of the code "option" / button
-		String preClickClass = documentBtn.getAttribute("class");
 
 		// test that we have retrieved a valid web element
 		assertNotNull(titleBox);
@@ -169,10 +147,6 @@ public class ContentCreatorRegressionTests {
 		assertNotNull(descriptionBox);
 		assertNotNull(documentBtn);
 		assertNotNull(submitBtn);
-//		assertNotNull(getModule);
-//		assertNotNull(moduleWrapperDiv);
-		// test that the class is not null
-		assertNotNull(preClickClass);
 
 		// test that this web element is equal to the title input box defined in the POM
 		assertEquals(cc.titleBox, titleBox);
@@ -182,17 +156,15 @@ public class ContentCreatorRegressionTests {
 		assertEquals(cc.documentButton, documentBtn);
 		assertEquals(cc.submitButton, submitBtn);
 
-		// The class should NOT contain the string "wrapper-active"
-//		assertFalse(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
-//		// Click the module
-//		getModule.click();
-//		// The class should contain the string "wrapper-active"
-//		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
-
 		// input text into the title box
 		cc.inputToTitleBox(title);
 		cc.inputToUrlBox(goodUrl);
 		cc.inputToModuleFilterBox(module);
+		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node/div/tree-node-wrapper/div/div"));
+		assertNotNull(getModule);
+		assertFalse(getModule.getAttribute("class").contains("node-content-wrapper-active"));
+		getModule.click();
+		assertTrue(getModule.getAttribute("class").contains("node-content-wrapper-active"));
 		cc.inputToDescriptionBox(description);
 
 		// test that both instances of the input box contain the same text
@@ -204,11 +176,6 @@ public class ContentCreatorRegressionTests {
 		// "select" the code option.. by clicking it
 		cc.clickButton(cc.documentButton);
 
-		// retrieve the class
-		String postClickClass = documentBtn.getAttribute("class");
-
-		// test that the two class values are equal because code is selected by default.
-		assertNotEquals(preClickClass, postClickClass);
 		// When clicked, the document button class attribute should contain the string "btn-primary"
 		assertTrue(documentBtn.getAttribute("class").contains("btn-primary"));
 
@@ -257,11 +224,6 @@ public class ContentCreatorRegressionTests {
 		WebElement descriptionBox = driver.findElement(By.id("exampleFormControlTextarea1"));
 		WebElement powerpointBtn = driver.findElement(By.id("Powerpoint"));
 		WebElement submitBtn = driver.findElement(By.id("submitButton"));
-//		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node[1]/div/tree-node-wrapper/div/div/tree-node-content/span"));
-//		WebElement moduleWrapperDiv = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node[1]/div/tree-node-wrapper/div/div"));
-
-		// get the class attribute of the code "option" / button
-		String preClickClass = powerpointBtn.getAttribute("class");
 
 		// test that we have retrieved a valid web element
 		assertNotNull(titleBox);
@@ -270,10 +232,6 @@ public class ContentCreatorRegressionTests {
 		assertNotNull(descriptionBox);
 		assertNotNull(powerpointBtn);
 		assertNotNull(submitBtn);
-//		assertNotNull(getModule);
-//		assertNotNull(moduleWrapperDiv);
-		// test that the class is not null
-		assertNotNull(preClickClass);
 
 		// test that this web element is equal to the title input box defined in the POM
 		assertEquals(cc.titleBox, titleBox);
@@ -283,17 +241,15 @@ public class ContentCreatorRegressionTests {
 		assertEquals(cc.powerpointButton, powerpointBtn);
 		assertEquals(cc.submitButton, submitBtn);
 
-		// The class should NOT contain the string "wrapper-active"
-//		assertFalse(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
-//		// Click the module
-//		getModule.click();
-//		// The class should contain the string "wrapper-active"
-//		assertTrue(moduleWrapperDiv.getAttribute("class").contains("wrapper-active"));
-
 		// input text into the title box
 		cc.inputToTitleBox(title);
 		cc.inputToUrlBox(goodUrl);
 		cc.inputToModuleFilterBox(module);
+		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node/div/tree-node-wrapper/div/div"));
+		assertNotNull(getModule);
+		assertFalse(getModule.getAttribute("class").contains("node-content-wrapper-active"));
+		getModule.click();
+		assertTrue(getModule.getAttribute("class").contains("node-content-wrapper-active"));
 		cc.inputToDescriptionBox(description);
 
 		// test that both instances of the input box contain the same text
@@ -305,11 +261,6 @@ public class ContentCreatorRegressionTests {
 		// "select" the code option.. by clicking it
 		cc.clickButton(cc.powerpointButton);
 
-		// retrieve the class
-		String postClickClass = powerpointBtn.getAttribute("class");
-
-		// test that the two class values are equal because code is selected by default.
-		assertNotEquals(preClickClass, postClickClass);
 		// When clicked, the powerpoint button class attribute should contain the string "btn-primary"
 		assertTrue(cc.powerpointButton.getAttribute("class").contains("btn-primary"));
 
@@ -359,6 +310,11 @@ public class ContentCreatorRegressionTests {
 		cc.inputToTitleBox(title);
 		cc.inputToUrlBox(badUrl);
 		cc.inputToModuleFilterBox(module);
+		WebElement getModule = driver.findElement(By.xpath("//*[@id=\"tree\"]/tree-viewport/div/div/tree-node-collection/div/tree-node/div/tree-node-wrapper/div/div"));
+		assertNotNull(getModule);
+		assertFalse(getModule.getAttribute("class").contains("node-content-wrapper-active"));
+		getModule.click();
+		assertTrue(getModule.getAttribute("class").contains("node-content-wrapper-active"));
 		cc.inputToDescriptionBox(description);
 		
 		// attempt to submit the create content form
@@ -416,7 +372,8 @@ public class ContentCreatorRegressionTests {
 	}
 	
 	@Test(priority=6)
-	public void testExistingURL() {
+	@Parameters({"goodUrl", "module", "description"})
+	public void testExistingURL(String goodUrl, String module, String description) {
 		driver.navigate().refresh();
 		
 		// validate we are indeed on the correct page / URL
@@ -433,9 +390,9 @@ public class ContentCreatorRegressionTests {
 		assertNotNull(cc.submitButton);
 		
 		cc.inputToTitleBox("Testing Existing URL Msg");
-		cc.inputToUrlBox("http://www.testnumber2.com");
-		cc.inputToModuleFilterBox("Java");
-		cc.inputToDescriptionBox("A quality description would go here");
+		cc.inputToUrlBox(goodUrl);
+		cc.inputToModuleFilterBox(module);
+		cc.inputToDescriptionBox(description);
 		
 		// attempt to submit the create content form
 		cc.clickButton(cc.submitButton);

@@ -17,7 +17,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -67,17 +66,17 @@ public class ContentFinderRegressionTests {
 		//Create references to WebElements under test
 		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Perform POM WebElements actions
 		cf.inputToInputBox(cf.titleBox, title);
@@ -162,21 +161,21 @@ public class ContentFinderRegressionTests {
 		WebElement testDocumentButton = driver.findElement(By.xpath("//*[@id='Document']"));
 		WebElement testPowerpointButton = driver.findElement(By.xpath("//*[@id='Powerpoint']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testDocumentButton);
 		assertNotNull(testPowerpointButton);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.documentButton, testDocumentButton);
 		assertEquals(cf.powerpointButton, testPowerpointButton);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Store pre click classes of content type buttons
 		String preClickClassDocumentButton = cf.documentButton.getAttribute("class");
@@ -278,21 +277,21 @@ public class ContentFinderRegressionTests {
 		WebElement testCodeButton = driver.findElement(By.xpath("//*[@id='Code']"));
 		WebElement testPowerpointButton = driver.findElement(By.xpath("//*[@id='Powerpoint']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testCodeButton);
 		assertNotNull(testPowerpointButton);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.codeButton, testCodeButton);
 		assertEquals(cf.powerpointButton, testPowerpointButton);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Store pre click classes of content type buttons
 		String preClickClassCodeButton = cf.codeButton.getAttribute("class");
@@ -394,21 +393,21 @@ public class ContentFinderRegressionTests {
 		WebElement testCodeButton = driver.findElement(By.xpath("//*[@id='Code']"));
 		WebElement testDocumentButton = driver.findElement(By.xpath("//*[@id='Document']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testCodeButton);
 		assertNotNull(testDocumentButton);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.codeButton, testCodeButton);
 		assertEquals(cf.documentButton, testDocumentButton);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Store pre click classes of content type buttons
 		String preClickClassCodeButton = cf.codeButton.getAttribute("class");
@@ -509,19 +508,19 @@ public class ContentFinderRegressionTests {
 		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
 		WebElement testPowerpointButton = driver.findElement(By.xpath("//*[@id='Powerpoint']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testPowerpointButton);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.powerpointButton, testPowerpointButton);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Store pre click classes of content type buttons
 		String preClickClassPowerpointButton = cf.powerpointButton.getAttribute("class");
@@ -617,19 +616,19 @@ public class ContentFinderRegressionTests {
 		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
 		WebElement testDocumentButton = driver.findElement(By.xpath("//*[@id='Document']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testDocumentButton);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.documentButton, testDocumentButton);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Store pre click classes of content type buttons
 		String preClickClassDocumentButton = cf.documentButton.getAttribute("class");
@@ -725,19 +724,19 @@ public class ContentFinderRegressionTests {
 		WebElement testTitleBox = driver.findElement(By.xpath("//input[@name='title']"));
 		WebElement testCodeButton = driver.findElement(By.xpath("//*[@id='Code']"));
 		WebElement testModulesBox = driver.findElement(By.xpath("//*[@id='subjectDropDown']/div/div/div[2]/input"));
-		WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
+		//WebElement testCurriculaBox = driver.findElement(By.xpath("//*[@id='curriculumDropDown']/div/div/div[2]/input"));
 		
 		//Check if WebElements under test are not null
 		assertNotNull(testTitleBox);
 		assertNotNull(testCodeButton);
 		assertNotNull(testModulesBox);
-		assertNotNull(testCurriculaBox);
+		//assertNotNull(testCurriculaBox);
 		
 		//Check if local WebElements and POM WebElements are equal
 		assertEquals(cf.titleBox, testTitleBox);
 		assertEquals(cf.codeButton, testCodeButton);
 		assertEquals(cf.modulesBox, testModulesBox);
-		assertEquals(cf.curriculaBox, testCurriculaBox);
+		//assertEquals(cf.curriculaBox, testCurriculaBox);
 		
 		//Store pre click classes of content type buttons
 		String preClickClassCodeButton = cf.codeButton.getAttribute("class");
