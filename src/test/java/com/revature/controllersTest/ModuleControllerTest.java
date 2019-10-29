@@ -42,6 +42,9 @@ import com.revature.entities.ReqLink;
 import com.revature.repositories.ModuleRepository;
 import com.revature.services.ModuleService;
 
+/**
+ * Tests the {@link com.revature.controllers.ModuleController ModuleController} class.
+ */
 @SpringBootTest(classes = CMSforceApplication.class)
 public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	// Any time that two nulls appear in a test of a constructor, that is for a
@@ -89,7 +92,7 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Ensure clean module for each test
+	 * Ensure clean module for each test.
 	 */
 	@BeforeTest
 	public void preTestSetup() {
@@ -102,12 +105,16 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Test adding a new module to the back-end
+	 * Tests the status result of the {@link com.revature.controllers.ModuleController#createModule(Module) createModule(Module)} method.
 	 * 
-	 * @throws Exception - if the http request fails
+	 * This method assumes that the {@link com.revature.services.ModuleService#createModule(Module) createModule(Module)} method returns
+	 * a valid {@link com.revature.entities.Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200) and that the Module object to be created is the same as the object being returned by the service method.
+	 * @throws Exception
 	 */
 	@Test
-	public void givenValidDataCreateModule() throws Exception {
+	public void testCreateModule() throws Exception {
 		// given
 		Mockito.when(ms.createModule(module)).thenReturn(module);
 
@@ -124,9 +131,13 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Tests retrieving all the modules from the back-end
+	 * Tests the {@link com.revature.controllers.ModuleController#getAllModules() getAllModules()} method.
 	 * 
-	 * @throws Exception - if the http request fails
+	 * This method assumes that the {@link com.revature.services.ModuleService#getAllModules() getAllModules()} service method returns a valid
+	 * Set of {@link com.revature.entities.Module Module} objects.
+	 * 
+	 * The expected result is a status of OK (200) and a Set<JSONModule> mapped from a ResponseEntity<Set<JSONModule>> matching the test Set<JSONModule>.
+	 * @throws Exception
 	 */
 	@Test
 	public void testGetAllModules() throws Exception {
@@ -139,7 +150,6 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 
 		Set<Module> modules = new HashSet<Module>();
 		modules.add(moduleWithParent);
-		//modules.add(module);
 		
 		Mockito.when(ms.getAllModules()).thenReturn(modules);
 
@@ -154,7 +164,12 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(actual, convertToJSONModuleSetString(modules), "Failed to get back modules");
 	}
 
-	// tests returning module as a JSON string
+	/**
+	 * Utility method to convert a Set<Module> to a Set<JSONModule> for use in testing methods
+	 * @param allModules
+	 * @return String representation of a Set<JSONModule>
+	 * @throws Exception
+	 */
 	private String convertToJSONModuleSetString(Set<Module> allModules) throws Exception {
 		StringBuilder result = new StringBuilder("[");
 		for (Module mod : allModules) {
@@ -170,9 +185,13 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 	}
 
 	/**
-	 * Tests retrieving a module from the back-end by id
+	 * Tests the {@link com.revature.controllers.ModuleController#getModuleById(int) getModuleById(int)} method.
 	 * 
-	 * @throws Exception - if the http request fails
+	 * This method assumes that the {@link ModuleService#getModuleById(int) getModuleById(int)} service method returns a 
+	 * valid {@link Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200) and a Module mapped from a ResponseEntity<Module> matching the test Module.
+	 * @throws Exception
 	 */
 	@Test
 	public void testGetModuleById() throws Exception {
@@ -188,14 +207,16 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 		// expect should get back same module
 		assertEquals(actual, module, "Module was not created");
-		// expect same id as return
-		// assertEquals (actual.getId(), id, "Module has the incorrect id");
 	}
 
 	/**
-	 * Tests removing a module from the back-end
+	 * Tests the {@link ModuleController#deleteModule(int) deleteModule(int)} method.
 	 * 
-	 * @throws Exception - if the http request fails
+	 * This method assumes that the {@link ModuleService#deleteModule(Module) deleteModule(Module)} service method does not run 
+	 * and that the {@link ModuleService#getModuleById(int) getModuleById(int)} service method returns a valid {@link Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
 	 */
 	@Test
 	public void deleteModule() throws Exception {
@@ -211,13 +232,17 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 	}
 
+	/**
+	 * Tests the {@link ModuleController#getAllRootModules() getAllRootModules()} method.
+	 * 
+	 * This method assumes that the {@link ModuleService#getAllRootModules() getAllRootModules()} service method returns a valid 
+	 * Set of {@link Module Module} (Modules with no parent Module(s)).
+	 * 
+	 * The expected result is a status of OK (200) and a String representation of a Set of JSONModule objects mapped from a ResponseEntity<JSONModule> matching the test Module.
+	 * @throws Exception
+	 */
 	@Test
 	public void testGetAllRootModules() throws Exception {
-
-		// module without parent
-		Module rootModule = new Module(id, subject, created, links, new HashSet<ReqLink>(), new HashSet<Module>(),
-				new HashSet<Module>());
-
 		// given
 		Set<Module> modules = new HashSet<Module>();
 		modules.add(module);
@@ -234,6 +259,16 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(actual, convertToJSONModuleSetString(modules), "Failed to get back root modules");
 	}
 
+	/**
+	 * Tests the {@link ModuleController#getChildrenByModuleId(int) getChildrenByModuleId(int)} method.
+	 * 
+	 * This method assumes that the {@link ModuleService#getChildrenByParentId(int) getChildrenByParentId(int)} service method returns 
+	 * the children {@link Module Modules} of a given Module.
+	 * 
+	 * The expected result is a status of OK (200) and a String representation of a Set of JSONModule objects 
+	 * mapped from a ResponseEntity<JSONModule> matching the test Module.
+	 * @throws Exception
+	 */
 	@Test
 	public void testGetChildrenByParentId() throws Exception {
 		Module childModule = new Module();
@@ -256,6 +291,15 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(actual, convertToJSONModuleSetString(setWithChildModule), "Failed to get back child modules");
 	}
 
+	/**
+	 * Tests the {@link ModuleController#getLinksByModuleId(int) getLinksByModuleId(int)} method.
+	 * 
+	 * This method assumes that the {@link ModuleService#getLinksByModuleId(int) getLinksByModuleId(int)} service method returns 
+	 * a valid Set<Link> based on the id of the test {@link Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200) and a Set<Link> mapped from a ResponseEntity<Set<Link>> matching the Links of the test Module.
+	 * @throws Exception
+	 */
 	@Test
 	public void testGetLinksByModuleId() throws Exception {
 
@@ -278,6 +322,16 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(actual, links, "Failed to get back links");
 	}
 
+	/**
+	 * Tests the {@link ModuleController#getReqLinksByModuleId(int) getReqLinksByModuleId(int)} method.
+	 * 
+	 * This method assumes that the {@link ModuleService#getRequestLinksByModuleId(int) getRequestLinksByModuleId(int)} service method returns 
+	 * a Set<ReqLink> based on the id of a given test {@link Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200) and a Set<ReqLinks> mapped from the response body of a ResponseEntity<Set<ReqLinks>> that 
+	 * matches a test Set<ReqLink> within a test Module object.
+	 * @throws Exception
+	 */
 	@Test
 	public void testGetReqLinksByModuleId() throws Exception {
 
@@ -301,6 +355,15 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		assertEquals(actual, reqLinks, "Failed to get back request links");
 	}
 	
+	/**
+	 * Tests the {@link ModuleController#updateModule(int, Module) updateModule(int, Module)} method.
+	 * 
+	 * This method assumes that the {@link ModuleService#updateModule(Module) updateModule(Module)} service method returns 
+	 * a {@link Module Module} object matching the Module object it receives as an argument.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
+	 */
 	@Test
 	public void testUpdateModule() throws Exception {
 
@@ -314,22 +377,40 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		
 		result.andExpect(status().isOk());
 	}
+	
+	/**
+	 * Tests the {@link ModuleController#updateLinksById(Set, int) updateLinksById(Set, int)} method.
+	 * 
+	 * This method assumes that the {@link ModuleService#updateLinksByModuleId(int, Set) updateLinksByModuleId(int, Set)} service method returns 
+	 * a Set<{@link Link Link}> matching the Set<Link> it receives as an argument.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
+	 */
+	@Test
+	public void testUpdateLinksById() throws Exception {
+		Set<Link> links = new HashSet<Link>();
 		
-		@Test
-		public void testUpdateLinksById() throws Exception {
-			Module moduleId = new Module();
-			Set<Link> links = new HashSet<Link>();
-			
-			
-			Mockito.when(ms.updateLinksByModuleId(anyInt(), anySet())).thenReturn(links);
+		
+		Mockito.when(ms.updateLinksByModuleId(anyInt(), anySet())).thenReturn(links);
 
-			ResultActions result = mvc.perform(put("/modules/" + anyInt() + "/links")
-					.contentType(MediaType.APPLICATION_JSON)
-					.content(objMapper.writeValueAsString(anySet())));
+		ResultActions result = mvc.perform(put("/modules/" + anyInt() + "/links")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objMapper.writeValueAsString(anySet())));
 
-			result.andExpect(status().isOk());
+		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the {@link ModuleController#deleteModule(int, String)} method when its String argument is "unique".
+	 * 
+	 * This method assumes that the {@link ModuleService#deleteModuleWithSpecificContent(Module) deleteModuleWithSpecificContent(Module)} service method 
+	 * does nothing when called and that the {@link ModuleService#getModuleById(int) getModuleById(int)} service method returns a given test 
+	 * {@link Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
+	 */
 	@Test
 	public void testDeleteModuleWithSpecificContent() throws Exception {
 		Mockito.when(ms.getModuleById(anyInt())).thenReturn(module);
@@ -343,6 +424,16 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the {@link ModuleController#deleteModule(int, String)} method when its String argument is "all".
+	 * 
+	 * This method assumes that the {@link ModuleService#deleteModuleWithSpecificContent(Module) deleteModuleWithSpecificContent(Module)} service method 
+	 * does nothing when called and that the {@link ModuleService#getModuleById(int) getModuleById(int)} service method returns a given test 
+	 * {@link Module Module} object.
+	 * 
+	 * The expected result is a status of OK (200).
+	 * @throws Exception
+	 */
 	@Test
 	public void testDeleteModuleWithAllContent() throws Exception {
 		Mockito.when(ms.getModuleById(anyInt())).thenReturn(module);
@@ -356,6 +447,16 @@ public class ModuleControllerTest extends AbstractTestNGSpringContextTests {
 		result.andExpect(status().isOk());
 	}
 	
+	/**
+	 * Tests the {@link ModuleController#deleteModule(int, String)} method when its String argument is neither "all" nor "unique".
+	 * 
+	 * This method assumes that the {@link ModuleService#deleteModuleWithSpecificContent(Module) deleteModuleWithSpecificContent(Module)} service method 
+	 * does nothing when called and that the {@link ModuleService#getModuleById(int) getModuleById(int)} service method returns a given test 
+	 * {@link Module Module} object.
+	 * 
+	 * The expected result is a status of Not Found (404).
+	 * @throws Exception
+	 */
 	@Test
 	public void testDeleteModuleWithTypeNotAllOrUnique() throws Exception {
 		Mockito.when(ms.getModuleById(anyInt())).thenReturn(module);

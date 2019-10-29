@@ -25,8 +25,7 @@ import com.revature.services.LinkService;
 import com.revature.util.LogException;
 
 /**
- * LinkController
- * Delegate different HTTP request for curriculum to corresponding {@link com.revature.service.LinkService LinkService} method
+ * Delegate different HTTP requests for curriculum to corresponding {@link com.revature.service.LinkService LinkService} method
  *
  */
 @CrossOrigin(origins = "*", allowCredentials = "true")
