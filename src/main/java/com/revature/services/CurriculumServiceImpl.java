@@ -108,6 +108,8 @@ public class CurriculumServiceImpl implements CurriculumService {
 	 * 
 	 * @param id - Curriculum Id
 	 * @return Links 
+	 * 
+	 * Note From Tester: there is a minor typo in the methods name. if changed, changes must be made to the link in the curriculumServiceTest
 	 */
 	@Override
 	public Set<Link> getLinksByCurricumId(int id) {

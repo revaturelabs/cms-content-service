@@ -46,6 +46,12 @@ public class ContentController {
 	SearchService searchService;
 
 	// creates one content object
+	/**
+	 * This method creates content from a Post request sent to /content. The Posted data should be a JSONContent object.
+	 * @param jsonContent the JSON data that represents a content.
+	 * @return A ResponseEntity with status and JSONContent.
+	 * @throws Exception
+	 */
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<JSONContent> createContent(@RequestBody JSONContent jsonContent) throws Exception {
 		List<Link> links = new ArrayList<Link>();
@@ -61,13 +67,22 @@ public class ContentController {
 		}
 		return ResponseEntity.ok(jsonContent);
 	}
-
+	/**
+	 * This method creates links for a Content by passing in the id of the content in the path.
+	 * @param links The links for the content.
+	 * @param id The id of the content.
+	 * @return A ResponseEntity with status and a list of links.
+	 */
 	@PostMapping(value = "/{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Link>> createLinks(@RequestBody List<Link> links, @PathVariable int id) {
 		return ResponseEntity.ok(contentService.createLinksByContentId(id, links));
 	}
 
 	// Returns all Content
+	/**
+	 * This method responds to Get requests on /content and returns all available contents.
+	 * @return A ResponseEntity with a status and a JSONContent.
+	 */
 	@GetMapping()
 	public ResponseEntity<Set<JSONContent>> getAllContent() {
 		Set<Content> contentSet = contentService.getAllContent();
@@ -80,6 +95,11 @@ public class ContentController {
 	}
 
 	// Returns specific content
+	/**
+	 * This method returns JSONContent based on an id passed in with the path.
+	 * @param id The path variable id of the content.
+	 * @return A ResponseEntity with a status and a JSONContent.
+	 */
 	@GetMapping(value = "{id}")
 	public ResponseEntity<JSONContent> getContentById(@PathVariable int id) {
 		Content content = contentService.getContentById(id);
@@ -88,6 +108,11 @@ public class ContentController {
 	}
 
 	// return all links attached to a given content
+	/**
+	 * This method intends to get content links based on a path variable id.
+	 * @param id The path variable id of the content.
+	 * @return A ResponseEntity with a status and a set of Links.
+	 */
 	@GetMapping("/{id}/links")
 	public ResponseEntity<Set<Link>> getLinksByContentId(@PathVariable int id) {
 		return ResponseEntity.ok(contentService.getLinksByContentId(id));
@@ -99,6 +124,14 @@ public class ContentController {
 	// modules is a string in comma separated format of integers ex. "1,2,3,4"
 	
 	//Change this to tokenize the format input the same way we do modules
+	/**
+	 * A method to filter through contents in an effort to return relevant search results
+	 * @param title Content title.
+	 * @param formats Content format (Code,Document,Powerpoint).
+	 * @param modules Subject Matter
+	 * @param curriculum Group content belongs to
+	 * @return A ResponseEntity with a Set of JSONContents and a status. 
+	 */
 	@LogException
 	@GetMapping(params = { "title", "format", "modules"})
 	public ResponseEntity<Set<JSONContent>> getSearchResults(
@@ -129,20 +162,35 @@ public class ContentController {
 	public ResponseEntity<Content> updateContent(@RequestBody Content newContent) {
 		return ResponseEntity.ok(contentService.updateContent(newContent));
 	}
-
+	
+	/**
+	 * A method to update the links associated with a content by id given in path.
+	 * @param links The links to add to a content.
+	 * @param id The path variable id of a content.
+	 * @return A ResponseEntity with a status and list of links added.
+	 */
 	@PutMapping(value = "{id}/links", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Link>> updateLinks(@RequestBody List<Link> links, @PathVariable int id) {
 		return ResponseEntity.ok(contentService.updateLinksByContentId(id, links));
 	}
 
 	// deletes a single Content
+	/**
+	 * A method to delete a content from the database using a path id.
+	 * @param id The path variable id for a content to be deleted.
+	 * @return A ResponseEntity with a status and an empty body
+	 */
 	@DeleteMapping(value = "{id}")
 	public ResponseEntity<String> deleteContent(@PathVariable int id) {
 		Content content = contentService.getContentById(id);
 		contentService.deleteContent(content);
 		return ResponseEntity.status(HttpStatus.OK).body("");
 	}
-
+	/**
+	 * A convenience method for transforming a Content object to a JSONContent object.
+	 * @param content The content to be transformed.
+	 * @return The JSONContent representation of a Content.
+	 */
 	public JSONContent contentToJSONContent(Content content) {
 		JSONContent jsonContent = new JSONContent();
 		jsonContent.setId(content.getId());
@@ -155,7 +203,11 @@ public class ContentController {
 		jsonContent.setLinks(content.getLinks());
 		return jsonContent;
 	}
-
+	/**
+	 * A convenience method for transforming a JSONContent back to a Content.
+	 * @param jsonContent The JSONContent to transform.
+	 * @return The Content representation of the JSONContent.
+	 */
 	public Content jsonContentToContent(JSONContent jsonContent) {
 		Content content = new Content();
 		content.setId(jsonContent.getId());

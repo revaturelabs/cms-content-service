@@ -51,7 +51,7 @@ public class ModuleServiceImpl implements ModuleService {
 	}
 
 	/**
-	 * Get a module from the database that matches the id passed in\
+	 * Get a module from the database that matches the id passed 
 	 * then returns a module object.
 	 */
 	@Override
@@ -83,24 +83,35 @@ public class ModuleServiceImpl implements ModuleService {
 		return this.getAverageByModules(allMods);
 	}
 	
+	/**
+	 * Returns the children modules of a module given an int ID
+	 */
 	@Override
 	public Set<Module> getChildrenByParentId(int id){
 		Module parent = mr.findById(id);
 		return parent.getChildren();
 	}
 	
+	/**
+	 * Returns all modules root modules/modules with no parents
+	 */
 	@Override
 	public Set<Module> getAllRootModules() {
 		Set<Module> modules = this.getAllModules();
 		Set<Module> roots = new HashSet<Module>();
 		for (Module module : modules) {
+			//checks if the current module's parent properties (set of modules) is <= 0
 			if (module.getParents().size() <= 0) {
+				//if true, the module will be added to roots (set of root modules)
 				roots.add(module);
 			}
 		}
 		return roots;
 	}	
 	
+	/**
+	 * Updates and returns a module
+	 */
 	@Override
 	public Module updateModule(Module module) {
 		return mr.save(module);
@@ -116,6 +127,9 @@ public class ModuleServiceImpl implements ModuleService {
 		}
 	}
 	
+	/**
+	 * Deletes a module along with all its contents (links)
+	 */
 	@Override
 	public void deleteModuleWithAllContent(Module module) {
 		//delete all content associated with given module
@@ -128,13 +142,18 @@ public class ModuleServiceImpl implements ModuleService {
 		mr.delete(module);
 	}
 	
+	/**
+	 * Deletes a module along with all contents associated only with the given module.
+	 */
 	@Override
 	public void deleteModuleWithSpecificContent(Module module) {
 		//delete all content associated ONLY with given module
 		
 		Set<Link> links = module.getLinks();
 		for (Link link : links) {
+			//checks if the current link is only associated with one content
 			if (link.getContent().getLinks().size() <= 1) {
+				//deletes it if it is true
 				lr.delete(link);
 			}
 		}
@@ -142,16 +161,27 @@ public class ModuleServiceImpl implements ModuleService {
 		mr.delete(module);
 	}
 
+	/**
+	 * Returns a set of link given a module ID
+	 */
 	@Override
 	public Set<Link> getLinksByModuleId(int id) {
 		return lr.findByModuleId(id);
 	}
 
+	/**
+	 * Returns a set of ReqLinks given a module ID
+	 */
 	@Override
 	public Set<ReqLink> getRequestLinksByModuleId(int id) {
 		return rlr.findByModule(mr.findById(id));
 	}
 
+	/**
+	 * Updates a set of link given an int ID and a set of Links
+	 * 
+	 * Note from tester: the id is not needed/used
+	 */
 	@Override
 	public Set<Link> updateLinksByModuleId(int id, Set<Link> links ) {
 

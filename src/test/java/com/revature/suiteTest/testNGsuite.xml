@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">-->
+<suite name="CMSForce">
+	<test name="AllTests">
+		<classes>
+			<class name = "com.revature.applicationTest.ApplicationTest"/>
+			<!-- These are the controller tests -->
+			<class name = "com.revature.controllersTest.ContentControllerTest"/>
+			<class name = "com.revature.controllersTest.CurriculumControllerTest"/>
+			<class name = "com.revature.controllersTest.CurriculumModuleControllerTest"/>
+			<class name = "com.revature.controllersTest.ModuleControllerTest"/>
+			<class name = "com.revature.controllersTest.SearchControllerTest"/>
+			<class name = "com.revature.controllersTest.RequestControllerTest"/>
+			<class name = "com.revature.controllersTest.MetricsControllerTest"/>
+			<class name = "com.revature.controllersTest.LinkControllerTest"/>
+			<class name = "com.revature.controllersTest.ReqLinkControllerTest"/>
+			<!-- These are the entities tests -->
+			<class name="com.revature.entitiesTest.ContentTest" />
+			<class name="com.revature.entitiesTest.LinkTest" />
+			<class name="com.revature.entitiesTest.CurriculumModuleTest" />
+			<class name="com.revature.entitiesTest.CurriculumTest" />
+			<class name="com.revature.entitiesTest.ModuleTest" />
+			<class name="com.revature.entitiesTest.ReqLinkTest" />
+			<class name="com.revature.entitiesTest.RequestTest" />
+			<!-- These are the JSONEntities tests -->
+			<class name="com.revature.JSONEntitiesTest.JSONContentTest" />
+			<class name="com.revature.JSONEntitiesTest.JSONModuleTest" />
+			<class name="com.revature.JSONEntitiesTest.JSONRequestTest" />
+			<!-- These are the Exception tests -->
+			<class name="com.revature.exceptionsTest.InvalidContentExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidContentIdTest" />
+			<class name="com.revature.exceptionsTest.InvalidModuleExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidRequestExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidRequestIdExceptionTest" />
+			<class name="com.revature.exceptionsTest.InvalidSearchExceptionTest" />
+			<!-- These are the Service tests -->
+			<class name="com.revature.servicesTest.CurriculumServiceTest" />
+			<class name="com.revature.servicesTest.CurriculumModuleServiceImplTest" />
+			<class name="com.revature.servicesTest.TimeGraphServiceTest" />
+			<class name="com.revature.servicesTest.ContentServiceTest" />
+			<class name="com.revature.servicesTest.ModuleServiceTest" />
+			<class name="com.revature.servicesTest.SearchServiceTest" />
+			<class name="com.revature.servicesTest.RequestServiceTest" />
+			<class name="com.revature.servicesTest.ReqLinkServiceTest" />
+			<class name="com.revature.servicesTest.LinkServiceTest" />
+			
+			<!-- These are the Util tests -->
+			<class name = "com.revature.utilTest.MetricsDataTest"/>
+			<class name = "com.revature.utilTest.TimeGraphTest"/>
+			<class name = "com.revature.utilTest.ValidationUtilTest"/>
+			<class name = "com.revature.utilTest.ControllerLogAspectTest"/>
+			<class name = "com.revature.utilTest.ServiceLogAspectTest"/>
+			<class name = "com.revature.utilTest.ExceptionAspectTest"/>	
+		</classes>
+	</test>
+</suite>

@@ -20,6 +20,6 @@ public class ExceptionAspect { //Aspect handling exceptions
 	}
 
 	@Pointcut("@annotation(com.revature.util.LogException)")
-	void LogException() {
+	public void LogException() {
 	}
 }

@@ -72,7 +72,7 @@ public class ReqLinkController {
 
 	// update a reqLink
 	@PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ReqLink> updatReqLink(@RequestBody ReqLink reqLink) {
+	public ResponseEntity<ReqLink> updateReqLink(@RequestBody ReqLink reqLink) {
 		return ResponseEntity.ok(reqLinkService.updateReqLink(reqLink));
 	}
 
