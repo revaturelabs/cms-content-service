@@ -22,8 +22,8 @@ public class ContentCreatorRegressionTests {
 
 	public static WebDriver driver;
 
-//	public static String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/content-creator";
-	public static String url = "http://localhost:4200/content-creator";
+	public static String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/content-creator";
+	//public static String url = "http://localhost:4200/content-creator";
 	@BeforeClass
 	public void setUP() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");

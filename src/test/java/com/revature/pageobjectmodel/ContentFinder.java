@@ -7,8 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ContentFinder {
 	
-//	public String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/finder";
-	public String url = "http://localhost:4200/finder";
+	public String url = "http://revature-cms-dev.s3-website-us-east-1.amazonaws.com/finder";
+	//public String url = "http://localhost:4200/finder";
 	public WebDriver driver;
 	//Set up user input WebElements for the Page Object Model
 	@FindBy(xpath="//input[@name='title']")
