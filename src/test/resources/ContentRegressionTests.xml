@@ -12,12 +12,12 @@
 	
 	<test name="contentCreatorTest">
 		<classes>
-			<class name="com.revature.regressiontests.ContentCreatorRegressionTests"></class>
+			<class name="com.revature.regressionTests.ContentCreatorRegressionTests"></class>
 		</classes>
 	</test>
 	<test name="contentFinderTest">
 		<classes>
-			<class name="com.revature.regressiontests.ContentFinderRegressionTests"></class>
+			<class name="com.revature.regressionTests.ContentFinderRegressionTests"></class>
 		</classes>
 	</test>
 </suite>
